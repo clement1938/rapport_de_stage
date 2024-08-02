@@ -1,0 +1,117 @@
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=2cm,bottom=2cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{inconsolata}
+\usepackage{array}
+\usepackage{color}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage[export]{adjustbox}
+\usepackage[french]{babel}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{transparent}
+\usepackage{eso-pic}
+\usepackage{chngpage}
+\usepackage{shorttoc}
+\usepackage{comment}
+\usepackage{makeidx}
+%\usepackage{glossaries}
+%\makeglossaries
+\begin{comment}
+\newglossaryentry{example}{
+    name=example,
+    description={An example entry}
+}
+\end{comment}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{bibliographie/biblio.bib}
+\usepackage{csquotes}
+\pagestyle{fancy}
+
+\setlength{\headheight}{25.22153pt}
+\setlength{\footskip}{37.6175pt}
+
+\definecolor{backcolour}{rgb}{0.96,0.96,0.95}
+\definecolor{lightbrown}{rgb}{0.71, 0.40, 0.11}
+\definecolor{myblue}{rgb}{0.3,0.4,0.9}
+\definecolor{green}{rgb}{0.0, 0.5, 0.0}
+\definecolor{aurometalsaurus}{rgb}{0.43, 0.5, 0.5}
+\definecolor{babyblue}{rgb}{0.54, 0.81, 0.94}
+\definecolor{bronze}{rgb}{0.8, 0.5, 0.2}
+\definecolor{brilliantrose}{rgb}{1.0, 0.33, 0.64}
+
+\newcommand{\dps}{\displaystyle}
+
+\fancypagestyle{plain}{
+  \fancyhead[L]{Livrable Stage M1 \\ Clément THIBAULT}
+  \fancyhead[R]{\includegraphics*[width=0.2\textwidth]{images/newCerfacs+Fond.png}}
+  \fancyfoot[C]{page \thepage}
+  \fancyfoot[R]{\includegraphics*[width=0.1\textwidth]{images/ipsagarde.png}}
+}
+
+\fancyhead[L]{Livrable Stage M1 \\ Clément THIBAULT}
+\fancyhead[R]{\includegraphics*[width=0.2\textwidth]{images/newCerfacs+Fond.png}}
+\fancyfoot[C]{page \thepage}
+\renewcommand{\sectionmark}[1]{\markboth{}{}}
+\fancyfoot[R]{\includegraphics*[width=0.1\textwidth]{images/ipsagarde.png}}
+\fancyfoot[L]{\leftmark}
+
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][0.6\paperheight]{\paperwidth}{%
+\centering
+{\transparent{0.4} \includegraphics[width=\paperwidth,height=0.57\paperheight,%
+keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}%
+}}}
+
+\begin{document}
+
+\AddToShipoutPicture*{\BackgroundPic}
+
+\input{page_de_couverture/pagedegarde.tex}
+
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{2}
+
+\input{remerciement/remerciement}
+
+\newpage
+\tableofcontents
+
+\newpage
+%\chapter{Bilan Technique}
+\input{bilan_technique/bilan_technique.tex}
+\newpage
+
+%\chapter{Introduction}
+\input{introduction/intro.tex}
+\newpage
+
+%\chapter{Présentation de l'entreprise}
+\input{chap1_pres_entreprise/chap1.tex}
+\newpage
+
+%\chapter{Présentation du stage}
+\input{chap2_pres_stage/chap2.tex}
+\newpage
+
+%\chapter{Conclusion}
+\input{conclusion/conclusion.tex}
+\newpage
+
+%\chapter{Annexes}
+\input{annexes/annexes.tex}
+
+\nocite{*}
+\printbibliography
+\addcontentsline{toc}{chapter}{Bibliographie}
+
+\end{document}

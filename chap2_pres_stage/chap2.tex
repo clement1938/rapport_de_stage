@@ -1,0 +1,94 @@
+\chapter{Présentation du stage}
+
+\section{Les différentes méthodes d'interpolation}
+Ma première mission a été de recensser les méthodes d'interpolation qui seraient implémentables dans Antares, à savoir, qui
+permettent de l'interpolation 3D, sur des maillages dits non structuré, c'est à dire pas de simples maillages, rectangulaires
+en 2D et hexaédrique en 3D, représentés par des matrices mais des maillages créés avec différentes formes géométriques.
+Le temps de calcul, appelé 'coût' est aussi un paramètre à prendre en compte.
+Finalement, les caractéristiques des équations à interpoler est probalement le paramètre le plus important à prendre en
+compte mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser tel que
+l'équation de Naviers-Stokes sont utilisées et mon niveau en maths est trop limité pour pouvoir me plonger en profondeur dans
+ce problème.
+
+%\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
+
+\subsection{L'interpolation trilinéaire   A METTRE EN DERNIER POUR AVOIR UNE BELLE TRANSISTION ?}
+L'inerpolation trilinéaire, est la plus simple, et la plus utilisée par Aibus, Safran et d'autres industriels.
+C'est pour cela qu'ils ont demandé au CERFACS de l'implémenter des antares, car ils l'utilisent actuellement via d'autres moyen.
+En 1D, l'interpolation linéaire est simple : c'est la moyenne pondérée linéairement par la distance, des valeurs des points.
+Supposons que nous voulons interpoler une valeur d'un point \( p \) entre deux points \( a \) et \( b \) dans un espace 1D
+et que nous représentons leurs valeurs dans une deuxième dimension \( y \).
+Nous aurons alors pour formule :
+
+\[
+y_p = \frac{x_b - x_p}{x_b - x_a} \cdot y_a + \frac{x_p - x_a}{x_b - x_a} \cdot y_b
+\]
+
+%\vspace*{0.1\baselineskip}\linebreak
+où \( y_p \) représente la valeur interpolée à la position \( x_p \), et \((x_a, y_a)\) et \((x_b, y_b)\) sont les points de référence. J'ai écris cette formule afin qu'elle soit symétrique par rapport aux points \( a \) et \( b \), pour qu'il jouent la même rôle. Ainsi elle s'entendra plus intuitivement dans des dimensions supérieurs.
+%\vspace*{0.1\baselineskip}\linebreak
+
+        \( \frac{x_b - x_p}{x_b - x_a} \) est le poids pour \( y_a \) basé sur la distance relative de \( x_p \) à \( x_b \).
+
+        \( \frac{x_p - x_a}{x_b - x_a} \) est le poids pour \( y_b \) basé sur la distance relative de \( x_p \) à \( x_a \).%\\
+
+Ces deux termes sont pondérés de manière à ce que leur somme soit toujours égale à 1, ce qui garantit que l'interpolation est correcte et symétrique par rapport à \( a \) et \( b \).
+
+En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD (Computation Fluid Dynamics en anglais), ces formes sont appelés cellues et leurs sommets noeuds. Dans notre cas, nous considérons que les variables du maillages sont contenus au niveau des noeuds. Aussi, Antares ne traites que des maillages ayant des valeurs uniquement au niveau des noeuds des cellules (pas entre).
+Il existe 2 principales types de cellules (formes) en 2D : les triangles et les quadrilatères (non croisés).
+% Pour le triangle, la méthode pour trouver la valeur au point à interpoler \( p \) est celle dite du barycentre (barycentrique). // Pour les autres formes aussi.
+L'interpolation barycentrique pour un triangle est bien documentée. Visuellement, il faut faire la somme des valeurs au points pondéré par la surface opposé et pondéré le tout par la surface du triangle. % Expliquer mathématiquement ? Ou plus tard dans le code ? 
+
+
+
+% (quadrilatère non croisé, concave et convexes)
+% En CFD il y a toujours des formes, même si c'est structuré, on peut unstructure.
+
+
+
+\section{L'implémentation de la méthode trilinéaire}
+\subsection{La prise en main de la libraire Antares}
+\subsection{L'algorithme}
+\subsection{Les difficultés}
+\subsection{Le résultat}
+
+
+
+\section{Les tests sur des cas d'aéroacoustique}
+% \section{Les différentes méthodes d'interpolation}
+Carlos a développé l'outils permettant de déterminer le résultat acoustique, à grande distance, à partir d'un surface, en utilisant les équations de Ffowcs Williams – Hawkings. Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résutlat de la pression en différents points et différents instants.
+% Paramètres d'IDW
+\subsection{Tests sur les paramètrs de la méthode IDW}
+
+
+
+
+... (\url{https://www.sciencedirect.com/science/article/pii/S0021999185712053}) : 
+
+
+\begin{itemize}
+    \item TreeMesh 
+    %Ici, le maillage DGMultiMesh dépend directement du solver DGMulti en fonction du type de géométrie utilisée, il faut donc le passer en argument.
+\end{itemize}
+
+\begin{table}[ht]
+    \setlength{\tabcolsep}{4pt} % Ajuste l'espacement entre les colonnes
+    \renewcommand{\arraystretch}{1.5} % Ajuste l'espacement entre les lignes
+    \resizebox{\textwidth}{!}{ % Ajuste la largeur du tableau à la largeur du texte
+    \begin{tabular}{ |>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1.5cm}|>{\centering\arraybackslash}m{1.5cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{2.5cm}| }
+        \hline
+        Maillage &  MPI & Sortie de la solution & Équation parabolique (ie. flux visqueux) & Taille du domaine limité en $2^n$ \\
+        \hline
+        \textbf{TreeMesh}  oui  & oui (limité à 10 rang) & oui & oui (sauf en MPI) & oui \\
+        \hline
+        \textbf{TreeMesh}  oui & non & oui & oui (sauf en MPI) & oui \\
+        \hline
+        \textbf{Structured}  oui & non & oui & non & non \\
+        \hline
+    \end{tabular}
+    }
+    \caption{Tableau des caractéristiques des maillages}
+    \label{tab:maillages}
+\end{table}
+
+\subsection{Discrétisation spatiale et résolution du problème}

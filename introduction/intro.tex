@@ -1,0 +1,22 @@
+\section*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+
+
+Antares est une libraire python privée qui a été dévelopé au CERFACS en .... et a pour objectif de faire du pré et post processing sur 
+des simulations numériques utilisés par les actionnaires du CERFACS.
+
+Mon maître de stage, Carlos, est 'responsable' d'Antares depuis X temps. 
+
+Mes missions principales lors de ce stage on été :
+
+- De faire un état des lieux sur les autres méthode d'interpolation qui seraient 
+implémentable dans Antares (avec ses contraintes associés).
+% A savoir, 3D, non structuré, temps de calcul, caractéristiques des équations à interpoler ...
+
+
+- De trouver s'il existais des meilleurs paramètres N et p à l'équation déjà existant IDW (Inverse Distance Weighting).
+
+ -D'implémenter la méthode trilinéaire que j'appelerais aussi barycentrique.
+
+ Pour bien comprendre, ce que nous voulons interpoler, ce sont les valeurs aux points d'un maillage dit 'target' grace aux valeurs aux point d'un maillage 'source'. Par exemple dans le cadre d'un rafinement de maillage entre 2 itérations de calcul ou dans le cas de la création d'une sphère dans un maillage 3D pour l'application des équation de FWH (Ffowcs Williams – Hawkings) dans le cadre de la propagation aéroacoustique.

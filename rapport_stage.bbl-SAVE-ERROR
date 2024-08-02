@@ -1,0 +1,251 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{cockburn1998local}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=a862e1da6d04641d986b5d3eace69664}{%
+           family={Cockburn},
+           familyi={C\bibinitperiod},
+           given={Bernardo},
+           giveni={B\bibinitperiod}}}%
+        {{hash=0316cefd59f32815e356c1128b2ef3c0}{%
+           family={Shu},
+           familyi={S\bibinitperiod},
+           given={Chi-Wang},
+           giveni={C\bibinithyphendelim W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SIAM}%
+      }
+      \strng{namehash}{a0abf0da9df700b2876975d7b40811c7}
+      \strng{fullhash}{a0abf0da9df700b2876975d7b40811c7}
+      \strng{fullhashraw}{a0abf0da9df700b2876975d7b40811c7}
+      \strng{bibnamehash}{a0abf0da9df700b2876975d7b40811c7}
+      \strng{authorbibnamehash}{a0abf0da9df700b2876975d7b40811c7}
+      \strng{authornamehash}{a0abf0da9df700b2876975d7b40811c7}
+      \strng{authorfullhash}{a0abf0da9df700b2876975d7b40811c7}
+      \strng{authorfullhashraw}{a0abf0da9df700b2876975d7b40811c7}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM journal on numerical analysis}
+      \field{number}{6}
+      \field{title}{The local discontinuous Galerkin method for time-dependent convection-diffusion systems}
+      \field{volume}{35}
+      \field{year}{1998}
+      \true{nocite}
+      \field{pages}{2440\bibrangedash 2463}
+      \range{pages}{24}
+    \endentry
+    \entry{godunov:hal-01620642}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=533ad6af53e4ae404af4c6a56af54bd2}{%
+           family={Godunov},
+           familyi={G\bibinitperiod},
+           given={Sergei\bibnamedelima K.},
+           giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=a31c84c82ce6e9e6cb5a04aa5cf16539}{%
+           family={Bohachevsky},
+           familyi={B\bibinitperiod},
+           given={I.},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Steklov Mathematical Institute of Russian Academy of Sciences}%
+      }
+      \strng{namehash}{165ffce1687ef6b7be8ea6a67fb70c49}
+      \strng{fullhash}{165ffce1687ef6b7be8ea6a67fb70c49}
+      \strng{fullhashraw}{165ffce1687ef6b7be8ea6a67fb70c49}
+      \strng{bibnamehash}{165ffce1687ef6b7be8ea6a67fb70c49}
+      \strng{authorbibnamehash}{165ffce1687ef6b7be8ea6a67fb70c49}
+      \strng{authornamehash}{165ffce1687ef6b7be8ea6a67fb70c49}
+      \strng{authorfullhash}{165ffce1687ef6b7be8ea6a67fb70c49}
+      \strng{authorfullhashraw}{165ffce1687ef6b7be8ea6a67fb70c49}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{Matematičeskij sbornik}}
+      \field{number}{3}
+      \field{title}{{Finite difference method for numerical computation of discontinuous solutions of the equations of fluid dynamics}}
+      \field{volume}{47(89)}
+      \field{year}{1959}
+      \true{nocite}
+      \field{pages}{271\bibrangedash 306}
+      \range{pages}{36}
+      \verb{file}
+      \verb https://hal.science/hal-01620642/file/SG1959.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://hal.science/hal-01620642
+      \endverb
+      \verb{url}
+      \verb https://hal.science/hal-01620642
+      \endverb
+    \endentry
+    \entry{doi:10.1137/0718021}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=b31882597bb5adf5c5cf5989e6bfa154}{%
+           family={Harten},
+           familyi={H\bibinitperiod},
+           given={Amiram},
+           giveni={A\bibinitperiod}}}%
+        {{hash=abbc763550a217a607ccd737ae8ee05f}{%
+           family={Lax},
+           familyi={L\bibinitperiod},
+           given={Peter\bibnamedelima D.},
+           giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{49343d14d6b00f89262914379ad27739}
+      \strng{fullhash}{49343d14d6b00f89262914379ad27739}
+      \strng{fullhashraw}{49343d14d6b00f89262914379ad27739}
+      \strng{bibnamehash}{49343d14d6b00f89262914379ad27739}
+      \strng{authorbibnamehash}{49343d14d6b00f89262914379ad27739}
+      \strng{authornamehash}{49343d14d6b00f89262914379ad27739}
+      \strng{authorfullhash}{49343d14d6b00f89262914379ad27739}
+      \strng{authorfullhashraw}{49343d14d6b00f89262914379ad27739}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Journal on Numerical Analysis}
+      \field{number}{2}
+      \field{title}{A Random Choice Finite Difference Scheme for Hyperbolic Conservation Laws}
+      \field{volume}{18}
+      \field{year}{1981}
+      \true{nocite}
+      \field{pages}{289\bibrangedash 315}
+      \range{pages}{27}
+      \verb{doi}
+      \verb 10.1137/0718021
+      \endverb
+    \endentry
+    \entry{doi:10.1137/1025002}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=b31882597bb5adf5c5cf5989e6bfa154}{%
+           family={Harten},
+           familyi={H\bibinitperiod},
+           given={Amiram},
+           giveni={A\bibinitperiod}}}%
+        {{hash=abbc763550a217a607ccd737ae8ee05f}{%
+           family={Lax},
+           familyi={L\bibinitperiod},
+           given={Peter\bibnamedelima D.},
+           giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=b48c5d30cf09e44c5ae863d0ab28103c}{%
+           family={Leer},
+           familyi={L\bibinitperiod},
+           given={Bram\bibnamedelima van},
+           giveni={B\bibinitperiod\bibinitdelim v\bibinitperiod}}}%
+      }
+      \strng{namehash}{58c3abd78bdf3ce04701481c73bcbf39}
+      \strng{fullhash}{58c3abd78bdf3ce04701481c73bcbf39}
+      \strng{fullhashraw}{58c3abd78bdf3ce04701481c73bcbf39}
+      \strng{bibnamehash}{58c3abd78bdf3ce04701481c73bcbf39}
+      \strng{authorbibnamehash}{58c3abd78bdf3ce04701481c73bcbf39}
+      \strng{authornamehash}{58c3abd78bdf3ce04701481c73bcbf39}
+      \strng{authorfullhash}{58c3abd78bdf3ce04701481c73bcbf39}
+      \strng{authorfullhashraw}{58c3abd78bdf3ce04701481c73bcbf39}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Review}
+      \field{number}{1}
+      \field{title}{On Upstream Differencing and Godunov-Type Schemes for Hyperbolic Conservation Laws}
+      \field{volume}{25}
+      \field{year}{1983}
+      \true{nocite}
+      \field{pages}{35\bibrangedash 61}
+      \range{pages}{27}
+      \verb{doi}
+      \verb 10.1137/1025002
+      \endverb
+    \endentry
+    \entry{roe1981approximate}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=3e16a30b5b12d6c09c32ca487a7944df}{%
+           family={Roe},
+           familyi={R\bibinitperiod},
+           given={Philip\bibnamedelima L},
+           giveni={P\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{3e16a30b5b12d6c09c32ca487a7944df}
+      \strng{fullhash}{3e16a30b5b12d6c09c32ca487a7944df}
+      \strng{fullhashraw}{3e16a30b5b12d6c09c32ca487a7944df}
+      \strng{bibnamehash}{3e16a30b5b12d6c09c32ca487a7944df}
+      \strng{authorbibnamehash}{3e16a30b5b12d6c09c32ca487a7944df}
+      \strng{authornamehash}{3e16a30b5b12d6c09c32ca487a7944df}
+      \strng{authorfullhash}{3e16a30b5b12d6c09c32ca487a7944df}
+      \strng{authorfullhashraw}{3e16a30b5b12d6c09c32ca487a7944df}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of computational physics}
+      \field{number}{2}
+      \field{title}{Approximate Riemann solvers, parameter vectors, and difference schemes}
+      \field{volume}{43}
+      \field{year}{1981}
+      \true{nocite}
+      \field{pages}{357\bibrangedash 372}
+      \range{pages}{16}
+    \endentry
+    \entry{sod1978survey}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=08b2528be7eb8803228e07d04d49525c}{%
+           family={Sod},
+           familyi={S\bibinitperiod},
+           given={Gary\bibnamedelima A},
+           giveni={G\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{08b2528be7eb8803228e07d04d49525c}
+      \strng{fullhash}{08b2528be7eb8803228e07d04d49525c}
+      \strng{fullhashraw}{08b2528be7eb8803228e07d04d49525c}
+      \strng{bibnamehash}{08b2528be7eb8803228e07d04d49525c}
+      \strng{authorbibnamehash}{08b2528be7eb8803228e07d04d49525c}
+      \strng{authornamehash}{08b2528be7eb8803228e07d04d49525c}
+      \strng{authorfullhash}{08b2528be7eb8803228e07d04d49525c}
+      \strng{authorfullhashraw}{08b2528be7eb8803228e07d04d49525c}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of computational physics}
+      \field{number}{1}
+      \field{title}{A survey of several finite difference methods for systems of nonlinear hyperbolic conservation laws}
+      \field{volume}{27}
+      \field{year}{1978}
+      \true{nocite}
+      \field{pages}{1\bibrangedash 31}
+      \range{pages}{31}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
