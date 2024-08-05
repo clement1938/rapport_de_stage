@@ -71,24 +71,5 @@ Carlos a développé l'outils permettant de déterminer le résultat acoustique,
     %Ici, le maillage DGMultiMesh dépend directement du solver DGMulti en fonction du type de géométrie utilisée, il faut donc le passer en argument.
 \end{itemize}
 
-\begin{table}[ht]
-    \setlength{\tabcolsep}{4pt} % Ajuste l'espacement entre les colonnes
-    \renewcommand{\arraystretch}{1.5} % Ajuste l'espacement entre les lignes
-    \resizebox{\textwidth}{!}{ % Ajuste la largeur du tableau à la largeur du texte
-    \begin{tabular}{ |>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1.5cm}|>{\centering\arraybackslash}m{1.5cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{2.5cm}| }
-        \hline
-        Maillage &  MPI & Sortie de la solution & Équation parabolique (ie. flux visqueux) & Taille du domaine limité en $2^n$ \\
-        \hline
-        \textbf{TreeMesh}  oui  & oui (limité à 10 rang) & oui & oui (sauf en MPI) & oui \\
-        \hline
-        \textbf{TreeMesh}  oui & non & oui & oui (sauf en MPI) & oui \\
-        \hline
-        \textbf{Structured}  oui & non & oui & non & non \\
-        \hline
-    \end{tabular}
-    }
-    \caption{Tableau des caractéristiques des maillages}
-    \label{tab:maillages}
-\end{table}
 
 \subsection{Discrétisation spatiale et résolution du problème}

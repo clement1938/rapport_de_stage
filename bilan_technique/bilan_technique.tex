@@ -1,23 +1,64 @@
 \section*{Bilan Technique}
 \addcontentsline{toc}{chapter}{Bilan Technique}
-
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|}
-        \hline
-        \textbf{Tâche} & \textbf{Description} & \textbf{Résultat attendu} & \textbf{État} \\
-        \hline
-        Tâche 1 & Description de la tâche 1 & Résultat attendu de la tâche 1 & Complétée \\
-        \hline
-        Tâche 2 & Description de la tâche 2 & Résultat attendu de la tâche 2 & En cours \\
-        \hline
-        Tâche 3 & Description de la tâche 3 & Résultat attendu de la tâche 3 & Non commencée \\
-        \hline
-        Tâche 4 & Description de la tâche 4 & Résultat attendu de la tâche 4 & Complétée \\
-        \hline
-    \end{tabular}
-    \caption{Bilan des tâches effectuées durant le stage}
-    \label{tab:bilan-technique}
-\end{table}
-
+\begin{comment}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|p{5cm}|p{9cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Fiche de synthèse}   \hspace{6cm}   Clément THIBAULT - Aéro 4\\}
+\hline
+\textbf{Sujet de stage} & \textbf{Objectifs} \\ 
+\hline
+Influence de la méthode d’interpolation sur la propagation acoustique FWH
+\begin{itemize}
+    \item Développer une méthode d’interpolation trilinéaire HPC dans le code d’analyse de données Antares
+    \item Évaluer l’influence de la méthode d’interpolation dans la qualité des résultats de propagation acoustique
+    avec l’analogie Ffowcs Williams – Hawkings
+    \item Améliorer les performances HPC de la méthode d’interpolation dans Antares
+\end{itemize} \\ 
+\hline
+\textbf{Client principal} & \textbf{Outils utilisés} \\ 
+\hline
+\begin{itemize}
+    \item CERFACS (AIRBUS, Safran)
+    \item Date de mise à jour prévue octobre 2024
+\end{itemize} & VSCode, Kraken (supercalculateur du CERFACS), Antares, Paraview \\ 
+\hline
+\multicolumn{2}{|c|}{\textbf{Études réalisées}} \\ 
+\hline
+\multicolumn{2}{|p{14cm}|}{
+\begin{itemize}
+    \item Influence des paramètres 'n' et 'p' de la méthode d'interpolation 'IDW'
+    \item ...
+\end{itemize}
+} \\ 
+\hline
+\textbf{Résultats} & \textbf{Explications des écarts possibles} \\ 
+\hline
+\begin{itemize}
+    \item Rapidité du code d'interpolation augementée (quelque soit la méthode), environ par 100 sur le cas test d'aéroacoustique
+    \item Méthode trilinéaire pour tous types de maillages rencontrés au CERFACS implémentée
+    \item Méthode trilinéaire généralement plus efficace que la méthode 'IDW' dans les cas d'aéroacoustique
+    \item Paramètres n \simeq ~ 10 et p \simeq 10 optimaux pour la méthode IDW
+\end{itemize} & 
+\begin{itemize}
+    \item ...
+    \begin{itemize}
+        \item ...
+    \end{itemize}
+\end{itemize} \\ 
+\hline
+\textbf{Difficultés rencontrées} & \textbf{Travaux à poursuivre} \\ 
+\hline
+\begin{itemize}
+    \item Prise en main des outils relativement fatiguante au début
+    \item Echec de l'implémentation du 'multi-zones' pour l'interpolation trilinéaire
+\end{itemize} & 
+\begin{itemize}
+    \item Implémenter une méthode d'ordre supérieur dans le code d'Antares
+\end{itemize} \\ 
+\hline
+\end{tabular}
+\end{table}  
+\end{comment}
 \newpage

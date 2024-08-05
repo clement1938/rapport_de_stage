@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.3)  2 AUG 2024 12:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.3)  5 AUG 2024 14:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/thibault/Documents/rapport_de_stage/Rapport de stage/rapport_stage.tex"
-(/Users/thibault/Documents/rapport_de_stage/Rapport de stage/rapport_stage.tex
+**/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex
+(/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex
 LaTeX2e <2024-06-01>
 L3 programming layer <2024-05-08>
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/report.cls
@@ -609,7 +609,7 @@ Package: shorttoc 2002/08/20 v1.3 Short table of contents (JPFD)
 \CommentStream=\write4
  Excluding comment 'comment') (/usr/local/texlive/2024/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2021/10/04 v1.0m Standard LaTeX package
-) Excluding 'comment' comment. (/usr/local/texlive/2024/texmf-dist/tex/latex/biblatex/biblatex.sty
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2024/03/21 v3.20 programmable bibliographies (PK/MW)
  (/usr/local/texlive/2024/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
@@ -853,7 +853,13 @@ Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
 Package csquotes Info: ... configuration file loaded successfully.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/csquotes/csquotes.cfg
 File: csquotes.cfg 
-))
+)) (/usr/local/texlive/2024/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip88
+\multirow@cntb=\count471
+\multirow@dima=\skip89
+\bigstrutjot=\dimen301
+)
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -861,24 +867,24 @@ Package csquotes Info: Redefining alias 'default' -> 'french'.
  (./rapport_stage.aux)
 \openout1 = `rapport_stage.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -916,16 +922,16 @@ LaTeX Font Info:    ... okay on input line 74.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count471
-\scratchdimen=\dimen301
+\scratchcounter=\count472
+\scratchdimen=\dimen302
 \scratchbox=\box77
-\nofMPsegments=\count472
-\nofMParguments=\count473
+\nofMPsegments=\count473
+\nofMParguments=\count474
 \everyMPshowfont=\toks44
-\MPscratchCnt=\count474
-\MPscratchDim=\dimen302
-\MPnumerator=\count475
-\makeMPintoPDFobject=\count476
+\MPscratchCnt=\count475
+\MPscratchDim=\dimen303
+\MPnumerator=\count476
+\makeMPintoPDFobject=\count477
 \everyMPtoPDFconversion=\toks45
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -941,10 +947,10 @@ Package caption Info: End \AtBeginDocument code.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 )
-LaTeX Info: Redefining \degres on input line 74.
-LaTeX Info: Redefining \up on input line 74.
-\c@lstlisting=\count477
-Package hyperref Info: Link coloring OFF on input line 74.
+LaTeX Info: Redefining \degres on input line 68.
+LaTeX Info: Redefining \up on input line 68.
+\c@lstlisting=\count478
+Package hyperref Info: Link coloring OFF on input line 68.
  (./rapport_stage.out) (./rapport_stage.out)
 \@outlinefile=\write6
 \openout6 = `rapport_stage.out'.
@@ -962,8 +968,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'rapport_stage.bbl' found.
  (./rapport_stage.bbl)
-Package biblatex Info: Reference section=0 on input line 74.
-Package biblatex Info: Reference segment=0 on input line 74.
+Package biblatex Info: Reference section=0 on input line 68.
+Package biblatex Info: Reference segment=0 on input line 68.
  (./page_de_couverture/pagedegarde.tex
 <images/ipsagarde.png, id=74, 339.2675pt x 249.93375pt>
 File: images/ipsagarde.png Graphic file (type png)
@@ -989,11 +995,11 @@ Package pdftex.def Info: images/Interpolation-quadratique-3D-thetraedre.png  use
 <images/newCerfacs+Fond.png, id=90, 434.1018pt x 67.6929pt>
 File: images/newCerfacs+Fond.png Graphic file (type png)
 <use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 86.
+Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 80.
 (pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
 File: images/ipsagarde.png Graphic file (type png)
 <use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 86.
+Package pdftex.def Info: images/ipsagarde.png  used on input line 80.
 (pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
 [2
 
@@ -1013,154 +1019,17 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 File: images/newCerfacs+Fond.png Graphic file (type png)
 <use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 89.
+Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 83.
 (pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
 File: images/ipsagarde.png Graphic file (type png)
 <use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 89.
+Package pdftex.def Info: images/ipsagarde.png  used on input line 83.
 (pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
 [3
 
 ] (./bilan_technique/bilan_technique.tex
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 23.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 23.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[4]) (./introduction/intro.tex)
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 96.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 96.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[5] (./chap1_pres_entreprise/chap1.tex
-Chapitre 1.
-
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 2.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 2.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[6
-
-] Excluding 'comment' comment. Excluding 'comment' comment.)
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 100.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 100.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[7
-
-] (./chap2_pres_stage/chap2.tex
-Chapitre 2.
-
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 61.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 61.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[8
-
-]
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 66.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/inconsolata/t1zi4.fd
-File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
-)
-LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 66.
-)
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 104.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 104.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[9{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] (./conclusion/conclusion.tex)
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 108.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 108.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[10
-
-] (./annexes/annexes.tex)
-Overfull \hbox (6.75743pt too wide) in paragraph at lines 115--115
-\T1/cmr/m/it/10.95 TER-NA-TIO-NAL JOUR-NAL FOR NU-ME-RI-CAL ME-THODS IN EN-GI-NEE-RING \T1/cmr/m/n/10.95 7 (1973),
- []
-
-
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 114.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 114.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[11
-
-]
-
-File: images/newCerfacs+Fond.png Graphic file (type png)
-<use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 117.
-(pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
-File: images/ipsagarde.png Graphic file (type png)
-<use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 117.
-(pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[12] (./rapport_stage.aux)
- ***********
-LaTeX2e <2024-06-01>
-L3 programming layer <2024-05-08>
- ***********
-Package rerunfilecheck Info: File `rapport_stage.out' has not changed.
-(rerunfilecheck)             Checksum: 6A8FE903D2E8BE22CCE7A48BD89BCD96;3473.
-Package logreq Info: Writing requests to 'rapport_stage.run.xml'.
-\openout1 = `rapport_stage.run.xml'.
-
- ) 
-Here is how much of TeX's memory you used:
- 35011 strings out of 473600
- 659172 string characters out of 5728703
- 1942890 words of memory out of 5000000
- 57282 multiletter control sequences out of 15000+600000
- 572898 words of font info for 68 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 83i,15n,93p,1173b,1871s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on rapport_stage.pdf (12 pages, 501151 bytes).
-PDF statistics:
- 351 PDF objects out of 1000 (max. 8388607)
- 271 compressed objects within 3 object streams
- 61 named destinations out of 1000 (max. 500000)
- 301 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+./bilan_technique/bilan_technique.tex:8: Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.8 ...space{6cm}   Clément THIBAULT - Aéro 4\\}
+                 
