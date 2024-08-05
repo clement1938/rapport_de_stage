@@ -1,10 +1,13 @@
 \section*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
+J'adore les mathématiques appliqués, la mécanique des fluides et je voulais découvrir le monde de la recherche. Lors d'une présentation des activités au CERFACS par nos deux enseignants chercheurs Arthur et Nadir, j'ai eu l'occasion de découvrir ce laboratoire et d'y candidater pour mon stage de M1. Carlos m'a trouvé un sujet sur l'interpolation dans le cas de post-processing de simulations numériques, et son application en aéroacoustique. Le sujet m'a directement plu, j'ai ainsi pu commencer mon stage le 10 juin 2024 au CERFACS.
 
+En quelque mots, le CERFACS un institut de recherche privé pour 6 actionnaires qui utilisent des modèles numériques pour simuler des écoulements dans le monde réel.
 
-Antares est une libraire python privée qui a été dévelopé au CERFACS en .... et a pour objectif de faire du pré et post processing sur 
-des simulations numériques utilisés par les actionnaires du CERFACS.
+Antares est une libraire python privée qui a été dévelopé au CERFACS en 2012 et a pour objectif de faire du pré et post-processing sur des simulations numériques utilisés par les actionnaires du CERFACS.
+
+Elle contiens notament une fonction d'interpolation, codée en Python.
 
 Mon maître de stage, Carlos, est 'responsable' d'Antares depuis X temps. 
 
@@ -14,9 +17,10 @@ Mes missions principales lors de ce stage on été :
 implémentable dans Antares (avec ses contraintes associés).
 % A savoir, 3D, non structuré, temps de calcul, caractéristiques des équations à interpoler ...
 
-
-- De trouver s'il existais des meilleurs paramètres N et p à l'équation déjà existant IDW (Inverse Distance Weighting).
+- De trouver s'il existais des meilleurs paramètres \( N \) et \( p \) à l'équation déjà existant IDW (Inverse Distance Weighting).
 
  -D'implémenter la méthode trilinéaire que j'appelerais aussi barycentrique.
 
  Pour bien comprendre, ce que nous voulons interpoler, ce sont les valeurs aux points d'un maillage dit 'target' grace aux valeurs aux point d'un maillage 'source'. Par exemple dans le cadre d'un rafinement de maillage entre 2 itérations de calcul ou dans le cas de la création d'une sphère dans un maillage 3D pour l'application des équation de FWH (Ffowcs Williams – Hawkings) dans le cadre de la propagation aéroacoustique.
+
+ Pour expliquer plus en détails ce stage au CERFACS, je présenterais dans une première partie ce laboratoire (...) pour ensuite vous présenter le travail que j'ai réalisé.
