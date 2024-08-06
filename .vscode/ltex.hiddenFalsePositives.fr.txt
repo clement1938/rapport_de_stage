@@ -15,3 +15,5 @@
 {"rule":"FR_SPELLING_RULE","sentence":"^\\Qcustompage [L]Livrable Stage M1 Clément THIBAULT [R][width=0.2]images/newCerfacs+Fond.png [C]page 2 [R][width=0.1]images/ipsagarde.png\\E$"}
 {"rule":"FR_SPELLING_RULE","sentence":"^\\Q[L]Livrable Stage M1 Clément THIBAULT [R][width=0.2]images/newCerfacs+Fond.png [C]page [R][width=0.1]images/ipsagarde.png\\E$"}
 {"rule":"FR_SPELLING_RULE","sentence":"^\\Qplain [L]Livrable Stage M1 Clément THIBAULT [R][width=0.2]images/newCerfacs+Fond.png [C]page [R][width=0.1]images/ipsagarde.png\\E$"}
+{"rule":"D_N","sentence":"^\\QIl a été créé en 1988 sous le statut de GIP (Groupement d'intérêt Public), pour devenir une société civile en 1996 et depuis 2021, le CERFACS est une SAS (Société par Actions Simplifiées).\\E$"}
+{"rule":"SOFTWARE","sentence":"^\\Q- Algo-Coop (Algorithmes Parallèles & sCientifics sOftware Operational Performances)\\E$"}

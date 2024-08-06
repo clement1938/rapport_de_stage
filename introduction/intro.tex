@@ -4,7 +4,7 @@
 J'adore les mathématiques appliquées, la mécanique des fluides et je voulais découvrir le monde de la recherche. Lors d'une présentation des activités au
 CERFACS\footnote{CERFACS : Centre Européen de Recherche et de Formation Avancée en Calcul Scientifique} par nos deux enseignants chercheurs Arthur et Nadir, j'ai eu l'occasion de découvrir ce laboratoire et d'y candidater pour mon stage de M1. Carlos m'a trouvé un sujet sur l'interpolation dans le cas de post-processing de simulations numériques et son application en aéroacoustique. Le sujet m'a directement plu, j'ai ainsi pu commencer mon stage le 10 juin 2024 au CERFACS.
 
-En quelque mots, le CERFACS un institut de recherche privé pour 7 actionnaires qui utilisent des modèles numériques pour simuler des écoulements dans le monde réel.
+En quelques mots, le CERFACS est un institut de recherche privé, spécialisé dans le développement de code HPC\footnote{HPC : High Performance Computing, Calcul intensif en français}, financé par sept actionnaires.
 
 Antares est une librairie python privée qui a été développée au CERFACS en 2012 et a pour objectif de faire du pré et post-processing sur des simulations numériques utilisées par les actionnaires du CERFACS.
 
@@ -18,13 +18,13 @@ Mes missions principales lors de ce stage ont été :
 implémentables dans Antares (avec ses contraintes associées).
 % A savoir, 3D, non structuré, temps de calcul, caractéristiques des équations à interpoler ...
 
-- D'identifier les meilleurs paramètres pour l'équation IDW (Inverse Distance Weighting)
+- D'identifier les meilleurs paramètres pour l'équation IDW\footnote{IDW : Inverse Distance Weighting, pondération inverse à la distance en français}
 
 - D'implémenter la méthode trilinéaire que j'appellerais aussi barycentrique.
 
 Pour bien comprendre, ce que nous voulons interpoler, ce sont les valeurs aux points d'un maillage dit 'target' grâce aux valeurs aux points d'un maillage 'source'. Par exemple dans le cadre d'un raffinement de maillage entre 2 itérations de calcul ou dans le cas de la création d'une sphère dans un maillage 3D pour l'application des équations de FWH \footnote{FWH : Ffowcs Williams-Hawkings} dans le cadre de la propagation aéroacoustique.
 
-Pour expliquer plus en détails ce stage au CERFACS, je présenterai dans une première partie ce laboratoire (...) pour ensuite vous présenter le travail que j'ai réalisé.
+Pour expliquer plus en détails ce stage au CERFACS, je présenterai d'abord ce laboratoire, puis je vous exposerai le travail que j'ai réalisé.
 
  % 
 % 
