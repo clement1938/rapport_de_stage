@@ -26,6 +26,28 @@
 \usepackage{csquotes}
 \usepackage{multirow}
 \usepackage{footnotehyper}
+\usepackage{xcolor}
+
+\lstset{ 
+    language=Python,                     % Langage
+    basicstyle=\ttfamily\footnotesize,   % Style de base
+    keywordstyle=\color{blue},           % Style des mots-clés
+    commentstyle=\color{green},          % Style des commentaires
+    stringstyle=\color{red},             % Style des chaînes de caractères
+    numbers=left,                        % Numérotation des lignes
+    numberstyle=\tiny\color{gray},       % Style des numéros de ligne
+    stepnumber=1,                        % Numérotation chaque ligne
+    numbersep=5pt,                       % Distance entre les numéros de ligne et le code
+    showspaces=false,                    % Ne pas afficher les espaces
+    showstringspaces=false,              % Ne pas afficher les espaces dans les chaînes de caractères
+    tabsize=4,                           % Taille des tabulations
+    captionpos=b,                        % Position des légendes (en bas)
+    breaklines=true,                     % Retour à la ligne automatique
+    breakatwhitespace=false,             % Retour à la ligne uniquement dans les espaces
+    frame=single,                        % Cadre autour du code
+    framerule=0.5pt,
+    rulecolor=\color{black},
+}
 
 
 \pagestyle{fancy}
@@ -58,12 +80,12 @@
 \fancyfoot[R]{\includegraphics*[width=0.1\textwidth]{images/ipsagarde.png}}
 \fancyfoot[L]{\leftmark}
 
-\newcommand\BackgroundPic{%
-\put(0,0){%
-\parbox[b][0.6\paperheight]{\paperwidth}{%
+\newcommand\BackgroundPic{
+\put(0,0){
+\parbox[b][0.6\paperheight]{\paperwidth}{
 \centering
-{\transparent{0.4} \includegraphics[width=\paperwidth,height=0.57\paperheight,%
-keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}%
+{\transparent{0.4} \includegraphics[width=\paperwidth,height=0.57\paperheight,
+keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 }}}
 
 \begin{document}
