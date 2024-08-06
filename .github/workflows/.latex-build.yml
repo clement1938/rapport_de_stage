@@ -32,5 +32,5 @@ jobs:
         subject: "LaTeX PDF Build Status"
         body: |
           The LaTeX PDF build has been ${{ job.status }}.
-        to: clem.thibault@sfr.fr
+        to: clem.thibault747@gmail.com
         from: "GitHub Actions <noreply@github.com>"
