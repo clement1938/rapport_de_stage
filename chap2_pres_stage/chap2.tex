@@ -1,25 +1,26 @@
 \chapter{Présentation du stage}
 
-Le stage a commencé début juin 2024.
-Un ordinateur et un PIN-pad générateur d'OTP (One-Time-Password) est mis à disposition aux stagiaires.
-Carlos, mon maître de stage a pu me montrer comment comprendre et utiliser Antares, la librairie que j'allais développer, grâce à
-une ressource sur internet\footnote{Documentation d'Antares : https://cerfacs.fr/antares/} d'apprendre à l'utiliser.
-Pour vous illustrer la base d'une solution CFD que nous pourrions vouloir traiter avec Antares, voici un schéma :
+Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'OTP (One-Time-Password) ont été mis à ma disposition. Carlos, mon maître de stage, a fourni les instructions nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}.
+
+\section{La librairie Antares}
+
+La structure des solutions CFD interprétées dans Antares est illustrée ci-dessous :
 
 \begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/data_structure_1.png}
-    \caption{Structure des données} %\footnote{Source:https://cerfacs.fr/antares/src/tutorial/base.html}}
-    %\label{fig:https://cerfacs.fr/antares/src/tutorial/base.html}
+\centering
+\includegraphics[width=0.5\textwidth]{images/data_structure_1.png}
+\caption{Structure des données}
+%\footnote{Source:https://cerfacs.fr/antares/src/tutorial/base.html}
+%\label{fig:https://cerfacs.fr/antares/src/tutorial/base.html}
 \end{figure}
 
+Ensuite, la tâche consistait à résoudre un bug mineur sur Antares, ce qui a permis de se familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
 
-Ensuite, j'ai été chargé de résoudre un petit bug sur Antares, ce qui m'a permis de prendre la main sur Nitrox, le gitlab hébergé sur le serveur du CERFACS où se situe Antares et d'autres codes du CERFACS.
 
-\section{Mission 1 : Recherche les différentes méthodes d'interpolation}
-Ma première mission a été de recenser les méthodes d'interpolation qui seraient implémentables dans Antares, à savoir, qui permette de l'interpolation 3D, sur des maillages dits non structurés, c'est-à-dire pas de simples maillages, rectangulaires en 2D et hexaédrique en 3D, représentés par des matrices, mais des maillages créés avec différentes formes géométriques.
+\section{Les différentes méthodes d'interpolation}
+Nous allons premièrement présenter les types d'interpolation implémentables dans Antares, à savoir, qui permette de l'interpolation 3D, sur des maillages dits non structurés, c'est-à-dire pas de simples maillages, rectangulaires en 2D et hexaédrique en 3D, représentés par des matrices, mais des maillages créés avec différentes formes géométriques.
 Le temps de calcul, appelé 'coût' est aussi un paramètre à prendre en compte.
-Finalement, les caractéristiques des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser tel que l'équation de Naviers-Stokes sont utilisées et mon niveau en maths est trop limité pour pouvoir me plonger en profondeur dans ce problème. C'est pour cela que je n'ai pas de résultat mathématique à présenter dans cette partie. Mais heureusement que ces méthodes ont déjà été implémentés et testés pour d'autres codes de simulation numérique, ce qui donne une bonne idée des résultats que nous pouvons espérer.
+Finalement, les caractéristiques des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser tel que l'équation de Naviers-Stokes sont utilisées et le niveau en maths est trop élevé pour pouvoir se plonger en profondeur dans ce problème. C'est pour cela qu'il n'y aura pas de résultat mathématique à présenter dans cette partie. Mais heureusement que ces méthodes ont déjà été implémentés et testés pour d'autres codes de simulation numérique, ce qui donne une bonne idée des résultats que nous pouvons espérer.
 
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
 
@@ -60,7 +61,8 @@ où :
 Probablement l'interpolation la plus simple après la méthode du voisin le plus proche (toujours dans notre cas d'application), cette méthode est la seule qui étais implémenté dans Antares.
 
 Nous pouvons modifier 2 paramètres : \(p\) et \(N\).
-Par défaut, dans le code, \(p\) = 1 et \(N\) est égale aux nombres de sommets de la première forme de cellule de la liste de formes de cellules de la base target (je n'ai pas compris pourquoi pas de la base source) ! Tests à faire ici !
+Par défaut, dans le code, \(p\) = 1 et \(N\) est égale aux nombres de sommets de la première forme de cellule de la liste de formes de cellules de la base target. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base target importe peu à côté de celle de la base source, pour l'interpolation. Mais aucune modification qui pourrait changer l'utilisation qui a déjà été faite de ce traitement ne pourra être faite par soucis de rétrocompatibilité. ! Tests à faire ici !
+
 
 
 Nous remarquons que pour \( n = 1 \), nous retrouvons la méthode du voisin le plus proche, pour tout \( p \).

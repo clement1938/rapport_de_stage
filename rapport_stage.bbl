@@ -19,6 +19,34 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global/global}
+    \entry{antares}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=ccb3cf3173bb2166bcd4e42529f08f2d}{%
+           family={{Antares Development Team}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{ccb3cf3173bb2166bcd4e42529f08f2d}
+      \strng{fullhash}{ccb3cf3173bb2166bcd4e42529f08f2d}
+      \strng{fullhashraw}{ccb3cf3173bb2166bcd4e42529f08f2d}
+      \strng{bibnamehash}{ccb3cf3173bb2166bcd4e42529f08f2d}
+      \strng{authorbibnamehash}{ccb3cf3173bb2166bcd4e42529f08f2d}
+      \strng{authornamehash}{ccb3cf3173bb2166bcd4e42529f08f2d}
+      \strng{authorfullhash}{ccb3cf3173bb2166bcd4e42529f08f2d}
+      \strng{authorfullhashraw}{ccb3cf3173bb2166bcd4e42529f08f2d}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{4}
+      \field{title}{{Antares Documentation Release 2.2.0}}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://cerfacs.fr/antares/
+      \endverb
+      \verb{url}
+      \verb https://cerfacs.fr/antares/
+      \endverb
+    \endentry
     \entry{bajaj}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=f0a764c431d36a45346ac7a5e23b0e28}{%
