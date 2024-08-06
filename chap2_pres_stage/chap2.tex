@@ -1,6 +1,6 @@
 \chapter{Présentation du stage}
 
-Mon stage a commencé le lundi 10 juin 2024. Après avoir récupéré un ordinateur et un PIN-pad générateur d'OTP (One-Time-Password), Carlos, mon maître de stage a pu me montrer comment comprendre la librairie que j'allais développer : Antares. Une ressouce sur l'intranet ? permet d'apprendre à l'utiliser. Pour vous illustrer la base d'une solution CFD que nous pourrions vouloir traiter avec Antares, voici un schéma :
+Mon stage a commencé le lundi 10 juin 2024. Après avoir récupéré un ordinateur et un PIN-pad générateur d'OTP (One-Time-Password), Carlos, mon maître de stage a pu me montrer comment comprendre la librairie que j'allais développer : Antares. Une ressource sur internet\footnote{Documentation d'Antares : https://cerfacs.fr/antares/} d'apprendre à l'utiliser. Pour vous illustrer la base d'une solution CFD que nous pourrions vouloir traiter avec Antares, voici un schéma :
 
 \begin{figure}[ht!]
     \centering
@@ -13,9 +13,9 @@ Mon stage a commencé le lundi 10 juin 2024. Après avoir récupéré un ordinat
 Ensuite, j'ai été chargé de résoudre un petit bug sur Antares, ce qui m'a permis de prendre la main sur Nitrox, le gitlab hébergé sur le serveur du CERFACS où se situe Antares et d'autres codes du CERFACS.
 
 \section{Mission 1 : Recherche les différentes méthodes d'interpolation}
-Ma première mission a été de recensser les méthodes d'interpolation qui seraient implémentables dans Antares, à savoir, qui permettent de l'interpolation 3D, sur des maillages dits non structuré, c'est à dire pas de simples maillages, rectangulaires en 2D et hexaédrique en 3D, représentés par des matrices, mais des maillages créés avec différentes formes géométriques.
+Ma première mission a été de recenser les méthodes d'interpolation qui seraient implémentables dans Antares, à savoir, qui permette de l'interpolation 3D, sur des maillages dits non structurés, c'est-à-dire pas de simples maillages, rectangulaires en 2D et hexaédrique en 3D, représentés par des matrices, mais des maillages créés avec différentes formes géométriques.
 Le temps de calcul, appelé 'coût' est aussi un paramètre à prendre en compte.
-Finalement, les caractéristiques des équations à interpoler est probalement le paramètre le plus important à prendre en compte mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser tel que l'équation de Naviers-Stokes sont utilisées et mon niveau en maths est trop limité pour pouvoir me plonger en profondeur dans ce problème. C'est pour cela que je n'ai pas de résultat mathématique à présenter dans cette partie. Mais heuresement que ces méthodes ont déjà été implémentés et testés pour d'autres codes de simulation numérique, ce qui donne une bonne idée des résultats que nous pouvons espérer.
+Finalement, les caractéristiques des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser tel que l'équation de Naviers-Stokes sont utilisées et mon niveau en maths est trop limité pour pouvoir me plonger en profondeur dans ce problème. C'est pour cela que je n'ai pas de résultat mathématique à présenter dans cette partie. Mais heureusement que ces méthodes ont déjà été implémentés et testés pour d'autres codes de simulation numérique, ce qui donne une bonne idée des résultats que nous pouvons espérer.
 
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
 
@@ -24,12 +24,12 @@ Cette première méthode est très simple : nous prenons comme valeur \( v \) d'
 Nous comprenons assez vite que cette méthode est discontinue et même pas linéaire...
 Nous pouvons aussi imaginer que 2 points à droit et à gauche d'une ligne horizontale de 3 points (les plus proches), prendrons la même valeur pour \( N \) = 3, Schématiser. 
 
-D'autres méthodes dérivés ou similaiers existent pour évaluer nos poids. La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximal autour du points au-delàs les autres points ne sont pas pris en compte. Autrement dit, en utilisant un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utile pour l'interpolation. Dans ce cas le nombre de points est variable.
-J'ai considéré subjectivement que cette méthode n'étais pas intéressante car, confronté à un maillage ayant une différence de rafinement intrinsèque importante, dans certains cas aucuns points ne seraient pris, et dans d'autes, une grande somme serait calculée.
+D'autres méthodes dérivées ou similaires existent pour évaluer nos poids. La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà les autres points ne sont pas pris en compte. Autrement dit, en utilisant un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas le nombre de points est variable.
+J'ai considéré subjectivement que cette méthode n'était pas intéressante car, confronté à un maillage ayant une différence de raffinement intrinsèque importante, dans certains cas aucuns points ne seraient pris, et dans d'autres, une grande somme serait calculée.
 
 
 \begin{comment}
-Certaines conditions de cette méthode doivent être respectés, comme Pour N tends vers l’inf, p doit être inférieur ou égale à la dimension, par ex 3 pour ne pas diverger. Mais N n’est pas grand dans notre cas.
+Certaines conditions de cette méthode doivent être respectés, comme Pour N tends vers l’infini, p doit être inférieur ou égale à la dimension, par ex 3 pour ne pas diverger. Mais N n’est pas grand dans notre cas.
 Voir d'autres choses page 7 de mon ppt.
 \end{comment}
 
@@ -53,26 +53,26 @@ où :
 
 
 
-Probablement l'iterpolation la plus simple après la méthode du voisin le plus proche (toujours dans notre cas d'application), cette méthode est la seule qui étais implémenté dans Antares.
+Probablement l'interpolation la plus simple après la méthode du voisin le plus proche (toujours dans notre cas d'application), cette méthode est la seule qui étais implémenté dans Antares.
 
 Nous pouvons modifier 2 paramètres : \(p\) et \(N\).
-Par défault, dans le code, \(p\) = 1 et \(N\) est égale aux nombres de sommets de la première forme de cellule de la liste de formes de cellules de la base target (je n'ai pas compris pourquoi pas de la base source) /! Tests à faire ici /!
-Ces informations ne sont pas confidentielles Carlos ?
+Par défaut, dans le code, \(p\) = 1 et \(N\) est égale aux nombres de sommets de la première forme de cellule de la liste de formes de cellules de la base target (je n'ai pas compris pourquoi pas de la base source) ! Tests à faire ici !
+
 
 Nous remarquons que pour \( n = 1 \), nous retrouvons la méthode du voisin le plus proche, pour tout \( p \).
 
-Une de mes mission étais de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé le réponse dans les différents articles et thèses que j'ai lu. C'est pour celà que je présenterais plus tard comment j'ai trouvé des paramètre optimaux en faisant des tests.
+Une de mes missions étais de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles et thèses que j'ai lues. C'est pour cela que je présenterais plus tard comment j'ai trouvé des paramètres optimaux en faisant des tests.
 
 
 \subsection{L'interpolation polynomiale}
 \subsection{L'interpolation par Splines}
 \subsection{Méthodes géostatiques}
-\subsection{Méthode par moindres carré}
+\subsection{Méthode par moindres carrés}
 \subsection{MISCOG}
 
 \subsection{L'interpolation linéaire}
-Aussi appelée interpolation Barycentrique, l'inerpolation linéaire, est la plus simple (après les plus proches voisins et IDW), et la plus utilisée par Aibus, Safran et d'autres industriels (dans via d'autres codes qu'Antares).
-C'est pour cela qu'ils ont demandé au CERFACS de l'implémenter des Antares, car ils l'utilisent actuellement via d'autres moyen.
+Aussi appelée interpolation Barycentrique, l'interpolation linéaire, est la plus simple (après les plus proches voisins et IDW), et la plus utilisée par Airbus, Safran et d'autres industriels (dans via d'autres codes qu'Antares).
+C'est pour cela qu'ils ont demandé au CERFACS de l'implémenter des Antares, car ils l'utilisent actuellement via d'autres moyens.
 En 1D, l'interpolation linéaire est simple : c'est la moyenne pondérée linéairement par la distance, des valeurs des points.
 Supposons que nous voulons interpoler une valeur d'un point \( p \) entre deux points \( a \) et \( b \) dans un espace 1D
 et que nous représentons leurs valeurs dans une deuxième dimension \( y \).
@@ -83,7 +83,7 @@ y_p = \frac{x_b - x_p}{x_b - x_a} \cdot y_a + \frac{x_p - x_a}{x_b - x_a} \cdot 
 \]
 
 %\vspace*{0.1\baselineskip}\linebreak
-où \( y_p \) représente la valeur interpolée à la position \( x_p \), et \((x_a, y_a)\) et \((x_b, y_b)\) sont les points de référence. J'ai écris cette formule afin qu'elle soit symétrique par rapport aux points \( a \) et \( b \), pour qu'il jouent la même rôle. Ainsi elle s'entendra plus intuitivement dans des dimensions supérieurs.
+où \( y_p \) représente la valeur interpolée à la position \( x_p \), et \((x_a, y_a)\) et \((x_b, y_b)\) sont les points de référence. J'ai écrit cette formule afin qu'elle soit symétrique par rapport aux points \( a \) et \( b \), pour qu'ils jouent la même rôle. Ainsi elle s'entendra plus intuitivement dans des dimensions supérieures.
 \vspace{0.5cm}
 %\vspace*{0.1\baselineskip}\linebreak
 
@@ -91,29 +91,29 @@ où \( y_p \) représente la valeur interpolée à la position \( x_p \), et \((
 
         \( \frac{x_p - x_a}{x_b - x_a} \) est le poids pour \( y_b \) basé sur la distance relative de \( x_p \) à \( x_a \).\vspace{0.5cm}
 
-Ces deux termes sont pondérés de manière à ce que leur somme soit toujours égale à 1, ce
+Ces deux termes sont pondérés de manière que leur somme soit toujours égale à 1, ce
 qui garantit que l'interpolation est correcte et symétrique par rapport à \( a \) et \( b \).\vspace{0.5cm}
 
-En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelés cellues et leurs sommets noeuds. Dans notre cas, nous considérons que les variables du maillages sont contenus au niveau des noeuds. Aussi, Antares ne traites que des maillages ayant des valeurs uniquement au niveau des noeuds des cellules (pas entre).
-Il existe 23 principales types de cellules (formes) en 2D : les triangles 'tri', et les quadrilatères 'qua' (non croisés) et les rectangles des maillages structurés.
+En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenus au niveau des nœuds. Aussi, Antares ne traites que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
+Il existe 3 principaux types de cellules (formes) en 2D : les triangles 'tri', et les quadrilatères 'qua' (non croisés) et les rectangles des maillages structurés.
 Pour le triangle, la méthode pour trouver la valeur au point à interpoler \( p \) est celle dite du barycentre (barycentrique).
-Elle est bien documentée. Visuellement, il faut faire la somme des valeurs au points pondéré par la surface opposé et pondéré le tout par la surface du triangle.
+Elle est bien documentée. Visuellement, il faut faire la somme des valeurs aux points pondérés par la surface opposés et pondéré le tout par la surface du triangle.
 
 En ce qui concerne l'interpolation sur un rectangle, nous la trouvons aussi facilement. La formule est l'extension de celle pour les triangles :
 
-EQUATION
+ÉQUATION
 
-Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliés chacune par leurs sommet opposé respectif. Cela correspond à deux interpolations linéraires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle mais je trouvais cela plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
+Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif. Cela correspond à deux interpolations linéaires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle, mais je trouvais cela plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
 
 ILLUSTRATION
 
-Viens maintenant la denière forme 2D rencontrée dans les solutions traités par Antares : les 'qua'. Pour celà je n'ai pas touvé de méthode. Après plusieurs essais sur papier, je me suis concenté sur le fait que la méthode devais être continue, ce qui implique notament que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0. Une première verification de la linéarité est aussi de vérifier qu'un point au milieu d'une forme 2D a comme valeur la moyenne de ses cotés.
-Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la forme dans laquelle il se situe (tel que pour l'interpolation Barycentrique). Cela permet de ne créer uniquement 4 sous formes. Ensuite pour déterminer le poids associé au sommet \( s_1 \), il faut multiplier les deux surfaces qui lui sont opposés entre elles, et bien entendu, le pondéré une fois les autres poids calculés. Par opposé j'entends que ces surfaces ne sont composés d'aucune arrête ayant pour l'une de leurs extrémité le point d'interpolation. Ceci est important pour le 3D. Pour l'instant je n'ai démontré que par l'expérimentation que cette méthode étais linéaire. Un point qui me perturbais étais de faire des multiplications de sufaces, donc ordre 4, dans une méthode linéaire. Mais contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résulatat linéaire. On pourrais imaginer que, par chance, ma méthode soit quadratique. Premièrement j'ai vérifier et ce n'est apparament pas le cas. Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans la cas où nous nous basons uniquement sur les quatre points d'un quadrilatère. Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement conaissance de ces deux points. Normalement il faut s'appuyer sur plus de points pour le quadratique. Finalement voici l'équation :\\
-EQUATION
+Viens maintenant la dernière forme 2D rencontrée dans les solutions traités par Antares : les 'qua'. Pour cela je n'ai pas trouvé de méthode. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0. Une première vérification de la linéarité est aussi de vérifier qu'un point au milieu d'une forme 2D a comme valeur la moyenne de ses côtés.
+Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la forme dans laquelle il se situe (tel que pour l'interpolation Barycentrique). Cela permet de ne créer uniquement 4 sous formes. Ensuite pour déterminer le poids associé au sommet \( s_1 \), il faut multiplier les deux surfaces qui lui sont opposés entre elles, et bien entendu, le pondéré une fois les autres poids calculés. Par opposé j'entends que ces surfaces ne sont composés d'aucune arrête ayant pour l'une de leurs extrémités le point d'interpolation. Ceci est important pour le 3D. Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode étais linéaire. Un point qui me perturbait étais de faire des multiplications de surfaces, donc ordre 4, dans une méthode linéaire. Mais contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire. On pourrait imaginer que, par chance, ma méthode soit quadratique. Premièrement j'ai vérifié et ce n'est apparemment pas le cas. Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère. Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points. Normalement il faut s'appuyer sur plus de points pour le quadratique. Finalement voici l'équation :\\
+ÉQUATION
 
 ILLUSTRATION\vspace{0.5cm}  % OU \\[0pt plus 1fill] OU \newline OU flushleft, flushright, center
 
-Pour le 3D, si le maillage est structuré, alors la forme est le pavé droit. A ce moment nous sommes dans le cas de l'interpolation dite trilinéaire. Encore une fois la formule se trouve facilement. Nous associons comme poid à un des huit sommet \( s_1 \) le volume opposé, construit de la sorte :
+Pour le 3D, si le maillage est structuré, alors la forme est le pavé droit. À ce moment, nous sommes dans le cas de l'interpolation dite trilinéaire. Encore une fois la formule se trouve facilement. Nous associons comme poids à un des huit sommets \( s_1 \) le volume opposé, construit de la sorte :
 
 \begin{figure}[ht!]
     \centering
@@ -132,15 +132,15 @@ L'équation qui en découle est la suivante :
 
 % En CFD il y a toujours des formes, même si c'est structuré, on peut unstructure.
 
-\subsection{Resumé des similitudes et différences des différentes méthodes}
+\subsection{Résumé des similitudes et différences des différentes méthodes}
 
 
 
 \section{Mission 2 : Implémenter la méthode trilinéaire}
 \subsection{La structure générale du code TreatmentInterpolation}
-Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grace à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisais environ 500 lignes. Il est orienté objet. Il prend comme arguments obligatoires la base source et la base target et renvoie dans le cas le plus simple la base target avec les valeurs interpolés.
+Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisais environ 500 lignes. Il est orienté objet. Il prend comme arguments obligatoires la base source et la base target et renvoie dans le cas le plus simple la base target avec les valeurs interpolés.
 De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis nous parcourons les instants. 
-Cette fusion permet de faire un KDTree (pour arbre à k-dimensions), qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base target (et les distances associés, utilisés dans la méthode 'idw').
+Cette fusion permet de faire un KDTree (pour arbre à k-dimensions), qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base target (et les distances associées, utilisés dans la méthode 'idw').
 
 Ensuite nous calculons l'interpolation via une méthode 'principale' (\lstinline{__idw_interpolate_instant} ou
 \lstinline{__barycentrique_interpolate_instant}) qui peut elle-même appeler des fonctions ou méthodes.
@@ -148,19 +148,19 @@ Ensuite nous calculons l'interpolation via une méthode 'principale' (\lstinline
 \subsection{L'algorithme}
 Si vraiment ce n'est pas confidentiel je peux mettre le code en annexe Carlos.
 
-Premièrement, dans \lstinline{__barycentrique_interpolate_instant}, nous récupérons le nombre de points maximal sur lequel nous allons nous appuyer pour l'interpolation, soit le nombre maximale de sommet des formes présentes dans le maillage.
-Nous récupérons les distances et le indices du KDtree.
+Premièrement, dans \lstinline{__barycentrique_interpolate_instant}, nous récupérons le nombre de points maximal sur lequel nous allons nous appuyer pour l'interpolation, soit le nombre maximal de sommet des formes présentes dans le maillage.
+Nous récupérons les distances et indices du KDTree.
 Ensuite nous devons réarranger des indices qui se sont fait déplacer lors de la fusion des zones.
 Nous récupérons aussi différentes variables, comme les coordonnées des points, \dots
 
-Nous récupérons d'une fonction définie plus bas (\lstinline{get_list_cell_type}) :
-(\lstinline{list_cell_type, max_node_index})
+%Nous récupérons d'une fonction définie plus bas (\lstinline{get_list_cell_type}) :
+%(\lstinline{list_cell_type, max_node_index})
 
 
-Dans le cas où le maillage est le même entre tous les instants, nous ne recalculons pas tout ces paramètres, ce qui permet une diminution significative du temps de calcul.
+Dans le cas où le maillage est le même entre tous les instants, nous ne recalculons pas tous ces paramètres, ce qui permet une diminution significative du temps de calcul.
 
 
-Expliquer 'is point on cell', etc...
+%Expliquer 'is point on cell', etc...
 
 
 %\subsection{La prise en main de la libraire Antares}
@@ -189,9 +189,9 @@ EXEMPLE DE MISE EN FORME PYTHON
 
 \section{Mission 3 : Tester sur des cas d'aéroacoustique}
 % \section{Les différentes méthodes d'interpolation}
-Carlos a développé l'outils permettant de déterminer le résultat acoustique, à grande distance, à partir d'un surface, en utilisant les équations de Ffowcs Williams – Hawkings. Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résutlat de la pression en différents points et différents instants.
+Carlos a développé l'outil permettant de déterminer le résultat acoustique, à grande distance, à partir d'une surface, en utilisant les équations de Ffowcs Williams – Hawkings. Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.
 % Paramètres d'IDW
-\subsection{Tests sur les paramètrs de la méthode IDW}
+\subsection{Tests sur les paramètres de la méthode IDW}
 
 
 

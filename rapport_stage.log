@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.3)  6 AUG 2024 11:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.3)  6 AUG 2024 16:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1004,17 +1004,9 @@ Package pdftex.def Info: images/Interpolation-quadratique-3D-thetraedre.png  use
 (pdftex.def)             Requested size: 597.51404pt x 478.01123pt.
 [1
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./images/Interpolation-quadratique-3D-thetraedre.png> <./images/ipsagarde.png> <./images/cerfacsgarde.png>]) (./remerciement/remerciement.tex
-LaTeX Font Info:    Trying to load font information for U+msa on input line 7.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 7.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./images/Interpolation-quadratique-3D-thetraedre.png> <./images/ipsagarde.png> <./images/cerfacsgarde.png>]) (./remerciement/remerciement.tex)
 
-<images/newCerfacs+Fond.png, id=127, 434.1018pt x 67.6929pt>
+<images/newCerfacs+Fond.png, id=126, 434.1018pt x 67.6929pt>
 File: images/newCerfacs+Fond.png Graphic file (type png)
 <use images/newCerfacs+Fond.png>
 Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 112.
@@ -1025,7 +1017,15 @@ Package pdftex.def Info: images/ipsagarde.png  used on input line 112.
 (pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
 [2
 
- <./images/newCerfacs+Fond.png (PNG copy)>] (./rapport_stage.toc)
+ <./images/newCerfacs+Fond.png (PNG copy)>] (./rapport_stage.toc
+LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 6.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+))
 \tf@toc=\write7
 \openout7 = `rapport_stage.toc'.
 
@@ -1042,7 +1042,7 @@ Package pdftex.def Info: images/ipsagarde.png  used on input line 115.
 [3
 
 ] (./bilan_technique/bilan_technique.tex
-Overfull \hbox (25.19995pt too wide) in paragraph at lines 6--88
+Overfull \hbox (25.19995pt too wide) in paragraph at lines 6--91
  [][] 
  []
 
@@ -1050,11 +1050,11 @@ Overfull \hbox (25.19995pt too wide) in paragraph at lines 6--88
 
 File: images/newCerfacs+Fond.png Graphic file (type png)
 <use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 90.
+Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 93.
 (pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
 File: images/ipsagarde.png Graphic file (type png)
 <use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 90.
+Package pdftex.def Info: images/ipsagarde.png  used on input line 93.
 (pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
 [4]) (./introduction/intro.tex)
 
@@ -1082,7 +1082,7 @@ Package pdftex.def Info: images/ipsagarde.png  used on input line 123.
 
 ] (./chap2_pres_stage/chap2.tex
 Chapitre 2.
-<images/data_structure_1.png, id=209, 373.395pt x 283.0575pt>
+<images/data_structure_1.png, id=207, 373.395pt x 283.0575pt>
 File: images/data_structure_1.png Graphic file (type png)
 <use images/data_structure_1.png>
 Package pdftex.def Info: images/data_structure_1.png  used on input line 7.
@@ -1137,20 +1137,16 @@ LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 
 File: images/newCerfacs+Fond.png Graphic file (type png)
 <use images/newCerfacs+Fond.png>
-Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 148.
+Package pdftex.def Info: images/newCerfacs+Fond.png  used on input line 151.
 (pdftex.def)             Requested size: 91.04742pt x 14.19733pt.
 File: images/ipsagarde.png Graphic file (type png)
 <use images/ipsagarde.png>
-Package pdftex.def Info: images/ipsagarde.png  used on input line 148.
+Package pdftex.def Info: images/ipsagarde.png  used on input line 151.
 (pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[10 <./images/Trilinear_interpolation_visualisation.svg.png>]
-Overfull \hbox (20.89369pt too wide) in paragraph at lines 156--158
-[]\T1/cmr/m/n/10.95 Nous ré-cu-pé-rons d'une fonc-tion dé-fi-nie plus bas ([][][][]) : ([][][][][][][]
- []
-
+[10{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc} <./images/Trilinear_interpolation_visualisation.svg.png>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 170.
 LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 172.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/inconsolata/ts1zi4.fd
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/inconsolata/ts1zi4.fd
 File: ts1zi4.fd 2018/01/14 TS1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
@@ -1165,7 +1161,7 @@ File: images/ipsagarde.png Graphic file (type png)
 <use images/ipsagarde.png>
 Package pdftex.def Info: images/ipsagarde.png  used on input line 126.
 (pdftex.def)             Requested size: 45.52718pt x 33.53746pt.
-[11{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}] (./conclusion/conclusion.tex)
+[11{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}] (./conclusion/conclusion.tex)
 
 File: images/newCerfacs+Fond.png Graphic file (type png)
 <use images/newCerfacs+Fond.png>
@@ -1210,24 +1206,24 @@ LaTeX2e <2024-06-01>
 L3 programming layer <2024-05-08>
  ***********
 Package rerunfilecheck Info: File `rapport_stage.out' has not changed.
-(rerunfilecheck)             Checksum: 76B8FF697D3A2102751F37BA41F7FFC1;5123.
+(rerunfilecheck)             Checksum: 99BB2C7AD752967673E29B9A924499B5;5136.
 Package logreq Info: Writing requests to 'rapport_stage.run.xml'.
 \openout1 = `rapport_stage.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35694 strings out of 473600
- 668226 string characters out of 5728703
- 2057890 words of memory out of 5000000
- 57918 multiletter control sequences out of 15000+600000
- 577162 words of font info for 75 fonts, out of 8000000 for 9000
+ 35686 strings out of 473600
+ 668111 string characters out of 5728703
+ 2053890 words of memory out of 5000000
+ 57911 multiletter control sequences out of 15000+600000
+ 575790 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 83i,17n,93p,1697b,1801s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on rapport_stage.pdf (14 pages, 759424 bytes).
+ 83i,16n,93p,1701b,1871s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
+Output written on rapport_stage.pdf (14 pages, 749858 bytes).
 PDF statistics:
- 478 PDF objects out of 1000 (max. 8388607)
- 372 compressed objects within 4 object streams
- 87 named destinations out of 1000 (max. 500000)
+ 470 PDF objects out of 1000 (max. 8388607)
+ 368 compressed objects within 4 object streams
+ 88 named destinations out of 1000 (max. 500000)
  407 words of extra memory for PDF output out of 10000 (max. 10000000)
 
