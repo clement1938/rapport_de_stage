@@ -49,7 +49,6 @@
     rulecolor=\color{black},
 }
 
-
 \pagestyle{fancy}
 
 \setlength{\headheight}{25.22153pt}
@@ -78,7 +77,6 @@
 \fancyfoot[C]{page \thepage}
 \renewcommand{\sectionmark}[1]{\markboth{}{}}
 \fancyfoot[R]{\includegraphics*[width=0.1\textwidth]{images/ipsagarde.png}}
-\fancyfoot[L]{\leftmark}
 
 \newcommand\BackgroundPic{
 \put(0,0){
@@ -96,7 +94,18 @@ keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 
 \newpage
 \pagenumbering{arabic}
+\pagestyle{fancy}
 \setcounter{page}{2}
+
+\fancypagestyle{custompage}{
+  \fancyhf{} % Clear header/footer
+  \fancyhead[L]{Livrable Stage M1 \\ Clément THIBAULT}
+  \fancyhead[R]{\includegraphics*[width=0.2\textwidth]{images/newCerfacs+Fond.png}}
+  \fancyfoot[C]{page 2}
+  \fancyfoot[R]{\includegraphics*[width=0.1\textwidth]{images/ipsagarde.png}}
+}
+
+\thispagestyle{custompage}
 
 \input{remerciement/remerciement}
 
@@ -104,27 +113,21 @@ keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 \tableofcontents
 
 \newpage
-%\chapter{Bilan Technique}
 \input{bilan_technique/bilan_technique.tex}
 \newpage
 
-%\chapter{Introduction}
 \input{introduction/intro.tex}
 \newpage
 
-%\chapter{Présentation de l'entreprise}
 \input{chap1_pres_entreprise/chap1.tex}
 \newpage
 
-%\chapter{Présentation du stage}
 \input{chap2_pres_stage/chap2.tex}
 \newpage
 
-%\chapter{Conclusion}
 \input{conclusion/conclusion.tex}
 \newpage
 
-%\chapter{Annexes}
 \input{annexes/annexes.tex}
 
 \nocite{*}

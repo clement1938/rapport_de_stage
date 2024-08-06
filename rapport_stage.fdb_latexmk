@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber rapport_stage"] 1722867743.3388 "rapport_stage.bcf" "rapport_stage.bbl" "rapport_stage" 1722935251.0306 0
+["biber rapport_stage"] 1722867743.3388 "rapport_stage.bcf" "rapport_stage.bbl" "rapport_stage" 1722938309.54711 0
   "bibliographie/biblio.bib" 1722593396.38757 22695 6896b574dcac0912363ecd1f2342e3f4 ""
-  "rapport_stage.bcf" 1722935250.67242 108566 99c770f67e4113d963b9567da372d830 "pdflatex"
+  "rapport_stage.bcf" 1722938309.1691 108566 99c770f67e4113d963b9567da372d830 "pdflatex"
   (generated)
   "rapport_stage.bbl"
   "rapport_stage.blg"
   (rewritten before read)
-["pdflatex"] 1722935247.81949 "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex" "rapport_stage.pdf" "rapport_stage" 1722935251.0312 0
-  "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex" 1722935247.59165 4043 b1ac9db408776ff99edcd1d875ea89b3 ""
+["pdflatex"] 1722938306.06252 "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex" "rapport_stage.pdf" "rapport_stage" 1722938309.54771 0
+  "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex" 1722938114.37935 4205 b96175c05bca19cfe600f558be19bbfd ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc" 1455745497 9446 fe5580ca6042a44427f18d450942e7d0 ""
@@ -250,9 +250,9 @@
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1717397083 8238609 42a71e02d93392fac7263fbf8cdf42ae ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
   "annexes/annexes.tex" 1722579998.02854 59 0a5f26064644417702f426c528cb75db ""
-  "bilan_technique/bilan_technique.tex" 1722934867.11132 3187 15a00c209150812f5ac580dc799df50b ""
+  "bilan_technique/bilan_technique.tex" 1722938305.74866 3209 3b7f2df896cfb8a7709177ad277640b0 ""
   "chap1_pres_entreprise/chap1.tex" 1722934642.63516 5741 7ca011eaa2d0608cb95e2a667ae3afcc ""
-  "chap2_pres_stage/chap2.tex" 1722934867.22694 16081 f941eaafa8077787eb270d87776a29f9 ""
+  "chap2_pres_stage/chap2.tex" 1722936925.86958 16151 a53b9e7bbb4f04ff3f95a1dcdaf923c1 ""
   "conclusion/conclusion.tex" 1721999002 64 1bdce585c0717cfc7b8550524d3279c6 ""
   "images/Interpolation-quadratique-3D-thetraedre.png" 1718891154.63672 163250 910fd9c40248974f7c8d3bdb177f35d2 ""
   "images/Trilinear_interpolation_visualisation.svg.png" 1722929758.16396 107841 ef251c6eb9a0eabd4a56b66d809f6e46 ""
@@ -262,13 +262,13 @@
   "images/newCerfacs+Fond.png" 1722865312.2317 25043 5b8d0f49291460d2cc9111c1e688514d ""
   "introduction/intro.tex" 1722875848.70285 2281 ff644667009bf9163011f997808f6d73 ""
   "page_de_couverture/pagedegarde.tex" 1722858969.94006 1640 8bbcdb24e8262cfcd89d77f2958d0f69 ""
-  "rapport_stage.aux" 1722935250.66466 6680 0c9d3e6287a53ca384ecfa7e0ef7fbe9 "pdflatex"
+  "rapport_stage.aux" 1722938309.16159 6680 0c9d3e6287a53ca384ecfa7e0ef7fbe9 "pdflatex"
   "rapport_stage.bbl" 1722867746.53796 55244 7f1d570c9a140e10bdda98e0277922df "biber rapport_stage"
-  "rapport_stage.out" 1722935250.66796 5123 76b8ff697d3a2102751f37ba41f7ffc1 "pdflatex"
-  "rapport_stage.run.xml" 1722935250.6739 2377 9c8aec529631468126fa6be675635c68 "pdflatex"
-  "rapport_stage.tex" 1722935247.59165 4043 b1ac9db408776ff99edcd1d875ea89b3 ""
-  "rapport_stage.toc" 1722935250.67405 2368 e57779454e504c425f03eb4894499382 "pdflatex"
-  "remerciement/remerciement.tex" 1722935247.4786 1031 8bafbef09f17d57804ca8e599132cd4c ""
+  "rapport_stage.out" 1722938309.16465 5123 76b8ff697d3a2102751f37ba41f7ffc1 "pdflatex"
+  "rapport_stage.run.xml" 1722938309.17048 2377 9c8aec529631468126fa6be675635c68 "pdflatex"
+  "rapport_stage.tex" 1722938114.37935 4205 b96175c05bca19cfe600f558be19bbfd ""
+  "rapport_stage.toc" 1722938309.17063 2368 e57779454e504c425f03eb4894499382 "pdflatex"
+  "remerciement/remerciement.tex" 1722938092.89174 1031 8bafbef09f17d57804ca8e599132cd4c ""
   (generated)
   "rapport_stage.aux"
   "rapport_stage.bcf"
