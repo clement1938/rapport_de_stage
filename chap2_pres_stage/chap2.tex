@@ -1,6 +1,6 @@
 \chapter{Présentation du stage}
 
-Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'OTP (One-Time-Password) ont été mis à ma disposition. Carlos, mon maître de stage, a fourni les instructions nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}.
+Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'OTP (One-Time-Password) ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les instructions nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}.
 
 \section{La librairie Antares}
 
@@ -14,23 +14,132 @@ La structure des solutions CFD interprétées dans Antares est illustrée ci-des
 %\label{fig:https://cerfacs.fr/antares/src/tutorial/base.html}
 \end{figure}
 
+Concrètement, le maillage peut être divisé en plusieurs zones.
+Ensuite chaque zone a un ou plusieurs instants où nous pouvons trouver la solution d'une variable, qui sera de même dimension que les coordonnées de l'instant.
+
+Voici un exemple d'utilisation d'Antares :
+
+\begin{lstlisting}[caption=Exemple simple d'utilisation d'Antares pour interpoler, label={lst:antares}]
+    import antares
+    myt = antares.Treatment('interpolation')
+    myt['source'] = source_base
+    myt['target'] = target_base
+    result = myt.execute()
+    print(result[0][0]['v1'])
+\end{lstlisting}
+
 Ensuite, la tâche consistait à résoudre un bug mineur sur Antares, ce qui a permis de se familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
 
 
 \section{Les différentes méthodes d'interpolation}
+
+L'interpolation consiste à déterminer la valeur de nouveaux points à partir de la valeur de points existants. En voici un exemple en une dimension (l'axe x représente la position et l'axe y l valeur des points)
+
+\vspace{0,5cm}
+
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis}[
+        width=10cm,
+        height=6cm,
+        xlabel={$x$},
+        ylabel={$y$},
+        grid=major,
+        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
+    ]
+
+    \addplot[
+        only marks,
+        mark=*,
+        mark options={scale=1.5, fill=blue},
+    ] coordinates {
+        (1, 1)
+        (3, 9)
+    };
+    \addlegendentry{Points existants}
+
+    \addplot[
+        domain=1:3,
+        samples=100,
+        smooth,
+        thick,
+        red,
+    ] {x^2};
+    \addlegendentry{ Interpolation}
+
+    \addplot[
+        only marks,
+        mark=*,
+        mark options={scale=1.5, fill=green},
+    ] coordinates {
+        (2, 4)
+    };
+    \addlegendentry{ Point interpolé}
+
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\vspace{0,5cm}
+
 Nous allons premièrement présenter les types d'interpolation implémentables dans Antares, à savoir, qui permette de l'interpolation 3D, sur des maillages dits non structurés, c'est-à-dire pas de simples maillages, rectangulaires en 2D et hexaédrique en 3D, représentés par des matrices, mais des maillages créés avec différentes formes géométriques.
 Le temps de calcul, appelé 'coût' est aussi un paramètre à prendre en compte.
-Finalement, les caractéristiques des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser tel que l'équation de Naviers-Stokes sont utilisées et le niveau en maths est trop élevé pour pouvoir se plonger en profondeur dans ce problème. C'est pour cela qu'il n'y aura pas de résultat mathématique à présenter dans cette partie. Mais heureusement que ces méthodes ont déjà été implémentés et testés pour d'autres codes de simulation numérique, ce qui donne une bonne idée des résultats que nous pouvons espérer.
+Finalement, les caractéristiques mathématiques des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser mathématiquement tel que l'équation de Naviers-Stokes sont utilisées et le niveau en maths est trop élevé pour pouvoir se plonger en profondeur dans ce problème. C'est pour cela qu'il n'y aura pas de résultat mathématique à présenter dans cette partie. Mais heureusement que ces méthodes ont déjà été implémentés et testés pour d'autres codes de simulation numérique, ce qui donne une bonne idée des résultats que nous pouvons espérer.
 
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
 
 \subsection{L'interpolation par voisin le plus proche}
 Cette première méthode est très simple : nous prenons comme valeur \( v \) d'interpolation au point \( p \) la valeur \( v \) du point le plus proche de \( p \).
-Nous comprenons assez vite que cette méthode est discontinue et même pas linéaire...
-Nous pouvons aussi imaginer que 2 points à droit et à gauche d'une ligne horizontale de 3 points (les plus proches), prendrons la même valeur pour \( N \) = 3, Schématiser. 
+En voici une illustration :
 
-D'autres méthodes dérivées ou similaires existent pour évaluer nos poids. La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà les autres points ne sont pas pris en compte. Autrement dit, en utilisant un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas le nombre de points est variable.
-J'ai considéré subjectivement que cette méthode n'était pas intéressante car, confronté à un maillage ayant une différence de raffinement intrinsèque importante, dans certains cas aucuns points ne seraient pris, et dans d'autres, une grande somme serait calculée.
+\vspace{0.5cm}
+
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis}[
+        width=10cm,
+        height=6cm,
+        xlabel={$x$},
+        ylabel={$y$},
+        grid=major,
+        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
+    ]
+
+    \addplot[
+        only marks,
+        mark=*,
+        mark options={scale=1.5, fill=blue},
+    ] coordinates {
+        (1, 1)
+        (3, 9)
+    };
+    \addlegendentry{Points existants}
+
+    \addplot[
+        thick,
+        red,
+    ] coordinates {
+        (1, 1)
+        (2, 1)
+        (2, 9)
+        (3, 9)
+    };
+    \addlegendentry{ Interpolation par voisin le plus proche}
+
+    \addplot[
+        only marks,
+        mark=*,
+        mark options={scale=1.5, fill=green},
+    ] coordinates {
+        (2, 1)
+    };
+    \addlegendentry{ Point interpolé}
+
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
 
 
 \begin{comment}
@@ -40,6 +149,13 @@ Voir d'autres choses page 7 de mon ppt.
 
 
 \subsection{L'interpolation IDW}
+
+Nous comprenons assez vite que cette méthode est discontinue et même pas linéaire...
+Nous pouvons aussi imaginer que 2 points à droit et à gauche d'une ligne horizontale de 3 points (les plus proches), prendrons la même valeur pour \( N \) = 3, Schématiser. 
+
+D'autres méthodes dérivées ou similaires existent pour évaluer nos poids. La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà les autres points ne sont pas pris en compte. Autrement dit, en utilisant un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas le nombre de points est variable.
+J'ai considéré subjectivement que cette méthode n'était pas intéressante car, confronté à un maillage ayant une différence de raffinement intrinsèque importante, dans certains cas aucuns points ne seraient pris, et dans d'autres, une grande somme serait calculée.
+
 \[
 \hat{f}(x) = \frac{\sum_{i=1}^{N} \frac{f(x_i)}{d(x, x_i)^p}}{\sum_{i=1}^{N} \frac{1}{d(x, x_i)^p}}
 \]

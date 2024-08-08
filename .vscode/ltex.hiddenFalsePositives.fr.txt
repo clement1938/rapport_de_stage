@@ -18,3 +18,7 @@
 {"rule":"D_N","sentence":"^\\QIl a été créé en 1988 sous le statut de GIP (Groupement d'intérêt Public), pour devenir une société civile en 1996 et depuis 2021, le CERFACS est une SAS (Société par Actions Simplifiées).\\E$"}
 {"rule":"SOFTWARE","sentence":"^\\Q- Algo-Coop (Algorithmes Parallèles & sCientifics sOftware Operational Performances)\\E$"}
 {"rule":"PAD","sentence":"^\\QUn ordinateur et un PIN-pad générateur d'OTP (One-Time-Password) est mis à disposition aux stagiaires.\\E$"}
+{"rule":"PAD","sentence":"^\\QUn ordinateur et un PIN-pad générateur d'OTP (One-Time-Password) ont été mis à ma disposition.\\E$"}
+{"rule":"AN_ANNEE","sentence":"^\\QThe Aerothermal Design Space Interpolation (ADSI) code is used to explore whether surface environments can be generated to an acceptable level of accuracy by interpolating them from an existing database of CFD solutions.\\E$"}
+{"rule":"A_A_ACCENT","sentence":"^\\QA viv University, Tel A viv 69978, Israel levin@post.tau.ac.il Summary.\\E$"}
+{"rule":"SMOOTH","sentence":"^\\QSmooth interpolation of unstructured surface data is usually achieved by joining local patches, where each patch is an approximation (usually parametric) defined on a local reference domain.\\E$"}

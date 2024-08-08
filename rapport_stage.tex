@@ -27,6 +27,55 @@
 \usepackage{multirow}
 \usepackage{footnotehyper}
 \usepackage{xcolor}
+\usepackage{acro}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+%\makeglossaries
+
+\DeclareAcronym{RSE}{
+  short = RSE,
+  long = Responsabilité Sociétale des Entreprises,
+  short-indefinite = une,
+  %footnote = {Responsabilité Sociétale des Entreprises}
+}
+
+\DeclareAcronym{CERFACS}{
+  short = CERFACS,
+  long = Centre Européen de Recherche et de Formation Avancée en Calcul Scientifique,
+  short-indefinite = un,
+  %footnote = {Centre Européen de Recherche et de Formation Avancée en Calcul Scientifique}
+}
+
+\DeclareAcronym{HPC}{
+  short = HPC,
+  long = High Performance Computing,
+  short-indefinite = un,
+  %footnote = {High Performance Computing, Calcul intensif en français}
+}
+
+\DeclareAcronym{IDW}{
+  short = IDW,
+  long = Inverse Distance Weighting,
+  short-indefinite = une,
+  %footnote = {Inverse Distance Weighting, pondération inverse à la distance en français}
+}
+
+\DeclareAcronym{FWH}{
+  short = FWH,
+  long = Ffowcs Williams-Hawkings,
+  short-indefinite = une,
+  %footnote = {Ffowcs Williams-Hawkings}
+}
+
+%\usepackage{glossaries}
+%\makeglossaries
+
+%\newacronym{rse}{RSE}{Responsabilité Sociétale des Entreprises}
+%\newacronym{cerfacs}{CERFACS}{Centre Européen de Recherche et de Formation Avancée en Calcul Scientifique}
+%\newacronym{hpc}{HPC}{High Performance Computing}
+%\newacronym{idw}{IDW}{Inverse Distance Weighting}
+%\newacronym{fwh}{FWH}{Ffowcs Williams-Hawkings}
+
 
 \lstset{ 
     language=Python,                     % Langage
@@ -112,6 +161,10 @@ keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 \newpage
 \tableofcontents
 
+\chapter*{Acronymes}
+\printacronyms[name=Liste des acronymes, heading=chapter*]
+
+
 \newpage
 \input{bilan_technique/bilan_technique.tex}
 \newpage
@@ -139,8 +192,8 @@ keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 
 \begin{flushleft}
 Clément Thibault \\
-Email: \href{mailto:clem.thibault@sfr.fr}{clem.thibault@sfr.fr} \\
-Téléphone: +33 6 95 15 73 28 \\
+Email : \href{mailto:clem.thibault@sfr.fr}{clem.thibault@sfr.fr} \\
+Téléphone : +33 6 95 15 73 28 \\
 \end{flushleft}
 
 
