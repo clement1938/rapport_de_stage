@@ -411,7 +411,10 @@ En voici une illustration :
 
 \begin{center}
     \includegraphics[width=0.8\textwidth]{images/Inverse_Distance_Weighting.png}
+    Interpolation 1D avec (N=5, p=2 et r infini)
 \end{center}
+
+%\begin{comment}
 
 
 \begin{tikzpicture}
@@ -421,7 +424,7 @@ En voici une illustration :
         ylabel={$y$},
         colorbar,
         title={Interpolation IDW en 2D (N=3, p=2, Rayon=2.0)},
-        colormap/jet,
+        colormap/jet,  % Utilisation d'une colormap standard
         width=12cm,
         height=10cm,
     ]
@@ -440,14 +443,14 @@ En voici une illustration :
         shader=interp,
         domain=0:4,
         y domain=0:4,
-        samples=40,
+        samples=40,    % A augementer avant la version finale
     ] 
-    {(1/(sqrt((x-1)^2+(y-1)^2)^2) + 
-    9/(sqrt((x-3)^2+(y-1)^2)^2) + 
-    4/(sqrt((x-2)^2+(y-3)^2)^2)) / 
-    (1/(sqrt((x-1)^2+(y-1)^2)^2) + 
-    1/(sqrt((x-3)^2+(y-1)^2)^2) + 
-    1/(sqrt((x-2)^2+(y-3)^2)^2))}
+    {(1/(sqrt((x-1)^2+(y-1)^2 + 1e-6)^2) + 
+    9/(sqrt((x-3)^2+(y-1)^2 + 1e-6)^2) + 
+    4/(sqrt((x-2)^2+(y-3)^2 + 1e-6)^2)) / 
+    (1/(sqrt((x-1)^2+(y-1)^2 + 1e-6)^2) + 
+    1/(sqrt((x-3)^2+(y-1)^2 + 1e-6)^2) + 
+    1/(sqrt((x-2)^2+(y-3)^2 + 1e-6)^2))};
      
     % Points d'interpolation connus
     \addplot3[
@@ -466,6 +469,11 @@ En voici une illustration :
 
     \end{axis}
 \end{tikzpicture}
+
+
+
+
+%\end{comment}
 
 Nous comprenons assez vite que, si nous définissons une distance à partir de laquelle nous prenons en compte ou non un point, cette méthode est discontinue.
 Nous pouvons aussi imaginer que 2 points à droit et à gauche d'une ligne horizontale de 3 points (les plus proches), prendrons la même valeur pour \( N \) = 3, Schématiser. 
@@ -528,7 +536,7 @@ qui garantit que l'interpolation est correcte et symétrique par rapport à \( a
 \paragraph{2D}
 
 En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenus au niveau des nœuds. Aussi, Antares ne traites que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
-Il existe 3 principaux types de cellules (formes) en 2D : les triangles 'tri', et les quadrilatères 'qua' (non croisés) et les rectangles des maillages structurés (dans ce cas, la méthode est dite bilinéaire).
+Il existe 3 principaux types de cellules (formes) en 2D : les triangles, les rectangles des maillages structurés (dans ce cas, la méthode est dite bilinéaire) et les quadrilatères (non croisés).
 
 \subparagraph{Triangle : Barycentrique}
 
@@ -560,37 +568,44 @@ Elle est bien documentée. Visuellement, il faut faire la somme des valeurs aux 
 \end{tikzpicture}
 \end{comment}
 
-\begin{tikzpicture}
+\begin{center}
+    \begin{tikzpicture}
 
-    % Define the triangle vertices
-    \coordinate (A) at (0,0);
-    \coordinate (B) at (5,0);
-    \coordinate (C) at (2.5,4.33);
-    \coordinate (P) at (2.5,1.5); % Point d'interpolation
+        % Define the triangle vertices
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (5,0);
+        \coordinate (C) at (2.5,4.33);
+        \coordinate (P) at (2.5,1.5); % Point d'interpolation
+    
+        % Draw triangle
+        \draw[thick] (A) -- (B) -- (C) -- cycle;
+    
+        % Draw Voronoi-like regions
+        \fill[blue!20]  (A) -- (B) -- (P) -- cycle;
+        \fill[red!20]   (B) -- (C) -- (P) -- cycle;
+        \fill[green!20] (C) -- (A) -- (P) -- cycle;
+        %\fill[green!20] (C) -- (barycentric cs:A=1,B=0,C=1) -- (barycentric cs:A=0,B=1,C=1) -- cycle;
+    
+        % Draw points
+        \filldraw[black] (A) circle (2pt) node[anchor=north east] {$A$};
+        \filldraw[black] (B) circle (2pt) node[anchor=north west] {$B$};
+        \filldraw[black] (C) circle (2pt) node[anchor=south] {$C$};
+    
+        % Add labels
+        \node at (barycentric cs:B=1,C=1,P=1) {$\alpha$};
+        \node at (barycentric cs:C=1,A=1,P=1) {$\beta$};
+        \node at (barycentric cs:A=1,B=1,P=1) {$\gamma$};
+    
+        % Title
+        \node at (2.5,-1) {Interpolation Barycentrique}; %Diagramme de Voronoi Modifié pour l'
+    
+    \end{tikzpicture}
+    
+\end{center}
 
-    % Draw triangle
-    \draw[thick] (A) -- (B) -- (C) -- cycle;
+Le calcul est \( \frac{y_A \times \alpha + y_B \times \beta + y_C \times \gamma}{\alpha + \beta + \gamma} \).
 
-    % Draw Voronoi-like regions
-    \fill[blue!20]  (A) -- (B) -- (P) -- cycle;
-    \fill[red!20]   (B) -- (C) -- (P) -- cycle;
-    \fill[green!20] (C) -- (A) -- (P) -- cycle;
-    %\fill[green!20] (C) -- (barycentric cs:A=1,B=0,C=1) -- (barycentric cs:A=0,B=1,C=1) -- cycle;
-
-    % Draw points
-    \filldraw[black] (A) circle (2pt) node[anchor=north east] {$A$};
-    \filldraw[black] (B) circle (2pt) node[anchor=north west] {$B$};
-    \filldraw[black] (C) circle (2pt) node[anchor=south] {$C$};
-
-    % Add labels
-    \node at (barycentric cs:B=1,C=1,P=1) {$\alpha$};
-    \node at (barycentric cs:C=1,A=1,P=1) {$\beta$};
-    \node at (barycentric cs:A=1,B=1,P=1) {$\gamma$};
-
-    % Title
-    \node at (2.5,-1) {Diagramme de Voronoi Modifié pour l'Interpolation Barycentrique};
-
-\end{tikzpicture}
+Bien sûr, les triangles sont quelconques, mais la formule reste la même
 
 % Trilinéaire dans le cas où le maillage est 3D et structuré.
 \subparagraph{Rectangle : bilinéaire}
@@ -631,7 +646,7 @@ Visuellement nous créons cette fois des traits parallèles au passant par le po
 
 
 
-ILLUSTRATION
+ILLUSTRATION à améliorer
 
 \subparagraph{Quadrilatère}
 
@@ -668,7 +683,7 @@ L'équation qui en découle est la suivante :
 
 
 
-\section{Mission 2 : Implémenter la méthode trilinéaire}
+\section{Implémentation de la méthode trilinéaire}
 \subsection{La structure générale du code TreatmentInterpolation}
 Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisais environ 500 lignes. Il est orienté objet. Il prend comme arguments obligatoires la base source et la base target et renvoie dans le cas le plus simple la base target avec les valeurs interpolés.
 De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis nous parcourons les instants. 
@@ -677,50 +692,91 @@ Cette fusion permet de faire un KDTree (pour arbre à k-dimensions), qui permet 
 Ensuite nous calculons l'interpolation via une méthode 'principale' (\lstinline{__idw_interpolate_instant} ou
 \lstinline{__barycentrique_interpolate_instant}) qui peut elle-même appeler des fonctions ou méthodes.
 
-\subsection{L'algorithme}
-Si vraiment ce n'est pas confidentiel je peux mettre le code en annexe Carlos.
+\subsection{Le Pseudo-algorithme}
 
-Premièrement, dans \lstinline{__barycentrique_interpolate_instant}, nous récupérons le nombre de points maximal sur lequel nous allons nous appuyer pour l'interpolation, soit le nombre maximal de sommet des formes présentes dans le maillage.
-Nous récupérons les distances et indices du KDTree.
-Ensuite nous devons réarranger des indices qui se sont fait déplacer lors de la fusion des zones.
-Nous récupérons aussi différentes variables, comme les coordonnées des points, \dots
+Voici un algorithme simplifié détaillant l'architecture de la fonction linéaire du traitement interpolation.
+
+\vspace{0.5cm}
+
+\textbf{Initialisation :}\\
+$\bullet$ Créer le KD-tree\\
+$\bullet$ Créer une liste de listes appelée \texttt{node\_to\_elements}\\
+$\bullet$ Définir les points à interpoler\\
+
+\textbf{Parcours des points à interpoler :}
+\begin{list}{$\circ$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
+    \item Pour chaque point :
+    \begin{list}{$\diamond$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
+        \item Si la distance au point le plus proche est inférieure à \texttt{tolerance} :
+        \begin{list}{$\bullet$}{\leftmargin=0.5cm\labelwidth=1cm \itemsep=0cm}
+            \item Le poids associé au \texttt{point cible} prend la valeur 1
+            \item Le sommet associé au \texttt{point cible} prend la valeur du \texttt{point source} le plus proche
+        \end{list}
+        \item Sinon :
+        \begin{list}{$\bullet$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
+            \item Récupérer les indices des éléments des points les plus proches\\
+            $\circ$ Pour chaque élément pertinent :
+            \begin{list}{$\bullet$}{\leftmargin=0.5cm\labelwidth=1cm \itemsep=0cm}
+                \item Récupérer les coordonnées des sommets (points) de l'élément\\
+                $\diamond$ Si le point est à l'intérieur de la forme de l'élément :
+                \begin{list}{$\bullet$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
+                    \item Calculer les poids 'barycentriques'
+                    \item Récupérer les indices des sommets (points) de la base source
+                \end{list}
+            \end{list}
+        \end{list}
+    \end{list}
+    $\diamond$ Si le point n'est dans aucune cellule proche :
+    \begin{list}{$\bullet$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
+        \item Le poids associé prend la valeur nan
+    \end{list}
+\end{list}
+
+\vspace{0.5cm}
+
+\begin{comment}
+    Premièrement, dans \lstinline{__barycentrique_interpolate_instant}, nous récupérons le nombre de points maximal sur lequel nous allons nous appuyer pour l'interpolation, soit le nombre maximal de sommet des formes présentes dans le maillage.
+    Nous récupérons les distances et indices du KDTree.
+    Ensuite nous devons réarranger des indices qui se sont fait déplacer lors de la fusion des zones.
+    Nous récupérons aussi différentes variables, comme les coordonnées des points, \dots
+\end{comment}
 
 %Nous récupérons d'une fonction définie plus bas (\lstinline{get_list_cell_type}) :
 %(\lstinline{list_cell_type, max_node_index})
 
+\noindent Dans le cas où le maillage est le même entre tous les instants, ou que l'utilisateur a déjà récupéré les poids (et autres valeurs utiles) nous ne recalculons pas tous les paramètres, ce qui permet une diminution significative du temps de calcul.
 
-Dans le cas où le maillage est le même entre tous les instants, nous ne recalculons pas tous ces paramètres, ce qui permet une diminution significative du temps de calcul.
+\vspace{0.5cm}
+
+\textbf{Mise à jour de la base source :}
+\begin{list}{$\circ$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
+    \item Pour chaque variable à interpoler :
+    \begin{list}{$\bullet$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
+        \item La variable de chaque nouveau point prend la valeur des poids calculés multipliés par la variable aux sommets (points) respectif de la base source
+    \end{list}
+\end{list}
 
 
 %Expliquer 'is point on cell', etc...
 
+%% \subsection{Les difficultés}
 
-%\subsection{La prise en main de la libraire Antares}
-\subsection{...}
+\subsection{Optimisation du temps de calcul}
 
-EXEMPLE DE MISE EN FORME PYTHON
-\begin{lstlisting}[caption=Calcul de l'interpolation, label={lst:interpolation}]
-    def __idw_interpolate_instant(x, y, z, values, power=2):
-        # Calculer l'interpolation IDW
-        weights = [(1 / (distance**power)) for distance in distances]
-        interpolated_value = sum(w * v for w, v in zip(weights, values)) / sum(weights)
-        return interpolated_value
-    
-    def __barycentrique_interpolate_instant(x, y, z, values):
-        # Calculer l'interpolation barycentrique
-        weights = [barycentric_weight(x, y, z, vertex) for vertex in vertices]
-        interpolated_value = sum(w * v for w, v in zip(weights, values))
-        return interpolated_value
-\end{lstlisting}
+Plusieurs axes ont été exploités afin de diminuer le temps de calcul du traitement interpolation.
+Le premier a été énoncé dans le Pseudo-algorithme 
 
 
-\subsection{Les difficultés}
 \subsection{Le résultat}
 
 
 
-\section{Mission 3 : Tester sur des cas d'aéroacoustique}
+
+
+\section{Tests sur des cas d'aéroacoustique}
 % \section{Les différentes méthodes d'interpolation}
+
+
 Carlos a développé l'outil permettant de déterminer le résultat acoustique, à grande distance, à partir d'une surface, en utilisant les équations de Ffowcs Williams – Hawkings. Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.
 % Paramètres d'IDW
 \subsection{Tests sur les paramètres de la méthode IDW}
