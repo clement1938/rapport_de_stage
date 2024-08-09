@@ -161,9 +161,6 @@ keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 \newpage
 \tableofcontents
 
-\chapter*{Acronymes}
-\printacronyms[name=Liste des acronymes, heading=chapter*]
-
 
 \newpage
 \input{bilan_technique/bilan_technique.tex}
@@ -182,24 +179,19 @@ keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 \newpage
 
 \input{annexes/annexes.tex}
+\newpage
 
-
-\chapter*{Annexes}
-\addcontentsline{toc}{chapter}{Annexes}
-
-\section*{Coordonnées}
-\addcontentsline{toc}{section}{Coordonnées}
-
-\begin{flushleft}
-Clément Thibault \\
-Email : \href{mailto:clem.thibault@sfr.fr}{clem.thibault@sfr.fr} \\
-Téléphone : +33 6 95 15 73 28 \\
-\end{flushleft}
-
-
+%\chapter*{Acronymes}
+\printacronyms[name=Liste des acronymes, heading=chapter*] % Glossaire après si besoin
 
 \nocite{*}
 \printbibliography
 \addcontentsline{toc}{chapter}{Bibliographie}
+\newpage
+
+
+%\newpage
+\input{quatre_couv/quatre_couv.tex}
+
 
 \end{document}

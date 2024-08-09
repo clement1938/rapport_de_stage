@@ -19,7 +19,7 @@ Ensuite chaque zone a un ou plusieurs instants où nous pouvons trouver la solut
 
 Voici un exemple d'utilisation d'Antares :
 
-\begin{lstlisting}[caption=Exemple simple d'utilisation d'Antares pour interpoler, label={lst:antares}]
+\begin{lstlisting}[caption=Exemple simple d'utilisation d'Antares pour interpoler, label={lst:antares_2}]
     import antares
     myt = antares.Treatment('interpolation')
     myt['source'] = source_base
@@ -27,6 +27,8 @@ Voici un exemple d'utilisation d'Antares :
     result = myt.execute()
     print(result[0][0]['v1'])
 \end{lstlisting}
+
+Un point important pour l'interpolation linéaire est la connectivité. Si le maillage est non structuré, alors, chaque cellule est définie par un type de forme et par ses sommets. Elle peut être donnée par \texttt{base[0][0]['tri']} si la base contiens des triangles dans sa zone 0 à l'instant 0.
 
 Ensuite, la tâche consistait à résoudre un bug mineur sur Antares, ce qui a permis de se familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
 
@@ -423,7 +425,7 @@ En voici une illustration :
         xlabel={$x$},
         ylabel={$y$},
         colorbar,
-        title={Interpolation IDW en 2D (N=3, p=2, Rayon=2.0)},
+        title={Interpolation IDW en 2D (N=3, p=2, Rayon=2.0 {\small \textit{non pris en compte dans le coloris}})},
         colormap/jet,  % Utilisation d'une colormap standard
         width=12cm,
         height=10cm,
@@ -461,6 +463,34 @@ En voici une illustration :
         mark=square*,
         mark options={scale=2},
     ] table [x=x, y=y, z=z] {\datatable};
+
+    % Tracer les cercles de rayon 2
+    \addplot[
+        draw=gray, 
+        thick, 
+        dashed, 
+        domain=-30:120,
+        samples=100,
+    ] 
+    ({1 + 2*cos(x)}, {1 + 2*sin(x)});  % Cercle autour du point A (1,1)
+
+    \addplot[
+        draw=gray, 
+        thick, 
+        dashed, 
+        domain=60:210,
+        samples=100,
+    ] 
+    ({3 + 2*cos(x)}, {1 + 2*sin(x)});  % Cercle autour du point B (3,1)
+
+    \addplot[
+        draw=gray, 
+        thick, 
+        dashed, 
+        domain=-210:30,
+        samples=100,
+    ] 
+    ({2 + 2*cos(x)}, {3 + 2*sin(x)});  % Cercle autour du point C (2,3)
 
     % Annoter les points
     \node at (axis cs:1,1,1) [anchor=north] {A};
@@ -694,11 +724,13 @@ Ensuite nous calculons l'interpolation via une méthode 'principale' (\lstinline
 
 \subsection{Le Pseudo-algorithme}
 
-Voici un algorithme simplifié détaillant l'architecture de la fonction linéaire du traitement interpolation.
+
+
+Voici le pseudo-algorithme simplifié donnant l'architecture de la fonction linéaire du traitement interpolation.
 
 \vspace{0.5cm}
 
-\textbf{Initialisation :}\\
+\textbf{Initialisation :}
 $\bullet$ Créer le KD-tree\\
 $\bullet$ Créer une liste de listes appelée \texttt{node\_to\_elements}\\
 $\bullet$ Définir les points à interpoler\\
@@ -764,7 +796,42 @@ $\bullet$ Définir les points à interpoler\\
 \subsection{Optimisation du temps de calcul}
 
 Plusieurs axes ont été exploités afin de diminuer le temps de calcul du traitement interpolation.
-Le premier a été énoncé dans le Pseudo-algorithme 
+
+Le premier a été énoncé dans le pseudo-algorithme section précédente. Il s'agit de ne calculer qu'une seule fois le couple (poids, indices des points source) et autres paramètres puis de les enregistrer. Cela est utile dans deux cas :
+\vspace{0.5cm}
+- Entre les instants si la structure des deux bases restent inchangés. Par exemple dans le cas de l'aéroacoustique, la solution contiens 200 instants, le temps de calcul est alors presque divisé par 200. Dans le code, un test est fait pour savoir si tous les instants sont dits 'partagés'. Si oui, alors les poids et autres données nécessaires sont calculés (grace à la variable \texttt{computation}), mais pas le premier instant. Ensuite tous les instants seront calculés avec les données.
+\vspace{0.5cm}
+- Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure ne soit changée. Ceci arrive régulièrement, notamment lors de tests. Dans ce cas, il faut légèrement changer l'appel à la fonction, voici un exemple :
+
+\begin{lstlisting}[caption=Exemple de réutilisation des données, label={lst:antares}]
+    import antares
+    from copy import deepcopy
+    # deepcopy is used to be sure that the target_base will not be updated because of the Treatment
+
+    myt = antares.Treatment('interpolation')
+    myt['source'] = source_base
+    myt['target'] = deepcopy(target_base)
+    myt['get_data'] = True
+    result1, data = myt.execute()
+
+    # 'data' can be stored on the computer for example, then you can call it back
+
+    myt = antares.Treatment('interpolation')
+    myt['source'] = source_base
+    myt['target'] = target_base
+    myt['data'] = data
+    result2 = myt.execute()
+\end{lstlisting}
+
+Ici, \texttt{result2} aura été calculé beaucoup plus rapidement que \texttt{result1}
+
+De plus ce changement est aussi appliqué à la méthode IDW sans poser de problème de rétrocompatibilité, car les résultats sont inchangés.
+
+\vspace{0.5cm}
+
+La méthode linéaire étais initialement 200 à 500 fois plus lente que IDW. J'ai donc fait du 'profiling' pour savoir quelles lignes de code étais les plus coûteuses. J'ai remplacé des listes par des arrays, ce qui augmente la rapidité d'accès aux éléments de ce denier en mémoire.
+J'ai aussi optimisé le test de localisation d'un point dans une cellule et de calcul des poids.
+Je calcule d'abord les surfaces créées par le point cible avec les sommets puis, je calcule le volume de la cellule. Si ces volumes sont à peu près égaux, alors le point est dans la cellule et j'ai les poids. Sinon je sais qu'il faut chercher autre part.
 
 
 \subsection{Le résultat}
