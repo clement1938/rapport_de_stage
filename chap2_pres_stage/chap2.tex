@@ -414,6 +414,59 @@ En voici une illustration :
 \end{center}
 
 
+\begin{tikzpicture}
+    \begin{axis}[
+        view={0}{90},
+        xlabel={$x$},
+        ylabel={$y$},
+        colorbar,
+        title={Interpolation IDW en 2D (N=3, p=2, Rayon=2.0)},
+        colormap/jet,
+        width=12cm,
+        height=10cm,
+    ]
+
+    % Points d'interpolation connus
+    \pgfplotstableread{
+        x y z
+        1 1 1
+        3 1 9
+        2 3 4
+    }\datatable
+
+    % Fonction IDW
+    \addplot3[
+        surf,
+        shader=interp,
+        domain=0:4,
+        y domain=0:4,
+        samples=40,
+    ] 
+    {(1/(sqrt((x-1)^2+(y-1)^2)^2) + 
+    9/(sqrt((x-3)^2+(y-1)^2)^2) + 
+    4/(sqrt((x-2)^2+(y-3)^2)^2)) / 
+    (1/(sqrt((x-1)^2+(y-1)^2)^2) + 
+    1/(sqrt((x-3)^2+(y-1)^2)^2) + 
+    1/(sqrt((x-2)^2+(y-3)^2)^2))}
+     
+    % Points d'interpolation connus
+    \addplot3[
+        only marks,
+        scatter,
+        scatter src=explicit,
+        point meta=\thisrow{z},
+        mark=square*,
+        mark options={scale=2},
+    ] table [x=x, y=y, z=z] {\datatable};
+
+    % Annoter les points
+    \node at (axis cs:1,1,1) [anchor=north] {A};
+    \node at (axis cs:3,1,9) [anchor=north] {B};
+    \node at (axis cs:2,3,4) [anchor=south] {C};
+
+    \end{axis}
+\end{tikzpicture}
+
 Nous comprenons assez vite que, si nous définissons une distance à partir de laquelle nous prenons en compte ou non un point, cette méthode est discontinue.
 Nous pouvons aussi imaginer que 2 points à droit et à gauche d'une ligne horizontale de 3 points (les plus proches), prendrons la même valeur pour \( N \) = 3, Schématiser. 
 
@@ -443,10 +496,13 @@ Une de mes missions étais de chercher s'il y avait des paramètres plus optimis
 \subsection{MISCOG}
 
 \subsection{L'interpolation linéaire}
-L'interpolation linéaire, est la plus simple (après les plus proches voisins et IDW), et la plus utilisée par Airbus, Safran et d'autres industriels (dans via d'autres codes qu'Antares).
-Elle est appelée interpolation Barycentrique dans le cas où la forme source est un triangle, bilinéaire dans le cas 2D où le maillage est structuré et trilinéaire dans le cas où le maillage est 3D et structuré.
+L'interpolation linéaire, est la plus simple (après les plus proches voisins et IDW). Elle est moyennement précise et ne demande que peu de ressource. Elle interpole généralement mieux qu'IDW. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (dans via d'autres codes qu'Antares). Cela les arrange donc aussi d'avoir une interpolation linéaire directement dans Antares.
+
 % Remplacer target par cible et point interpolé par cible.
-C'est pour cela qu'ils ont demandé au CERFACS de l'implémenter des Antares, car ils l'utilisent actuellement via d'autres moyens.
+
+\paragraph{1D}
+\subparagraph{Linéaire}
+
 En 1D, l'interpolation linéaire est simple : c'est la moyenne pondérée linéairement par la distance, des valeurs des points.
 Supposons que nous voulons interpoler une valeur d'un point \( p \) entre deux points \( a \) et \( b \) dans un espace 1D
 et que nous représentons leurs valeurs dans une deuxième dimension \( y \).
@@ -468,24 +524,126 @@ où \( y_p \) représente la valeur interpolée à la position \( x_p \), et \((
 Ces deux termes sont pondérés de manière que leur somme soit toujours égale à 1, ce
 qui garantit que l'interpolation est correcte et symétrique par rapport à \( a \) et \( b \).\vspace{0.5cm}
 
+
+\paragraph{2D}
+
 En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenus au niveau des nœuds. Aussi, Antares ne traites que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
-Il existe 3 principaux types de cellules (formes) en 2D : les triangles 'tri', et les quadrilatères 'qua' (non croisés) et les rectangles des maillages structurés.
+Il existe 3 principaux types de cellules (formes) en 2D : les triangles 'tri', et les quadrilatères 'qua' (non croisés) et les rectangles des maillages structurés (dans ce cas, la méthode est dite bilinéaire).
+
+\subparagraph{Triangle : Barycentrique}
+
 Pour le triangle, la méthode pour trouver la valeur au point à interpoler \( p \) est celle dite du barycentre (barycentrique).
 Elle est bien documentée. Visuellement, il faut faire la somme des valeurs aux points pondérés par la surface opposés et pondéré le tout par la surface du triangle.
 
-En ce qui concerne l'interpolation sur un rectangle, nous la trouvons aussi facilement. La formule est l'extension de celle pour les triangles :
+\begin{comment}
+    \begin{tikzpicture}
+    % Triangle coordinates
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (5,0);
+    \coordinate (C) at (2.5,4);
+
+    % Gradient fill centered at vertex A
+    \shade[shading=radial, inner color=blue, outer color=white] (A) -- (B) -- (C) -- cycle;
+
+    % Draw triangle
+    \draw[thick] (A) -- (B) -- (C) -- cycle;
+
+    % Draw labels and points
+    \filldraw[black] (A) circle (2pt) node[anchor=north east] {$A$};
+    \filldraw[black] (B) circle (2pt) node[anchor=north west] {$B$};
+    \filldraw[black] (C) circle (2pt) node[anchor=south] {$C$};
+    \node at (1.5,0.5) {$\alpha$};
+
+    % Title
+    \node at (2.5,-1) {Interpolation Barycentrique avec Dégradé Centré sur A};
+
+\end{tikzpicture}
+\end{comment}
+
+\begin{tikzpicture}
+
+    % Define the triangle vertices
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (5,0);
+    \coordinate (C) at (2.5,4.33);
+    \coordinate (P) at (2.5,1.5); % Point d'interpolation
+
+    % Draw triangle
+    \draw[thick] (A) -- (B) -- (C) -- cycle;
+
+    % Draw Voronoi-like regions
+    \fill[blue!20]  (A) -- (B) -- (P) -- cycle;
+    \fill[red!20]   (B) -- (C) -- (P) -- cycle;
+    \fill[green!20] (C) -- (A) -- (P) -- cycle;
+    %\fill[green!20] (C) -- (barycentric cs:A=1,B=0,C=1) -- (barycentric cs:A=0,B=1,C=1) -- cycle;
+
+    % Draw points
+    \filldraw[black] (A) circle (2pt) node[anchor=north east] {$A$};
+    \filldraw[black] (B) circle (2pt) node[anchor=north west] {$B$};
+    \filldraw[black] (C) circle (2pt) node[anchor=south] {$C$};
+
+    % Add labels
+    \node at (barycentric cs:B=1,C=1,P=1) {$\alpha$};
+    \node at (barycentric cs:C=1,A=1,P=1) {$\beta$};
+    \node at (barycentric cs:A=1,B=1,P=1) {$\gamma$};
+
+    % Title
+    \node at (2.5,-1) {Diagramme de Voronoi Modifié pour l'Interpolation Barycentrique};
+
+\end{tikzpicture}
+
+% Trilinéaire dans le cas où le maillage est 3D et structuré.
+\subparagraph{Rectangle : bilinéaire}
+
+En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvons aussi facilement. La formule est l'extension de celle pour les triangles :
 
 ÉQUATION
 
 Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif. Cela correspond à deux interpolations linéaires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle, mais je trouvais cela plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
 
+\begin{tikzpicture}
+    \begin{axis}[
+        view={45}{45},
+        xlabel={$x$},
+        ylabel={$y$},
+        zlabel={$z$},
+        colormap/cool,
+        title={Interpolation Linéaire sur un Rectangle},
+        ]
+
+        % Define the vertices of the rectangle
+        \addplot3[surf, mesh/rows=2, domain=0:5, domain y=0:4] 
+            coordinates {(0,0,5) (5,0,5) (0,4,9) (5,4,9)};
+
+        % Draw points for vertices and their labels
+        \addplot3[only marks, mark=*] coordinates {(0,0,5) (5,0,5) (5,4,9) (0,4,9)};
+        \addplot3[only marks, mark=*, mark options={fill=red}] coordinates {(2.5,2,7)};
+
+        % Labels for the vertices and interpolated point
+        \node at (axis cs:0,0,5) [anchor=south west] {$A$};
+        \node at (axis cs:5,0,5) [anchor=south east] {$B$};
+        \node at (axis cs:5,4,9) [anchor=south east] {$C$};
+        \node at (axis cs:0,4,9) [anchor=south west] {$D$};
+        \node at (axis cs:2.5,2,7) [anchor=south] {$P$};
+
+    \end{axis}
+\end{tikzpicture}
+
+
+
 ILLUSTRATION
 
-Viens maintenant la dernière forme 2D rencontrée dans les solutions traités par Antares : les 'qua'. Pour cela je n'ai pas trouvé de méthode. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0. Une première vérification de la linéarité est aussi de vérifier qu'un point au milieu d'une forme 2D a comme valeur la moyenne de ses côtés.
+\subparagraph{Quadrilatère}
+
+Viens maintenant la dernière forme 2D rencontrée dans les solutions traités par Antares : les quadrilatères. Pour cela je n'ai pas trouvé de méthode. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0. Une première vérification de la linéarité est aussi de vérifier qu'un point au milieu d'une forme 2D a comme valeur la moyenne de ses côtés.
 Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la forme dans laquelle il se situe (tel que pour l'interpolation Barycentrique). Cela permet de ne créer uniquement 4 sous formes. Ensuite pour déterminer le poids associé au sommet \( s_1 \), il faut multiplier les deux surfaces qui lui sont opposés entre elles, et bien entendu, le pondéré une fois les autres poids calculés. Par opposé j'entends que ces surfaces ne sont composés d'aucune arrête ayant pour l'une de leurs extrémités le point d'interpolation. Ceci est important pour le 3D. Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode étais linéaire. Un point qui me perturbait étais de faire des multiplications de surfaces, donc ordre 4, dans une méthode linéaire. Mais contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire. On pourrait imaginer que, par chance, ma méthode soit quadratique. Premièrement j'ai vérifié et ce n'est apparemment pas le cas. Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère. Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points. Normalement il faut s'appuyer sur plus de points pour le quadratique. Finalement voici l'équation :\\
 ÉQUATION
 
 ILLUSTRATION\vspace{0.5cm}  % OU \\[0pt plus 1fill] OU \newline OU flushleft, flushright, center
+
+
+\paragraph{3D}
+\subparagraph{Pavé droit : Trilinéaire}
 
 Pour le 3D, si le maillage est structuré, alors la forme est le pavé droit. À ce moment, nous sommes dans le cas de l'interpolation dite trilinéaire. Encore une fois la formule se trouve facilement. Nous associons comme poids à un des huit sommets \( s_1 \) le volume opposé, construit de la sorte :
 
