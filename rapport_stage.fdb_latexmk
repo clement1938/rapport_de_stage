@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber rapport_stage"] 1723133349.63504 "rapport_stage.bcf" "rapport_stage.bbl" "rapport_stage" 1723133451.99591 0
+["biber rapport_stage"] 1723191740.70408 "rapport_stage.bcf" "rapport_stage.bbl" "rapport_stage" 1723191834.19956 0
   "bibliographie/biblio.bib" 1723014078.712 22877 70294d3dcfcfbdef5e9861d9ab358757 ""
-  "rapport_stage.bcf" 1723133451.64776 108690 4f5ea9c814fc09795af2cf955cdcedfa "pdflatex"
+  "rapport_stage.bcf" 1723191833.85291 108690 4f5ea9c814fc09795af2cf955cdcedfa "pdflatex"
   (generated)
   "rapport_stage.bbl"
   "rapport_stage.blg"
   (rewritten before read)
-["pdflatex"] 1723133448.28672 "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex" "rapport_stage.pdf" "rapport_stage" 1723133451.99642 0
-  "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex" 1723132024.56234 5981 742ef47c75a8bdc01851d153933f6c3d ""
+["pdflatex"] 1723191828.41706 "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex" "rapport_stage.pdf" "rapport_stage" 1723191834.20008 0
+  "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/rapport_stage.tex" 1723188919.26078 5981 742ef47c75a8bdc01851d153933f6c3d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc" 1455745497 9446 fe5580ca6042a44427f18d450942e7d0 ""
@@ -304,22 +304,23 @@
   "annexes/annexes.tex" 1722579998.02854 59 0a5f26064644417702f426c528cb75db ""
   "bilan_technique/bilan_technique.tex" 1722952019.05234 2688 a96624862882d203a7f7e85d5b2108a9 ""
   "chap1_pres_entreprise/chap1.tex" 1723131517.55907 7371 5388c9b47c86bb3e712aa796785bf0c0 ""
-  "chap2_pres_stage/chap2.tex" 1723133447.92943 19032 2ab566a76445566a7220195630b7921d ""
+  "chap2_pres_stage/chap2.tex" 1723191828.13124 25454 27aa6cbe929b1043989e8a839510e6ec ""
   "conclusion/conclusion.tex" 1721999002 64 1bdce585c0717cfc7b8550524d3279c6 ""
   "images/Interpolation-quadratique-3D-thetraedre.png" 1718891154.63672 163250 910fd9c40248974f7c8d3bdb177f35d2 ""
+  "images/Inverse_Distance_Weighting.png" 1723188687.03765 154192 cc42969fb9660b8c15b3cab03ea7f80a ""
   "images/Trilinear_interpolation_visualisation.svg.png" 1722929758.16396 107841 ef251c6eb9a0eabd4a56b66d809f6e46 ""
   "images/cerfacsgarde.png" 1721985822 22133 22b0cca813ab730f556548672516a8ae ""
   "images/data_structure_1.png" 1722875848.70113 29051 89f5dbabc50c9d2993ae5427bcb58893 ""
   "images/ipsagarde.png" 1721985808 34985 b4d973859d0b1ef3d5a269a2eb75efe4 ""
   "images/newCerfacs+Fond.png" 1722865312.2317 25043 5b8d0f49291460d2cc9111c1e688514d ""
-  "introduction/intro.tex" 1723130393.70444 2300 82c07a62e03942e0442caa28176195d1 ""
+  "introduction/intro.tex" 1723186157.9904 2294 3a8f5098160f7e465efc0ec7b05764e8 ""
   "page_de_couverture/pagedegarde.tex" 1723014163.68684 1636 a69a90a03376e763939595d4ca9a4466 ""
-  "rapport_stage.aux" 1723133451.64092 7821 0587cea8dc85853a40a799f031fa37d5 "pdflatex"
-  "rapport_stage.bbl" 1723133358.79565 56372 4f6246ae2b03e4ad8a1d98d2795d47ce "biber rapport_stage"
-  "rapport_stage.out" 1723133451.64415 5374 19b785bea09554be82222ec33152c633 "pdflatex"
-  "rapport_stage.run.xml" 1723133451.64899 2377 9c8aec529631468126fa6be675635c68 "pdflatex"
-  "rapport_stage.tex" 1723132024.56234 5981 742ef47c75a8bdc01851d153933f6c3d ""
-  "rapport_stage.toc" 1723133451.6491 2564 38995eb37ee87bb4842cbec1fd641f3f "pdflatex"
+  "rapport_stage.aux" 1723191833.84497 7928 4f019aaeff0a5f16dfc2b99ad6c817cd "pdflatex"
+  "rapport_stage.bbl" 1723191743.14449 56372 4f6246ae2b03e4ad8a1d98d2795d47ce "biber rapport_stage"
+  "rapport_stage.out" 1723191833.84864 5374 19b785bea09554be82222ec33152c633 "pdflatex"
+  "rapport_stage.run.xml" 1723191833.85442 2377 9c8aec529631468126fa6be675635c68 "pdflatex"
+  "rapport_stage.tex" 1723188919.26078 5981 742ef47c75a8bdc01851d153933f6c3d ""
+  "rapport_stage.toc" 1723191833.85458 2570 24ae050bd4d4d1e0e5335a15bf59822f "pdflatex"
   "remerciement/remerciement.tex" 1722952165.95286 942 78c4cb20a9c952d7d6728298d5fa496f ""
   (generated)
   "rapport_stage.aux"
