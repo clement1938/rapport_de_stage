@@ -569,7 +569,35 @@ Une de mes missions étais de chercher s'il y avait des paramètres plus optimis
 
 
 \subsection{L'interpolation polynomiale}
-\subsection{L'interpolation par Splines}
+
+L'interpolation polynomiale est du degré du polynôme. Elle peut être réalisée en N dimension sur un maillage structuré. Elle est de classe \(C_{infini}\)
+
+\paragraph{Lagrange}
+\vspace{0.5cm}
+\dots
+\paragraph{Hermite}
+\vspace{0.5cm}
+\dots
+\paragraph{Splines}
+\vspace{0.5cm}
+\dots
+
+
+\subsection{L'interpolation à base de distance}
+\paragraph{IDW}
+\vspace{0.5cm}
+\dots
+\paragraph{Shépard}
+\vspace{0.5cm}
+\dots
+\paragraph{RBF}
+\ac{RBF}
+\vspace{0.5cm}
+\dots
+
+
+%\subsection{L'interpolation par Splines}
+
 \subsection{Méthodes géostatiques}
 https://desktop.arcgis.com/fr/arcmap/latest/extensions/geostatistical-analyst/what-is-arcgis-geostatistical-analyst-.htm
 
@@ -592,7 +620,18 @@ https://github.com/Ferrite-FEM/Ferrite.jl/blob/master/src/interpolations.jl
 Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
 
 \subsection{Méthode par moindres carrés}
+
+\paragraph{Approximation des moindres carrés}
+\vspace{0.5cm}
+\dots
+\paragraph{Moindres carrés mobiles}
+\vspace{0.5cm}
+\dots
+
+
 \subsection{MISCOG}
+
+Plusieurs méthodes d'interpolation d'ordre élevé sont déjà implémentés dans d'autres codes du CERFACS...
 
 \subsection{L'interpolation linéaire}
 L'interpolation linéaire, est la plus simple (après les plus proches voisins et IDW). Elle est moyennement précise et ne demande que peu de ressource. Elle interpole généralement mieux qu'IDW. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (dans via d'autres codes qu'Antares). Cela les arrange donc aussi d'avoir une interpolation linéaire directement dans Antares.
@@ -602,7 +641,7 @@ L'interpolation linéaire, est la plus simple (après les plus proches voisins e
 \paragraph{1D}
 \subparagraph{Linéaire}
 
-En 1D, l'interpolation linéaire est simple : c'est la moyenne pondérée linéairement par la distance, des valeurs des points.
+En 1D, l'interpolation linéaire est simple : c'est la moyenne pondérée linéairement par la distance, des valeurs des deux point les plus proches.
 Supposons que nous voulons interpoler une valeur d'un point \( p \) entre deux points \( a \) et \( b \) dans un espace 1D
 et que nous représentons leurs valeurs dans une deuxième dimension \( y \).
 Nous aurons alors pour formule :
@@ -625,6 +664,8 @@ qui garantit que l'interpolation est correcte et symétrique par rapport à \( a
 
 
 \paragraph{2D}
+
+\vspace{0.5cm}
 
 En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenus au niveau des nœuds. Aussi, Antares ne traites que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
 Il existe 3 principaux types de cellules (formes) en 2D : les triangles, les rectangles des maillages structurés (dans ce cas, la méthode est dite bilinéaire) et les quadrilatères (non croisés).
@@ -694,7 +735,14 @@ Elle est bien documentée. Visuellement, il faut faire la somme des valeurs aux 
     
 \end{center}
 
-Le calcul est \( \frac{y_A \times \alpha + y_B \times \beta + y_C \times \gamma}{\alpha + \beta + \gamma} \).
+
+Le calcul est
+\begin{equation}
+    \frac{y_A \times \alpha + y_B \times \beta + y_C \times \gamma}{\alpha + \beta + \gamma}
+\end{equation}
+
+
+\vspace{0.2cm}
 
 Bien sûr, les triangles sont quelconques, mais la formule reste la même
 
@@ -703,7 +751,10 @@ Bien sûr, les triangles sont quelconques, mais la formule reste la même
 
 En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvons aussi facilement. La formule est l'extension de celle pour les triangles :
 
-ÉQUATION
+\begin{equation}
+f(x, y) = \frac{(x_2 - x)(y_2 - y)f_{11} + (x - x_1)(y_2 - y)f_{21} + (x_2 - x)(y - y_1)f_{12} + (x - x_1)(y - y_1)f_{22}}{(x_2 - x_1)(y_2 - y_1)}
+\end{equation}
+
 
 Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif. Cela correspond à deux interpolations linéaires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle, mais je trouvais cela plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
 
