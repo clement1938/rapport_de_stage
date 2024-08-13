@@ -3,17 +3,17 @@
 %\begin{comment}
 \begin{table}[ht]
 \centering
-\begin{tabular}{|p{8cm}|p{8cm}|}
+\begin{tabular}{|p{7.5cm}|p{7.5cm}|}
 \hline
 \multicolumn{2}{|c|}{\textbf{Fiche de synthèse}   \hspace{7cm}   Clément THIBAULT - Aéro 4} \\ 
 \hline
 \textbf{Sujet de stage} & \textbf{Objectifs} \\ 
 \hline
-\begin{minipage}[t]{8cm}
+\begin{minipage}[t]{7.5cm}
 Influence de la méthode d’interpolation sur la propagation acoustique FWH
 
 \end{minipage} & 
-\begin{minipage}[t]{8cm}
+\begin{minipage}[t]{7.5cm}
 %\begin{itemize}
 - Développer une méthode d’interpolation trilinéaire HPC dans le code d’analyse de données Antares
 
@@ -25,14 +25,14 @@ Influence de la méthode d’interpolation sur la propagation acoustique FWH
 \hline
 \textbf{Client principal} & \textbf{Outils utilisés} \\ 
 \hline
-\begin{minipage}[t]{8cm}
+\begin{minipage}[t]{7.5cm}
 %\begin{itemize}
 - CERFACS
 
 - Date de mise à jour : 15 octobre 2024
 %\end{itemize}
 \end{minipage} & 
-\begin{minipage}[t]{8cm}
+\begin{minipage}[t]{7.5cm}
 VSCode, Python, Kraken (supercalculateur du\\
 CERFACS), Antares, Paraview, Git
 \end{minipage} \\ 
@@ -50,19 +50,20 @@ CERFACS), Antares, Paraview, Git
 \hline
 \textbf{Résultats} & \textbf{Explications des écarts possibles} \\ 
 \hline
-\begin{minipage}[t]{8cm}
+\begin{minipage}[t]{7.5cm}
 %\begin{itemize}
-- Rapidité du code d'interpolation augmentée (quelle que soit la méthode), environ par 100 sur le cas test d'aéroacoustique
+%\raggedright
+%\justifying
 
-- Méthode linéaire pour tous types de\\
-    maillages rencontrés au CERFACS\\
-    implémentée
+- Rapidité du code d'interpolation augmentée, quelle que soit la méthode, environ par 100 sur le cas test d'aéroacoustique
+
+- Méthode linéaire pour tous types de maillages rencontrés au CERFACS implémentée
 
 - Méthode linéaire généralement plus efficace que la méthode IDW dans les cas d'aéroacoustique
     %\item Paramètres n \simeq 10 et p \simeq 10 optimaux pour la méthode IDW
 %\end{itemize}
 \end{minipage} & 
-\begin{minipage}[t]{8cm}
+\begin{minipage}[t]{7.5cm}
 \begin{itemize}
     \item ...
     \begin{itemize}
@@ -73,7 +74,7 @@ CERFACS), Antares, Paraview, Git
 \hline
 \textbf{Difficultés rencontrées} & \textbf{Travaux à poursuivre} \\ 
 \hline
-\begin{minipage}[t]{8cm}
+\begin{minipage}[t]{7.5cm}
 %\begin{itemize}
 - Prise en main des outils relativement fatigante au début
  
@@ -81,7 +82,7 @@ CERFACS), Antares, Paraview, Git
     'multi-zones' avec points communs entre des zones pour l'interpolation linéaire
 %\end{itemize}
 \end{minipage} & 
-\begin{minipage}[t]{8cm}
+\begin{minipage}[t]{7.5cm}
 %\begin{itemize}
 - Implémenter une méthode d'ordre supérieur dans le code d'Antares
 %\end{itemize}

@@ -1,6 +1,6 @@
 \chapter{Présentation du stage}
 
-Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'OTP (One-Time-Password) ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les instructions nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}.
+Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'\ac{OTP} ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les instructions nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}.
 
 \section{La librairie Antares}
 
@@ -530,6 +530,26 @@ Une de mes missions étais de chercher s'il y avait des paramètres plus optimis
 \subsection{L'interpolation polynomiale}
 \subsection{L'interpolation par Splines}
 \subsection{Méthodes géostatiques}
+https://desktop.arcgis.com/fr/arcmap/latest/extensions/geostatistical-analyst/what-is-arcgis-geostatistical-analyst-.htm
+
+Cokriging is the multivariate extension of kriging formalism, which allows to deal simultaneously with two or more variables defined over the same domain and to account for additional information about spatial correlation between the variables. :
+https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/kriging
+
+
+"We specifically use the Gaussian RBF and the Exponential Dot Product Kernels to do the interpolations, and approximate the benchmark called Franke's Function." : https://bitbucket.org/joelrosenfeld/rbf-and-kernel-interpolation/src/master/
+
+"The Moving Least Squares (MLS) method is a meshless numerical technique used for solving partial differential equations (PDEs) and reconstructing functions from scattered data, especially in cases where the data points are irregularly spaced or unstructured.
+Ligne a decomenter%" : https://www.sciencedirect.com/topics/mathematics/moving-least-squares#:~:text=The%20Moving%20Least%20Squares%20(MLS,are%20irregularly%20spaced%20or%20unstructured.
+
+
+Expliquer voronoï
+
+Pour prochaine méthode :
+https://github.com/Ferrite-FEM/Ferrite.jl/blob/master/src/interpolations.jl
+
+
+Super site pour ordre superieur : https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
+
 \subsection{Méthode par moindres carrés}
 \subsection{MISCOG}
 
@@ -714,7 +734,11 @@ L'équation qui en découle est la suivante :
 
 
 \section{Implémentation de la méthode trilinéaire}
+
 \subsection{La structure générale du code TreatmentInterpolation}
+
+EXPLICATION PLUS DETAILLEE DU KDTREE
+
 Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisais environ 500 lignes. Il est orienté objet. Il prend comme arguments obligatoires la base source et la base target et renvoie dans le cas le plus simple la base target avec les valeurs interpolés.
 De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis nous parcourons les instants. 
 Cette fusion permet de faire un KDTree (pour arbre à k-dimensions), qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base target (et les distances associées, utilisés dans la méthode 'idw').
@@ -731,9 +755,14 @@ Voici le pseudo-algorithme simplifié donnant l'architecture de la fonction lin�
 \vspace{0.5cm}
 
 \textbf{Initialisation :}
-$\bullet$ Créer le KD-tree\\
-$\bullet$ Créer une liste de listes appelée \texttt{node\_to\_elements}\\
-$\bullet$ Définir les points à interpoler\\
+
+$\bullet$ Créer le KD-tree
+
+$\bullet$ Créer une liste de listes appelée \texttt{node\_to\_elements}
+
+$\bullet$ Définir les points à interpoler
+
+\vspace{0.5cm}
 
 \textbf{Parcours des points à interpoler :}
 \begin{list}{$\circ$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
@@ -843,6 +872,10 @@ Je calcule d'abord les surfaces créées par le point cible avec les sommets pui
 \section{Tests sur des cas d'aéroacoustique}
 % \section{Les différentes méthodes d'interpolation}
 
+
+BIEN AFFICHICHER QUE LES Paramètres optimaux sont n-10 - p-10
+
+A droit n=10, p=10. Rapports d amplitude: idw : 101.88 %  Bary : 47.08 %. pour dipole et quadripole
 
 Carlos a développé l'outil permettant de déterminer le résultat acoustique, à grande distance, à partir d'une surface, en utilisant les équations de Ffowcs Williams – Hawkings. Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.
 % Paramètres d'IDW

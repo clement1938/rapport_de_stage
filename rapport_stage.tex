@@ -29,6 +29,7 @@
 \usepackage{xcolor}
 \usepackage{acro}
 \usepackage{pgfplots}
+\usepackage{ragged2e}
 \pgfplotsset{compat=1.17}
 %\makeglossaries
 
@@ -66,6 +67,44 @@
   short-indefinite = une,
   %footnote = {Ffowcs Williams-Hawkings}
 }
+
+\DeclareAcronym{CAO}{
+  short = CAO,
+  long = Conception assistée par Ordinateur,
+  short-indefinite = une,
+  %footnote = {Ffowcs Williams-Hawkings}
+}
+
+\DeclareAcronym{QVT}{
+  short = QVT,
+  long = Qualité de Vie au Travail,
+  short-indefinite = la,
+}
+
+\DeclareAcronym{CSE}{
+  short = CSE,
+  long = Comité Social et Économique,
+  short-indefinite = le,
+}
+
+\DeclareAcronym{CSSCT}{
+  short = CSSCT,
+  long = {Commission Santé, Sécurité et Conditions de Travail},
+  short-indefinite = la,
+}
+
+\DeclareAcronym{DUERP}{
+  short = DUERP,
+  long = Document Unique d’Évaluation des Risques Professionnels,
+  short-indefinite = le,
+}
+
+\DeclareAcronym{OTP}{
+  short = OTP,
+  long = One-Time-Password,
+  short-indefinite = le,
+}
+
 
 %\usepackage{glossaries}
 %\makeglossaries
@@ -167,7 +206,7 @@ keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 \newpage
 
 \input{introduction/intro.tex}
-\newpage
+\newpage 
 
 \input{chap1_pres_entreprise/chap1.tex}
 \newpage
