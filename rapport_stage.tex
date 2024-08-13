@@ -36,6 +36,26 @@
 \pgfplotsset{compat=1.17}
 %\makeglossaries
 
+
+\DeclareAcronym{1D}{
+  short = 1D,
+  long = une Dimension,
+  short-indefinite = une,
+}
+
+\DeclareAcronym{GIP}{
+  short = GIP,
+  long = Groupement d’Intérêt Public,
+  short-indefinite = un,
+}
+
+\DeclareAcronym{CFD}{
+  short = CFD,
+  long = Computation Fluid Dynamics ou mécanique des fuides numérique,
+  short-indefinite = un,
+}
+
+
 \DeclareAcronym{RSE}{
   short = RSE,
   long = Responsabilité Sociétale des Entreprises,
@@ -116,7 +136,7 @@
 
 \DeclareAcronym{ALGO-COOP}{
   short = ALGO-COOP,
-  long = Algorithmes Parallèles \& sCientifics sOftware Operational Performances,
+  long = ALOGrithmes Parallèles \& sCientifics sOftware Operational Performances,
   short-indefinite = l',
 }
 
@@ -212,11 +232,18 @@
 \fancyfoot[R]{\includegraphics*[width=0.1\textwidth]{images/ipsagarde.png}}
 
 \newcommand\BackgroundPic{
-\put(0,0){
+\put(0,2 cm){
 \parbox[b][0.6\paperheight]{\paperwidth}{
 \centering
-{\transparent{0.4} \includegraphics[width=\paperwidth,height=0.57\paperheight,
+{\includegraphics[width=\paperwidth,height=0.52\paperheight, %\transparent{0.4}
 keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
+}}}
+
+\newcommand\TitleText{
+\put(0,0.5 cm){ % Positionner le titre
+\parbox[b][\paperheight]{\paperwidth}{
+\centering
+{\huge \textbf{Interpolation quadratique dans un tétrahèdre}} % Ajouter le texte du titre
 }}}
 
 \begin{document}

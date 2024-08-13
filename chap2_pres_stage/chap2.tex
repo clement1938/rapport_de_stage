@@ -88,17 +88,18 @@ L'interpolation consiste à déterminer la valeur de nouveaux points à partir d
 
 \vspace{0,5cm}
 
-Nous allons premièrement présenter les types d'interpolation implémentables dans Antares, à savoir, qui permette de l'interpolation 3D, sur des maillages dits non structurés, c'est-à-dire pas de simples maillages, rectangulaires en 2D et hexaédrique en 3D, représentés par des matrices, mais des maillages créés avec différentes formes géométriques.
+Nous allons premièrement présenter les types d'interpolation implémentables dans Antares, à savoir, qui permette de l'interpolation \ac{1D} à 3D, sur des maillages dits non structurés, c'est-à-dire pas de simples maillages, rectangulaires en 2D et hexaédrique en 3D, représentés par des matrices, mais des maillages créés avec différentes formes géométriques.
 Le temps de calcul, appelé 'coût' est aussi un paramètre à prendre en compte.
-Finalement, les caractéristiques mathématiques des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser mathématiquement tel que l'équation de Naviers-Stokes sont utilisées et le niveau en maths est trop élevé pour pouvoir se plonger en profondeur dans ce problème. C'est pour cela qu'il n'y aura pas de résultat mathématique à présenter dans cette partie. Mais heureusement que ces méthodes ont déjà été implémentés et testés pour d'autres codes de simulation numérique, ce qui donne une bonne idée des résultats que nous pouvons espérer.
+Finalement, les caractéristiques mathématiques des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Effectivement différentes équations très difficiles à caractériser mathématiquement tel que l'équation de Naviers-Stokes sont utilisées et le niveau en maths est trop élevé pour pouvoir se plonger en profondeur dans ce problème. C'est pour cela qu'il n'y aura pas beaucoup de résultat mathématique à présenter dans cette partie. Mais heureusement que ces méthodes ont déjà été implémentés et testés pour d'autres codes de simulation numérique, ce qui donne une bonne idée des résultats que nous pouvons espérer.
 
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
+\newpage
 
 \subsection{L'interpolation par voisin le plus proche}
 Cette première méthode est très simple : nous prenons comme valeur \( v \) d'interpolation au point \( p \) la valeur \( v \) du point le plus proche de \( p \).
-En voici une illustration :
+En voici quelques illustration :
 
-\vspace{0.5cm}
+%\vspace{0.5cm}
 
 \begin{center}
 \begin{tikzpicture}
@@ -153,7 +154,7 @@ Cette méthode est discontinue et peu précise pour la plupart des fonctions.
 
 \subsection{L'interpolation \ac{IDW}} % déjà '\ac'
 
-Probablement l'interpolation la plus simple après la méthode du voisin le plus proche (toujours dans notre cas d'application), cette méthode est la seule qui étais implémenté dans Antares. Elle a pour formule :
+Probablement l'interpolation la plus simple après la méthode du voisin le plus proche (toujours dans notre cas d'application), cette méthode est la seule qui était implémentée dans Antares. Elle a pour formule :
 
 \[
 \hat{f}(x) = \frac{\sum_{i=1}^{N} \frac{f(x_i)}{d(x, x_i)^p}}{\sum_{i=1}^{N} \frac{1}{d(x, x_i)^p}}
@@ -171,12 +172,21 @@ où :
 
 - \(N\) est le nombre total de points de données.
 
-Pour éviter une division par 0, très proche d'un point existant, le point interpolé prendra la valeur du point existant.
 \vspace*{0,5cm}
 
-En voici une illustration :
+Pour éviter une division par 0, très proche d'un point existant, le point interpolé prendra la valeur du point existant. Cette distance est définie à 1e-10 dans le traitement et peut être modifiée par l'utilisateur en ajustant l'argument \texttt{'tolerance'} en ajoutant la ligne :
+\begin{lstlisting}[]
+    myt['tolerance'] = valeur
+\end{lstlisting}
+entre la ligne 2 et 5 de l'exemple présenté dans la partie \texttt{2.1 La librairie Antares}.
+Il en est de même pour les paramètres \(N\) et \(p\) avec pour argument respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.
 
-\vspace{0.5cm}
+
+\vspace*{0,5cm}
+
+\newpage
+
+En voici des illustrations 1D :
 
 \begin{center}
 \begin{minipage}{0.45\textwidth}
@@ -356,173 +366,201 @@ En voici une illustration :
 
 %\vspace{0.5cm}
 
-\begin{center}
-
-\begin{tikzpicture}
-    \begin{axis}[
-        width=10cm,
-        height=6cm,
-        title={Interpolation IDW (N=3, p=2, rayon=1.5)},
-        xlabel={$x$},
-        ylabel={$y$},
-        grid=major,
-        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
-    ]
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=blue},
-    ] coordinates {
-        (1, 1)
-        (2, 4)
-        (3, 9)
-    };
-    \addlegendentry{Points existants\hspace{0,5cm}}
-
-    % Plotting the radius for the nearest neighbors
-    \addplot[dashed, bronze, thick] coordinates {(1.5, 0) (1.5, 9)};
-    \addlegendentry{Rayon de 1.5\hspace{0,3cm}}
-
-    \addplot[
-        domain=1:1.5,
-        samples=100,
-        smooth,
-        thick,
-        red,
-    ] {(1/(abs(1-x)^2) + 4/(abs(x-2)^2))/(1/(abs(1-x)^2)+1/(abs(x-2)^2))};
-    \addplot[
-        domain=1.5:2.5,
-        samples=100,
-        smooth,
-        thick,
-        red,
-    ] {(1/(abs(1-x)^2) + 9/(abs(x-3)^2) + 4/(abs(2-x)^2))/(1/(abs(1-x)^2) + 1/(abs(x-3)^2) + 1/(abs(2-x)^2))};
-    \addplot[
-        domain=2.5:3,
-        samples=100,
-        smooth,
-        thick,
-        red,
-    ] {(4/(abs(x-2)^2) + 9/(abs(3-x)^2))/(1/(abs(x-2)^2)+1/(abs(3-x)^2))};
-    \addlegendentry{Interpolation IDW}
-
-    \addplot[dashed, bronze, thick] coordinates {(2.5, 0) (2.5, 9)};
-
-    \end{axis}
-\end{tikzpicture}
-\end{center}
-
 \vspace{0.5cm}
 
-\begin{center}
+\begin{figure}[H]
+    \centering
     \includegraphics[width=0.8\textwidth]{images/Inverse_Distance_Weighting.png}
-    Interpolation 1D avec (N=5, p=2 et r infini)
+    \caption{Interpolation 1D avec (N=5, p=2 et r infini)}
+\end{figure}
+% A sourcer
+
+\newpage
+
+Dans notre cas, nous ne prenons pas en compte tous les points du maillage source. Nous nous limitons à un nombre \(N\) de points les plus proches. Cela implique une discontinuité lorsque nous changeons de point. Pour illustrer cela, voici une figure 1D où tous les points sont espacés d'une unité. Avec \(N\)=3, cela reviens ici à changer l'un des trois point de calcul tout les unité+0,5 de \(x\).
+
+\begin{center}
+
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=10cm,
+            height=6cm,
+            title={Interpolation IDW (N=3, p=2, rayon=1)},
+            xlabel={$x$},
+            ylabel={$y$},
+            grid=major,
+            legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
+        ]
+        \addplot[
+            only marks,
+            mark=*,
+            mark options={scale=1.5, fill=blue},
+        ] coordinates {
+            (1, 1)
+            (2, 4)
+            (3, 9)
+        };
+        \addlegendentry{Points existants\hspace{0,5cm}}
+    
+        % Plotting the radius for the nearest neighbors
+        \addplot[dashed, bronze, thick] coordinates {(1.5, 0) (1.5, 9)};
+        \addlegendentry{Rayon de 1.5\hspace{0,3cm}}
+    
+        \addplot[
+            domain=1:1.5,
+            samples=100,
+            smooth,
+            thick,
+            red,
+        ] {(1/(abs(1-x)^2) + 4/(abs(x-2)^2))/(1/(abs(1-x)^2)+1/(abs(x-2)^2))};
+        \addplot[
+            domain=1.5:2.5,
+            samples=100,
+            smooth,
+            thick,
+            red,
+        ] {(1/(abs(1-x)^2) + 9/(abs(x-3)^2) + 4/(abs(2-x)^2))/(1/(abs(1-x)^2) + 1/(abs(x-3)^2) + 1/(abs(2-x)^2))};
+        \addplot[
+            domain=2.5:3,
+            samples=100,
+            smooth,
+            thick,
+            red,
+        ] {(4/(abs(x-2)^2) + 9/(abs(3-x)^2))/(1/(abs(x-2)^2)+1/(abs(3-x)^2))};
+        \addlegendentry{Interpolation IDW}
+    
+        \addplot[dashed, bronze, thick] coordinates {(2.5, 0) (2.5, 9)};
+    
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+Nous observons une discontinuité en 1,5 et 2,5.
+
+\begin{comment}
+    \begin{tikzpicture}
+        \begin{axis}[
+            view={0}{90},
+            xlabel={$x$},
+            ylabel={$y$},
+            colorbar,
+            title={Interpolation IDW en 2D (N=3, p=2, Rayon=2.0 {\small \textit{non pris en compte dans le coloris}})},
+            colormap/jet,  % Utilisation d'une colormap standard
+            width=12cm,
+            height=10cm,
+        ]
+
+        % Points d'interpolation connus
+        \pgfplotstableread{
+            x y z
+            1 1 1
+            3 1 9
+            2 3 4
+        }\datatable
+
+        % Fonction IDW
+        \addplot3[
+            surf,
+            shader=interp,
+            domain=0:4,
+            y domain=0:4,
+            samples=40,    % A augementer avant la version finale
+        ] 
+        {(1/(sqrt((x-1)^2+(y-1)^2 + 1e-6)^2) + 
+        9/(sqrt((x-3)^2+(y-1)^2 + 1e-6)^2) + 
+        4/(sqrt((x-2)^2+(y-3)^2 + 1e-6)^2)) / 
+        (1/(sqrt((x-1)^2+(y-1)^2 + 1e-6)^2) + 
+        1/(sqrt((x-3)^2+(y-1)^2 + 1e-6)^2) + 
+        1/(sqrt((x-2)^2+(y-3)^2 + 1e-6)^2))};
+        
+        % Points d'interpolation connus
+        \addplot3[
+            only marks,
+            scatter,
+            scatter src=explicit,
+            point meta=\thisrow{z},
+            mark=square*,
+            mark options={scale=2},
+        ] table [x=x, y=y, z=z] {\datatable};
+
+        % Tracer les cercles de rayon 2
+        \addplot[
+            draw=gray, 
+            thick, 
+            dashed, 
+            domain=-30:120,
+            samples=100,
+        ] 
+        ({1 + 2*cos(x)}, {1 + 2*sin(x)});  % Cercle autour du point A (1,1)
+
+        \addplot[
+            draw=gray, 
+            thick, 
+            dashed, 
+            domain=60:210,
+            samples=100,
+        ] 
+        ({3 + 2*cos(x)}, {1 + 2*sin(x)});  % Cercle autour du point B (3,1)
+
+        \addplot[
+            draw=gray, 
+            thick, 
+            dashed, 
+            domain=-210:30,
+            samples=100,
+        ] 
+        ({2 + 2*cos(x)}, {3 + 2*sin(x)});  % Cercle autour du point C (2,3)
+
+        % Annoter les points
+        \node at (axis cs:1,1,1) [anchor=north] {A};
+        \node at (axis cs:3,1,9) [anchor=north] {B};
+        \node at (axis cs:2,3,4) [anchor=south] {C};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{comment}
+
+Nous pouvons aussi imaginer que 2 points, A et B, à droit et à gauche d'une ligne verticale de 3 points (les plus proches), prendrons la même valeur pour \( N \) = 3 :
+
+\begin{center}
+    \begin{tikzpicture}
+    
+        % Les points sur la ligne verticale
+        \filldraw[blue] (0, -1.5) circle (2pt) node[right] {$c$}; % $(x_1, y_1) = (2, 1)$
+        \filldraw[blue] (0, 0) circle (2pt) node[right] {$b$};
+        \filldraw[blue] (0, 1.5) circle (2pt) node[right] {$a$};
+    
+        % Les points à gauche et à droite qui prennent la même valeur
+        \filldraw[red] (-2, 0.5) circle (2pt) node[above left] {A}; % {A$(1, 2)$}
+        \filldraw[red] (2, 0.5) circle (2pt) node[above right] {B};
+    
+        % Lignes de liaison entre les points rouges et les trois plus proches voisins
+        \draw[dashed, gray] (-2, 0.5) -- (0, -1.5);
+        \draw[dashed, gray] (-2, 0.5) -- (0, 0);
+        \draw[dashed, gray] (-2, 0.5) -- (0, 1.5);
+
+        \draw[dashed, gray] (2, 0.5) -- (0, -1.5);
+        \draw[dashed, gray] (2, 0.5) -- (0, 0);
+        \draw[dashed, gray] (2, 0.5) -- (0, 1.5);
+
+    \end{tikzpicture}
 \end{center}
 
-%\begin{comment}
+    
+Ce qui n'est pas cohérent dans le cas où le gradient selon l'horizontal n'est pas nul.
 
-
-\begin{tikzpicture}
-    \begin{axis}[
-        view={0}{90},
-        xlabel={$x$},
-        ylabel={$y$},
-        colorbar,
-        title={Interpolation IDW en 2D (N=3, p=2, Rayon=2.0 {\small \textit{non pris en compte dans le coloris}})},
-        colormap/jet,  % Utilisation d'une colormap standard
-        width=12cm,
-        height=10cm,
-    ]
-
-    % Points d'interpolation connus
-    \pgfplotstableread{
-        x y z
-        1 1 1
-        3 1 9
-        2 3 4
-    }\datatable
-
-    % Fonction IDW
-    \addplot3[
-        surf,
-        shader=interp,
-        domain=0:4,
-        y domain=0:4,
-        samples=40,    % A augementer avant la version finale
-    ] 
-    {(1/(sqrt((x-1)^2+(y-1)^2 + 1e-6)^2) + 
-    9/(sqrt((x-3)^2+(y-1)^2 + 1e-6)^2) + 
-    4/(sqrt((x-2)^2+(y-3)^2 + 1e-6)^2)) / 
-    (1/(sqrt((x-1)^2+(y-1)^2 + 1e-6)^2) + 
-    1/(sqrt((x-3)^2+(y-1)^2 + 1e-6)^2) + 
-    1/(sqrt((x-2)^2+(y-3)^2 + 1e-6)^2))};
-     
-    % Points d'interpolation connus
-    \addplot3[
-        only marks,
-        scatter,
-        scatter src=explicit,
-        point meta=\thisrow{z},
-        mark=square*,
-        mark options={scale=2},
-    ] table [x=x, y=y, z=z] {\datatable};
-
-    % Tracer les cercles de rayon 2
-    \addplot[
-        draw=gray, 
-        thick, 
-        dashed, 
-        domain=-30:120,
-        samples=100,
-    ] 
-    ({1 + 2*cos(x)}, {1 + 2*sin(x)});  % Cercle autour du point A (1,1)
-
-    \addplot[
-        draw=gray, 
-        thick, 
-        dashed, 
-        domain=60:210,
-        samples=100,
-    ] 
-    ({3 + 2*cos(x)}, {1 + 2*sin(x)});  % Cercle autour du point B (3,1)
-
-    \addplot[
-        draw=gray, 
-        thick, 
-        dashed, 
-        domain=-210:30,
-        samples=100,
-    ] 
-    ({2 + 2*cos(x)}, {3 + 2*sin(x)});  % Cercle autour du point C (2,3)
-
-    % Annoter les points
-    \node at (axis cs:1,1,1) [anchor=north] {A};
-    \node at (axis cs:3,1,9) [anchor=north] {B};
-    \node at (axis cs:2,3,4) [anchor=south] {C};
-
-    \end{axis}
-\end{tikzpicture}
-
-
-
-
-%\end{comment}
-
-Nous comprenons assez vite que, si nous définissons une distance à partir de laquelle nous prenons en compte ou non un point, cette méthode est discontinue.
-Nous pouvons aussi imaginer que 2 points à droit et à gauche d'une ligne horizontale de 3 points (les plus proches), prendrons la même valeur pour \( N \) = 3, Schématiser. 
+Quand toutes les informations selon un axe de l'espace ne se situe que d'un côté, le gradient ne sera pas pris en compte et l'erreur sera élevée. Par exemple, cela est généralement le cas lorsque le maillage cible a des points qui ne sont pas compris dans le maillage source.
 
 D'autres méthodes dérivées ou similaires existent pour évaluer nos poids. La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà les autres points ne sont pas pris en compte. Autrement dit, en utilisant un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas le nombre de points est variable.
-J'ai considéré subjectivement que cette méthode n'était pas intéressante car, confronté à un maillage ayant une différence de raffinement intrinsèque importante, dans certains cas aucuns points ne seraient pris, et dans d'autres, une grande somme serait calculée.
+J'ai considéré subjectivement que cette méthode n'était pas intéressante car, confronté à un maillage ayant une différence de raffinement intrinsèque importante, dans certains cas aucuns points ne seraient pris, et dans d'autres, une trop grande somme serait calculée.
 
 \begin{comment}
     Certaines conditions de cette méthode doivent être respectés, comme Pour N tends vers l’infini, p doit être inférieur ou égale à la dimension, par ex 3 pour ne pas diverger. Mais N n’est pas grand dans notre cas.
     Voir d'autres choses page 7 de mon ppt.
 \end{comment}
 
-Nous pouvons modifier 2 paramètres : \(p\) et \(N\).
-Par défaut, dans le code, \(p\) = 1 et \(N\) est égale aux nombres de sommets de la première cellule de la liste de types de cellules de la base target. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base target importe peu à côté de celle de la base source, pour l'interpolation. Mais aucune modification qui pourrait changer l'utilisation qui a déjà été faite de ce traitement ne pourra être faite par soucis de rétrocompatibilité. ! Tests à faire ici !
 
-
+Par défaut, dans le code, \(p\) = 1 et \(N\) est égale aux nombres de sommets de la première cellule de la liste de types de cellules de la base target. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base target importe peu à côté de celle de la base source, pour l'interpolation. Mais aucune modification qui pourrait changer l'utilisation qui a déjà été faite de ce traitement ne pourra être faite par soucis de rétrocompatibilité. % ! Tests à faire ici !
 
 Nous remarquons que pour \( N = 1 \), nous retrouvons la méthode du voisin le plus proche, pour tout \( p \).
 Et pour \( N = 2 \) et \( p = 1 \), toujours en 1D, nous retrouvons la méthode linéaire.
