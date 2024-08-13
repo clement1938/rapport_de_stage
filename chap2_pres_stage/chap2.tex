@@ -1,14 +1,17 @@
 \chapter{Présentation du stage}
 
-Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'\ac{OTP} ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les instructions nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}.
+Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'\ac{OTP} ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les informations nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}. Ensuite j'ai résolu un bug mineur sur Antares, ce qui a permis de se familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
+
 
 \section{La librairie Antares}
+
+Généralement, nous mettons en entrée dans Antares des données, issus d'une simulation numérique. Antares les lis et les structures à sa façon.
 
 La structure des solutions CFD interprétées dans Antares est illustrée ci-dessous :
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.5\textwidth]{images/data_structure_1.png}
+\includegraphics[width=0.42\textwidth]{images/data_structure_1.png}
 \caption{Structure des données}
 %\footnote{Source:https://cerfacs.fr/antares/src/tutorial/base.html}
 %\label{fig:https://cerfacs.fr/antares/src/tutorial/base.html}
@@ -16,6 +19,8 @@ La structure des solutions CFD interprétées dans Antares est illustrée ci-des
 
 Concrètement, le maillage peut être divisé en plusieurs zones.
 Ensuite chaque zone a un ou plusieurs instants où nous pouvons trouver la solution d'une variable, qui sera de même dimension que les coordonnées de l'instant.
+
+Ensuite Antares a différents traitements, comme la vue en coupe, l'interpolation, etc.
 
 Voici un exemple d'utilisation d'Antares :
 
@@ -28,9 +33,7 @@ Voici un exemple d'utilisation d'Antares :
     print(result[0][0]['v1'])
 \end{lstlisting}
 
-Un point important pour l'interpolation linéaire est la connectivité. Si le maillage est non structuré, alors, chaque cellule est définie par un type de forme et par ses sommets. Elle peut être donnée par \texttt{base[0][0]['tri']} si la base contiens des triangles dans sa zone 0 à l'instant 0.
-
-Ensuite, la tâche consistait à résoudre un bug mineur sur Antares, ce qui a permis de se familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
+Un point important pour l'interpolation linéaire est la connectivité. Si le maillage est non structuré, alors, chaque cellule est définie par un type de forme et par ses sommets. Par exemple, elle peut être donnée par \texttt{base[0][0]['tri']} si la base contiens des triangles (a une connectivité "tri") dans sa zone 0 à l'instant 0.
 
 
 \section{Les différentes méthodes d'interpolation}
@@ -548,7 +551,7 @@ Pour prochaine méthode :
 https://github.com/Ferrite-FEM/Ferrite.jl/blob/master/src/interpolations.jl
 
 
-Super site pour ordre superieur : https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
+Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
 
 \subsection{Méthode par moindres carrés}
 \subsection{MISCOG}
@@ -733,11 +736,11 @@ L'équation qui en découle est la suivante :
 
 
 
-\section{Implémentation de la méthode trilinéaire}
+\section{Implémentation de la méthode linéaire}
 
 \subsection{La structure générale du code TreatmentInterpolation}
 
-EXPLICATION PLUS DETAILLEE DU KDTREE
+EXPLICATION PLUS DÉTAILLER DU KDTREE
 
 Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisais environ 500 lignes. Il est orienté objet. Il prend comme arguments obligatoires la base source et la base target et renvoie dans le cas le plus simple la base target avec les valeurs interpolés.
 De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis nous parcourons les instants. 
@@ -873,9 +876,9 @@ Je calcule d'abord les surfaces créées par le point cible avec les sommets pui
 % \section{Les différentes méthodes d'interpolation}
 
 
-BIEN AFFICHICHER QUE LES Paramètres optimaux sont n-10 - p-10
+BIEN AFFICHER QUE LES Paramètres optimaux sont n-10 - p-10
 
-A droit n=10, p=10. Rapports d amplitude: idw : 101.88 %  Bary : 47.08 %. pour dipole et quadripole
+À droit n=10, p=10. Rapports d'amplitude : idw : 101.88 %  Bary : 47.08 %. pour dipole et quadripôle
 
 Carlos a développé l'outil permettant de déterminer le résultat acoustique, à grande distance, à partir d'une surface, en utilisant les équations de Ffowcs Williams – Hawkings. Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.
 % Paramètres d'IDW

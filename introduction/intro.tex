@@ -1,16 +1,20 @@
 \section*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-J'adore les mathématiques appliquées, la mécanique des fluides et je voulais découvrir le monde de la recherche. Lors d'une présentation des activités au
-\ac{CERFACS} par nos deux enseignants chercheurs Arthur et Nadir, j'ai eu l'occasion de découvrir ce laboratoire et d'y candidater pour mon stage de M1. Carlos m'a trouvé un sujet sur l'interpolation dans le cas de post-processing de simulations numériques et son application en aéroacoustique. Le sujet m'a directement plu, j'ai ainsi pu commencer mon stage le 10 juin 2024 au CERFACS.
+Ce rapport de stage a pour objectif de permettre à l'IPSA, qui exige ce stage, de m'évaluer. Le structure et le contenu principal du rapport sont imposés par l'école.
+
+Il vise également à fournir un rapport sur mon stage pour le CERFACS et pour d'autres personnes qui utiliseraient ou modifieraient le traitement d'interpolation d'Antares.
+
+\vspace{0.5cm}
+
+J'adore les mathématiques appliquées, la mécanique des fluides et je voulais découvrir le monde de la recherche. Lors d'une présentation des activités au \ac{CERFACS} par nos deux enseignants chercheurs Arthur et Nadir, j'ai eu l'occasion de découvrir ce laboratoire et d'y candidater pour mon stage de M1. Carlos, docteur au CERFACS, m'a proposé un sujet sur l'interpolation dans le cas de post-traitement de simulations numériques et son application en aéroacoustique. Le sujet m'a directement plu, j'ai ainsi pu commencer mon stage le 10 juin 2024 au CERFACS.
 
 En quelques mots, le CERFACS est un institut de recherche privé, spécialisé dans le développement de code \ac{HPC}, financé par sept actionnaires.
 
-Antares\cite{antares} est une librairie python privée qui a été développée au CERFACS en 2012 et a pour objectif de faire du pré et post-processing sur des simulations numériques utilisées par les actionnaires du CERFACS.
-
+Antares\cite{antares} est un code d’analyse de données privée sous forme de librairie python, développée au CERFACS en 2012 dont l'objectif est de réaliser du pré et post-traitement sur des simulations numériques utilisées par le CERFACS et ses sept actionnaires.
 Elle contient notamment une fonction d'interpolation, codée en Python.
 
-Mon maître de stage, Carlos, est responsable d'Antares depuis dix mois. 
+Mon maître de stage, Carlos, est responsable d'Antares depuis dix mois. Il a notamment développé le traitement \ac{FWH} qui utilise le traitement interpolation.
 
 Mes missions principales lors de ce stage ont été :
 
@@ -18,13 +22,17 @@ Mes missions principales lors de ce stage ont été :
 implémentables dans Antares (avec ses contraintes associées).
 % A savoir, 3D, non structuré, temps de calcul, caractéristiques des équations à interpoler ...
 
-- D'identifier les meilleurs paramètres pour l'équation \ac{IDW} % : Inverse Distance Weighting, pondération inverse à la distance en français}
+- D'identifier les meilleurs paramètres pour l'équation \ac{IDW}, la seule qui était implémenté jusqu'alors dans Antares % : Inverse Distance Weighting, pondération inverse à la distance en français}
 
-- D'implémenter la méthode trilinéaire que j'appellerais aussi barycentrique.
+- D'implémenter la méthode linéaire.  % \ac{DSP} à placer
 
-Pour bien comprendre, ce que nous voulons interpoler, ce sont les valeurs aux points d'un maillage dit 'target' grâce aux valeurs aux points d'un maillage 'source'. Par exemple dans le cadre d'un raffinement de maillage entre 2 itérations de calcul ou dans le cas de la création d'une sphère dans un maillage 3D pour l'application des équations de \ac{FWH} dans le cadre de la propagation aéroacoustique.
+\vspace{0,5cm}
 
-Pour expliquer plus en détails ce stage au CERFACS, je présenterai d'abord ce laboratoire, puis je vous exposerai le travail que j'ai réalisé.
+Pour bien comprendre l'idée globale, l'objectif est d'interpoler les valeurs aux points d'un maillage 'target', issu d'une discrétisation de l'espace, en utilisant les valeurs aux points d'un maillage 'source'. Par exemple dans le cadre d'un raffinement de maillage entre 2 itérations de calcul ou dans le cas de la création d'une sphère dans un maillage 3D pour l'application des équations de FWH dans le cadre de la propagation aéroacoustique.
 
- % 
+\vspace{0,5cm}
+
+Pour expliquer plus en détail ce stage au CERFACS, je présenterai d'abord ce laboratoire de recherche, puis j'exposerai le travail que j'ai réalisé sous forme de rapport. La seconde partie, se décompose en quatre temps : la présentation de la librairie Antares, les différentes méthodes d'interpolation, l'implémentation de la méthode linéaire dans Antares et finalement les tests de l'ancienne et la nouvelle méthode.
+
+% 
 % 
