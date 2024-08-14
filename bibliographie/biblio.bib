@@ -10,7 +10,7 @@
   author = {{Esri}},
   title = {{How IDW (Inverse Distance Weighted) Interpolation Works}},
   year = {2024},
-  url = {https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm#:~:text=Inverse%20distance%20weighted%20(IDW)%20interpolation,of%20a%20locationally%20dependent%20variable},
+  url = {https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm},
   note = {Accédé: 2024-08-13}
 }
 
@@ -97,7 +97,7 @@
 
 @misc{gordont1971,
    author = {William J Gordont},
-   title = {BLENDING-FUNCTION METHODS OF BIVARIATE AND MULTIVARIATE INTERPOLATION AND APPROXIMATION*},
+   title = {Blending-function methods of bivariate and multivariate interpolation and approximation},
    year = {1971},
    journal = {SIAM J. NUMER. ANAL},
 }
@@ -132,11 +132,12 @@
 
 @misc{benek,
    author = {J A Benek and J L Steger and F C Dougherty and P G Buning and Nasa Ames},
-   title = {Chimera: A Grid-Embedding Technique ARNOLD ENGINEERING DEVELOPMENT CENTER ARNOLD AIR FORCE STATION, TENNESSEE AIR FORCE SYSTEMS COMMAND UNITED STATES AIR FORCE},
+   title = {Chimera: A Grid-Embedding Technique},
    year = {2012},
    doi = {10.2514/6.1987-1126}
 }
 
+in title : ARNOLD ENGINEERING DEVELOPMENT CENTER ARNOLD AIR FORCE STATION, TENNESSEE AIR FORCE SYSTEMS COMMAND UNITED STATES AIR FORCE
 %    keywords = {approved for public release},
 
 @article{laborderie2018,
@@ -214,8 +215,8 @@
 % No DOI
 @article{gordon1973,
    author = {William J Gordon and Charles A Hall},
-   title = {CONSTRUCTION OF CURVILINEAR CO-ORDINATE SYSTEMS AND APPLICATIONS TO MESH GENERATION},
-   journal = {INTERNATIONAL JOURNAL FOR NUMERICAL METHODS IN ENGINEERING},
+   title = {Construction of curvilinear co-ordinate systems and applications to mesh generation},
+   journal = {International journal for numerical methods in engineering},
    year = {1973},
    doi = {}
 }
@@ -224,103 +225,117 @@
    pages = {461-477},
       volume = {7},
 
+% Source : Comptes rendus de l'Académie des sciences. Série 1, Mathématique
 @misc{perronnet1998,
    author = {Alain Perronnet},
-   pages = {117},
    title = {Interpolation transfinie SW le triangle, le tetra\&dre et le pentakdre. Application h la crhation de maillages et h la condition de Dirichlet},
-   volume = {326},
-   url = {\url{http://www.ann.jUssirrl.fr/~~~~rro~~n~}},
    year = {1998},
+   doi = {10.1016/S0764-4442(97)82723-1}
 }
+
+%    volume = {326},
+   url = {\url{http://www.ann.jUssirrl.fr/~~~~rro~~n~}},
+   pages = {117},
 
 @misc{pegasus5,
-   abstract = {PEGASUS provides the hole-cutting and connectivity information between overlapping grids, and is used as the final part of the grid generation process for overset-grid CFD. The new PEGASUS code (Version 5) has many new features: automated hole cutting; a projection scheme for fixing gaps in overset surfaces; more efficient interpolation search methods using an alternating digital tree; hole-size optimization based on adding additional layers of fringe points; and an automatic restart capability.},
    author = {Norman E Suhs and Stuart E Rogers and William E Dietz},
    title = {PEGASUS 5: An Automated Pre-Processor for Overset-Grid CFD},
-   year = {2023},
+   year = {2003},
+   doi = {10.2514/2.2070}
 }
+%    abstract = {PEGASUS provides the hole-cutting and connectivity information between overlapping grids, and is used as the final part of the grid generation process for overset-grid CFD. The new PEGASUS code (Version 5) has many new features: automated hole cutting; a projection scheme for fixing gaps in overset surfaces; more efficient interpolation search methods using an alternating digital tree; hole-size optimization based on adding additional layers of fringe points; and an automatic restart capability.},
 
-
+% Pas doi
 @misc{perronnet1998,
    author = {Alain Perronnet},
-   pages = {117},
    title = {Interpolation transfinie SW le triangle, le tetra\&dre et le pentakdre. Application à la création de maillages et à la condition de Dirichlet},
-   volume = {326},
    year = {1998},
-   url = {http://www.ann.jUssirrl.fr/~~~~rro~~n~}
+   doi = {}
 }
+%   url = {http://www.ann.jUssirrl.fr/~~~~rro~~n~}
+%    pages = {117},
+   volume = {326},
+
 
 @article{kim2019,
-   abstract = {A digital surface model (DSM) is an important geospatial infrastructure used in various fields. In this paper, we deal with how to improve the quality of DSMs generated from stereo image matching. During stereo image matching, there are outliers due to mismatches, and non-matching regions due to match failure. Such outliers and non-matching regions have to be corrected accurately and efficiently for high-quality DSM generation. This process has been performed by applying a local distribution model, such as inverse distance weight (IDW), or by forming a triangulated irregular network (TIN). However, if the area of non-matching regions is large, it is not trivial to interpolate elevation values using neighboring cells. In this study, we proposed a new DSM interpolation method using a 3D mesh model, which is more robust to outliers and large holes. We compared mesh-based DSM with IDW-based DSM and analyzed the characteristics of each.},
    author = {Soohyeon Kim and Sooahm Rhee and Taejung Kim},
-   doi = {10.3390/rs11010024},
-   issn = {2072-4292},
+   title = {Digital surface model interpolation based on 3D mesh models},
+   year = {2019},
    journal = {Remote Sensing},
+   doi = {10.3390/rs11010024}
+}
+
+% abstract = {A digital surface model (DSM) is an important geospatial infrastructure used in various fields. In this paper, we deal with how to improve the quality of DSMs generated from stereo image matching. During stereo image matching, there are outliers due to mismatches, and non-matching regions due to match failure. Such outliers and non-matching regions have to be corrected accurately and efficiently for high-quality DSM generation. This process has been performed by applying a local distribution model, such as inverse distance weight (IDW), or by forming a triangulated irregular network (TIN). However, if the area of non-matching regions is large, it is not trivial to interpolate elevation values using neighboring cells. In this study, we proposed a new DSM interpolation method using a 3D mesh model, which is more robust to outliers and large holes. We compared mesh-based DSM with IDW-based DSM and analyzed the characteristics of each.},
+   issn = {2072-4292},
    keywords = {Digital surface model (DSM), Interpolation, Mesh, Surface reconstruction},
    month = {1},
    publisher = {MDPI AG},
-   title = {Digital surface model interpolation based on 3D mesh models},
    volume = {11},
-   year = {2019}
-}
 
 @misc{gordont1971,
    author = {William J Gordont},
-   issue = {1},
-   journal = {SIAM J. NUMER. ANAL},
-   title = {Blending-Function Methods of Bivariate and Multivariate Interpolation and Approximation*},
-   volume = {8},
-   url = {\url{http://www.siam.org/journals/ojsa.php}},
+   title = {Blending-Function Methods of Bivariate and Multivariate Interpolation and Approximation},
    year = {1971},
+   journal = {SIAM J. NUMER. ANAL},
+   doi = {10.1137/0708019}
 }
 
+SIAM Journal on Numerical Analysis
+Vol. 8, No. 1 (Mar., 1971), pp. 158-177 (20 pages)
+Published By: Society for Industrial and Applied Mathematics
 
-@misc{chimera2023,
-   abstract = {Within the frame of the long term French-German CHANCE program, the Chimera method has been developed and enhanced particularly for helicopter applications. This paper intends to give a review of the different improvements that have been carried out along those six years, insisting on the gain that they individually brought, enabling finally complete helicopter flow simulations.},
+url = {\url{http://www.siam.org/journals/ojsa.php}},
+%    issue = {1},
+   volume = {8},
+
+
+@misc{chimera2005,
    author = {C Benoit and G Jeanfaivre and E Canonne},
    title = {Synthesis of Onera Chimera Method Developed in the Frame of Chance Program},
-   year = {2023}
+   year = {2005},
+   doi = {20.500.11881/1251}
 }
 
-@misc{camarero2023,
+
+%   abstract = {Within the frame of the long term French-German CHANCE program, the Chimera method has been developed and enhanced particularly for helicopter applications. This paper intends to give a review of the different improvements that have been carried out along those six years, insisting on the gain that they individually brought, enabling finally complete helicopter flow simulations.},
+
+@misc{camarero2024,
    author = {Ricardo Camarero},
-   title = {MEC6212: Génération de maillages MAILLAGES TRANSFINIS},
-   year = {2023}
+   title = {MEC6212 : Génération de maillages transfinits},
+   year = {2024}
 }
 
 @article{cunha2016,
-   abstract = {This work constitutes a fraction of a more extensive effort, which ultimate objective is the development of advanced aeroacoustics hybrid methods. Within this framework, we here focus on the interpolation step, on which generally rely all coupling processes that link altogether the various stages constituting any given hybrid method. In that regard, previous works by the present authors had revealed the intrinsic limitations and subsequent side effects (e.g., signal degradation) that weight on usual high-order interpolation schemes, whether the latter are of centered or noncentered nature, as well as optimized in an acoustic sense or not. Based on the outcomes of such study, here, a novel optimization technique for interpolation schemes is proposed. Such a technique, which is designed hereafter as the interpolation by parts (IBP), allows interpolating accurately a given signal, while minimizing its possible degradation.},
    author = {G. Cunha and S. Redonnet},
-   doi = {10.1002/fld.4079},
+   title = {Development of optimized interpolation schemes with spurious modes minimization},
+   journal = {International Journal for Numerical Methods in Fluids},
+   year = {2016},
+   doi = {10.1002/fld.4079}
+}
+
+   abstract = {This work constitutes a fraction of a more extensive effort, which ultimate objective is the development of advanced aeroacoustics hybrid methods. Within this framework, we here focus on the interpolation step, on which generally rely all coupling processes that link altogether the various stages constituting any given hybrid method. In that regard, previous works by the present authors had revealed the intrinsic limitations and subsequent side effects (e.g., signal degradation) that weight on usual high-order interpolation schemes, whether the latter are of centered or noncentered nature, as well as optimized in an acoustic sense or not. Based on the outcomes of such study, here, a novel optimization technique for interpolation schemes is proposed. Such a technique, which is designed hereafter as the interpolation by parts (IBP), allows interpolating accurately a given signal, while minimizing its possible degradation.},
    issn = {10970363},
    issue = {2},
-   journal = {International Journal for Numerical Methods in Fluids},
    keywords = {Aliasing, High-order, Interpolation, Spectral-like optimization, Spurious modes},
    month = {1},
    pages = {140-158},
    publisher = {John Wiley and Sons Ltd},
-   title = {Development of optimized interpolation schemes with spurious modes minimization},
    volume = {80},
-   year = {2016}
-}
 
 @misc{chan1995,
-   abstract = {Algorithms and computer code developments were performed for the overset grid approach to solving computational fluid dynamics problems. The techniques developed are applicable to compressible Navier-Stokes flow for any general complex configurations. The computer codes developed were tested on different complex configurations with the Space Shuttle launch vehicle configuration as the primary test bed. General, efficient and user-friendly codes were produced for grid generation, flow solution and force and moment computation.},
    author = {William M Chan},
    title = {Development of Numerical Methods for Overset Grids with Applications for the Integrated Space Shuttle Vehicle},
    year = {1995}
 }
+   abstract = {Algorithms and computer code developments were performed for the overset grid approach to solving computational fluid dynamics problems. The techniques developed are applicable to compressible Navier-Stokes flow for any general complex configurations. The computer codes developed were tested on different complex configurations with the Space Shuttle launch vehicle configuration as the primary test bed. General, efficient and user-friendly codes were produced for grid generation, flow solution and force and moment computation.},
 
-@misc{internal2023,
-   title = {Internal Documentation},
-   year = {2023}
-}
-
-@misc{cassiopee2023,
-   abstract = {This paper presents an overview of the capabilities of a new open-source pre-and post-processing tool for Computational Fluid Dynamics simulations, called Cassiopee. Its architecture, which is basically a set of Python modules, and the handled data, which is based on CGNS standard, are described. Some examples of workflows that can be built with Cassiopee functions are provided. Finally, some applications of Cassiopee functions to realistic CFD configurations are briefly presented.},
+@misc{cassiopee2015,
    author = {C Benoit and S P\'eron and S Landier and Christophe Benoit and St\'ephanie P\'eron and S\^am Landier},
-   keywords = {CGNS, Computational Fluid Dynamics, Open source software, Post-processing, Pre-processing},
    title = {Cassiopee: a CFD pre-and post-processing tool},
-   url = {https://hal.science/hal-01141585},
-   year = {2023}
+   year = {2015},
+   doi = {10.1016/j.ast.2015.05.023}
 }
+
+   abstract = {This paper presents an overview of the capabilities of a new open-source pre-and post-processing tool for Computational Fluid Dynamics simulations, called Cassiopee. Its architecture, which is basically a set of Python modules, and the handled data, which is based on CGNS standard, are described. Some examples of workflows that can be built with Cassiopee functions are provided. Finally, some applications of Cassiopee functions to realistic CFD configurations are briefly presented.},
+   keywords = {CGNS, Computational Fluid Dynamics, Open source software, Post-processing, Pre-processing},
+   url = {https://hal.science/hal-01141585},

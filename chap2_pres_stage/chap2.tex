@@ -960,7 +960,7 @@ Pour le prisme et la pyramide (à base quadrilatérale), une extension de la for
 La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes.
 
 
-Note pour l'ordre supérieur : faire une transformation des formes qui aurait pu être utilisée en linéaire comme pour le cas du quadrilatère.
+Note pour l'ordre supérieur : faire une transformation des formes qui aurait pu être utilisée en linéaire comme pour le cas du quadrilatère. \cite{camarero2024}
 
 
 
@@ -1259,11 +1259,18 @@ Cela permet aussi une extrapolation linéaire sans créer d'erreur.
 %\subsection{Le résultat}
 
 
-
-
-
-\section{Tests sur des cas d'aéroacoustique}
+\section{Tests}
 % \section{Les différentes méthodes d'interpolation}
+\subsection{Tests unitaires}
+Des codes de tests ont été créés en même temps que l'implémentation de l'interpolation linéaire, pour tester si cette dernière fonctionne correctement sur des cas simples.
+L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on test l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande dans le terminal ou lors d'un git push vers Nitrox.
+
+
+\subsection{Tests sur des cas industriels}
+
+Ensuite, des tests ont été réalisés sur des cas d'applications plus conséquents et complexes, comme l'intersection d'un plan cible dans le résultat d'une simulation de chambre de combustion. 
+
+
 
 
 BIEN AFFICHER QUE LES Paramètres optimaux sont n-10 - p-10
@@ -1271,6 +1278,7 @@ BIEN AFFICHER QUE LES Paramètres optimaux sont n-10 - p-10
 À droit n=10, p=10. Rapports d'amplitude : idw : 101.88 %  Bary : 47.08 %. pour dipole et quadripôle
 
 Carlos a développé l'outil permettant de déterminer le résultat acoustique, à grande distance, à partir d'une surface, en utilisant les équations de Ffowcs Williams – Hawkings. Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.
+
 % Paramètres d'IDW
 \subsection{Tests sur les paramètres de la méthode IDW}
 

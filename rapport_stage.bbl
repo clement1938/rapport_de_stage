@@ -111,14 +111,14 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Chimera: A Grid-Embedding Technique ARNOLD ENGINEERING DEVELOPMENT CENTER ARNOLD AIR FORCE STATION, TENNESSEE AIR FORCE SYSTEMS COMMAND UNITED STATES AIR FORCE}
+      \field{title}{Chimera: A Grid-Embedding Technique}
       \field{year}{2012}
       \true{nocite}
       \verb{doi}
       \verb 10.2514/6.1987-1126
       \endverb
     \endentry
-    \entry{chimera2023}{misc}{}{}
+    \entry{chimera2005}{misc}{}{}
       \name{author}{3}{}{%
         {{hash=2edd2499b8036571b8304ec8c1a976cd}{%
            family={Benoit},
@@ -148,12 +148,14 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Within the frame of the long term French-German CHANCE program, the Chimera method has been developed and enhanced particularly for helicopter applications. This paper intends to give a review of the different improvements that have been carried out along those six years, insisting on the gain that they individually brought, enabling finally complete helicopter flow simulations.}
       \field{title}{Synthesis of Onera Chimera Method Developed in the Frame of Chance Program}
-      \field{year}{2023}
+      \field{year}{2005}
       \true{nocite}
+      \verb{doi}
+      \verb 20.500.11881/1251
+      \endverb
     \endentry
-    \entry{cassiopee2023}{misc}{}{}
+    \entry{cassiopee2015}{misc}{}{}
       \name{author}{6}{}{%
         {{hash=2edd2499b8036571b8304ec8c1a976cd}{%
            family={Benoit},
@@ -198,19 +200,14 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{This paper presents an overview of the capabilities of a new open-source pre-and post-processing tool for Computational Fluid Dynamics simulations, called Cassiopee. Its architecture, which is basically a set of Python modules, and the handled data, which is based on CGNS standard, are described. Some examples of workflows that can be built with Cassiopee functions are provided. Finally, some applications of Cassiopee functions to realistic CFD configurations are briefly presented.}
       \field{title}{Cassiopee: a CFD pre-and post-processing tool}
-      \field{year}{2023}
+      \field{year}{2015}
       \true{nocite}
-      \verb{urlraw}
-      \verb https://hal.science/hal-01141585
+      \verb{doi}
+      \verb 10.1016/j.ast.2015.05.023
       \endverb
-      \verb{url}
-      \verb https://hal.science/hal-01141585
-      \endverb
-      \keyw{CGNS,Computational Fluid Dynamics,Open source software,Post-processing,Pre-processing}
     \endentry
-    \entry{camarero2023}{misc}{}{}
+    \entry{camarero2024}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=bf30061ce332a48bdf6cb5c10688cc21}{%
            family={Camarero},
@@ -230,9 +227,8 @@
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{MEC6212: Génération de maillages MAILLAGES TRANSFINIS}
-      \field{year}{2023}
-      \true{nocite}
+      \field{title}{MEC6212 : Génération de maillages transfinits}
+      \field{year}{2024}
     \endentry
     \entry{chan1995}{misc}{}{}
       \name{author}{1}{}{%
@@ -254,7 +250,6 @@
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Algorithms and computer code developments were performed for the overset grid approach to solving computational fluid dynamics problems. The techniques developed are applicable to compressible Navier-Stokes flow for any general complex configurations. The computer codes developed were tested on different complex configurations with the Space Shuttle launch vehicle configuration as the primary test bed. General, efficient and user-friendly codes were produced for grid generation, flow solution and force and moment computation.}
       \field{title}{Development of Numerical Methods for Overset Grids with Applications for the Integrated Space Shuttle Vehicle}
       \field{year}{1995}
       \true{nocite}
@@ -272,10 +267,6 @@
            given={S.},
            giveni={S\bibinitperiod}}}%
       }
-      \list{publisher}{2}{%
-        {John Wiley}%
-        {Sons Ltd}%
-      }
       \strng{namehash}{c19512c1392962ff5cd4fc6dbaa801e1}
       \strng{fullhash}{c19512c1392962ff5cd4fc6dbaa801e1}
       \strng{fullhashraw}{c19512c1392962ff5cd4fc6dbaa801e1}
@@ -289,21 +280,13 @@
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{This work constitutes a fraction of a more extensive effort, which ultimate objective is the development of advanced aeroacoustics hybrid methods. Within this framework, we here focus on the interpolation step, on which generally rely all coupling processes that link altogether the various stages constituting any given hybrid method. In that regard, previous works by the present authors had revealed the intrinsic limitations and subsequent side effects (e.g., signal degradation) that weight on usual high-order interpolation schemes, whether the latter are of centered or noncentered nature, as well as optimized in an acoustic sense or not. Based on the outcomes of such study, here, a novel optimization technique for interpolation schemes is proposed. Such a technique, which is designed hereafter as the interpolation by parts (IBP), allows interpolating accurately a given signal, while minimizing its possible degradation.}
-      \field{issn}{10970363}
-      \field{issue}{2}
       \field{journaltitle}{International Journal for Numerical Methods in Fluids}
-      \field{month}{1}
       \field{title}{Development of optimized interpolation schemes with spurious modes minimization}
-      \field{volume}{80}
       \field{year}{2016}
       \true{nocite}
-      \field{pages}{140\bibrangedash 158}
-      \range{pages}{19}
       \verb{doi}
       \verb 10.1002/fld.4079
       \endverb
-      \keyw{Aliasing,High-order,Interpolation,Spectral-like optimization,Spurious modes}
     \endentry
     \entry{cunha2011}{misc}{}{}
       \name{author}{2}{}{%
@@ -357,10 +340,10 @@
       \field{title}{{How IDW (Inverse Distance Weighted) Interpolation Works}}
       \field{year}{2024}
       \verb{urlraw}
-      \verb https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm#:~:text=Inverse%20distance%20weighted%20(IDW)%20interpolation,of%20a%20locationally%20dependent%20variable
+      \verb https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm
       \endverb
       \verb{url}
-      \verb https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm#:~:text=Inverse%20distance%20weighted%20(IDW)%20interpolation,of%20a%20locationally%20dependent%20variable
+      \verb https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm
       \endverb
     \endentry
     \entry{fluidssengineer}{misc}{}{}
@@ -425,8 +408,8 @@
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{INTERNATIONAL JOURNAL FOR NUMERICAL METHODS IN ENGINEERING}
-      \field{title}{CONSTRUCTION OF CURVILINEAR CO-ORDINATE SYSTEMS AND APPLICATIONS TO MESH GENERATION}
+      \field{journaltitle}{International journal for numerical methods in engineering}
+      \field{title}{Construction of curvilinear co-ordinate systems and applications to mesh generation}
       \field{year}{1973}
       \true{nocite}
     \endentry
@@ -451,16 +434,8 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{SIAM J. NUMER. ANAL}
-      \field{title}{BLENDING-FUNCTION METHODS OF BIVARIATE AND MULTIVARIATE INTERPOLATION AND APPROXIMATION*}
+      \field{title}{Blending-function methods of bivariate and multivariate interpolation and approximation}
       \field{year}{1971}
-      \true{nocite}
-    \endentry
-    \entry{internal2023}{misc}{}{}
-      \field{sortinit}{I}
-      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
-      \field{labeltitlesource}{title}
-      \field{title}{Internal Documentation}
-      \field{year}{2023}
       \true{nocite}
     \endentry
     \entry{kim2019}{article}{}{}
@@ -481,9 +456,6 @@
            given={Taejung},
            giveni={T\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {MDPI AG}%
-      }
       \strng{namehash}{53e38763e0b19980f11c076a66b66e2c}
       \strng{fullhash}{53e38763e0b19980f11c076a66b66e2c}
       \strng{fullhashraw}{53e38763e0b19980f11c076a66b66e2c}
@@ -496,18 +468,13 @@
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{A digital surface model (DSM) is an important geospatial infrastructure used in various fields. In this paper, we deal with how to improve the quality of DSMs generated from stereo image matching. During stereo image matching, there are outliers due to mismatches, and non-matching regions due to match failure. Such outliers and non-matching regions have to be corrected accurately and efficiently for high-quality DSM generation. This process has been performed by applying a local distribution model, such as inverse distance weight (IDW), or by forming a triangulated irregular network (TIN). However, if the area of non-matching regions is large, it is not trivial to interpolate elevation values using neighboring cells. In this study, we proposed a new DSM interpolation method using a 3D mesh model, which is more robust to outliers and large holes. We compared mesh-based DSM with IDW-based DSM and analyzed the characteristics of each.}
-      \field{issn}{2072-4292}
       \field{journaltitle}{Remote Sensing}
-      \field{month}{1}
       \field{title}{Digital surface model interpolation based on 3D mesh models}
-      \field{volume}{11}
       \field{year}{2019}
       \true{nocite}
       \verb{doi}
       \verb 10.3390/rs11010024
       \endverb
-      \keyw{Digital surface model (DSM),Interpolation,Mesh,Surface reconstruction}
     \endentry
     \entry{laborderie2018}{article}{}{}
       \name{author}{6}{}{%
@@ -817,16 +784,10 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Interpolation transfinie SW le triangle, le tetra\&dre et le pentakdre. Application h la crhation de maillages et h la condition de Dirichlet}
-      \field{volume}{326}
       \field{year}{1998}
       \true{nocite}
-      \field{pages}{117}
-      \range{pages}{1}
-      \verb{urlraw}
-      \verb \url{http://www.ann.jUssirrl.fr/~~~~rro~~n~}
-      \endverb
-      \verb{url}
-      \verb %5Curl%7Bhttp://www.ann.jUssirrl.fr/~~~~rro~~n~%7D
+      \verb{doi}
+      \verb 10.1016/S0764-4442(97)82723-1
       \endverb
     \endentry
     \entry{piegl1995nurbs}{book}{}{}
@@ -967,10 +928,12 @@
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{PEGASUS provides the hole-cutting and connectivity information between overlapping grids, and is used as the final part of the grid generation process for overset-grid CFD. The new PEGASUS code (Version 5) has many new features: automated hole cutting; a projection scheme for fixing gaps in overset surfaces; more efficient interpolation search methods using an alternating digital tree; hole-size optimization based on adding additional layers of fringe points; and an automatic restart capability.}
       \field{title}{PEGASUS 5: An Automated Pre-Processor for Overset-Grid CFD}
-      \field{year}{2023}
+      \field{year}{2003}
       \true{nocite}
+      \verb{doi}
+      \verb 10.2514/2.2070
+      \endverb
     \endentry
     \entry{tanaka}{misc}{}{}
       \name{author}{3}{}{%
