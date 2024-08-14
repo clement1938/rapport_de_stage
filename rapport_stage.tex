@@ -1,5 +1,9 @@
 \documentclass[11pt,a4paper]{report}
 
+\hbadness=10000
+\hfuzz=100pt
+
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[top=2cm,bottom=2cm,left=2.5cm,right=2.5cm]{geometry}
@@ -97,6 +101,14 @@
   %footnote = {Ffowcs Williams-Hawkings}
 }
 
+\DeclareAcronym{NURBS}{
+  short = NURBS,
+  long = Non Uniform Rational Basis Splines; B-splines rationnelles non uniformes,
+  short-indefinite = une,
+  %footnote = {Ffowcs Williams-Hawkings}
+}
+
+
 \DeclareAcronym{CAO}{
   short = CAO,
   long = Conception assistée par Ordinateur,
@@ -142,7 +154,7 @@
 
 \DeclareAcronym{ALGO-COOP}{
   short = ALGO-COOP,
-  long = ALOGrithmes Parallèles \& sCientifics sOftware Operational Performances,
+  long = ALOGrithmes parallèles \& sCientifics sOftware Operational Performances,
   short-indefinite = l',
 }
 
@@ -154,7 +166,7 @@
 
 \DeclareAcronym{ES}{
   short = ES,
-  long = Energy et Safety,
+  long = Énergie et Sécurité; Energy and Safety,
   short-indefinite = l',
 }
 
@@ -238,13 +250,14 @@
 \fancyfoot[R]{\includegraphics*[width=0.1\textwidth]{images/ipsagarde.png}}
 
 \newcommand\BackgroundPic{
-\put(0,2 cm){
+\put(0,1.3 cm){
 \parbox[b][0.6\paperheight]{\paperwidth}{
 \centering
-{\includegraphics[width=\paperwidth,height=0.52\paperheight, %\transparent{0.4}
+{\includegraphics[width=\paperwidth,height=0.51\paperheight, %\transparent{0.4}
 keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 }}}
 
+% ca n'apparais pas
 \newcommand\TitleText{
 \put(0,0.5 cm){ % Positionner le titre
 \parbox[b][\paperheight]{\paperwidth}{

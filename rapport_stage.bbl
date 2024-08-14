@@ -333,6 +333,34 @@
       \field{year}{2011}
       \true{nocite}
     \endentry
+    \entry{idw-arcgis}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=8d70c7a36d3a99961562d65a7adaeb5e}{%
+           family={{Esri}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{8d70c7a36d3a99961562d65a7adaeb5e}
+      \strng{fullhash}{8d70c7a36d3a99961562d65a7adaeb5e}
+      \strng{fullhashraw}{8d70c7a36d3a99961562d65a7adaeb5e}
+      \strng{bibnamehash}{8d70c7a36d3a99961562d65a7adaeb5e}
+      \strng{authorbibnamehash}{8d70c7a36d3a99961562d65a7adaeb5e}
+      \strng{authornamehash}{8d70c7a36d3a99961562d65a7adaeb5e}
+      \strng{authorfullhash}{8d70c7a36d3a99961562d65a7adaeb5e}
+      \strng{authorfullhashraw}{8d70c7a36d3a99961562d65a7adaeb5e}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2024-08-13}
+      \field{title}{{How IDW (Inverse Distance Weighted) Interpolation Works}}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm#:~:text=Inverse%20distance%20weighted%20(IDW)%20interpolation,of%20a%20locationally%20dependent%20variable
+      \endverb
+      \verb{url}
+      \verb https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm#:~:text=Inverse%20distance%20weighted%20(IDW)%20interpolation,of%20a%20locationally%20dependent%20variable
+      \endverb
+    \endentry
     \entry{fluidssengineer}{misc}{}{}
       \name{author}{3}{}{%
         {{hash=6b280cb8a90332a66a6e92495256b1f6}{%
@@ -576,6 +604,34 @@
       \field{title}{Mesh-Independent Surface Interpolation}
       \true{nocite}
     \endentry
+    \entry{idw-mapscaping}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=0c8ac421f1c977e3e647ec92b295286b}{%
+           family={{Mapscaping}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0c8ac421f1c977e3e647ec92b295286b}
+      \strng{fullhash}{0c8ac421f1c977e3e647ec92b295286b}
+      \strng{fullhashraw}{0c8ac421f1c977e3e647ec92b295286b}
+      \strng{bibnamehash}{0c8ac421f1c977e3e647ec92b295286b}
+      \strng{authorbibnamehash}{0c8ac421f1c977e3e647ec92b295286b}
+      \strng{authornamehash}{0c8ac421f1c977e3e647ec92b295286b}
+      \strng{authorfullhash}{0c8ac421f1c977e3e647ec92b295286b}
+      \strng{authorfullhashraw}{0c8ac421f1c977e3e647ec92b295286b}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2024-08-13}
+      \field{title}{{Understanding Inverse Distance Weighting}}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://mapscaping.com/understanding-inverse-distance-weighting/
+      \endverb
+      \verb{url}
+      \verb https://mapscaping.com/understanding-inverse-distance-weighting/
+      \endverb
+    \endentry
     \entry{muller2020}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=c54308d448d2d2171d175806b4c1c113}{%
@@ -653,7 +709,6 @@
       \field{abstract}{The Aerothermal Design Space Interpolation (ADSI) code is used to explore whether surface environments can be generated to an acceptable level of accuracy by interpolating them from an existing database of CFD solutions. The interpolation approach might be advantageous for performing trajectory trade studies or other quick-turnaround studies in a design space. Three interpolation methods-linear, inverse distance weighted (IDW), and Kriging interpolation methods-are presented and explored. The methods are evaluated by performing interpolations using a non-uniformly spaced database of AS-202 vehicle forebody solutions and over a CEV-shaped capsule with a 3-D, uniformly-spaced database. The linear method is simple, robust, and an acceptable choice of interpolation for rough first estimates or if the database solution variables depend linearly on design space variables.}
       \field{title}{Construction of CFD Solutions Using Interpolation Rather than Computation with the ADSI Code}
       \field{year}{2009}
-      \true{nocite}
     \endentry
     \entry{peitsch2005}{misc}{}{}
       \name{author}{8}{}{%
@@ -788,6 +843,45 @@
       \endverb
       \verb{url}
       \verb %5Curl%7Bhttp://www.ann.jUssirrl.fr/~~~~rro~~n~%7D
+      \endverb
+    \endentry
+    \entry{piegl1995nurbs}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=3eaf67b9798d8cccc04b5a4802005b5b}{%
+           family={Piegl},
+           familyi={P\bibinitperiod},
+           given={Les},
+           giveni={L\bibinitperiod}}}%
+        {{hash=e0d912e18543fb8f2e878705ffa608f5}{%
+           family={Tiller},
+           familyi={T\bibinitperiod},
+           given={Wayne},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg, New York, Barcelona, Budapest, Hong Kong, London, Milan, Paris, Tokyo}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{fullhash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{fullhashraw}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{bibnamehash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{authorbibnamehash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{authornamehash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{authorfullhash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{authorfullhashraw}{01e7e051514a3b20ca461c88cc1c1352}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-3-642-97387-1}
+      \field{series}{Monographs in Visual Communications}
+      \field{title}{The NURBS Book}
+      \field{year}{1995}
+      \verb{doi}
+      \verb 10.1007/978-3-642-97385-7
       \endverb
     \endentry
     \entry{redonnet2014}{article}{}{}

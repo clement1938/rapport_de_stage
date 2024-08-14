@@ -435,7 +435,7 @@ Dans notre cas, nous ne prenons pas en compte tous les points du maillage source
     \end{tikzpicture}
     \end{center}
 
-Nous observons une discontinuité en 1,5 et 2,5.
+Nous observons une discontinuité en 1,5 et 2,5. La discontinuité peut être un grand problème pour la stabilité des schémas numériques
 
 \begin{comment}
     \begin{tikzpicture}
@@ -549,7 +549,15 @@ Nous pouvons aussi imaginer que 2 points, A et B, à droit et à gauche d'une li
     
 Ce qui n'est pas cohérent dans le cas où le gradient selon l'horizontal n'est pas nul.
 
-Quand toutes les informations selon un axe de l'espace ne se situe que d'un côté, le gradient ne sera pas pris en compte et l'erreur sera élevée. Par exemple, cela est généralement le cas lorsque le maillage cible a des points qui ne sont pas compris dans le maillage source.
+\begin{comment}
+Un des problèmes avec la méthode IDW est que « \textit{a directional bias to the database solutions can shift the interpolated results} »\footnote{Traduction : « un biais directionnel dans les solutions de la base de données peut décaler les résultats interpolés. » Source : \textit{Titre de l'article}, Auteur, Année, URL si applicable.}.
+\end{comment}
+
+
+Un des problèmes avec la méthode IDW est que « un biais directionnel dans les solutions de la base de données peut décaler les résultats interpolés »\footnote{Traduction de : « \textit{One issue with the IDW method is that a directional bias to the database solutions can shift the interpolated results.} »\cite{palmer2009}}.
+
+
+Lorsque toutes les informations selon un axe de l'espace ne se situe que d'un côté, le gradient ne sera pas pris en compte et l'erreur sera élevée. Par exemple, cela est généralement le cas lorsque le maillage cible a des points qui ne sont pas compris dans le maillage source.
 
 D'autres méthodes dérivées ou similaires existent pour évaluer nos poids. La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà les autres points ne sont pas pris en compte. Autrement dit, en utilisant un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas le nombre de points est variable.
 J'ai considéré subjectivement que cette méthode n'était pas intéressante car, confronté à un maillage ayant une différence de raffinement intrinsèque importante, dans certains cas aucuns points ne seraient pris, et dans d'autres, une trop grande somme serait calculée.
@@ -565,12 +573,21 @@ Par défaut, dans le code, \(p\) = 1 et \(N\) est égale aux nombres de sommets 
 Nous remarquons que pour \( N = 1 \), nous retrouvons la méthode du voisin le plus proche, pour tout \( p \).
 Et pour \( N = 2 \) et \( p = 1 \), toujours en 1D, nous retrouvons la méthode linéaire.
 
-Une de mes missions étais de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles et thèses que j'ai lues. C'est pour cela que je présenterais plus tard comment j'ai trouvé des paramètres optimaux en faisant des tests.
+Une de mes missions étais de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles\cite{idw-arcgis} et thèses que j'ai lues. C'est pour cela que je présenterais plus tard comment j'ai trouvé des paramètres optimaux en faisant des tests.
+
+Une des limitation\cite{idw-mapscaping} de la méthode IDW est qu'elle n'a pas d'autocorrélation spacial, contrairement à la méthode kriging que je décrirais plus tard.
+
+\vspace{0,5 cm}
+
+\texttt{Est-ce que je dois mettre un titre pour référencer toutes les illustrations que je fais de mon côté ?}
+
+
+
 
 
 \subsection{L'interpolation polynomiale}
 
-L'interpolation polynomiale est du degré du polynôme. Elle peut être réalisée en N dimension sur un maillage structuré. Elle est de classe \(C_{infini}\)
+L'interpolation polynomiale est d'un degré correspondant à celui du polynôme utilisé. Elle peut être réalisée en N dimensions sur un maillage structuré. Cette interpolation est de classe \(C^\infty\) (c'est-à-dire infiniment dérivable, avec des dérivées de tous ordres continues)
 
 \paragraph{Lagrange}
 \vspace{0.5cm}
@@ -581,12 +598,16 @@ L'interpolation polynomiale est du degré du polynôme. Elle peut être réalis�
 \paragraph{Splines}
 \vspace{0.5cm}
 \dots
+\paragraph{NURBS}
+\vspace{0.5cm}
+\ac{NURBS}
+Cette méthode\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interpolation
 
 
 \subsection{L'interpolation à base de distance}
 \paragraph{IDW}
 \vspace{0.5cm}
-\dots
+Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la distance des points pour le calcul de l'interpolation.
 \paragraph{Shépard}
 \vspace{0.5cm}
 \dots
@@ -601,7 +622,7 @@ L'interpolation polynomiale est du degré du polynôme. Elle peut être réalis�
 \subsection{Méthodes géostatiques}
 https://desktop.arcgis.com/fr/arcmap/latest/extensions/geostatistical-analyst/what-is-arcgis-geostatistical-analyst-.htm
 
-Cokriging is the multivariate extension of kriging formalism, which allows to deal simultaneously with two or more variables defined over the same domain and to account for additional information about spatial correlation between the variables. :
+Cokriging is the multivariate extension of kriging formalism, which allows to deal simultaneously with two or more variables defined over the same domain and to account for additional information about spatial correlation between the variables :
 https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/kriging
 
 
@@ -752,13 +773,58 @@ Bien sûr, les triangles sont quelconques, mais la formule reste la même
 En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvons aussi facilement. La formule est l'extension de celle pour les triangles :
 
 \begin{equation}
-f(x, y) = \frac{(x_2 - x)(y_2 - y)f_{11} + (x - x_1)(y_2 - y)f_{21} + (x_2 - x)(y - y_1)f_{12} + (x - x_1)(y - y_1)f_{22}}{(x_2 - x_1)(y_2 - y_1)}
+    \resizebox{0.9\hsize}{!}{$
+    f(x, y) = \frac{(x_2 - x)(y_2 - y)f_{11} + (x - x_1)(y_2 - y)f_{21} + (x_2 - x)(y - y_1)f_{12} + (x - x_1)(y - y_1)f_{22}}{(x_2 - x_1)(y_2 - y_1)}
+    $}
 \end{equation}
+                
 
+
+Ici les surfaces sont directement calculées
 
 Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif. Cela correspond à deux interpolations linéaires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle, mais je trouvais cela plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
 
-\begin{tikzpicture}
+
+\begin{center}
+    \begin{tikzpicture}
+        % Define the rectangle vertices
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (5,0);
+        \coordinate (C) at (5,4);
+        \coordinate (D) at (0,4);
+        \coordinate (P) at (3,2.5); % Point d'interpolation
+        
+        % Draw rectangle
+        \draw[thick] (A) -- (B) -- (C) -- (D) -- cycle;
+        
+        % Draw the perpendicular lines from P to the sides of the rectangle
+        \draw[dashed] (P) -- (3,0);   % Vertical to the bottom side
+        \draw[dashed] (P) -- (3,4);   % Vertical to the top side
+        \draw[dashed] (P) -- (0,2.5); % Horizontal to the left side
+        \draw[dashed] (P) -- (5,2.5); % Horizontal to the right side
+        
+        % Fill the areas
+        \fill[blue!20]  (A) -- (3,0) -- (P) -- (0,2.5) -- cycle;
+        \fill[red!20]   (B) -- (5,2.5) -- (P) -- (3,0) -- cycle;
+        \fill[green!20] (C) -- (5,2.5) -- (P) -- (3,4) -- cycle;
+        \fill[yellow!20] (D) -- (0,2.5) -- (P) -- (3,4) -- cycle;
+        
+        % Draw points
+        \filldraw[black] (A) circle (2pt) node[anchor=north east] {$f_{11} (x_1, y_1)$};
+        \filldraw[black] (B) circle (2pt) node[anchor=north west] {$f_{21} (x_2, y_1)$};
+        \filldraw[black] (C) circle (2pt) node[anchor=south west] {$f_{22} (x_2, y_2)$};
+        \filldraw[black] (D) circle (2pt) node[anchor=south east] {$f_{12} (x_1, y_2)$};
+        \filldraw[black] (P) circle (2pt) node[anchor=south east] {$P (x, y)$};
+        
+        % Title
+        \node at (2.5,-1) {Interpolation Bilinéaire};
+        
+    \end{tikzpicture}
+\end{center}
+
+
+\begin{comment}
+    \begin{tikzpicture}
     \begin{axis}[
         view={45}{45},
         xlabel={$x$},
@@ -784,19 +850,64 @@ Visuellement nous créons cette fois des traits parallèles au passant par le po
         \node at (axis cs:2.5,2,7) [anchor=south] {$P$};
 
     \end{axis}
-\end{tikzpicture}
+    \end{tikzpicture}
+\end{comment}
 
-
-
-ILLUSTRATION à améliorer
 
 \subparagraph{Quadrilatère}
 
 Viens maintenant la dernière forme 2D rencontrée dans les solutions traités par Antares : les quadrilatères. Pour cela je n'ai pas trouvé de méthode. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0. Une première vérification de la linéarité est aussi de vérifier qu'un point au milieu d'une forme 2D a comme valeur la moyenne de ses côtés.
-Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la forme dans laquelle il se situe (tel que pour l'interpolation Barycentrique). Cela permet de ne créer uniquement 4 sous formes. Ensuite pour déterminer le poids associé au sommet \( s_1 \), il faut multiplier les deux surfaces qui lui sont opposés entre elles, et bien entendu, le pondéré une fois les autres poids calculés. Par opposé j'entends que ces surfaces ne sont composés d'aucune arrête ayant pour l'une de leurs extrémités le point d'interpolation. Ceci est important pour le 3D. Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode étais linéaire. Un point qui me perturbait étais de faire des multiplications de surfaces, donc ordre 4, dans une méthode linéaire. Mais contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire. On pourrait imaginer que, par chance, ma méthode soit quadratique. Premièrement j'ai vérifié et ce n'est apparemment pas le cas. Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère. Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points. Normalement il faut s'appuyer sur plus de points pour le quadratique. Finalement voici l'équation :\\
-ÉQUATION
+Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la forme dans laquelle il se situe (tel que pour l'interpolation Barycentrique). Cela permet de ne créer uniquement 4 sous formes. Ensuite pour déterminer le poids associé au sommet \( s_1 \), il faut multiplier les deux surfaces qui lui sont opposés entre elles, et bien entendu, le pondéré une fois les autres poids calculés. Par opposé j'entends que ces surfaces ne sont composés d'aucune arrête ayant pour l'une de leurs extrémités le point d'interpolation. Ceci est important pour le 3D. Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode étais linéaire. Un point qui me perturbait étais de faire des multiplications de surfaces, donc ordre 4, dans une méthode linéaire. Mais contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire. On pourrait imaginer que, par chance, ma méthode soit quadratique. Premièrement j'ai vérifié et ce n'est apparemment pas le cas. Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère. Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points. Normalement il faut s'appuyer sur plus de points pour le quadratique. Finalement voici l'équation :
 
-ILLUSTRATION\vspace{0.5cm}  % OU \\[0pt plus 1fill] OU \newline OU flushleft, flushright, center
+\begin{equation}
+    f(P) = \frac{f_{A} \cdot (\beta \times \gamma) + f_{B} \cdot (\gamma \times \delta) + f_{C} \cdot (\delta \times \alpha) + f_{D} \cdot (\alpha \times \beta)}{(\beta \times \gamma) + (\gamma \times \delta) + (\delta \times \alpha) + (\alpha \times \beta)}
+\end{equation}
+    
+
+\begin{center}
+    \begin{tikzpicture}
+        % Define the rectangle vertices
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (5,0);
+        \coordinate (C) at (5,4);
+        \coordinate (D) at (0,4);
+        \coordinate (P) at (3,2.5); % Point d'interpolation
+    
+        % Draw rectangle
+        \draw[thick] (A) -- (B) -- (C) -- (D) -- cycle;
+    
+        % Draw the interpolation lines parallel to the sides
+        \draw[dashed] (P) -- (0,2.5); % Horizontal to the left side
+        \draw[dashed] (P) -- (3,0);   % Vertical to the bottom side
+        \draw[dashed] (P) -- (5,2.5); % Horizontal to the right side
+        \draw[dashed] (P) -- (3,4);   % Vertical to the top side
+    
+        % Fill the areas
+        \fill[blue!20]  (A) -- (P) -- (B) -- cycle;
+        \fill[red!20]   (B) -- (P) -- (C) -- cycle;
+        \fill[green!20] (C) -- (P) -- (D) -- cycle;
+        \fill[yellow!20] (D) -- (P) -- (A) -- cycle;
+    
+        % Draw points
+        \filldraw[black] (A) circle (2pt) node[anchor=north east] {$f_A$};
+        \filldraw[black] (B) circle (2pt) node[anchor=north west] {$f_B$};
+        \filldraw[black] (C) circle (2pt) node[anchor=south west] {$f_C$};
+        \filldraw[black] (D) circle (2pt) node[anchor=south east] {$f_D$};
+        \filldraw[black] (P) circle (2pt) node[anchor=south east] {$P$};
+    
+        % Add labels for the distances
+        \node at (2.8, 1.0) {$\alpha$};%{$x_2 - x$};
+        \node at (4.5, 2.5) {$\beta$};%{$y_2 - y$};
+        \node at (3.0, 3.5) {$\gamma$};%{$x - x_1$};
+        \node at (1.1, 2.4) {$\delta$};%{$y - y_1$};
+    
+        % Title
+        \node at (2.5,-1) {Interpolation dans un quadrilatère quelconque};
+    
+    \end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}  % OU \\[0pt plus 1fill] OU \newline OU flushleft, flushright, center
 
 
 \paragraph{3D}
@@ -820,6 +931,22 @@ L'équation qui en découle est la suivante :
 % Expliquer mathématiquement ? Ou plus tard dans le code ?  (quadrilatère non croisé, concave et convexes)
 
 % En CFD il y a toujours des formes, même si c'est structuré, on peut unstructure.
+
+\subparagraph{Thetraedre : Barycentrique étendu}
+
+Pour le tétraèdre (une pyramide à base triangulaire quelconque), nous trouvons bien un volume opposé à chaque sommet. Opposé dans le sens où le sommet ne partage pas de segment avec le volume. Nous pouvons alors appliquer la même formule que pour le triangle, avec 4 volumes à la place de 3 surfaces.
+
+\subparagraph{Prisme et pyramide}
+
+Pour le prisme et la pyramide (à base quadrilatérale), une extension de la formule pour le quadrilatère sera faite.
+
+
+La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes.
+
+
+Note pour l'ordre supérieur : faire une transformation des formes qui aurait pu être utilisé en linéaire comme pour le cas du quadrilatère.
+
+
 
 \subsection{Résumé des similitudes et différences des différentes méthodes}
 
@@ -919,15 +1046,15 @@ $\bullet$ Définir les points à interpoler
 Plusieurs axes ont été exploités afin de diminuer le temps de calcul du traitement interpolation.
 
 Le premier a été énoncé dans le pseudo-algorithme section précédente. Il s'agit de ne calculer qu'une seule fois le couple (poids, indices des points source) et autres paramètres puis de les enregistrer. Cela est utile dans deux cas :
-\vspace{0.5cm}
+
 - Entre les instants si la structure des deux bases restent inchangés. Par exemple dans le cas de l'aéroacoustique, la solution contiens 200 instants, le temps de calcul est alors presque divisé par 200. Dans le code, un test est fait pour savoir si tous les instants sont dits 'partagés'. Si oui, alors les poids et autres données nécessaires sont calculés (grace à la variable \texttt{computation}), mais pas le premier instant. Ensuite tous les instants seront calculés avec les données.
-\vspace{0.5cm}
+
 - Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure ne soit changée. Ceci arrive régulièrement, notamment lors de tests. Dans ce cas, il faut légèrement changer l'appel à la fonction, voici un exemple :
 
 \begin{lstlisting}[caption=Exemple de réutilisation des données, label={lst:antares}]
     import antares
     from copy import deepcopy
-    # deepcopy is used to be sure that the target_base will not be updated because of the Treatment
+    # deepcopy est utilise pour s'assurer que la 'target_base' ne soit pas calculee par le traitement
 
     myt = antares.Treatment('interpolation')
     myt['source'] = source_base
@@ -935,7 +1062,7 @@ Le premier a été énoncé dans le pseudo-algorithme section précédente. Il s
     myt['get_data'] = True
     result1, data = myt.execute()
 
-    # 'data' can be stored on the computer for example, then you can call it back
+    # 'data' peut etre enregistre sur votre ordinateur par exemple, pour pouvoir etre appele plus tard
 
     myt = antares.Treatment('interpolation')
     myt['source'] = source_base
