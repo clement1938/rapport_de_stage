@@ -67,8 +67,8 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{In this paper we use some well known theorems of algebraic geometry in reducing polynomial Hermite interpolation and approximation in any dimension to the solution of linear systems. We present a mix of symbolic and numerical algorithms for low degree curve ets through points in the plane, surface ets through points and curves in space, and in general, hypersuface ets through points, curves, surfaces, and sub-varieties in n dimensional space. These interpolatory and or approximatory yts may also be made to match derivative information along all the sub varieties. Such multi-dimensional hyper-surface interpolation and approximation provides mathematical models for scattered data sampled in three or higher dimensions and can be used to compute volumes, gradients, or more uniform samples for easy and realistic visualization.}
       \field{title}{Multi-dimensional Hermite Interpolation and Approximation for Modelling and Visualization}
+      \field{year}{2001}
       \true{nocite}
     \endentry
     \entry{benek}{misc}{}{}
@@ -112,8 +112,11 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Chimera: A Grid-Embedding Technique ARNOLD ENGINEERING DEVELOPMENT CENTER ARNOLD AIR FORCE STATION, TENNESSEE AIR FORCE SYSTEMS COMMAND UNITED STATES AIR FORCE}
+      \field{year}{2012}
       \true{nocite}
-      \keyw{approved for public release}
+      \verb{doi}
+      \verb 10.2514/6.1987-1126
+      \endverb
     \endentry
     \entry{chimera2023}{misc}{}{}
       \name{author}{3}{}{%
@@ -328,7 +331,6 @@
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{The present work constitutes a fraction of a more extensive study that is dedicated to the improvement of hybrid methods for aeroacoustics. More precisely, we address here the interpolation step that is to be achieved between their CFD and CAA stages, when the latter are weakly coupled. First, thanks to theoretical investigations, we analyze the interpolation process and the mechanisms underlying its two main issues, which are the spurious modes generation and the signal degradation. The former is then more particularly studied, before an innovative interpolation technique is proposed for minimizing its effects. This innovative procedure is then assessed/validated against several test cases of increasing complexity. Finally, the way such procedure can help in improving and/or lightening hybrid methods processes is discussed.}
       \field{title}{An Innovative Interpolation Technique for Aeroacoustic Hybrid Methods}
       \field{year}{2011}
       \true{nocite}
@@ -351,7 +353,7 @@
       \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed: 2024-08-13}
+      \field{note}{Accédé: 2024-08-13}
       \field{title}{{How IDW (Inverse Distance Weighted) Interpolation Works}}
       \field{year}{2024}
       \verb{urlraw}
@@ -392,7 +394,11 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Interpolation Method Needed for Numerical Uncertainty Analysis of Computational Fluid Dynamics}
+      \field{year}{2014}
       \true{nocite}
+      \verb{doi}
+      \verb 10.2514/6.2014-1433
+      \endverb
     \endentry
     \entry{gordon1973}{article}{}{}
       \name{author}{2}{}{%
@@ -419,14 +425,10 @@
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Computer-oriented mesh generators, which serve as pre-processors to finite element programs, have recently been developed by several investigators to alleviate the frustration and to reduce the amount of time involved in the tedious manual subdividing of a complex structure into finite elements. Our purpose here is to describe how the techniques of bivariate 'blending-function' interpolation, which were originally developed for, and applied to, geometric problems of computer-aided design and numerically controlled machining of free-form surfaces such as automobile exterior panels, can be adapted and applied to the problems of mesh generation for finite element analyses. We concentrate attention on the problem of curvilinearly coordinating simply connected planar domains W by constructing invertible maps of the unit square. Extensions of the methods described herein to shells in 3-space is straightforward and is illustrated by a practical example taken from the automobile industry.}
       \field{journaltitle}{INTERNATIONAL JOURNAL FOR NUMERICAL METHODS IN ENGINEERING}
       \field{title}{CONSTRUCTION OF CURVILINEAR CO-ORDINATE SYSTEMS AND APPLICATIONS TO MESH GENERATION}
-      \field{volume}{7}
       \field{year}{1973}
       \true{nocite}
-      \field{pages}{461\bibrangedash 477}
-      \range{pages}{17}
     \endentry
     \entry{gordont1971}{misc}{}{}
       \name{author}{1}{}{%
@@ -448,18 +450,10 @@
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{issue}{1}
       \field{journaltitle}{SIAM J. NUMER. ANAL}
       \field{title}{BLENDING-FUNCTION METHODS OF BIVARIATE AND MULTIVARIATE INTERPOLATION AND APPROXIMATION*}
-      \field{volume}{8}
       \field{year}{1971}
       \true{nocite}
-      \verb{urlraw}
-      \verb http://www.siam.org/journals/ojsa.php
-      \endverb
-      \verb{url}
-      \verb http://www.siam.org/journals/ojsa.php
-      \endverb
     \endentry
     \entry{internal2023}{misc}{}{}
       \field{sortinit}{I}
@@ -550,9 +544,6 @@
            given={S.},
            giveni={S\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Academic Press Inc.}%
-      }
       \strng{namehash}{7600cb406b0de6be50a3e5f01796e030}
       \strng{fullhash}{ee7f568e5952755bfee0ddfbccb6588e}
       \strng{fullhashraw}{ee7f568e5952755bfee0ddfbccb6588e}
@@ -565,20 +556,13 @@
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Large-Eddy Simulation (LES) is recognized as a promising method for high-fidelity flow predictions in turbomachinery applications. The presented approach consists of the coupling of several instances of the same LES unstructured solver through an overset grid method. A high-order interpolation, implemented within this coupling method, is introduced and evaluated on several test cases. It is shown to be third order accurate, to preserve the accuracy of various second and third order convective schemes and to ensure the continuity of diffusive fluxes and subgrid scale tensors even in detrimental interface configurations. In this analysis, three types of spurious waves generated at the interface are identified. They are significantly reduced by the high-order interpolation at the interface. The latter having the same cost as the original lower order method, the high-order overset grid method appears as a promising alternative to be used in all the applications.}
-      \field{issn}{10902716}
-      \field{journaltitle}{Journal of Computational Physics}
-      \field{month}{6}
+      \field{journaltitle}{Journal of Computational Physics, Éditeur : Academic Press Inc.}
       \field{title}{Numerical analysis of a high-order unstructured overset grid method for compressible LES of turbomachinery}
-      \field{volume}{363}
       \field{year}{2018}
       \true{nocite}
-      \field{pages}{371\bibrangedash 398}
-      \range{pages}{28}
       \verb{doi}
       \verb 10.1016/j.jcp.2018.02.045
       \endverb
-      \keyw{High-order interpolation,Large-Eddy Simulation,Overset grids,Turbomachinery}
     \endentry
     \entry{levin}{misc}{}{}
       \name{author}{1}{}{%
@@ -587,6 +571,9 @@
            familyi={L\bibinitperiod},
            given={David},
            giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer, Berlin, Heidelberg}%
       }
       \strng{namehash}{32ad21054f07b38c5fef8dcf472ca73c}
       \strng{fullhash}{32ad21054f07b38c5fef8dcf472ca73c}
@@ -600,9 +587,12 @@
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{A viv University, Tel A viv 69978, Israel levin\{@\}post.tau.ac.il Summary. Smooth interpolation of unstructured surface data is usually achieved by joining local patches, where each patch is an approximation (usually parametric) defined on a local reference domain. A basic mesh-independent projection strategy for general surface interpolation is proposed here. The projection is based upon the 'Moving-Least-Squares' (MLS) approach, and the resulting surface is C oo smooth. The projection involves a first stage of defining a local reference domain and a second stage of constructing an MLS approximation with respect to the reference domain. The approach is presented for the general problem of approximating a (d-1)-dimensional manifold in IR d , d ?: 2. The approach is applicable for interpolating or smoothing curve and surface data, as demonstrated here by some graphical examples.}
       \field{title}{Mesh-Independent Surface Interpolation}
+      \field{year}{2004}
       \true{nocite}
+      \verb{doi}
+      \verb 10.1007/978-3-662-07443-5_3
+      \endverb
     \endentry
     \entry{idw-mapscaping}{misc}{}{}
       \name{author}{1}{}{%
@@ -622,7 +612,7 @@
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Accessed: 2024-08-13}
+      \field{note}{Accédé: 2024-08-13}
       \field{title}{{Understanding Inverse Distance Weighting}}
       \field{year}{2023}
       \verb{urlraw}
@@ -652,7 +642,7 @@
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{A user's guide to h i p}
+      \field{title}{A user's guide to hip}
       \field{year}{2020}
       \true{nocite}
     \endentry
@@ -681,10 +671,12 @@
       \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{In recent years, the Lattice Boltzmann Method (LBM) has been developed as an alternative numerical approach in Computational Fluid Dynamics (CFD). In particular, this method is promising for simulations of multiphase and multi component fluid flow involving complex interfacial dynamics. Unlike the conventional CFD methods based on NS equations, the LBM is based on the mesoscopic particle's kinetic equation. This method has some advantages such as the simplicity of the algorithm (high efficiency on parallel processing), flexible reproduction of interfaces between phases. The conventional LBM, however, requires regular structured grids. But, for complex flow field, unstructured grids should be used. In this study, we describe a computational scheme based on two-dimensional unstructured grids using Cubic Interpolation with Volume/Area coordinates (CIVA) method and Adaptive Mesh Refinement method.}
       \field{title}{CIVA (Cubic Interpolation with Volume/Area Coordinates) and AMR (Adaptive Mesh Refinement) Method for Discrete Boltzmann Equation *}
+      \field{year}{2005}
       \true{nocite}
-      \keyw{Adaptive Mesh Refinement,CIP,CIVA,Computational Fluid Dynamics,Lattice Boltzmann Method,Multi-Phase Flow,Unstructured Grids}
+      \verb{doi}
+      \verb 10.1299/jsmeb.48.229
+      \endverb
     \endentry
     \entry{palmer2009}{misc}{}{}
       \name{author}{1}{}{%
@@ -706,7 +698,6 @@
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{The Aerothermal Design Space Interpolation (ADSI) code is used to explore whether surface environments can be generated to an acceptable level of accuracy by interpolating them from an existing database of CFD solutions. The interpolation approach might be advantageous for performing trajectory trade studies or other quick-turnaround studies in a design space. Three interpolation methods-linear, inverse distance weighted (IDW), and Kriging interpolation methods-are presented and explored. The methods are evaluated by performing interpolations using a non-uniformly spaced database of AS-202 vehicle forebody solutions and over a CEV-shaped capsule with a 3-D, uniformly-spaced database. The linear method is simple, robust, and an acceptable choice of interpolation for rough first estimates or if the database solution variables depend linearly on design space variables.}
       \field{title}{Construction of CFD Solutions Using Interpolation Rather than Computation with the ADSI Code}
       \field{year}{2009}
     \endentry
@@ -768,6 +759,9 @@
       \field{title}{Drebrin, an Actin-Binding, Cell-Type Characteristic Protein: Induction and Localization in Epithelial Skin Tumors and Cultured Keratinocytes}
       \field{year}{2005}
       \true{nocite}
+      \verb{doi}
+      \verb 10.1111/j.0022-202X.2005.23793.x
+      \endverb
     \endentry
     \entry{peron2013}{article}{}{}
       \name{author}{2}{}{%
@@ -782,9 +776,6 @@
            given={Christophe},
            giveni={C\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Academic Press Inc.}%
-      }
       \strng{namehash}{949b6c354eaad41a8a81fd42cc5264ce}
       \strng{fullhash}{949b6c354eaad41a8a81fd42cc5264ce}
       \strng{fullhashraw}{949b6c354eaad41a8a81fd42cc5264ce}
@@ -797,20 +788,13 @@
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{This paper describes a method for generating adaptive structured Cartesian grids within a near-body/off-body mesh partitioning framework for the flow simulation around complex geometries. The off-body Cartesian mesh generation derives from an octree structure, assuming each octree leaf node defines a structured Cartesian block. This enables one to take into account the large scale discrepancies in terms of resolution between the different bodies involved in the simulation, with minimum memory requirements. Two different conversions from the octree to Cartesian grids are proposed: the first one generates Adaptive Mesh Refinement (AMR) type grid systems, and the second one generates abutting or minimally overlapping Cartesian grid set. We also introduce an algorithm to control the number of points at each adaptation, that automatically determines relevant values of the refinement indicator driving the grid refinement and coarsening.}
-      \field{issn}{10902716}
       \field{journaltitle}{Journal of Computational Physics}
-      \field{month}{1}
       \field{title}{Automatic off-body overset adaptive Cartesian mesh method based on an octree approach}
-      \field{volume}{232}
       \field{year}{2013}
       \true{nocite}
-      \field{pages}{153\bibrangedash 173}
-      \range{pages}{21}
       \verb{doi}
       \verb 10.1016/j.jcp.2012.07.029
       \endverb
-      \keyw{Adaptive Mesh Refinement,Cartesian mesh,Mesh adaptation,Mesh generation,Octree,Overset grids,Vortical flows}
     \endentry
     \entry{perronnet1998}{misc}{}{}
       \name{author}{1}{}{%
@@ -858,9 +842,6 @@
            given={Wayne},
            giveni={W\bibinitperiod}}}%
       }
-      \list{location}{1}{%
-        {Berlin, Heidelberg, New York, Barcelona, Budapest, Hong Kong, London, Milan, Paris, Tokyo}%
-      }
       \list{publisher}{1}{%
         {Springer}%
       }
@@ -876,7 +857,6 @@
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{isbn}{978-3-642-97387-1}
       \field{series}{Monographs in Visual Communications}
       \field{title}{The NURBS Book}
       \field{year}{1995}
@@ -904,7 +884,6 @@
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{This article focuses on advanced noise prediction methodologies, in regard to aircraft noise mitigation. More precisely, the so-called aeroacoustic hybrid methodology is first recalled here, before illustrating its potentialities through several examples of application to realistic aircraft noise problems. Among other things, this paper highlights how Onera has contributed to the development of reliable computational methodologies over the last decade, which can now help in solving aircraft noise issues.}
       \field{title}{Issue 7-June 2014-Aircraft Noise Prediction via Aeroacoustic Hybrid Methods: Development and Application of Onera Tools over the Last Decade: Some Examples}
       \true{nocite}
       \verb{doi}
@@ -935,7 +914,7 @@
            giveni={M\bibinitperiod}}}%
       }
       \list{publisher}{2}{%
-        {American Institute of Aeronautics}%
+        {publisher: American Institute of Aeronautics}%
         {Astronautics Inc, AIAA}%
       }
       \strng{namehash}{6246376e53cd3b63799b7dbf6f4083a5}
@@ -950,9 +929,7 @@
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{The huge disparity of scales in low Mach number aeroacoustics yields the possibility of applying well suited hybrid simulation models using different meshes for flow and acoustics. Since these two meshes may be quite different, the fundamental requirement in hybrid computational aeroacoustics (CAA) is an accurate data transfer from the flow to the acoustic grid in order to minimize interpolation errors. In this paper, we investigate the accuracy of a standard conservative interpolation scheme compared to the more sophisticated cut-volume cell by applying the schemes to aeroacoustic computation of an axial fan. Finally, the results of the acoustics simulations are compared to measurements.}
       \field{booktitle}{25th AIAA/CEAS Aeroacoustics Conference, 2019}
-      \field{isbn}{9781624105883}
       \field{title}{Conservative source term interpolation for hybrid aeroacoustic computations}
       \field{year}{2019}
       \true{nocite}
@@ -1025,10 +1002,12 @@
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{This paper concerns the cubic interpolation with volume/area coordinates (CIVA) method, which is an extension of the cubic interpolation profile (CIP) to a triangular or tetrahedral mesh system, implemented in an unstructured and fixed (Eulerian) mesh-based finite-volume solver. First, we briefly explain the accuracy of and the results of stability analysis by CIVA. Then, to demonstrate the accuracy and robustness of the algorithm, we solve two-dimensional benchmark problems of incompressible lid-driven recirculating flow in square and triangular cavities. In addition, a two-dimensional vortex-driven flow is solved in order to analyze the conservative property of CIVA. Finally, an example of an industrial application of CIVA method is described. These numerical experiments demonstrate the high capability of the method and that it is sufficiently robust for complex industrial applications.}
       \field{title}{Accurate and Robust Fluid Analysis Using Cubic Interpolation with Volume/Area Coordinates (CIVA) Method on Unstructured Grids *}
+      \field{year}{2004}
       \true{nocite}
-      \keyw{Accuracy,CIVA,Finite Volume Method,Industrial Application,Robustness,Square Cavity Flow,Triangular Cavity Flow,Unstructured Mesh,Vortex-Driven Flow}
+      \verb{doi}
+      \verb 10.1299/jsmeb.47.672
+      \endverb
     \endentry
     \entry{tayachi2013}{misc}{}{}
       \name{author}{1}{}{%
@@ -1050,16 +1029,9 @@
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{To cite this version: Manel Tayachi. Couplage de modèles de dimensions hétérogènes et application en hydrodynamique. Mathématiques générales. Université de Grenoble, 2013. Français.}
       \field{title}{Couplage de modèles de dimensions hétérogènes et application en hydrodynamique}
       \field{year}{2013}
       \true{nocite}
-      \verb{urlraw}
-      \verb https://theses.hal.science/tel-00930084
-      \endverb
-      \verb{url}
-      \verb https://theses.hal.science/tel-00930084
-      \endverb
     \endentry
     \entry{walker2019}{misc}{}{}
       \name{author}{3}{}{%
@@ -1079,9 +1051,6 @@
            given={David},
            giveni={D\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Ubiquity Press}%
-      }
       \strng{namehash}{b73a693b99a04b4bf53e0ff0122207b6}
       \strng{fullhash}{b73a693b99a04b4bf53e0ff0122207b6}
       \strng{fullhashraw}{b73a693b99a04b4bf53e0ff0122207b6}
@@ -1094,18 +1063,13 @@
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{ARBTools is a Python library containing a Lekien-Marsden type tricubic spline method for interpolating three-dimensional scalar or vector fields presented as a set of discrete data points on a regular cuboid grid. ARBTools was developed for simulations of magnetic molecular traps, in which the magnitude, gradient and vector components of a magnetic field are required. Numerical integrators for solving particle trajectories are included, but the core interpolator can be used for any scalar or vector field. The only additional system requirements are NumPy.}
-      \field{issn}{20499647}
-      \field{issue}{1}
-      \field{journaltitle}{Journal of Open Research Software}
+      \field{journaltitle}{Journal of Open Research Software, Éditeur : Ubiquity Press}
       \field{title}{ARBTools: A tricubic spline interpolator for three-dimensional scalar or vector fields}
-      \field{volume}{7}
       \field{year}{2019}
       \true{nocite}
       \verb{doi}
       \verb 10.5334/jors.258
       \endverb
-      \keyw{Python,Scalar field,Smoothing,Spline,Three-dimensional interpolation,Vector field}
     \endentry
   \enddatalist
 \endrefsection

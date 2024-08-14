@@ -40,3 +40,6 @@
 {"rule":"ET-OU","sentence":"^\\QLa méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes.\\E$"}
 {"rule":"A_A_ACCENT","sentence":"^\\QA description of the implementation of the linear method is then provided, with a focus on the optimizations performed.\\E$"}
 {"rule":"PRONSUJ_NONVERBE","sentence":"^\\QThis internship report presents the work carried out at CERFACS, a research institute focused on High-Performance Computing (HPC).\\E$"}
+{"rule":"QUE_AVOIR","sentence":"^\\QJe n'ai pas trouvé la réponse dans les différents articles\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q et thèses que j'ai lus.\\E$"}
+{"rule":"DE_MANIERE_A_CE_QUE","sentence":"^\\QCes deux termes sont pondérés de manière à ce que leur somme soit toujours égale à 1, ce qui garantit que l'interpolation est correcte et symétrique par rapport à \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q et \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
+{"rule":"ETRE_VPPA_OU_ADJ","sentence":"^\\QDans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds.\\E$"}

@@ -1,9 +1,11 @@
 \section*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-Ce rapport de stage a pour objectif de permettre à l'IPSA, de m'évaluer sur le stage. La structure et le contenu principal de ce rapport sont fixés par l'école.
+Ce rapport de stage a deux objectifs.
 
-Il vise également à fournir un rapport sur mon stage pour le CERFACS et pour d'autres personnes qui utiliseraient ou modifieraient le traitement d'interpolation d'Antares.
+D'une part permettre à l'IPSA, de m'évaluer (la structure et le contenu principal de ce rapport sont fixés par l'école).
+
+D'autre part fournir un rapport sur mon stage pour le CERFACS et pour d'autres personnes qui utiliseraient ou modifieraient le traitement d'interpolation d'Antares.
 
 \vspace{0.5cm}
 
@@ -11,15 +13,15 @@ J'adore les mathématiques appliquées, la mécanique des fluides et je voulais 
 
 En quelques mots, le CERFACS est un institut de recherche privé, spécialisé dans le développement de code \ac{HPC}, financé par sept actionnaires.
 
-Antares\cite{antares} est un code d’analyse de données privé sous forme de librairie python, développé au CERFACS en 2012 dont l'objectif est de réaliser du pré et post-traitement sur des simulations numériques utilisées par le CERFACS et ses sept actionnaires.
+Antares\cite{antares} est un code d’analyse de données privé sous forme de librairie python, développé au CERFACS en 2012 et dont l'objectif est de réaliser du pré et post-traitement sur des simulations numériques utilisées par le CERFACS et ses sept actionnaires.
 Il contient notamment une fonction d'interpolation, codée en Python.
 
-Mon maître de stage, Carlos MONTILLA, est responsable d'Antares depuis dix mois. Il a notamment développé le traitement \ac{FWH} qui utilise le traitement interpolation.
+Mon maître de stage, Carlos MONTILLA, est responsable d'Antares depuis dix mois. Il a notamment développé le traitement \ac{FWH} qui utilise le traitement d'interpolation.
 
 Mes missions principales lors de ce stage ont été :
 
 - De faire un état des lieux sur les autres méthodes d'interpolation qui seraient 
-implémentables dans Antares (avec ses contraintes associées).
+implémentables dans Antares (avec les contraintes associées).
 % A savoir, 3D, non structuré, temps de calcul, caractéristiques des équations à interpoler ...
 
 - D'identifier les meilleurs paramètres pour l'équation \ac{IDW}, la seule qui était implémentée jusqu'alors dans Antares % : Inverse Distance Weighting, pondération inverse à la distance en français}
