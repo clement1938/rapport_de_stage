@@ -69,91 +69,6 @@
       \field{labeltitlesource}{title}
       \field{title}{Multi-dimensional Hermite Interpolation and Approximation for Modelling and Visualization}
       \field{year}{2001}
-      \true{nocite}
-    \endentry
-    \entry{benek}{misc}{}{}
-      \name{author}{5}{}{%
-        {{hash=7fc964323d9c4716c83bb49aadda2782}{%
-           family={Benek},
-           familyi={B\bibinitperiod},
-           given={J\bibnamedelima A},
-           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-        {{hash=346cba7072602e1c5265726fc8679380}{%
-           family={Steger},
-           familyi={S\bibinitperiod},
-           given={J\bibnamedelima L},
-           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
-        {{hash=7a3cfc04694cfb2698a2df743fa2aedc}{%
-           family={Dougherty},
-           familyi={D\bibinitperiod},
-           given={F\bibnamedelima C},
-           giveni={F\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
-        {{hash=e38805294cad2d4360e9e59c0591a23d}{%
-           family={Buning},
-           familyi={B\bibinitperiod},
-           given={P\bibnamedelima G},
-           giveni={P\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
-        {{hash=137a69518c4fe590a3a8375d1661607a}{%
-           family={Ames},
-           familyi={A\bibinitperiod},
-           given={Nasa},
-           giveni={N\bibinitperiod}}}%
-      }
-      \strng{namehash}{a11b3a9b0bdff840f3cd059d06ea92e3}
-      \strng{fullhash}{4be2f5abf378c78c381422459fef42fe}
-      \strng{fullhashraw}{4be2f5abf378c78c381422459fef42fe}
-      \strng{bibnamehash}{a11b3a9b0bdff840f3cd059d06ea92e3}
-      \strng{authorbibnamehash}{a11b3a9b0bdff840f3cd059d06ea92e3}
-      \strng{authornamehash}{a11b3a9b0bdff840f3cd059d06ea92e3}
-      \strng{authorfullhash}{4be2f5abf378c78c381422459fef42fe}
-      \strng{authorfullhashraw}{4be2f5abf378c78c381422459fef42fe}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Chimera: A Grid-Embedding Technique}
-      \field{year}{2012}
-      \true{nocite}
-      \verb{doi}
-      \verb 10.2514/6.1987-1126
-      \endverb
-    \endentry
-    \entry{chimera2005}{misc}{}{}
-      \name{author}{3}{}{%
-        {{hash=2edd2499b8036571b8304ec8c1a976cd}{%
-           family={Benoit},
-           familyi={B\bibinitperiod},
-           given={C},
-           giveni={C\bibinitperiod}}}%
-        {{hash=7b76011f8a10536167aaa1b4ea4365bb}{%
-           family={Jeanfaivre},
-           familyi={J\bibinitperiod},
-           given={G},
-           giveni={G\bibinitperiod}}}%
-        {{hash=d01fb4ffc061ba4b75ea0f7195361648}{%
-           family={Canonne},
-           familyi={C\bibinitperiod},
-           given={E},
-           giveni={E\bibinitperiod}}}%
-      }
-      \strng{namehash}{1dd0c1106dc01617f1391b9793318697}
-      \strng{fullhash}{1dd0c1106dc01617f1391b9793318697}
-      \strng{fullhashraw}{1dd0c1106dc01617f1391b9793318697}
-      \strng{bibnamehash}{1dd0c1106dc01617f1391b9793318697}
-      \strng{authorbibnamehash}{1dd0c1106dc01617f1391b9793318697}
-      \strng{authornamehash}{1dd0c1106dc01617f1391b9793318697}
-      \strng{authorfullhash}{1dd0c1106dc01617f1391b9793318697}
-      \strng{authorfullhashraw}{1dd0c1106dc01617f1391b9793318697}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Synthesis of Onera Chimera Method Developed in the Frame of Chance Program}
-      \field{year}{2005}
-      \true{nocite}
-      \verb{doi}
-      \verb 20.500.11881/1251
-      \endverb
     \endentry
     \entry{cassiopee2015}{misc}{}{}
       \name{author}{6}{}{%
@@ -202,7 +117,6 @@
       \field{labeltitlesource}{title}
       \field{title}{Cassiopee: a CFD pre-and post-processing tool}
       \field{year}{2015}
-      \true{nocite}
       \verb{doi}
       \verb 10.1016/j.ast.2015.05.023
       \endverb
@@ -230,65 +144,36 @@
       \field{title}{MEC6212 : Génération de maillages transfinits}
       \field{year}{2024}
     \endentry
-    \entry{chan1995}{misc}{}{}
-      \name{author}{1}{}{%
-        {{hash=1ec6207bfa982d2b7e7ab84891ce9196}{%
-           family={Chan},
-           familyi={C\bibinitperiod},
-           given={William\bibnamedelima M},
-           giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-      }
-      \strng{namehash}{1ec6207bfa982d2b7e7ab84891ce9196}
-      \strng{fullhash}{1ec6207bfa982d2b7e7ab84891ce9196}
-      \strng{fullhashraw}{1ec6207bfa982d2b7e7ab84891ce9196}
-      \strng{bibnamehash}{1ec6207bfa982d2b7e7ab84891ce9196}
-      \strng{authorbibnamehash}{1ec6207bfa982d2b7e7ab84891ce9196}
-      \strng{authornamehash}{1ec6207bfa982d2b7e7ab84891ce9196}
-      \strng{authorfullhash}{1ec6207bfa982d2b7e7ab84891ce9196}
-      \strng{authorfullhashraw}{1ec6207bfa982d2b7e7ab84891ce9196}
-      \field{sortinit}{C}
-      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Development of Numerical Methods for Overset Grids with Applications for the Integrated Space Shuttle Vehicle}
-      \field{year}{1995}
-      \true{nocite}
-    \endentry
-    \entry{cunha2016}{article}{}{}
+    \entry{cunha2011}{misc}{}{}
       \name{author}{2}{}{%
-        {{hash=232301123b8de264b908148f6886f2cc}{%
+        {{hash=f2fd17591b857983aae665697a76bdbf}{%
            family={Cunha},
            familyi={C\bibinitperiod},
-           given={G.},
+           given={Guilherme},
            giveni={G\bibinitperiod}}}%
-        {{hash=52263ebdfcc3b7ab06834a1601d7456d}{%
+        {{hash=83127655bc0f359aa7a29248682c5d38}{%
            family={Redonnet},
            familyi={R\bibinitperiod},
-           given={S.},
+           given={Stephane},
            giveni={S\bibinitperiod}}}%
       }
-      \strng{namehash}{c19512c1392962ff5cd4fc6dbaa801e1}
-      \strng{fullhash}{c19512c1392962ff5cd4fc6dbaa801e1}
-      \strng{fullhashraw}{c19512c1392962ff5cd4fc6dbaa801e1}
-      \strng{bibnamehash}{c19512c1392962ff5cd4fc6dbaa801e1}
-      \strng{authorbibnamehash}{c19512c1392962ff5cd4fc6dbaa801e1}
-      \strng{authornamehash}{c19512c1392962ff5cd4fc6dbaa801e1}
-      \strng{authorfullhash}{c19512c1392962ff5cd4fc6dbaa801e1}
-      \strng{authorfullhashraw}{c19512c1392962ff5cd4fc6dbaa801e1}
+      \strng{namehash}{c05bcb6651b3f445bcc8db4e52b695f2}
+      \strng{fullhash}{c05bcb6651b3f445bcc8db4e52b695f2}
+      \strng{fullhashraw}{c05bcb6651b3f445bcc8db4e52b695f2}
+      \strng{bibnamehash}{c05bcb6651b3f445bcc8db4e52b695f2}
+      \strng{authorbibnamehash}{c05bcb6651b3f445bcc8db4e52b695f2}
+      \strng{authornamehash}{c05bcb6651b3f445bcc8db4e52b695f2}
+      \strng{authorfullhash}{c05bcb6651b3f445bcc8db4e52b695f2}
+      \strng{authorfullhashraw}{c05bcb6651b3f445bcc8db4e52b695f2}
       \field{extraname}{1}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{International Journal for Numerical Methods in Fluids}
-      \field{title}{Development of optimized interpolation schemes with spurious modes minimization}
-      \field{year}{2016}
-      \true{nocite}
-      \verb{doi}
-      \verb 10.1002/fld.4079
-      \endverb
+      \field{title}{An Innovative Interpolation Technique for Aeroacoustic Hybrid Methods}
+      \field{year}{2011}
     \endentry
-    \entry{cunha2011}{misc}{}{}
+    \entry{cunha2016}{article}{}{}
       \name{author}{2}{}{%
         {{hash=f2fd17591b857983aae665697a76bdbf}{%
            family={Cunha},
@@ -314,9 +199,12 @@
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{An Innovative Interpolation Technique for Aeroacoustic Hybrid Methods}
-      \field{year}{2011}
-      \true{nocite}
+      \field{journaltitle}{International Journal for Numerical Methods in Fluids}
+      \field{title}{Development of optimized interpolation schemes with spurious modes minimization}
+      \field{year}{2016}
+      \verb{doi}
+      \verb 10.1002/fld.4079
+      \endverb
     \endentry
     \entry{idw-arcgis}{misc}{}{}
       \name{author}{1}{}{%
@@ -378,40 +266,37 @@
       \field{labeltitlesource}{title}
       \field{title}{Interpolation Method Needed for Numerical Uncertainty Analysis of Computational Fluid Dynamics}
       \field{year}{2014}
-      \true{nocite}
       \verb{doi}
       \verb 10.2514/6.2014-1433
       \endverb
     \endentry
-    \entry{gordon1973}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=48a3c699ed1f827aad562e60133f51a9}{%
-           family={Gordon},
+    \entry{gordont1971_2}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=2bcac8f451713be0d4753743cc763e86}{%
+           family={Gordont},
            familyi={G\bibinitperiod},
            given={William\bibnamedelima J},
            giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-        {{hash=714ae3679f31a5b5b498fc47f43b9818}{%
-           family={Hall},
-           familyi={H\bibinitperiod},
-           given={Charles\bibnamedelima A},
-           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
       }
-      \strng{namehash}{cdf508cf4a0f20a15f15c29af12df03b}
-      \strng{fullhash}{cdf508cf4a0f20a15f15c29af12df03b}
-      \strng{fullhashraw}{cdf508cf4a0f20a15f15c29af12df03b}
-      \strng{bibnamehash}{cdf508cf4a0f20a15f15c29af12df03b}
-      \strng{authorbibnamehash}{cdf508cf4a0f20a15f15c29af12df03b}
-      \strng{authornamehash}{cdf508cf4a0f20a15f15c29af12df03b}
-      \strng{authorfullhash}{cdf508cf4a0f20a15f15c29af12df03b}
-      \strng{authorfullhashraw}{cdf508cf4a0f20a15f15c29af12df03b}
+      \strng{namehash}{2bcac8f451713be0d4753743cc763e86}
+      \strng{fullhash}{2bcac8f451713be0d4753743cc763e86}
+      \strng{fullhashraw}{2bcac8f451713be0d4753743cc763e86}
+      \strng{bibnamehash}{2bcac8f451713be0d4753743cc763e86}
+      \strng{authorbibnamehash}{2bcac8f451713be0d4753743cc763e86}
+      \strng{authornamehash}{2bcac8f451713be0d4753743cc763e86}
+      \strng{authorfullhash}{2bcac8f451713be0d4753743cc763e86}
+      \strng{authorfullhashraw}{2bcac8f451713be0d4753743cc763e86}
+      \field{extraname}{1}
       \field{sortinit}{G}
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{International journal for numerical methods in engineering}
-      \field{title}{Construction of curvilinear co-ordinate systems and applications to mesh generation}
-      \field{year}{1973}
-      \true{nocite}
+      \field{journaltitle}{SIAM J. NUMER. ANAL}
+      \field{title}{Blending-Function Methods of Bivariate and Multivariate Interpolation and Approximation}
+      \field{year}{1971}
+      \verb{doi}
+      \verb 10.1137/0708019
+      \endverb
     \endentry
     \entry{gordont1971}{misc}{}{}
       \name{author}{1}{}{%
@@ -429,14 +314,14 @@
       \strng{authornamehash}{2bcac8f451713be0d4753743cc763e86}
       \strng{authorfullhash}{2bcac8f451713be0d4753743cc763e86}
       \strng{authorfullhashraw}{2bcac8f451713be0d4753743cc763e86}
+      \field{extraname}{2}
       \field{sortinit}{G}
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{SIAM J. NUMER. ANAL}
+      \field{journaltitle}{International journal for numerical methods in engineering, Vol. 7}
       \field{title}{Blending-function methods of bivariate and multivariate interpolation and approximation}
       \field{year}{1971}
-      \true{nocite}
     \endentry
     \entry{kim2019}{article}{}{}
       \name{author}{3}{}{%
@@ -471,7 +356,6 @@
       \field{journaltitle}{Remote Sensing}
       \field{title}{Digital surface model interpolation based on 3D mesh models}
       \field{year}{2019}
-      \true{nocite}
       \verb{doi}
       \verb 10.3390/rs11010024
       \endverb

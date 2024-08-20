@@ -124,7 +124,7 @@ L'interpolation consiste à déterminer la valeur de nouveaux points à partir d
     
 \vspace{0,5cm}
 
-Dans ce paragraphe, nous allons présenter les types d'interpolation implémentables dans Antares.
+Dans ce paragraphe, nous allons présenter les types d'interpolation\cite{cassiopee2015} implémentables dans Antares.
 
 Cela implique certaines conditions, notamment sur le type de maillage.
 
@@ -136,7 +136,7 @@ Dans Antares, nous visons à traiter des maillages non structurés, car ils sont
 
 Un facteur à prendre en compte dans la méthode que l'on souhaite implémenter est aussi le temps de calcul, appelé 'coût'.
 
-La caractérisation mathématique des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Les équations dont sont issues les solutions numériques en entrée dans Antares sont très difficiles à caractériser mathématiquement (tel que l'équation de Naviers-Stokes) et le niveau en mathématiques est trop élevé pour pouvoir se plonger en profondeur sur ce problème. C'est pour cela qu'il n'y aura pas beaucoup de résultats mathématiques à présenter dans cette partie.
+La caractérisation mathématique des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Les équations dont sont issues les solutions numériques en entrée dans Antares sont très difficiles à caractériser mathématiquement (tel que l'équation de Naviers-Stokes) et le niveau en mathématiques est trop élevé pour pouvoir se plonger en profondeur sur ce problème\cite{gordont1971_2}. C'est pour cela qu'il n'y aura pas beaucoup de résultats mathématiques à présenter dans cette partie.
 Heureusement, ces méthodes ont déjà été implémentées et testées pour d'autres codes de simulation numérique, ce qui permet de nous donner une bonne idée des résultats que nous pouvons espérer.
 
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
@@ -610,9 +610,6 @@ Une des limitation\cite{idw-mapscaping} de la méthode IDW est qu'elle n'a pas d
 
 \vspace{0,5 cm}
 
-\texttt{Est-ce que je dois mettre un titre pour référencer toutes les illustrations que je fais de mon côté ?}
-
-
 
 
 
@@ -624,9 +621,11 @@ L'interpolation polynomiale est d'un degré correspondant à celui du polynôme 
 \vspace{0.5cm}
 \dots
 \paragraph{Hermite}
+\cite{bajaj}
 \vspace{0.5cm}
 \dots
 \paragraph{Splines}
+Splines cubiques : "Notre expérience montre que les fonctions cubiques d'assemblage par spline sont très avantageuses lorsque plusieurs lignes de coordonnées intérieures généralisées sont spécifiées a priori."\cite{gordont1971}
 \vspace{0.5cm}
 \dots
 \paragraph{NURBS}
@@ -644,6 +643,11 @@ Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la dis
 \dots
 \paragraph{RBF}
 \ac{RBF}
+\vspace{0.5cm}
+\dots
+\paragraph{DSM}
+\ac{DSM}
+\cite{kim2019}
 \vspace{0.5cm}
 \dots
 
@@ -686,7 +690,7 @@ Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userd
 Plusieurs méthodes d'interpolation d'ordre élevé sont déjà implémentées dans d'autres codes du CERFACS...
 
 \subsection{La méthode linéaire}
-Les articles ///// REF ICI ///// sont d'accord pour dire que l'interpolation linéaire, est la plus basique après plus proche voisin et IDW. J'entends par basique simple à implémenter, demandant peu de ressource et moyennement précise pour de l'ordre élevé. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
+La littérature\cite{fluidssengineer} s'accorde à dire que l'interpolation linéaire, est la plus basique après plus proche voisin et IDW. J'entends par basique simple à implémenter, demandant peu de ressource et moyennement précise pour de l'ordre élevé. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
 
 % Remplacer target par cible et point interpolé par cible.
 
@@ -1336,6 +1340,10 @@ Carlos a développé l'outil permettant de déterminer le résultat acoustique, 
 
 % Paramètres d'IDW
 \subsection{Tests sur les paramètres de la méthode IDW}
+
+\subsection{Tests sur des cas d'aéroacoustique}
+
+Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA\cite{cunha2011}\cite{cunha2016}
 
 
 
