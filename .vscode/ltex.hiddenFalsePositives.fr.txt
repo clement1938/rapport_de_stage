@@ -44,3 +44,4 @@
 {"rule":"DE_MANIERE_A_CE_QUE","sentence":"^\\QCes deux termes sont pondérés de manière à ce que leur somme soit toujours égale à 1, ce qui garantit que l'interpolation est correcte et symétrique par rapport à \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q et \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
 {"rule":"ETRE_VPPA_OU_ADJ","sentence":"^\\QDans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds.\\E$"}
 {"rule":"PRONSUJ_NONVERBE","sentence":"^\\QDigital surface model interpolation based on 3D mesh models\\E$"}
+{"rule":"QUI_VCONJ","sentence":"^\\QDans ce paragraphe, nous allons présenter les types d'interpolation implémentables dans Antares, à savoir, qui permettent de l'interpolation \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q à 3D, sur des maillages dits non structurés.\\E$"}

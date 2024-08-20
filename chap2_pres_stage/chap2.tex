@@ -1,9 +1,20 @@
-\chapter{Présentation du stage}
+\chapter{Implémentation de la méthode linéaire dans Antares}
 
-Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'\ac{OTP} ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les informations nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}. Ensuite j'ai résolu un bug mineur sur Antares, ce qui a permis de se familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
+%Le plan du rapport doit être équilibré, c’est-à-dire que les paragraphes, à l’intérieur de chacune des deux parties principales (I. Présentation de l’entreprise, II. Présentation du travail réalisé) doivent être à peu près d’égale mesure. On évitera, par exemple, le mélange de paragraphes de 3 lignes avec d’autres de 60 lignes ; le rapport entre ces petits blocs de texte doit rester de 1 à 3.`
+
+%– Le récit de l’expérience préprofessionnelle doit faire état de toutes les fonctions exercées par le stagiaire à son poste. Il doit comporter des développements techniques (illustrés par des schémas expliqués et commentés, par exemple), mais il s’agit avant tout de donner au lecteur une idée de ce que furent l’emploi du temps du stagiaire, ses tâches quotidiennes, les contraintes du métier, la nature des relations humaines dans cet environnement, les difficultés rencontrées et les résultats obtenus.
+%– Les connaissances techniques acquises doivent transparaître dans le document. Le correcteur évaluera si celui-ci fait état d’une maîtrise réelle des outils (informatiques, mécaniques, etc.) utilisés pendant le stage. En outre, il estimera le niveau des connaissances techniques acquises que la rédaction du rapport aura su mettre en évidence.
+
+
+
+Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'\ac{OTP} ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les informations nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}. Ensuite j'ai résolu un bug mineur sur Antares, ce qui m'a permis de me familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
 
 
 \section{La librairie Antares}
+
+Antares est une librairie Python d'environ trois cents mégaoctets, composée de près de trois mille fichiers, incluant environ cinquante traitements.
+Elle permet de visualiser, traiter, réorganiser des données de simulation numérique effectué sur presque n'importe quel logiciel utilisé par le CERFACS et ses actionnaires.
+% 300Mo  50 Traitements  3000 éléments
 
 Généralement, nous mettons en entrée dans Antares des données, issues d'une simulation numérique. Antares les lit et les structure à sa façon.
 
@@ -88,11 +99,11 @@ L'interpolation consiste à déterminer la valeur de nouveaux points à partir d
 
 \vspace{0,5cm}
 
-Nous allons premièrement présenter les types d'interpolation implémentables dans Antares, à savoir, qui permette de l'interpolation \ac{1D} à 3D, sur des maillages dits non structurés.
+Dans ce paragraphe, nous allons présenter les types d'interpolation implémentables dans Antares, à savoir, qui permettent de l'interpolation \ac{1D} à 3D, sur des maillages dits non structurés.
 Un maillage est dit non structuré lorsqu'il est définis avec des formes géométriques et la connectivité associées. Cela fait opposition au maillage structuré, représentés par des matrices (rectangulaires en 2D et hexaédrique en 3D).
 Un facteur à prendre en compte dans la méthode que l'on souhaite implémenter est aussi le temps de calcul, appelé 'coût'.
 
-Finalement, la caractérisation mathématique des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Les équations dont sont issues les solutions numériques en entrée dans Antares sont très difficiles à caractériser mathématiquement (tel que l'équation de Naviers-Stokes) et le niveau en mathématiques est trop élevé pour pouvoir se plonger en profondeur sur ce problème. C'est pour cela qu'il n'y aura pas beaucoup de résultats mathématiques à présenter dans cette partie.
+La caractérisation mathématique des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Les équations dont sont issues les solutions numériques en entrée dans Antares sont très difficiles à caractériser mathématiquement (tel que l'équation de Naviers-Stokes) et le niveau en mathématiques est trop élevé pour pouvoir se plonger en profondeur sur ce problème. C'est pour cela qu'il n'y aura pas beaucoup de résultats mathématiques à présenter dans cette partie.
 Heureusement, ces méthodes ont déjà été implémentées et testées pour d'autres codes de simulation numérique, ce qui permet de nous donner une bonne idée des résultats que nous pouvons espérer.
 
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
@@ -1024,7 +1035,7 @@ $\bullet$ Définir les points à interpoler
     \end{list}
     $\diamond$ Si le point n'est dans aucune cellule proche :
     \begin{list}{$\bullet$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
-        \item Le poids associé prend la valeur \texttt{numpy.nan} (cette valeur sera changé avant la mise à jour d'octobre)
+        \item Le poids associé prend la valeur \texttt{numpy.nan} (cette valeur sera changée avant la mise à jour d'octobre)
     \end{list}
 \end{list}
 
@@ -1048,7 +1059,7 @@ $\bullet$ Définir les points à interpoler
 \begin{list}{$\circ$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
     \item Pour chaque variable à interpoler :
     \begin{list}{$\bullet$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
-        \item La variable de chaque nouveau point prend la valeur des poids calculés multiplié par la variable aux sommets (points) respectif de la base source
+        \item La variable de chaque nouveau point prend la valeur des poids calculés multiplié par la variable aux sommets (points) respectifs de la base source
     \end{list}
 \end{list}
 
@@ -1059,7 +1070,7 @@ $\bullet$ Définir les points à interpoler
 
 \subsection{Optimisation du temps de calcul}
 
-Plusieurs axes ont été exploités afin de diminuer le temps de calcul du traitement interpolation.
+Plusieurs axes ont été exploités afin de diminuer le temps de calcul du traitement d'interpolation.
 
 Le premier a été énoncé dans le pseudo-algorithme section précédente. Il s'agit de ne calculer qu'une seule fois le couple (poids, indices des points source) et autres paramètres puis de les enregistrer. Cela est utile dans deux cas :
 
@@ -1101,7 +1112,7 @@ Je calcule d'abord les surfaces créées par le point cible avec les sommets pui
 
 Une autre idée a été testée pour réduire le temps de calcul. Elle reste linéaire, mais ne donne pas forcément le même résultat (lorsque la variable à interpoler est non-linaire, sinon le résultat reste la solution analytique). Cette idée est décrite uniquement pour le cas 2D par soucis de simplicité de visualisation, mais est similaire pour le 3D.
 
-Le principe est de ne pas calculer tout ce qui touche à la connectivité, car c'est cela qui augmente significativement le temps de calcul.
+Le principe est de ne pas calculer tout ce qui touche à la connectivité, car c'est ce qui augmente significativement le temps de calcul.
 Nous allons alors chercher les 3 points les plus proches (4 en 3D). En reliant les sommets, cela donnera une forme dite non croisée. 
 Ensuite, nous faisons le calcul des barycentres et appliquons la même méthode qu'au-dessus.
 La différence ici est que le point cible n'est pas forcément dans la forme décrite par les 3 points les plus proches.
@@ -1263,7 +1274,7 @@ Cela permet aussi une extrapolation linéaire sans créer d'erreur.
 % \section{Les différentes méthodes d'interpolation}
 \subsection{Tests unitaires}
 Des codes de tests ont été créés en même temps que l'implémentation de l'interpolation linéaire, pour tester si cette dernière fonctionne correctement sur des cas simples.
-L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on test l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande dans le terminal ou lors d'un git push vers Nitrox.
+L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on teste l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande dans le terminal ou lors d'un git push vers Nitrox.
 
 
 \subsection{Tests sur des cas industriels}

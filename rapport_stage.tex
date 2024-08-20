@@ -5,6 +5,7 @@
 
 
 \usepackage[utf8]{inputenc}
+\usepackage[hidelinks]{hyperref}
 \usepackage[T1]{fontenc}
 \usepackage[top=2cm,bottom=2cm,left=2.5cm,right=2.5cm]{geometry}
 \usepackage{amsmath,amsfonts,amssymb}
@@ -156,7 +157,7 @@
 
 \DeclareAcronym{ALGO-COOP}{
   short = ALGO-COOP,
-  long = ALOGrithmes parallèles \& sCientifics sOftware Operational Performances,
+  long = ALGOrithmes parallèles \& sCientifics sOftware Operational Performances,
   short-indefinite = l',
 }
 
@@ -251,21 +252,26 @@
 \renewcommand{\sectionmark}[1]{\markboth{}{}}
 \fancyfoot[R]{\includegraphics*[width=0.1\textwidth]{images/ipsagarde.png}}
 
-\newcommand\BackgroundPic{
-\put(0,1.3 cm){
-\parbox[b][0.6\paperheight]{\paperwidth}{
-\centering
-{\includegraphics[width=\paperwidth,height=0.51\paperheight, %\transparent{0.4}
-keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
-}}}
 
-% ca n'apparais pas
-\newcommand\TitleText{
-\put(0,0.5 cm){ % Positionner le titre
-\parbox[b][\paperheight]{\paperwidth}{
-\centering
-{\huge \textbf{Interpolation quadratique dans un tétrahèdre}} % Ajouter le texte du titre
-}}}
+  \newcommand\BackgroundPic{
+  \put(0 cm, 1.5 cm){
+  \parbox[b][0.6\paperheight]{\paperwidth}{
+  \centering
+  {\includegraphics[width=\paperwidth,height=0.38\paperheight, %\transparent{0.4}
+  keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
+  \vspace{2.0cm} % Adjust the spacing between the image and the title
+  \makebox[\paperwidth]{\textbf{Interpolation quadratique dans un tétraèdre}} % Center the title below the image
+  }}}
+
+\begin{comment}
+  % ca n'apparais pas
+  \newcommand\TitleText{
+  \put(0,0.5 cm){ % Positionner le titre
+  \parbox[b][\paperheight]{\paperwidth}{
+  \centering
+  {\huge \textbf{Interpolation quadratique dans un tétrahèdre}} % Ajouter le texte du titre
+  }}}
+\end{comment}
 
 \begin{document}
 
@@ -313,14 +319,13 @@ keepaspectratio]{images/Interpolation-quadratique-3D-thetraedre.png}}
 \input{annexes/annexes.tex}
 \newpage
 
-%\chapter*{Acronymes}
-\printacronyms[name=Liste des acronymes, heading=chapter*] % Glossaire après si besoin
-
 \nocite{*}
 \printbibliography
 \addcontentsline{toc}{chapter}{Bibliographie}
 \newpage
 
+%\chapter*{Acronymes}
+\printacronyms[name=Liste des acronymes, heading=chapter*] % Glossaire après si besoin
 
 %\newpage
 \input{quatre_couv/quatre_couv.tex}

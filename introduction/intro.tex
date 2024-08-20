@@ -1,7 +1,11 @@
 \section*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-Ce rapport de stage a deux objectifs.
+Ce stage de M1, d'une durée de trois mois, s'est déroulé au CERFACS, un institut reconnu pour son expertise en calcul \ac{HPC}. L'objectif principal était d'explorer et d'améliorer les méthodes d'interpolation dans le cadre du post-traitement de simulations numériques, avec un focus particulier sur l'application en aéroacoustique.
+
+Le secteur de la recherche en calcul scientifique est réputé pour son environnement exigeant, mais stimulant, où l'innovation est essentielle. Le CERFACS, en particulier, est un acteur clé dans le domaine du HPC, collaborant avec de grands industriels et institutions pour développer des solutions à la pointe de la technologie.
+
+Ce rapport de stage a deux objectifs :
 
 D'une part permettre à l'IPSA, de m'évaluer (la structure et le contenu principal de ce rapport sont fixés par l'école).
 
@@ -11,7 +15,7 @@ D'autre part fournir un rapport sur mon stage pour le CERFACS et pour d'autres p
 
 J'adore les mathématiques appliquées, la mécanique des fluides et je voulais découvrir le monde de la recherche. Lors d'une présentation des activités au \ac{CERFACS} par nos deux enseignants chercheurs Arthur COLOMBIÉ et Nadir MESSAI, j'ai eu l'occasion de découvrir ce laboratoire et d'y candidater pour mon stage de M1. Carlos MONTILLA, docteur au CERFACS, m'a proposé un sujet sur l'interpolation dans le cas de post-traitement de simulations numériques et son application en aéroacoustique. Le sujet m'a interpellé et c'est avec enthousiasme que j'ai ainsi pu commencer mon stage le 10 juin 2024 au CERFACS.
 
-En quelques mots, le CERFACS est un institut de recherche privé, spécialisé dans le développement de code \ac{HPC}, financé par sept actionnaires.
+En quelques mots, le CERFACS est un institut de recherche privé, spécialisé dans le développement de code HPC, financé par sept actionnaires.
 
 Antares\cite{antares} est un code d’analyse de données privé sous forme de librairie python, développé au CERFACS en 2012 et dont l'objectif est de réaliser du pré et post-traitement sur des simulations numériques utilisées par le CERFACS et ses sept actionnaires.
 Il contient notamment une fonction d'interpolation, codée en Python.
@@ -35,4 +39,4 @@ Par exemple dans le cadre d'un raffinement de maillage entre deux itérations de
 
 \vspace{0,5cm}
 
-Pour expliquer plus en détail ce stage au CERFACS, je présenterai dans une première partie ce laboratoire de recherche, puis dans une seconde partie j'exposerai le travail que j'ai réalisé sous forme de rapport. La seconde partie, se décompose en quatre temps : la présentation de la librairie Antares, les différentes méthodes d'interpolation, l'implémentation de la méthode linéaire dans Antares et finalement les tests de l'ancienne et la nouvelle méthode.
+Pour expliquer plus en détail ce stage au CERFACS, je présenterai dans une première partie ce laboratoire de recherche, puis dans une seconde partie j'exposerai le travail que j'ai réalisé sous forme de rapport. Cette seconde partie se décomposera en quatre temps : la présentation de la librairie Antares, les différentes méthodes d'interpolation, l'implémentation de la méthode linéaire dans Antares et finalement les tests de l'ancienne et la nouvelle méthode.
