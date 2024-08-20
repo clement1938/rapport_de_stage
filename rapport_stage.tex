@@ -3,9 +3,10 @@
 \hbadness=10000
 \hfuzz=100pt
 
+% toujours référencer le numéro de la figure dont tu parles
 
 \usepackage[utf8]{inputenc}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks]{hyperref} %%%
 \usepackage[T1]{fontenc}
 \usepackage[top=2cm,bottom=2cm,left=2.5cm,right=2.5cm]{geometry}
 \usepackage{amsmath,amsfonts,amssymb}
@@ -37,12 +38,19 @@
 \usepackage{ragged2e}
 \usepackage{tabularx}
 \usepackage{float}
+\usetikzlibrary{patterns}
 %\usepackage{patterns}
 
 
 \pgfplotsset{compat=1.17}
 %\makeglossaries
 
+
+\DeclareAcronym{Mo}{
+  short = Mo,
+  long = mégaoctets,
+  short-indefinite = un,
+}
 
 \DeclareAcronym{RBF}{
   short = RBF,
@@ -157,31 +165,31 @@
 
 \DeclareAcronym{ALGO-COOP}{
   short = ALGO-COOP,
-  long = ALGOrithmes parallèles \& sCientifics sOftware Operational Performances,
+  long = parallels ALGOrithmes \& sCientifics sOftware Operational Performances (ou Algorithmes parallèles et logiciels scientifiques performances opérationnelles),
   short-indefinite = l',
 }
 
 \DeclareAcronym{CSG}{
   short = CSG,
-  long = Équipe Informatique et Support Utilisateur,
-  short-indefinite = l',
+  long = Computer Service General (ou Équipe informatique et support utilisateur),
+  short-indefinite = le,
 }
 
 \DeclareAcronym{ES}{
   short = ES,
-  long = Énergie et Sécurité; Energy and Safety,
+  long = Energy and Safety (ou Énergie et sécurité),
   short-indefinite = l',
 }
 
 \DeclareAcronym{AAM}{
   short = AAM,
-  long = Advanced Aerodynamics and Multiphysics,
+  long = Advanced Aerodynamics and Multiphysics (ou Aérodynamique avancée et multiphysique),
   short-indefinite = l',
 }
 
 \DeclareAcronym{GLOBC}{
   short = GLOBC,
-  long = Modélisation du Climat et de son changement GLOBal,
+  long = modelling climate and GLOBal Change (ou Modélisation du climat et de son changement global),
   short-indefinite = la,
 }
 
@@ -272,6 +280,14 @@
   {\huge \textbf{Interpolation quadratique dans un tétrahèdre}} % Ajouter le texte du titre
   }}}
 \end{comment}
+
+
+
+%\renewcommand{\tablename}{Tableau}
+\captionsetup[table]{name=Tableau}
+
+
+
 
 \begin{document}
 

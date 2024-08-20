@@ -7,31 +7,42 @@
 
 
 
-Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'\ac{OTP} ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les informations nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : https://cerfacs.fr/antares/}. Ensuite j'ai résolu un bug mineur sur Antares, ce qui m'a permis de me familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
+Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'\ac{OTP} ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les informations nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : \href{https://cerfacs.fr/antares/}{cerfacs.fr/antares}}. Ensuite j'ai résolu un bug mineur sur Antares, ce qui m'a permis de me familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
 
 
 \section{La librairie Antares}
 
-Antares est une librairie Python d'environ trois cents mégaoctets, composée de près de trois mille fichiers, incluant environ cinquante traitements.
-Elle permet de visualiser, traiter, réorganiser des données de simulation numérique effectué sur presque n'importe quel logiciel utilisé par le CERFACS et ses actionnaires.
-% 300Mo  50 Traitements  3000 éléments
+Antares est une librairie Python d'environ trois cents \ac{Mo}, composée de près de trois mille fichiers, incluant environ cinquante traitements. Un traitement est ce qui permet de faire une vue en coupe, de l'interpolation, etc.
+Elle s'appuie fortement sur la librairie numpy afin de profiter des leurs algorithmes optimisés.
+Elle permet de visualiser, traiter, réorganiser des données de simulation numérique issues de différents solveurs utilisés par le CERFACS et ses partenaires. Ces données sont organisées par Antares de manière unique et commune, ce qui est une grande force, notamment pour le partage et l'optimisation des post-traitements.
 
-Généralement, nous mettons en entrée dans Antares des données, issues d'une simulation numérique. Antares les lit et les structure à sa façon.
+% Aussi je me rend compte que tu n'as jamais vraiment expliqué comment les traitements fonctionnent. C-a-d que ce sont des dictionnaires dans lesquels tu spécifies des mot clés / paramètres pour contrôler le comportement du traitement. Tu pourra le rajouter dans la partie de description Antares
+Chaque traitement est une classe composée liste de mots-clefs qui correspondent à chaque paramètre. Certains sont donnés nécessairement à donner par l'utilisateur, d'autres sont initialisés par défaut et peuvent être modifiés ou non. Nous retrouvons les deux paramètres 'source' et 'target' nécessaires au traitement interpolation ligne 3 et 4 de l'exemple de code \ref{lst:antares_2}
 
-La structure des solutions CFD interprétées dans Antares est illustrée ci-dessous :
 
-\begin{figure}[ht!]
+Une solution CFD est interprété par Antares comme une "Base".
+Cette dernière peut être constituée d'une ou plusieurs zones.
+Une zone représente un emplacement physique de la solution (par exemple, pour une chambre de combustion, nous pourrions avoir deux zones, régis avec des équations différentes: une avant les injecteurs et une après). % A vérifier par Carlos 
+Chaque zone peut avoir un ou plusieurs instants.
+Un instant est une "capture" de la solution à un instant t. Cela peut être la solution finale de la simulation par exemple. Plusieurs instants peuvent représenter une simulation dynamique qui est utile dans le cas de l'aéroacoustique par exemple, où nous cherchons l'évolution temporelle de la pression.
+Dans le cas où la structure du maillage ne change pas entre deux instants, les positions peuvent être définies dans la zone et seule les variables changent entre les instants. On parle dans ce cas d'"instant partagé".\label{instants_partages}
+
+% Généralement les instants sont identiques entre les zones, on dit qu'ils sont "partagés" tq les variables Carlos ?
+
+Nous y retrouvons les variables et leurs valeurs sur le maillage de la zone et instant en question
+
+% Ensuite chaque zone a un ou plusieurs instants où nous pouvons trouver la solution d'une variable, qui sera de même dimension que les coordonnées de l'instant.
+
+La structure des solutions CFD interprétées dans Antares est illustrée ci-dessous (figure \ref{fig:structure_antares}):
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.42\textwidth]{images/data_structure_1.png}
-\caption{Structure des données}
+\caption{Structure des données (source: \href{https://cerfacs.fr/antares/src/tutorial/base.html}{Antares Tutorial})}
+\label{fig:structure_antares}
 %\footnote{Source:https://cerfacs.fr/antares/src/tutorial/base.html}
 %\label{fig:https://cerfacs.fr/antares/src/tutorial/base.html}
 \end{figure}
-
-Concrètement, le maillage peut être divisé en plusieurs zones.
-Ensuite chaque zone a un ou plusieurs instants où nous pouvons trouver la solution d'une variable, qui sera de même dimension que les coordonnées de l'instant.
-
-Ensuite Antares a différents traitements, comme la vue en coupe, l'interpolation, etc.
 
 Voici un exemple d'utilisation d'Antares :
 
@@ -41,73 +52,94 @@ Voici un exemple d'utilisation d'Antares :
     myt['source'] = source_base
     myt['target'] = target_base
     result = myt.execute()
-    print(result[0][0]['v1'])
 \end{lstlisting}
 
-Un point important pour l'interpolation linéaire est la connectivité. Si le maillage est non structuré, alors, chaque cellule est définie par un type de forme et par ses sommets. Par exemple, elle peut être donnée par \texttt{base[0][0]['tri']} si la base contient des triangles (a une connectivité "tri") dans sa zone 0 à l'instant 0.
+Dans le cas ci-dessus, \texttt{result[0][0]['variable1']} est un tableau numpy utilisable par l'utilisateur.
+
+Un point important pour l'interpolation linéaire est la connectivité. Si le maillage est non structuré, alors, chaque cellule est définie par un type de forme et par ses sommets. Par exemple, elle peut être donnée par \texttt{base[0][0].connectivity['tri']} si la base contient des triangles (équivalent à avoir une connectivité "tri") dans sa zone 0 à l'instant 0.
 
 
 \section{Les différentes méthodes d'interpolation}
 
-L'interpolation consiste à déterminer la valeur de nouveaux points à partir de la valeur de points existants. En voici un exemple en une dimension (l'axe x représente la position et l'axe y la valeur des points).
+L'interpolation consiste à déterminer la valeur de nouveaux points à partir de la valeur de points existants. En voici un exemple en \ac{1D} (l'axe x représente la position et l'axe y la valeur des points).
 
 \vspace{0,5cm}
 
 
-\begin{center}
-\begin{tikzpicture}
-    \begin{axis}[
-        width=10cm,
-        height=6cm,
-        xlabel={$x$},
-        ylabel={$y$},
-        grid=major,
-        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
-    ]
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=10cm,
+            height=6cm,
+            xlabel={$x$},
+            ylabel={$y$},
+            grid=major,
+            legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
+        ]
+    
+        \addplot[
+            only marks,
+            mark=*,
+            mark options={scale=1.5, fill=blue},
+        ] coordinates {
+            (1, 1)
+            (3, 9)
+        };
+        \addlegendentry{Points existants \hspace{0,3cm}}
+    
+        \addplot[
+            domain=1:3,
+            samples=100,
+            smooth,
+            thick,
+            red,
+            dashed
+        ] {x^2};
+        \addlegendentry{Interpolation \hspace{0,3cm}} % (ligne pointillée)
+    
+        \addplot[
+            only marks,
+            mark=*,
+            mark options={scale=1.5, fill=green},
+        ] coordinates {
+            (1.2, 1.44)
+            (1.4, 1.96)
+            (1.6, 2.56)
+            (1.8, 3.24)
+            (2, 4)
+            (2.2, 4.84)
+            (2.4, 5.76)
+            (2.6, 6.76)
+            (2.8, 7.84)
+        };
+        \addlegendentry{Points interpolés \hspace{0,3cm}}
+    
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Schéma d'interpolation quadratique entre deux points donnés}
+    \label{fig:interpolation_quadratique}
+\end{figure}
 
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=blue},
-    ] coordinates {
-        (1, 1)
-        (3, 9)
-    };
-    \addlegendentry{Points existants \hspace{0,3cm}}
-
-    \addplot[
-        domain=1:3,
-        samples=100,
-        smooth,
-        thick,
-        red,
-    ] {x^2};
-    \addlegendentry{Interpolation \hspace{0,3cm}}
-
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=green},
-    ] coordinates {
-        (2, 4)%(1.7, 2.89)
-    };
-    \addlegendentry{ Point interpolé}
-
-    \end{axis}
-\end{tikzpicture}
-\end{center}
-
+    
 \vspace{0,5cm}
 
-Dans ce paragraphe, nous allons présenter les types d'interpolation implémentables dans Antares, à savoir, qui permettent de l'interpolation \ac{1D} à 3D, sur des maillages dits non structurés.
-Un maillage est dit non structuré lorsqu'il est définis avec des formes géométriques et la connectivité associées. Cela fait opposition au maillage structuré, représentés par des matrices (rectangulaires en 2D et hexaédrique en 3D).
+Dans ce paragraphe, nous allons présenter les types d'interpolation implémentables dans Antares.
+
+Cela implique certaines conditions, notamment sur le type de maillage.
+
+Un maillage structuré est un maillage dont la connectivité entre les points peut être décrite de manière régulière, généralement à l'aide de tableaux multidimensionnels (1D, 2D, 3D). Dans un tel maillage, les points sont organisés en une grille régulière, ce qui permet de naviguer facilement à travers les données sans avoir à spécifier explicitement les relations entre les points.
+
+En revanche, un maillage non structuré est un maillage où les éléments (cellules) sont définis par des formes géométriques quelconques et où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent. Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée.
+
+Dans Antares, nous visons à traiter des maillages non structurés, car ils sont couramment utilisés dans les simulations modernes en raison de leur flexibilité à représenter des géométries complexes.
+
 Un facteur à prendre en compte dans la méthode que l'on souhaite implémenter est aussi le temps de calcul, appelé 'coût'.
 
 La caractérisation mathématique des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Les équations dont sont issues les solutions numériques en entrée dans Antares sont très difficiles à caractériser mathématiquement (tel que l'équation de Naviers-Stokes) et le niveau en mathématiques est trop élevé pour pouvoir se plonger en profondeur sur ce problème. C'est pour cela qu'il n'y aura pas beaucoup de résultats mathématiques à présenter dans cette partie.
 Heureusement, ces méthodes ont déjà été implémentées et testées pour d'autres codes de simulation numérique, ce qui permet de nous donner une bonne idée des résultats que nous pouvons espérer.
 
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
-\newpage
 
 \subsection{La méthode par voisin le plus proche}
 Cette première méthode est très simple : nous prenons comme valeur \( v \) d'interpolation au point \( p \) la valeur \( v \) du point le plus proche de \( p \).
@@ -115,50 +147,53 @@ En voici quelques illustrations :
 
 %\vspace{0.5cm}
 
-\begin{center}
-\begin{tikzpicture}
-    \begin{axis}[
-        width=10cm,
-        height=6cm,
-        xlabel={$x$},
-        ylabel={$y$},
-        grid=major,
-        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
-    ]
+\begin{figure}[ht!]
+    \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                width=10cm,
+                height=6cm,
+                xlabel={$x$},
+                ylabel={$y$},
+                grid=major,
+                legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
+            ]
 
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=blue},
-    ] coordinates {
-        (1, 1)
-        (3, 9)
-    };
-    \addlegendentry{Points existants \hspace{0,3cm}}
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=blue},
+            ] coordinates {
+                (1, 1)
+                (3, 9)
+            };
+            \addlegendentry{Points existants \hspace{0,3cm}}
 
-    \addplot[
-        thick,
-        red,
-    ] coordinates {
-        (1, 1)
-        (2, 1)
-        (2, 9)
-        (3, 9)
-    };
-    \addlegendentry{Interpolation par voisin le plus proche \hspace{0,3cm}}
+            \addplot[
+                thick,
+                red,
+            ] coordinates {
+                (1, 1)
+                (2, 1)
+                (2, 9)
+                (3, 9)
+            };
+            \addlegendentry{Interpolation par voisin le plus proche \hspace{0,3cm}}
 
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=green},
-    ] coordinates {
-        (1.7, 1)
-    };
-    \addlegendentry{Point interpolé}
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=green},
+            ] coordinates {
+                (1.7, 1)
+            };
+            \addlegendentry{Point interpolé}
 
-    \end{axis}
-\end{tikzpicture}
-\end{center}
+            \end{axis}
+        \end{tikzpicture}
+    \caption{Schéma d'interpolation par voisin le plus proche}
+    \label{fig:interpolation_voisin}
+\end{figure}
 
 \vspace{0.5cm}
 
@@ -168,7 +203,7 @@ Cette méthode est discontinue et peu précise pour la plupart des fonctions.
 
 \subsection{La méthode pondération inverse à la distance (IDW)} % déjà '\ac'
 
-Probablement l'interpolation la plus simple après la méthode du voisin le plus proche (toujours dans notre cas d'application), cette méthode est la seule qui était implémentée dans Antares. Elle a pour formule :
+Probablement l'interpolation la plus simple après la méthode du voisin le plus proche (toujours dans notre cas d'application), cette méthode est la seule qui était implémentée dans Antares (elle inclut aussi la méthode du voisin le plus proche comme expliqué plus tard dans cette section). Elle a pour formule :
 
 \[
 \hat{f}(x) = \frac{\sum_{i=1}^{N} \frac{f(x_i)}{d(x, x_i)^p}}{\sum_{i=1}^{N} \frac{1}{d(x, x_i)^p}}
@@ -198,203 +233,180 @@ Il en est de même pour les paramètres \(N\) et \(p\) avec pour argument respec
 
 \vspace*{0,5cm}
 
-\newpage
 
 En voici des illustrations 1D :
 
-\begin{center}
-\begin{minipage}{0.45\textwidth}
-\begin{tikzpicture}
-    \begin{axis}[
-        width=\textwidth,
-        height=6cm,
-        title={Interpolation IDW (N=2, p=1)},
-        xlabel={$x$},
-        ylabel={$y$},
-        grid=major,
-        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=1},
-    ]
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=blue},
-    ] coordinates {
-        (1, 1)
-        (3, 9)
-    };
-    \addlegendentry{Points existants\hspace{0,3cm}}
+\begin{figure}[ht!]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                width=\textwidth,
+                height=6cm,
+                xlabel={$x$},
+                ylabel={$y$},
+                grid=major,
+            ]
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=blue},
+            ] coordinates {
+                (1, 1)
+                (3, 9)
+            };
 
-    \addplot[
-        domain=1:3,
-        samples=100,
-        smooth,
-        thick,
-        red,
-    ] {(1/abs(1-x) + 9/abs(x-3))/(1/(abs(1-x))+1/(abs(x-3)))};
-    \addlegendentry{\hspace{0,3cm}Interpolation IDW\hspace{0,3cm}}
+            \addplot[
+                domain=1:3,
+                samples=100,
+                smooth,
+                thick,
+                red,
+            ] {(1/abs(1-x) + 9/abs(x-3))/(1/(abs(1-x))+1/(abs(x-3)))};
 
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=green},
-    ] coordinates {
-        (2, 5)
-    };
-    \addlegendentry{Point interpolé}
-    \end{axis}
-\end{tikzpicture}
-\end{minipage}
-\hspace{0.5cm}
-\begin{minipage}{0.45\textwidth}
-\begin{tikzpicture}
-    \begin{axis}[
-        width=\textwidth,
-        height=6cm,
-        title={Interpolation IDW (N=2, p=2)},
-        xlabel={$x$},
-        ylabel={$y$},
-        grid=major,
-        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=1},
-    ]
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=blue},
-    ] coordinates {
-        (1, 1)
-        (3, 9)
-    };
-    \addlegendentry{Points existants\hspace{0,3cm}}
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=green},
+            ] coordinates {
+                (2, 5)
+            };
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Interpolation IDW N=2, p=1}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}{0.45\textwidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                width=\textwidth,
+                height=6cm,
+                xlabel={$x$},
+                ylabel={$y$},
+                grid=major,
+            ]
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=blue},
+            ] coordinates {
+                (1, 1)
+                (3, 9)
+            };
 
-    \addplot[
-        domain=1:3,
-        samples=100,
-        smooth,
-        thick,
-        red,
-    ] {(1/(abs(1-x)^2) + 9/(abs(x-3)^2))/(1/(abs(1-x)^2)+1/(abs(x-3)^2))};
-    \addlegendentry{\hspace{0,3cm}Interpolation IDW\hspace{0,3cm}}
+            \addplot[
+                domain=1:3,
+                samples=100,
+                smooth,
+                thick,
+                red,
+            ] {(1/(abs(1-x)^2) + 9/(abs(x-3)^2))/(1/(abs(1-x)^2)+1/(abs(x-3)^2))};
 
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=green},
-    ] coordinates {
-        (2, 5)
-    };
-    \addlegendentry{Point interpolé}
-    \end{axis}
-\end{tikzpicture}
-\end{minipage}
-\end{center}
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=green},
+            ] coordinates {
+                (2, 5)
+            };
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Interpolation IDW N=2, p=2}
+    \end{minipage}
 
-%\vspace{0.5cm}
+    \vspace{0.5cm}
 
-\begin{center}
-\begin{minipage}{0.45\textwidth}
-\begin{tikzpicture}
-    \begin{axis}[
-        width=\textwidth,
-        height=6cm,
-        title={Interpolation IDW (N=3, p=1)},
-        xlabel={$x$},
-        ylabel={$y$},
-        grid=major,
-        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=1},
-    ]
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=blue},
-    ] coordinates {
-        (1, 1)
-        (3, 9)
-        (2, 4)
-    };
-    \addlegendentry{Points existants\hspace{0,3cm}}
+    \begin{minipage}{0.45\textwidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                width=\textwidth,
+                height=6cm,
+                xlabel={$x$},
+                ylabel={$y$},
+                grid=major,
+            ]
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=blue},
+            ] coordinates {
+                (1, 1)
+                (3, 9)
+                (2, 4)
+            };
 
-    \addplot[
-        domain=1:3,
-        samples=100,
-        smooth,
-        thick,
-        red,
-    ] {(1/abs(1-x) + 9/abs(x-3) + 4/abs(2-x))/(1/(abs(1-x)) + 1/(abs(x-3)) + 1/(abs(2-x)))};
-    \addlegendentry{\hspace{0,3cm}Interpolation IDW\hspace{0,3cm}}
+            \addplot[
+                domain=1:3,
+                samples=100,
+                smooth,
+                thick,
+                red,
+            ] {(1/abs(1-x) + 9/abs(x-3) + 4/abs(2-x))/(1/(abs(1-x)) + 1/(abs(x-3)) + 1/(abs(2-x)))};
 
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=green},
-    ] coordinates {
-        (1.5, 3.43)
-    };
-    \addlegendentry{Point interpolé}
-    \end{axis}
-\end{tikzpicture}
-\end{minipage}
-\hspace{0.5cm}
-\begin{minipage}{0.45\textwidth}
-\begin{tikzpicture}
-    \begin{axis}[
-        width=\textwidth,
-        height=6cm,
-        title={Interpolation IDW (N=3, p=2)},
-        xlabel={$x$},
-        ylabel={$y$},
-        grid=major,
-        legend style={at={(0.5,-0.22)}, anchor=north, legend columns=1},
-    ]
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=blue},
-    ] coordinates {
-        (1, 1)
-        (3, 9)
-        (2, 4)
-    };
-    \addlegendentry{Points existants\hspace{0,3cm}}
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=green},
+            ] coordinates {
+                (1.5, 3.43)
+            };
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Interpolation IDW N=3, p=1}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}{0.45\textwidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                width=\textwidth,
+                height=6cm,
+                xlabel={$x$},
+                ylabel={$y$},
+                grid=major,
+            ]
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=blue},
+            ] coordinates {
+                (1, 1)
+                (3, 9)
+                (2, 4)
+            };
 
-    \addplot[
-        domain=1:3,
-        samples=100,
-        smooth,
-        thick,
-        red,
-    ] {(1/(abs(1-x)^2) + 9/(abs(x-3)^2) + 4/(abs(2-x)^2))/(1/(abs(1-x)^2) + 1/(abs(x-3)^2) + 1/(abs(2-x)^2))};
-    \addlegendentry{\hspace{0,3cm}Interpolation IDW\hspace{0,3cm}}
+            \addplot[
+                domain=1:3,
+                samples=100,
+                smooth,
+                thick,
+                red,
+            ] {(1/(abs(1-x)^2) + 9/(abs(x-3)^2) + 4/(abs(2-x)^2))/(1/(abs(1-x)^2) + 1/(abs(x-3)^2) + 1/(abs(2-x)^2))};
 
-    \addplot[
-        only marks,
-        mark=*,
-        mark options={scale=1.5, fill=green},
-    ] coordinates {
-        (1.5, 2.84)
-    };
-    \addlegendentry{Point interpolé}
-    \end{axis}
-\end{tikzpicture}
-\end{minipage}
-\end{center}
+            \addplot[
+                only marks,
+                mark=*,
+                mark options={scale=1.5, fill=green},
+            ] coordinates {
+                (1.5, 2.84)
+            };
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Interpolation IDW N=3, p=2}
+    \end{minipage}
+\end{figure}
 
-%\vspace{0.5cm}
-
-\vspace{0.5cm}
+\vspace{-0.5cm}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/Inverse_Distance_Weighting.png}
-    \caption{Interpolation 1D avec (N=5, p=2 et r infini)}
+    \includegraphics[width=0.62\textwidth]{images/legende-interp.png}
 \end{figure}
-% A sourcer
 
-\newpage
 
 Dans notre cas, nous ne prenons pas en compte tous les points du maillage source. Nous nous limitons à un nombre \(N\) de points les plus proches. Cela implique une discontinuité lorsque nous changeons de point. Pour illustrer cela, voici une figure 1D où tous les points sont espacés d'une unité. Avec \(N\)=3, cela revient ici à changer l'un des trois points de calcul pour une valeur de \(x\) égale à 0,5 modulo un.
 
-\begin{center}
-
+\begin{figure}[ht!]
+\centering
     \begin{tikzpicture}
         \begin{axis}[
             width=10cm,
@@ -447,7 +459,9 @@ Dans notre cas, nous ne prenons pas en compte tous les points du maillage source
     
         \end{axis}
     \end{tikzpicture}
-\end{center}
+    \caption{Schéma d'interpolation IDW avec rayon}
+    %\label{fig:interpolation_IDW_rayon}
+\end{figure}
 
 Nous observons une discontinuité en 1,5 et 2,5. La discontinuité peut être un grand problème pour la stabilité des schémas numériques
 
@@ -536,7 +550,8 @@ Nous observons une discontinuité en 1,5 et 2,5. La discontinuité peut être un
 
 Nous pouvons aussi imaginer que 2 points, A et B, à droite et à gauche d'une ligne verticale de 3 points (les plus proches), prendront la même valeur pour \( N \) = 3 :
 
-\begin{center}
+\begin{figure}[ht!]
+    \centering
     \begin{tikzpicture}
     
         % Les points sur la ligne verticale
@@ -558,7 +573,9 @@ Nous pouvons aussi imaginer que 2 points, A et B, à droite et à gauche d'une l
         \draw[dashed, gray] (2, 0.5) -- (0, 1.5);
 
     \end{tikzpicture}
-\end{center}
+    \caption{Schéma montrant la non-directivité d'IDW}
+    %\label{fig:interpolation_IDW_rayon}
+\end{figure}
 
     
 Ce qui n'est pas cohérent dans le cas où le gradient selon l'horizontal n'est pas nul.
@@ -568,12 +585,12 @@ Un des problèmes avec la méthode IDW est que « \textit{a directional bias to 
 \end{comment}
 
 
-Un des problèmes avec la méthode IDW est que « un biais directionnel dans les solutions de la base de données peut décaler les résultats interpolés »\footnote{Traduction de : « \textit{One issue with the IDW method is that a directional bias to the database solutions can shift the interpolated results.} »\cite{palmer2009}}.
+Un des problèmes avec la méthode IDW est que « un biais directionnel dans les solutions de la base de données peut décaler les résultats interpolés »\cite{palmer2009}. % \footnote{Traduction de : « \textit{One issue with the IDW method is that a directional bias to the database solutions can shift the interpolated results.} »
 
 
 Lorsque toutes les informations selon un axe de l'espace ne se situent que d'un côté, le gradient ne sera pas pris en compte et l'erreur sera élevée. Par exemple, cela est généralement le cas lorsque le maillage cible a des points qui ne sont pas compris dans le maillage source.
 
-D'autres méthodes dérivées ou similaires existent pour évaluer nos poids (qui sont les surfaces dans notre cas). La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà de laquelle les autres points ne sont pas pris en compte. Autrement dit, on utilise un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas le nombre de points est variable.
+D'autres méthodes dérivées ou similaires existent pour évaluer nos poids (les poids sont les distances inverses à la puissance p dans notre cas). La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà de laquelle les autres points ne sont pas pris en compte. Autrement dit, on utilise un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas le nombre de points est variable.
 J'ai considéré subjectivement que cette méthode n'était pas intéressante. La méthode confrontée à un maillage ayant une différence de raffinement intrinsèque importante, ne prendrais aucun point à certains endroits et dans d'autres lieux, un trop grand nombre de points devrait être calculé.
 
 \begin{comment}
@@ -669,7 +686,7 @@ Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userd
 Plusieurs méthodes d'interpolation d'ordre élevé sont déjà implémentées dans d'autres codes du CERFACS...
 
 \subsection{La méthode linéaire}
-L'interpolation linéaire, est la plus simple (après les plus proches voisins et IDW). Elle est moyennement précise et ne demande que peu de ressources. Elle interpole généralement mieux qu'IDW. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
+Les articles ///// REF ICI ///// sont d'accord pour dire que l'interpolation linéaire, est la plus basique après plus proche voisin et IDW. J'entends par basique simple à implémenter, demandant peu de ressource et moyennement précise pour de l'ordre élevé. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
 
 % Remplacer target par cible et point interpolé par cible.
 
@@ -702,8 +719,9 @@ qui garantit que l'interpolation est correcte et symétrique par rapport à \( a
 
 \vspace{0.5cm}
 
-En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds. Aussi, Antares ne traite que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
+En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds. Aussi, le traitement d'interpolation d'Antares ne traite que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
 Il existe 3 principaux types de cellules (formes) en 2D : les triangles, les rectangles des maillages structurés (dans ce cas, la méthode est dite bilinéaire) et les quadrilatères (non croisés).
+Certains industriels utilisent de plus en plus des polygones à N arrêtes. Mais pas soucis de simplicité, nous l'interpolation linéaire est limité aux 3 principales formes, les polygones pouvant être décomposés en triangles.
 
 \subparagraph{Triangle : Barycentrique}
 
@@ -737,7 +755,8 @@ Visuellement, il faut faire la somme des valeurs aux points pondérés par la su
 \end{tikzpicture}
 \end{comment}
 
-\begin{center}
+\begin{figure}[ht!]
+    \centering
     \begin{tikzpicture}
 
         % Define the triangle vertices
@@ -766,16 +785,19 @@ Visuellement, il faut faire la somme des valeurs aux points pondérés par la su
         \node at (barycentric cs:A=1,B=1,P=1) {$\gamma$};
     
         % Title
-        \node at (2.5,-1) {Interpolation Barycentrique}; %Diagramme de Voronoi Modifié pour l'
+        %\node at (2.5,-1) {Interpolation Barycentrique}; %Diagramme de Voronoi Modifié pour l'
     
     \end{tikzpicture}
     
-\end{center}
+    \caption{Schéma d'interpolation barycentrique}
+    %\label{fig:interpolation_IDW_rayon}
+\end{figure}
+
 
 
 Le calcul est
 \begin{equation}
-    \frac{y_A \times \alpha + y_B \times \beta + y_C \times \gamma}{\alpha + \beta + \gamma}
+    \frac{\alpha y_A + \beta y_B + \gamma y_C}{\alpha + \beta + \gamma}
 \end{equation}
 
 
@@ -801,7 +823,8 @@ Ici les surfaces sont directement calculées
 Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif. Cela correspond à deux interpolations linéaires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle, mais je trouvais cela plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
 
 
-\begin{center}
+\begin{figure}[ht!]
+    \centering
     \begin{tikzpicture}
         % Define the rectangle vertices
         \coordinate (A) at (0,0);
@@ -833,10 +856,12 @@ Visuellement nous créons cette fois des traits parallèles au passant par le po
         \filldraw[black] (P) circle (2pt) node[anchor=south east] {$P (x, y)$};
         
         % Title
-        \node at (2.5,-1) {Interpolation Bilinéaire};
-        
+        %\node at (2.5,-1) {Interpolation Bilinéaire};
+        %Interpolation Bilinéaire
     \end{tikzpicture}
-\end{center}
+    \caption{Schéma d'interpolation bilinéaire}
+    %\label{fig:interpolation_IDW_rayon}
+\end{figure}
 
 
 \begin{comment}
@@ -891,7 +916,8 @@ Normalement il faudrait s'appuyer sur plus de points pour le quadratique. Finale
 \end{equation}
     
 
-\begin{center}
+\begin{figure}[ht!]
+    \centering
     \begin{tikzpicture}
         % Define the rectangle vertices
         \coordinate (A) at (0,0);
@@ -929,10 +955,12 @@ Normalement il faudrait s'appuyer sur plus de points pour le quadratique. Finale
         \node at (1.1, 2.4) {$\delta$};%{$y - y_1$};
     
         % Title
-        \node at (2.5,-1) {Interpolation dans un quadrilatère quelconque};
+        %\node at (2.5,-1) {Interpolation dans un quadrilatère quelconque};
     
     \end{tikzpicture}
-\end{center}
+    \caption{Schéma d'interpolation dans un quadrilatère quelconque}
+    %\label{fig:interpolation_IDW_rayon}
+\end{figure}
 
 \vspace{0.5cm}  % OU \\[0pt plus 1fill] OU \newline OU flushleft, flushright, center
 
@@ -945,7 +973,7 @@ Pour le 3D, si le maillage est structuré, alors la forme est le pavé droit. À
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.4\textwidth]{images/Trilinear_interpolation_visualisation.svg.png}
-    \caption{Interpolation trilinéaire} %\footnote{Source:https://en.wikipedia.org/wiki/Trilinear_interpolation#/media/File:Trilinear_interpolation_visualisation.svg}}
+    \caption{Schéma d'interpolation trilinéaire (source : Wikipédia)} %\footnote{Source:https://en.wikipedia.org/wiki/Trilinear_interpolation#/media/File:Trilinear_interpolation_visualisation.svg}}
     %\label{fig:https://en.wikipedia.org/wiki/Trilinear_interpolation#/media/File:Trilinear_interpolation_visualisation.svg}
 \end{figure}
 
@@ -963,9 +991,9 @@ L'équation qui en découle est la suivante :
 
 Pour le tétraèdre (une pyramide à base triangulaire quelconque), nous trouvons bien un volume opposé à chaque sommet. Opposé dans le sens où le sommet ne partage pas de segment avec le volume. Nous pouvons alors appliquer la même formule que pour le triangle, avec 4 volumes à la place de 3 surfaces.
 
-\subparagraph{Prisme et pyramide}
+\subparagraph{Prisme et pyramide et Hexaèdre}
 
-Pour le prisme et la pyramide (à base quadrilatérale), une extension de la formule pour le quadrilatère sera faite.
+Pour le prisme, la pyramide (à base quadrilatérale) et l’hexaèdre, une extension de la formule du quadrilatère sera faite.
 
 
 La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes.
@@ -989,8 +1017,7 @@ Après avoir recensé les différentes méthodes qui seraient applicables, ma se
 De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis nous parcourons les instants. 
 Cette fusion permet de faire un KDTree (pour arbre à k-dimensions), qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base cible (et les distances associées, utilisées dans la méthode 'idw').
 
-Ensuite nous calculons l'interpolation via une méthode 'principale' (\lstinline{__idw_interpolate_instant} ou
-\lstinline{__barycentrique_interpolate_instant}) qui peut elle-même appeler d'autres fonctions ou méthodes.
+Ensuite nous calculons l'interpolation via une des deux méthode 'principale' qui peut elle-même appeler d'autres fonctions ou méthodes d'Antares. % (\lstinline{__idw_interpolate_instant} ou \lstinline{__barycentrique_interpolate_instant})
 
 \subsection{Le Pseudo-algorithme}
 
@@ -1004,7 +1031,7 @@ Voici le pseudo-algorithme simplifié donnant l'architecture de la fonction lin�
 
 $\bullet$ Créer le KD-tree
 
-$\bullet$ Créer une liste de listes appelée \texttt{node\_to\_elements}
+$\bullet$ Créer une liste de listes \texttt{node\_to\_elements} qui permet de récupérer l'indice des éléments constitués par un certain point.
 
 $\bullet$ Définir les points à interpoler
 
@@ -1055,7 +1082,7 @@ $\bullet$ Définir les points à interpoler
 
 \vspace{0.5cm}
 
-\textbf{Mise à jour de la base source :}
+\textbf{Mise à jour de la base cible :}
 \begin{list}{$\circ$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
     \item Pour chaque variable à interpoler :
     \begin{list}{$\bullet$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
@@ -1074,7 +1101,10 @@ Plusieurs axes ont été exploités afin de diminuer le temps de calcul du trait
 
 Le premier a été énoncé dans le pseudo-algorithme section précédente. Il s'agit de ne calculer qu'une seule fois le couple (poids, indices des points source) et autres paramètres puis de les enregistrer. Cela est utile dans deux cas :
 
-- Entre les instants si la structure des deux bases restent inchangées. Par exemple dans le cas de l'aéroacoustique, la solution contient 200 instants, le temps de calcul est alors presque divisé par 200. Dans le code, un test est fait pour savoir si tous les instants sont dits 'partagés'. Si oui, alors les poids et autres données nécessaires sont calculés (grace à la variable \texttt{computation}), mais pas le premier instant. Ensuite tous les instants seront calculés avec les données.
+- Entre les instants si la structure des deux bases restent inchangées.
+C'est par exemple dans le cas des bases issues de solutions aéroacoustique. Dans mon cas test, la solution contient 200 instants, le temps de calcul est alors presque divisé par 200.
+
+Dans le code, un test est fait pour savoir si tous les instants sont partagés (voir \ref{instants_partages}). Si oui, alors les poids et autres données nécessaires sont calculés (grace à la variable \texttt{computation}), mais pas le premier instant. Ensuite tous les instants seront calculés avec les données. Cela permet d'éviter d'enregistrer les coordonnées une seule fois et ainsi réduire le coût de mémoire.
 
 - Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure ne soit changée. Ceci arrive régulièrement, notamment lors de tests. Dans ce cas, il faut légèrement changer l'appel à la fonction, voici un exemple :
 
@@ -1117,51 +1147,56 @@ Nous allons alors chercher les 3 points les plus proches (4 en 3D). En reliant l
 Ensuite, nous faisons le calcul des barycentres et appliquons la même méthode qu'au-dessus.
 La différence ici est que le point cible n'est pas forcément dans la forme décrite par les 3 points les plus proches.
 
-\begin{center}
-\begin{tikzpicture}
+
+
+\begin{figure}[H]
     \centering
-    % Triangle initial
-    \coordinate (I) at (0,0);
-    \coordinate (II) at (2,4);
-    \coordinate (III) at (4,0);
-    \coordinate (P) at (2.2,2.0); % Point P (plus proche du nouveau triangle)
-
-    % Nouveau triangle
-    \coordinate (IV) at (3.4,2.5);
-
-    % Draw the initial triangle
-    \draw[thick] (I) -- (II) -- (III) -- cycle;
-
-    % Draw the new triangle
-    \draw[thick] (II) -- (III) -- (IV) -- cycle;
-
-    % Draw point P
-    \filldraw[blue] (P) circle (2pt) node[anchor=south] {P};
-
-    % Label the vertices of the initial triangle
-    \filldraw[red] (I) circle (2pt) node[anchor=east] {I};
-    \filldraw[red] (II) circle (2pt) node[anchor=south] {II};
-    \filldraw[red] (III) circle (2pt) node[anchor=west] {III};
-
-    % Label the vertices of the new triangle
-    \filldraw[red] (IV) circle (2pt) node[anchor=west] {IV};
-
-    % Draw lines from P to vertices
-    \draw[dashed] (P) -- (IV);
-    \draw[dashed] (P) -- (I);
-
-    % Title
-    \node at (4,-1) {P plus proche de IV que du sommet le plus éloigné du triangle dans lequel il se trouve};
-\end{tikzpicture}
-\end{center}
-
-
-Alors nous pourrions avoir une ou des surfaces formées par le point cible qui sortent du triangle initial (et la somme des surfaces ne serait pas égale à la surface du triangle initial). Mais pour respecter la linéarité, il suffit de faire le même calcul en prenant en compte le fait que la ou les deux surface(s) entièrement extérieures à la forme sont négatives. N'ayant pas trouvé une façon simple de savoir si la surface était négative, par manque de temps et crainte de l'ajout de complexité (ce qui augmente le temps de calcul), cette méthode n'a pas été implémentée.
-Cela permet aussi une extrapolation linéaire sans créer d'erreur.
-
-\begin{center}
     \begin{tikzpicture}
         \centering
+        % Triangle initial
+        \coordinate (I) at (0,0);
+        \coordinate (II) at (2,4);
+        \coordinate (III) at (4,0);
+        \coordinate (P) at (2.2,2.0); % Point P (plus proche du nouveau triangle)
+
+        % Nouveau triangle
+        \coordinate (IV) at (3.4,2.5);
+
+        % Draw the initial triangle
+        \draw[thick] (I) -- (II) -- (III) -- cycle;
+
+        % Draw the new triangle
+        \draw[thick] (II) -- (III) -- (IV) -- cycle;
+
+        % Draw point P
+        \filldraw[blue] (P) circle (2pt) node[anchor=south] {P};
+
+        % Label the vertices of the initial triangle
+        \filldraw[red] (I) circle (2pt) node[anchor=east] {I};
+        \filldraw[red] (II) circle (2pt) node[anchor=south] {II};
+        \filldraw[red] (III) circle (2pt) node[anchor=west] {III};
+
+        % Label the vertices of the new triangle
+        \filldraw[red] (IV) circle (2pt) node[anchor=west] {IV};
+
+        % Draw lines from P to vertices
+        \draw[dashed] (P) -- (IV);
+        \draw[dashed] (P) -- (I);
+
+        % Title
+        %\node at (4,-1) {P plus proche de IV que du sommet le plus éloigné du triangle dans lequel il se trouve};
+    \end{tikzpicture}
+    \caption{Schéma de sélection du deuxième point le plus proche}
+    \label{fig:deux_pt}
+%\label{fig:interpolation_IDW_rayon}
+\end{figure}
+
+
+Alors nous pourrions avoir une ou des surfaces formées par le point cible qui sortent du triangle initial (et la somme des surfaces ne serait pas égale à la surface du triangle initial). Mais pour respecter la linéarité, il suffit de faire le même calcul en prenant en compte le fait que la ou les deux surface(s) entièrement extérieures à la forme sont négatives. La figure ci-dessous est un zoom sur le schéma \ref{fig:deux_pt}.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
         % Triangle initial
         \coordinate (II) at (2*1.5,4*1.5);
         \coordinate (III) at (4*1.5,0);
@@ -1180,8 +1215,9 @@ Cela permet aussi une extrapolation linéaire sans créer d'erreur.
     
         % Colorer les surfaces, avec une surface négative
         \fill[blue!20] (II) -- (P) -- (IV) -- cycle;
-        \fill[green!20, opacity=0.6] (III) -- (P) -- (IV) -- cycle;
-        \fill[red!20, opacity=0.6] (P) -- (III) -- (II) -- cycle; % Cette surface sera considérée comme négative
+        \fill[green!20, opacity=1.0] (III) -- (P) -- (IV) -- cycle;
+        % Utilisation de hachures pour indiquer une surface négative
+        \fill[pattern=north west lines, pattern color=red, opacity=0.7] (P) -- (III) -- (II) -- cycle;
     
         % Draw the 'outside' triangle
         \draw[thick] (II) -- (III) -- (IV) -- cycle;
@@ -1194,10 +1230,18 @@ Cela permet aussi une extrapolation linéaire sans créer d'erreur.
         % Ajouter des annotations pour indiquer la surface négative
         \node at (2.1*1.5,2.15*1.5) [anchor=west] {Surface};
         \node at (2.1*1.5,2.15*1.5-0.4) [anchor=west] {négative};
-        % Title
-        \node at (4,-1) {Illustration de la surface négative avec le point P};
+        %\node at (2.5*1.5, 1.5*1.5) [anchor=north] {\textbf{-}};
     \end{tikzpicture}    
-\end{center}
+    \caption{Illustration de la surface négative avec le point P}
+    \label{fig:surface_negative}
+\end{figure}
+
+
+N'ayant pas trouvé une façon simple de savoir si la surface était négative, par manque de temps et crainte de l'ajout de complexité (ce qui augmente le temps de calcul), cette méthode n'a pas été implémentée.
+Cela permet aussi une extrapolation linéaire sans créer d'erreur.
+
+
+
 
 ////// C'est clair ou il faudrait illustrer la surface 'rouge' autrement ? ////////
 
