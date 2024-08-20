@@ -655,6 +655,9 @@ Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la dis
 %\subsection{L'interpolation par Splines}
 
 \subsection{Méthodes géostatiques}
+
+MLS : \cite{levin}
+
 https://desktop.arcgis.com/fr/arcmap/latest/extensions/geostatistical-analyst/what-is-arcgis-geostatistical-analyst-.htm
 
 Cokriging is the multivariate extension of kriging formalism, which allows to deal simultaneously with two or more variables defined over the same domain and to account for additional information about spatial correlation between the variables :
@@ -687,7 +690,7 @@ Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userd
 
 \subsection{MISCOG}
 
-Plusieurs méthodes d'interpolation d'ordre élevé sont déjà implémentées dans d'autres codes du CERFACS...
+Plusieurs méthodes d'interpolation d'ordre élevé sont déjà implémentées dans d'autres codes du CERFACS\cite{laborderie2018}
 
 \subsection{La méthode linéaire}
 La littérature\cite{fluidssengineer} s'accorde à dire que l'interpolation linéaire, est la plus basique après plus proche voisin et IDW. J'entends par basique simple à implémenter, demandant peu de ressource et moyennement précise pour de l'ordre élevé. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
