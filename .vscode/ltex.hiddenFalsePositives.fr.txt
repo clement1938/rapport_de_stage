@@ -50,3 +50,5 @@
 {"rule":"HAS_BEEN","sentence":"^\\QThe linear method has been tested on simple and industrial cases.\\E$"}
 {"rule":"ON_VERBE","sentence":"^\\QIt works well on all cell types, except for some very complex cases such as prisms with opposite faces of different sizes and/or non-parallel faces.\\E$"}
 {"rule":"ET-OU","sentence":"^\\QElle fonctionne correctement sur tous les types de cellules, sauf dans certains cas très complexes comme des prismes ayant des faces opposées de tailles différentes et/ou non parallèles.\\E$"}
+{"rule":"WISE","sentence":"^\\Q\"Piece-wise linear and minimumnorm interpolation approaches are faster than the linear least squares.\"\\E$"}
+{"rule":"MEETING","sentence":"^\\Q52nd Aerospace Sciences Meeting\\E$"}

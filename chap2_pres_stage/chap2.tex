@@ -131,6 +131,10 @@ Un facteur à prendre en compte dans la méthode que l'on souhaite implémenter 
 La caractérisation mathématique des équations à interpoler est probablement le paramètre le plus important à prendre en compte, mais aussi assurément le plus difficile. Les équations dont sont issues les solutions numériques en entrée dans Antares sont très difficiles à caractériser mathématiquement (tel que l'équation de Naviers-Stokes) et le niveau en mathématiques est trop élevé pour pouvoir se plonger en profondeur sur ce problème\cite{gordont1971_2}. C'est pour cela qu'il n'y aura pas beaucoup de résultats mathématiques à présenter dans cette partie.
 Heureusement, ces méthodes ont déjà été implémentées et testées pour d'autres codes de simulation numérique, ce qui permet de nous donner une bonne idée des résultats que nous pouvons espérer.
 
+
+hip est un logiciel créé en 1997 au CERFACS pour convertir des maillages multiblocs structurés en maillages non structurés.
+Différentes méthodes d'interpolation y sont codés et décrites dans le guide utilisateur\cite{muller2020}. Cette référence pourrait être lue avant d'implémenter une potentielle future interpolation dans Antares.
+
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
 
 \subsection{La méthode par voisin le plus proche}
@@ -628,7 +632,12 @@ Splines cubiques : "Notre expérience montre que les fonctions cubiques d'assemb
 \paragraph{NURBS}
 \vspace{0.5cm}
 \ac{NURBS}
-Cette méthode\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interpolation
+Cette méthode\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interpolation (sous-section de polynôme/splines ?)
+\vspace{0.5cm}
+
+\paragraph{Cubic Interpolation}
+\cite{tanaka}
+\vspace{0.5cm}
 
 
 \subsection{Les méthodes à base de distance}
@@ -677,6 +686,8 @@ Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userd
 
 \subsection{Les méthode par moindres carrés}
 
+"Piece-wise linear and minimumnorm interpolation approaches are faster than the linear least squares."\cite{muller2020}
+
 \paragraph{Approximation des moindres carrés}
 \vspace{0.5cm}
 \dots
@@ -690,7 +701,8 @@ Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userd
 Plusieurs méthodes d'interpolation d'ordre élevé sont déjà implémentées dans d'autres codes du CERFACS\cite{laborderie2018}
 
 \subsection{La méthode linéaire}
-La littérature\cite{fluidssengineer} s'accorde à dire que l'interpolation linéaire, est la plus basique après plus proche voisin et IDW. J'entends par basique simple à implémenter, demandant peu de ressource et moyennement précise pour de l'ordre élevé. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
+"The linear method is simple, robust, and an acceptable choice of interpolation for rough first estimates or if the database solution variables depend linearly on design space variables. The IDW method shows no advantages over the simpler linear method and is not recommended for interpolating CFD solutions. The Kriging method gives the most accurate interpolated results and has the ability to capture non-linear behavior in the database solution variables."\cite{palmer2009}.
+La littérature\cite{fluidssengineer} s'accorde à dire que l'interpolation linéaire, est la plus basique après plus proche voisin et IDW. J'entends par basique simple à implémenter, demandant peu de ressource, robuste et moyennement précise pour de l'ordre élevé. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
 
 % Remplacer target par cible et point interpolé par cible.
 
@@ -902,7 +914,7 @@ Visuellement nous créons cette fois des traits parallèles au passant par le po
 \subparagraph{Quadrilatère}
 
 Regardons maintenant la dernière forme 2D rencontrée dans les solutions traitées par Antares : les quadrilatères.
-Pour cela je n'ai pas trouvé de méthode dans la littérature. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0.
+Pour cela je n'ai pas trouvé de méthode satisfaisante dans la littérature.\cite{perronnet1998} Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0.
 Une première vérification de la linéarité est aussi de vérifier qu'un point au milieu d'une forme 2D a comme valeur la moyenne de ses sommets.
 Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la forme dans laquelle il se situe (tel que pour l'interpolation Barycentrique).
 Cela permet de ne créer que 4 sous formes.
@@ -1381,6 +1393,8 @@ Carlos a développé l'outil permettant de déterminer le résultat acoustique, 
 \subsection{Tests sur les paramètres de la méthode IDW}
 
 \subsection{Tests sur des cas d'aéroacoustique}
+
+\cite{schoder2019}
 
 Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA\cite{cunha2011}\cite{cunha2016}
 
