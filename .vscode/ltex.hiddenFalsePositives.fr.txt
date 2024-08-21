@@ -49,3 +49,4 @@
 {"rule":"A_INFINITIF","sentence":"^\\QThese same coefficients can be reused by a user who wants to run the process twice on a base with the same structure.\\E$"}
 {"rule":"HAS_BEEN","sentence":"^\\QThe linear method has been tested on simple and industrial cases.\\E$"}
 {"rule":"ON_VERBE","sentence":"^\\QIt works well on all cell types, except for some very complex cases such as prisms with opposite faces of different sizes and/or non-parallel faces.\\E$"}
+{"rule":"ET-OU","sentence":"^\\QElle fonctionne correctement sur tous les types de cellules, sauf dans certains cas très complexes comme des prismes ayant des faces opposées de tailles différentes et/ou non parallèles.\\E$"}

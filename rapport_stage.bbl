@@ -49,24 +49,25 @@
     \endentry
     \entry{bajaj}{misc}{}{}
       \name{author}{1}{}{%
-        {{hash=f0a764c431d36a45346ac7a5e23b0e28}{%
+        {{hash=ba9fb5b558d049700e79e68fc227db9c}{%
            family={Bajaj},
            familyi={B\bibinitperiod},
-           given={Chandrajit\bibnamedelima L},
-           giveni={C\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+           given={Chandrajit},
+           giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{f0a764c431d36a45346ac7a5e23b0e28}
-      \strng{fullhash}{f0a764c431d36a45346ac7a5e23b0e28}
-      \strng{fullhashraw}{f0a764c431d36a45346ac7a5e23b0e28}
-      \strng{bibnamehash}{f0a764c431d36a45346ac7a5e23b0e28}
-      \strng{authorbibnamehash}{f0a764c431d36a45346ac7a5e23b0e28}
-      \strng{authornamehash}{f0a764c431d36a45346ac7a5e23b0e28}
-      \strng{authorfullhash}{f0a764c431d36a45346ac7a5e23b0e28}
-      \strng{authorfullhashraw}{f0a764c431d36a45346ac7a5e23b0e28}
+      \strng{namehash}{ba9fb5b558d049700e79e68fc227db9c}
+      \strng{fullhash}{ba9fb5b558d049700e79e68fc227db9c}
+      \strng{fullhashraw}{ba9fb5b558d049700e79e68fc227db9c}
+      \strng{bibnamehash}{ba9fb5b558d049700e79e68fc227db9c}
+      \strng{authorbibnamehash}{ba9fb5b558d049700e79e68fc227db9c}
+      \strng{authornamehash}{ba9fb5b558d049700e79e68fc227db9c}
+      \strng{authorfullhash}{ba9fb5b558d049700e79e68fc227db9c}
+      \strng{authorfullhashraw}{ba9fb5b558d049700e79e68fc227db9c}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{journaltitle}{ICCG}
       \field{title}{Multi-dimensional Hermite Interpolation and Approximation for Modelling and Visualization}
       \field{year}{2001}
     \endentry
@@ -115,6 +116,7 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{journaltitle}{Aerospace Science and Technology}
       \field{title}{Cassiopee: a CFD pre-and post-processing tool}
       \field{year}{2015}
       \verb{doi}
@@ -170,8 +172,12 @@
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{booktitle}{17th AIAA/CEAS Aeroacoustics Conference (32nd AIAA Aeroacoustics Conference)}
       \field{title}{An Innovative Interpolation Technique for Aeroacoustic Hybrid Methods}
       \field{year}{2011}
+      \verb{doi}
+      \verb 10.2514/6.2011-2754
+      \endverb
     \endentry
     \entry{cunha2016}{article}{}{}
       \name{author}{2}{}{%
@@ -264,6 +270,7 @@
       \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{booktitle}{52nd Aerospace Sciences Meeting}
       \field{title}{Interpolation Method Needed for Numerical Uncertainty Analysis of Computational Fluid Dynamics}
       \field{year}{2014}
       \verb{doi}
@@ -291,7 +298,7 @@
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{SIAM J. NUMER. ANAL}
+      \field{journaltitle}{SIAM Journal on Numerical Analysis}
       \field{title}{Blending-Function Methods of Bivariate and Multivariate Interpolation and Approximation}
       \field{year}{1971}
       \verb{doi}
@@ -422,9 +429,6 @@
            given={David},
            giveni={D\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Springer, Berlin, Heidelberg}%
-      }
       \strng{namehash}{32ad21054f07b38c5fef8dcf472ca73c}
       \strng{fullhash}{32ad21054f07b38c5fef8dcf472ca73c}
       \strng{fullhashraw}{32ad21054f07b38c5fef8dcf472ca73c}
@@ -437,6 +441,7 @@
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{booktitle}{Geometric modeling for scientific visualization}
       \field{title}{Mesh-Independent Surface Interpolation}
       \field{year}{2004}
       \verb{doi}
