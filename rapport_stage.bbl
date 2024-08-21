@@ -407,10 +407,9 @@
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Computational Physics, Éditeur : Academic Press Inc.}
+      \field{journaltitle}{Journal of Computational Physics}
       \field{title}{Numerical analysis of a high-order unstructured overset grid method for compressible LES of turbomachinery}
       \field{year}{2018}
-      \true{nocite}
       \verb{doi}
       \verb 10.1016/j.jcp.2018.02.045
       \endverb
@@ -440,7 +439,6 @@
       \field{labeltitlesource}{title}
       \field{title}{Mesh-Independent Surface Interpolation}
       \field{year}{2004}
-      \true{nocite}
       \verb{doi}
       \verb 10.1007/978-3-662-07443-5_3
       \endverb
@@ -729,7 +727,8 @@
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Issue 7-June 2014-Aircraft Noise Prediction via Aeroacoustic Hybrid Methods: Development and Application of Onera Tools over the Last Decade: Some Examples}
+      \field{title}{Aircraft Noise Prediction via Aeroacoustic Hybrid Methods: Development and Application of Onera Tools over the Last Decade: Some Examples}
+      \field{year}{2014}
       \true{nocite}
       \verb{doi}
       \verb 10.12762/2014.AL07-07
@@ -910,7 +909,7 @@
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Open Research Software, Éditeur : Ubiquity Press}
+      \field{journaltitle}{Journal of Open Research Software, Éditeur : Ubiquity Press}
       \field{title}{ARBTools: A tricubic spline interpolator for three-dimensional scalar or vector fields}
       \field{year}{2019}
       \true{nocite}

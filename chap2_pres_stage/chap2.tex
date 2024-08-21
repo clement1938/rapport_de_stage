@@ -6,7 +6,6 @@
 %– Les connaissances techniques acquises doivent transparaître dans le document. Le correcteur évaluera si celui-ci fait état d’une maîtrise réelle des outils (informatiques, mécaniques, etc.) utilisés pendant le stage. En outre, il estimera le niveau des connaissances techniques acquises que la rédaction du rapport aura su mettre en évidence.
 
 
-
 Le stage a débuté au début du mois de juin 2024. Un ordinateur et un PIN-pad générateur d'\ac{OTP} ont été mis à ma disposition. Carlos, mon maître de stage, m'a fourni les informations nécessaires pour comprendre et utiliser Antares\cite{antares}, une librairie de développement, à l'aide de la documentation en ligne\footnote{Documentation d'Antares : \href{https://cerfacs.fr/antares/}{cerfacs.fr/antares}}. Ensuite j'ai résolu un bug mineur sur Antares, ce qui m'a permis de me familiariser avec Nitrox, le Gitlab hébergé sur le serveur du CERFACS où sont situés Antares et d'autres codes du CERFACS.
 
 
@@ -17,7 +16,7 @@ Elle s'appuie fortement sur la librairie numpy afin de profiter des leurs algori
 Elle permet de visualiser, traiter, réorganiser des données de simulation numérique issues de différents solveurs utilisés par le CERFACS et ses partenaires. Ces données sont organisées par Antares de manière unique et commune, ce qui est une grande force, notamment pour le partage et l'optimisation des post-traitements.
 
 % Aussi je me rend compte que tu n'as jamais vraiment expliqué comment les traitements fonctionnent. C-a-d que ce sont des dictionnaires dans lesquels tu spécifies des mot clés / paramètres pour contrôler le comportement du traitement. Tu pourra le rajouter dans la partie de description Antares
-Chaque traitement est une classe composée liste de mots-clefs qui correspondent à chaque paramètre. Certains sont donnés nécessairement à donner par l'utilisateur, d'autres sont initialisés par défaut et peuvent être modifiés ou non. Nous retrouvons les deux paramètres 'source' et 'target' nécessaires au traitement interpolation ligne 3 et 4 de l'exemple de code \ref{lst:antares_2}
+Chaque traitement est une classe composée liste de mots-clefs qui correspondent à chaque paramètre. Certains sont donnés nécessairement à donner par l'utilisateur, d'autres sont initialisés par défaut et peuvent être modifiés ou non. Nous retrouvons les deux paramètres 'source' et 'target' nécessaires au traitement d'interpolation ligne 3 et 4 de l'exemple de code \ref{lst:antares_2}. Les autres arguments du traitement d'interpolation sont listés plus bas \ref{arguments}.
 
 
 Une solution CFD est interprété par Antares comme une "Base".
@@ -78,47 +77,40 @@ L'interpolation consiste à déterminer la valeur de nouveaux points à partir d
             legend style={at={(0.5,-0.22)}, anchor=north, legend columns=-1},
         ]
     
+        % Points existants (bleus) sur la courbe en cloche
         \addplot[
             only marks,
             mark=*,
             mark options={scale=1.5, fill=blue},
         ] coordinates {
-            (1, 1)
-            (3, 9)
-        };
+            (-2.5, 0.0175)
+            (-2, 0.05399)
+            (-1.5, 0.1295)
+            (-1, 0.24197)
+            (-0.5, 0.35207)
+            (0, 0.39894)
+            (0.5, 0.35207)
+            (1, 0.24197)
+            (1.5, 0.1295)
+            (2, 0.05399)
+            (2.5, 0.0175)
+        };        
         \addlegendentry{Points existants \hspace{0,3cm}}
     
-        \addplot[
-            domain=1:3,
-            samples=100,
-            smooth,
-            thick,
-            red,
-            dashed
-        ] {x^2};
-        \addlegendentry{Interpolation \hspace{0,3cm}} % (ligne pointillée)
-    
+        % Point interpolé (vert)
         \addplot[
             only marks,
             mark=*,
             mark options={scale=1.5, fill=green},
         ] coordinates {
-            (1.2, 1.44)
-            (1.4, 1.96)
-            (1.6, 2.56)
-            (1.8, 3.24)
-            (2, 4)
-            (2.2, 4.84)
-            (2.4, 5.76)
-            (2.6, 6.76)
-            (2.8, 7.84)
-        };
-        \addlegendentry{Points interpolés \hspace{0,3cm}}
+            (-1.25, 0.1859)
+            };
+        \addlegendentry{Point interpolé \hspace{0,3cm}}
     
         \end{axis}
     \end{tikzpicture}
-    \caption{Schéma d'interpolation quadratique entre deux points donnés}
-    \label{fig:interpolation_quadratique}
+    \caption{Schéma d'interpolation avec des points sur une courbe en cloche}
+    \label{fig:interpolation_cloche_points}
 \end{figure}
 
     
@@ -180,14 +172,14 @@ En voici quelques illustrations :
             };
             \addlegendentry{Interpolation par voisin le plus proche \hspace{0,3cm}}
 
-            \addplot[
-                only marks,
-                mark=*,
-                mark options={scale=1.5, fill=green},
-            ] coordinates {
-                (1.7, 1)
-            };
-            \addlegendentry{Point interpolé}
+            %\addplot[
+            %    only marks,
+            %    mark=*,
+            %    mark options={scale=1.5, fill=green},
+            %] coordinates {
+            %    (1.7, 1)
+            %};
+            %\addlegendentry{Point interpolé}
 
             \end{axis}
         \end{tikzpicture}
@@ -195,7 +187,7 @@ En voici quelques illustrations :
     \label{fig:interpolation_voisin}
 \end{figure}
 
-\vspace{0.5cm}
+La courbe La courbe rouge représente l'interpolation sur tout le domaine x entre les deux points. Cela représente les coordonnées (x, y) de tous les potentiels points d'interpolation.
 
 Cette méthode est discontinue et peu précise pour la plupart des fonctions.
 
@@ -264,13 +256,13 @@ En voici des illustrations 1D :
                 red,
             ] {(1/abs(1-x) + 9/abs(x-3))/(1/(abs(1-x))+1/(abs(x-3)))};
 
-            \addplot[
-                only marks,
-                mark=*,
-                mark options={scale=1.5, fill=green},
-            ] coordinates {
-                (2, 5)
-            };
+            %\addplot[
+            %    only marks,
+            %    mark=*,
+            %    mark options={scale=1.5, fill=green},
+            %] coordinates {
+            %    (2, 5)
+            %};
             \end{axis}
         \end{tikzpicture}
         \caption{Interpolation IDW N=2, p=1}
@@ -302,13 +294,13 @@ En voici des illustrations 1D :
                 red,
             ] {(1/(abs(1-x)^2) + 9/(abs(x-3)^2))/(1/(abs(1-x)^2)+1/(abs(x-3)^2))};
 
-            \addplot[
-                only marks,
-                mark=*,
-                mark options={scale=1.5, fill=green},
-            ] coordinates {
-                (2, 5)
-            };
+            %\addplot[
+            %    only marks,
+            %    mark=*,
+            %    mark options={scale=1.5, fill=green},
+            %] coordinates {
+            %    (2, 5)
+            %};
             \end{axis}
         \end{tikzpicture}
         \caption{Interpolation IDW N=2, p=2}
@@ -343,13 +335,13 @@ En voici des illustrations 1D :
                 red,
             ] {(1/abs(1-x) + 9/abs(x-3) + 4/abs(2-x))/(1/(abs(1-x)) + 1/(abs(x-3)) + 1/(abs(2-x)))};
 
-            \addplot[
-                only marks,
-                mark=*,
-                mark options={scale=1.5, fill=green},
-            ] coordinates {
-                (1.5, 3.43)
-            };
+            %\addplot[
+            %    only marks,
+            %    mark=*,
+            %    mark options={scale=1.5, fill=green},
+            %] coordinates {
+            %    (1.5, 3.43)
+            %};
             \end{axis}
         \end{tikzpicture}
         \caption{Interpolation IDW N=3, p=1}
@@ -382,13 +374,13 @@ En voici des illustrations 1D :
                 red,
             ] {(1/(abs(1-x)^2) + 9/(abs(x-3)^2) + 4/(abs(2-x)^2))/(1/(abs(1-x)^2) + 1/(abs(x-3)^2) + 1/(abs(2-x)^2))};
 
-            \addplot[
-                only marks,
-                mark=*,
-                mark options={scale=1.5, fill=green},
-            ] coordinates {
-                (1.5, 2.84)
-            };
+            %\addplot[
+            %    only marks,
+            %    mark=*,
+            %    mark options={scale=1.5, fill=green},
+            %] coordinates {
+            %    (1.5, 2.84)
+            %};
             \end{axis}
         \end{tikzpicture}
         \caption{Interpolation IDW N=3, p=2}
@@ -399,11 +391,11 @@ En voici des illustrations 1D :
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.62\textwidth]{images/legende-interp.png}
+    \includegraphics[width=0.39\textwidth]{images/legende-interp3.png}
 \end{figure}
 
 
-Dans notre cas, nous ne prenons pas en compte tous les points du maillage source. Nous nous limitons à un nombre \(N\) de points les plus proches. Cela implique une discontinuité lorsque nous changeons de point. Pour illustrer cela, voici une figure 1D où tous les points sont espacés d'une unité. Avec \(N\)=3, cela revient ici à changer l'un des trois points de calcul pour une valeur de \(x\) égale à 0,5 modulo un.
+Dans notre cas, nous ne prenons pas en compte tous les points du maillage source. Nous nous limitons à un nombre \(N\) de points les plus proches. Cela implique une discontinuité lorsque nous changeons de point. Pour illustrer cela, voici une figure 1D où tous les points sont espacés d'une unité. Avec \(N\)=3, cela revient ici à changer l'un des trois points de calcul pour une valeur de \(x\) égale à 0,5 modulo un. Le modulo un est représenté par une ligne en pointillés noirs. Il est appelé rayon, car en 2D, il est représenté par un cercle et en 3D pas une sphère. 
 
 \begin{figure}[ht!]
 \centering
@@ -426,11 +418,11 @@ Dans notre cas, nous ne prenons pas en compte tous les points du maillage source
             (2, 4)
             (3, 9)
         };
-        \addlegendentry{Points existants\hspace{0,5cm}}
+        \addlegendentry{Points existants\phantom{---}}
     
         % Plotting the radius for the nearest neighbors
-        \addplot[dashed, bronze, thick] coordinates {(1.5, 0) (1.5, 9)};
-        \addlegendentry{Rayon de 1.5\hspace{0,3cm}}
+        \addplot[dashed, aurometalsaurus, thick] coordinates {(1.5, 0) (1.5, 9)};
+        \addlegendentry{Rayon de 1\phantom{---}}
     
         \addplot[
             domain=1:1.5,
@@ -455,7 +447,7 @@ Dans notre cas, nous ne prenons pas en compte tous les points du maillage source
         ] {(4/(abs(x-2)^2) + 9/(abs(3-x)^2))/(1/(abs(x-2)^2)+1/(abs(3-x)^2))};
         \addlegendentry{Interpolation IDW}
     
-        \addplot[dashed, bronze, thick] coordinates {(2.5, 0) (2.5, 9)};
+        \addplot[dashed, aurometalsaurus, thick] coordinates {(2.5, 0) (2.5, 9)};
     
         \end{axis}
     \end{tikzpicture}
@@ -463,7 +455,7 @@ Dans notre cas, nous ne prenons pas en compte tous les points du maillage source
     %\label{fig:interpolation_IDW_rayon}
 \end{figure}
 
-Nous observons une discontinuité en 1,5 et 2,5. La discontinuité peut être un grand problème pour la stabilité des schémas numériques
+Nous observons une discontinuité en 1,5 et 2,5. La discontinuité peut être un grand problème pour la stabilité des schémas numériques.
 
 \begin{comment}
     \begin{tikzpicture}
@@ -553,26 +545,31 @@ Nous pouvons aussi imaginer que 2 points, A et B, à droite et à gauche d'une l
 \begin{figure}[ht!]
     \centering
     \begin{tikzpicture}
-    
+
         % Les points sur la ligne verticale
-        \filldraw[blue] (0, -1.5) circle (2pt) node[right] {$c$}; % $(x_1, y_1) = (2, 1)$
+        \filldraw[blue] (0, -1.2) circle (2pt) node[right] {$c$}; 
         \filldraw[blue] (0, 0) circle (2pt) node[right] {$b$};
         \filldraw[blue] (0, 1.5) circle (2pt) node[right] {$a$};
+        
+        % Les autres
+        \filldraw[blue] (-4, -0.5) circle (2pt) node[above left] {$d$};
+        \filldraw[blue] (5, 1.0) circle (2pt) node[above right] {$e$};
     
         % Les points à gauche et à droite qui prennent la même valeur
-        \filldraw[red] (-2, 0.5) circle (2pt) node[above left] {A}; % {A$(1, 2)$}
-        \filldraw[red] (2, 0.5) circle (2pt) node[above right] {B};
+        \filldraw[red] (-1.5, 0.5) circle (2pt) node[above left] {A}; 
+        \filldraw[red] (1.5, 0.5) circle (2pt) node[above right] {B};
     
         % Lignes de liaison entre les points rouges et les trois plus proches voisins
-        \draw[dashed, gray] (-2, 0.5) -- (0, -1.5);
-        \draw[dashed, gray] (-2, 0.5) -- (0, 0);
-        \draw[dashed, gray] (-2, 0.5) -- (0, 1.5);
-
-        \draw[dashed, gray] (2, 0.5) -- (0, -1.5);
-        \draw[dashed, gray] (2, 0.5) -- (0, 0);
-        \draw[dashed, gray] (2, 0.5) -- (0, 1.5);
-
+        \draw[dashed, gray] (-1.5, 0.5) -- (0, -1.2);
+        \draw[dashed, gray] (-1.5, 0.5) -- (0, 0);
+        \draw[dashed, gray] (-1.5, 0.5) -- (0, 1.5);
+    
+        \draw[dashed, gray] (1.5, 0.5) -- (0, -1.2);
+        \draw[dashed, gray] (1.5, 0.5) -- (0, 0);
+        \draw[dashed, gray] (1.5, 0.5) -- (0, 1.5);
+    
     \end{tikzpicture}
+    
     \caption{Schéma montrant la non-directivité d'IDW}
     %\label{fig:interpolation_IDW_rayon}
 \end{figure}
@@ -726,7 +723,7 @@ qui garantit que l'interpolation est correcte et symétrique par rapport à \( a
 
 \vspace{0.5cm}
 
-En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds. Aussi, le traitement d'interpolation d'Antares ne traite que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
+En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds. 
 Il existe 3 principaux types de cellules (formes) en 2D : les triangles, les rectangles des maillages structurés (dans ce cas, la méthode est dite bilinéaire) et les quadrilatères (non croisés).
 Certains industriels utilisent de plus en plus des polygones à N arrêtes. Mais pas soucis de simplicité, nous l'interpolation linéaire est limité aux 3 principales formes, les polygones pouvant être décomposés en triangles.
 
@@ -795,7 +792,7 @@ Visuellement, il faut faire la somme des valeurs aux points pondérés par la su
         %\node at (2.5,-1) {Interpolation Barycentrique}; %Diagramme de Voronoi Modifié pour l'
     
     \end{tikzpicture}
-    
+    \label{fig:interpolation_barycentrique}
     \caption{Schéma d'interpolation barycentrique}
     %\label{fig:interpolation_IDW_rayon}
 \end{figure}
@@ -810,12 +807,12 @@ Le calcul est
 
 \vspace{0.2cm}
 
-Bien sûr, les triangles sont quelconques, mais la formule reste la même
+Bien sûr, les triangles sont quelconques, mais la formule reste la même.
 
 % Trilinéaire dans le cas où le maillage est 3D et structuré.
 \subparagraph{Rectangle : bilinéaire}
 
-En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvons aussi facilement. La formule est l'extension de celle pour les triangles :
+En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvons aussi facilement dans la littérature. La formule est l'extension de celle pour les triangles :
 
 \begin{equation}
     \resizebox{0.9\hsize}{!}{$
@@ -825,9 +822,9 @@ En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvon
                 
 
 
-Ici les surfaces sont directement calculées
+Ici les surfaces sont directement calculées.
 
-Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif. Cela correspond à deux interpolations linéaires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle, mais je trouvais cela plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
+Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif. Cela correspond à deux interpolations linéaires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle, mais il est plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
 
 
 \begin{figure}[ht!]
@@ -905,18 +902,21 @@ Visuellement nous créons cette fois des traits parallèles au passant par le po
 \subparagraph{Quadrilatère}
 
 Regardons maintenant la dernière forme 2D rencontrée dans les solutions traitées par Antares : les quadrilatères.
-Pour cela je n'ai pas trouvé de méthode. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0.
+Pour cela je n'ai pas trouvé de méthode dans la littérature. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0.
 Une première vérification de la linéarité est aussi de vérifier qu'un point au milieu d'une forme 2D a comme valeur la moyenne de ses sommets.
 Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la forme dans laquelle il se situe (tel que pour l'interpolation Barycentrique).
 Cela permet de ne créer que 4 sous formes.
 Ensuite pour déterminer le poids associé au sommet \( s_1 \), il faut multiplier entre elles les deux surfaces qui lui sont opposées, et bien entendu, le pondérer une fois les autres poids calculés.
-Par opposées j'entends que ces surfaces ne sont composées d'aucune arrête ayant pour l'une de leurs extrémités le point d'interpolation. Ceci est important pour le 3D. Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode étais linéaire.
+Par opposées j'entends que ces surfaces ne sont composées d'aucune arrête ayant pour l'une de leurs extrémités le point d'interpolation. Ceci est important pour le 3D. Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode était linéaire.
 Un point qui me perturbait était de faire des multiplications de surfaces, donc ordre 4, dans une méthode linéaire.
 Mais contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire.
-On pourrait imaginer que, par chance, ma méthode soit quadratique.
+On pourrait imaginer que, par chance, cette méthode soit quadratique.
 Premièrement j'ai vérifié et ce n'est apparemment pas le cas.
-Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère. Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points.
-Normalement il faudrait s'appuyer sur plus de points pour le quadratique. Finalement voici l'équation :
+Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère.
+% Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points.
+Normalement il faudrait s'appuyer sur plus de points pour le quadratique. 
+Finalement, la demonstration pourrais se construire en montrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la figure \ref{fig:quad} ci-dessous, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.
+Voici l'équation :
 
 \begin{equation}
     f(P) = \frac{f_{A} \cdot (\beta \times \gamma) + f_{B} \cdot (\gamma \times \delta) + f_{C} \cdot (\delta \times \alpha) + f_{D} \cdot (\alpha \times \beta)}{(\beta \times \gamma) + (\gamma \times \delta) + (\delta \times \alpha) + (\alpha \times \beta)}
@@ -966,6 +966,7 @@ Normalement il faudrait s'appuyer sur plus de points pour le quadratique. Finale
     
     \end{tikzpicture}
     \caption{Schéma d'interpolation dans un quadrilatère quelconque}
+    \label{fig:quad}
     %\label{fig:interpolation_IDW_rayon}
 \end{figure}
 
@@ -1018,6 +1019,11 @@ Note pour l'ordre supérieur : faire une transformation des formes qui aurait pu
 
 \subsection{La structure générale du code TreatmentInterpolation}
 
+
+Le traitement d'interpolation d'Antares ne traite que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
+
+
+
 EXPLICATION PLUS DÉTAILLER DU KDTREE
 
 Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisait environ 500 lignes. Il est orienté objet. Il prend comme arguments obligatoires la base source et la base cible et renvoie dans le cas le plus simple la base cible avec les valeurs interpolées.
@@ -1025,6 +1031,10 @@ De manière simplifiée, dans le code, les zones de la base source sont fusionn�
 Cette fusion permet de faire un KDTree (pour arbre à k-dimensions), qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base cible (et les distances associées, utilisées dans la méthode 'idw').
 
 Ensuite nous calculons l'interpolation via une des deux méthode 'principale' qui peut elle-même appeler d'autres fonctions ou méthodes d'Antares. % (\lstinline{__idw_interpolate_instant} ou \lstinline{__barycentrique_interpolate_instant})
+
+
+///////// Les arguments de la méthode ajoutés et listage de ceux existants //////////// \label{arguments}
+
 
 \subsection{Le Pseudo-algorithme}
 
@@ -1112,8 +1122,9 @@ Le premier a été énoncé dans le pseudo-algorithme section précédente. Il s
 C'est par exemple dans le cas des bases issues de solutions aéroacoustique. Dans mon cas test, la solution contient 200 instants, le temps de calcul est alors presque divisé par 200.
 
 Dans le code, un test est fait pour savoir si tous les instants sont partagés (voir \ref{instants_partages}). Si oui, alors les poids et autres données nécessaires sont calculés (grace à la variable \texttt{computation}), mais pas le premier instant. Ensuite tous les instants seront calculés avec les données. Cela permet d'éviter d'enregistrer les coordonnées une seule fois et ainsi réduire le coût de mémoire.
+Cet optimisation est faite automatiquement dans le traitement.
 
-- Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure ne soit changée. Ceci arrive régulièrement, notamment lors de tests. Dans ce cas, il faut légèrement changer l'appel à la fonction, voici un exemple :
+- Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure ne soit changée, qu'elle ait un instant ou plusieurs instant partagée. /////////Attention, dans le cas où la structure du maillage est différent entre deux instants, cette dernière ne peut pas être utilisée///////////. Ceci arrive régulièrement, notamment lors de tests. Dans ce cas, il faut légèrement changer l'appel à la fonction, voici un exemple :
 
 \begin{lstlisting}[caption=Exemple de réutilisation des données, label={lst:antares}]
     import antares
@@ -1135,7 +1146,7 @@ Dans le code, un test est fait pour savoir si tous les instants sont partagés (
     result2 = myt.execute()
 \end{lstlisting}
 
-Ici, \texttt{result2} aura été calculé beaucoup plus rapidement que \texttt{result1}
+Ici, \texttt{result2} aura été calculé beaucoup plus rapidement que \texttt{result1}.
 
 De plus ce changement est aussi appliqué à la méthode IDW sans poser de problème de rétrocompatibilité, car les résultats sont inchangés.
 
@@ -1235,8 +1246,17 @@ Alors nous pourrions avoir une ou des surfaces formées par le point cible qui s
         \draw[thick] (P) -- (III);
     
         % Ajouter des annotations pour indiquer la surface négative
-        \node at (2.1*1.5,2.15*1.5) [anchor=west] {Surface};
-        \node at (2.1*1.5,2.15*1.5-0.4) [anchor=west] {négative};
+        %\node at (2.1*1.5,2.15*1.5) [anchor=west] {Surface};
+        %\node at (2.1*1.5,2.15*1.5-0.4) [anchor=west] {négative};
+        \node at (3, 1) [anchor=east] {
+            \begin{tikzpicture}[baseline]
+                \fill[pattern=north west lines, pattern color=red, opacity=0.7] (0,0) rectangle (0.5,0.2);
+            \end{tikzpicture}
+            \hspace{0.1cm} Surface négative
+        };
+        %\node at (3, 1) [anchor=east] {Surface négative};
+        \draw[->, thick] (3, 1) -- (4.0, 2.9);
+
         %\node at (2.5*1.5, 1.5*1.5) [anchor=north] {\textbf{-}};
     \end{tikzpicture}    
     \caption{Illustration de la surface négative avec le point P}
@@ -1328,7 +1348,23 @@ Des codes de tests ont été créés en même temps que l'implémentation de l'i
 L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on teste l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande dans le terminal ou lors d'un git push vers Nitrox.
 
 
+
 \subsection{Tests sur des cas industriels}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.50\textwidth]{images/cb-IDW.png}
+    \caption{Interpolation IDW sur une coupe d'une chambre de combustion avec isosurface de la flame}
+    \label{fig:cb-IDW}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.50\textwidth]{images/cb-lineaire.png}
+    \caption{Interpolation linéaire sur une coupe d'une chambre de combustion}
+    \label{fig:cb-lineaire}
+\end{figure}
+
 
 Ensuite, des tests ont été réalisés sur des cas d'applications plus conséquents et complexes, comme l'intersection d'un plan cible dans le résultat d'une simulation de chambre de combustion. 
 
@@ -1360,4 +1396,3 @@ Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique s
 \end{itemize}
 
 
-\subsection{Discrétisation spatiale et résolution du problème}

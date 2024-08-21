@@ -45,3 +45,7 @@
 {"rule":"ETRE_VPPA_OU_ADJ","sentence":"^\\QDans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds.\\E$"}
 {"rule":"PRONSUJ_NONVERBE","sentence":"^\\QDigital surface model interpolation based on 3D mesh models\\E$"}
 {"rule":"QUI_VCONJ","sentence":"^\\QDans ce paragraphe, nous allons présenter les types d'interpolation implémentables dans Antares, à savoir, qui permettent de l'interpolation \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q à 3D, sur des maillages dits non structurés.\\E$"}
+{"rule":"FLECHES","sentence":"^\\QSurface négative ; [->, thick] (3, 1) – (4.0, 2.9);\\E$"}
+{"rule":"A_INFINITIF","sentence":"^\\QThese same coefficients can be reused by a user who wants to run the process twice on a base with the same structure.\\E$"}
+{"rule":"HAS_BEEN","sentence":"^\\QThe linear method has been tested on simple and industrial cases.\\E$"}
+{"rule":"ON_VERBE","sentence":"^\\QIt works well on all cell types, except for some very complex cases such as prisms with opposite faces of different sizes and/or non-parallel faces.\\E$"}
