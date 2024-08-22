@@ -16,19 +16,19 @@ Elle s'appuie fortement sur la librairie numpy afin de profiter des leurs algori
 Elle permet de visualiser, traiter, réorganiser des données de simulation numérique issues de différents solveurs utilisés par le CERFACS et ses partenaires. Ces données sont organisées par Antares de manière unique et commune, ce qui est une grande force, notamment pour le partage et l'optimisation des post-traitements.
 
 % Aussi je me rend compte que tu n'as jamais vraiment expliqué comment les traitements fonctionnent. C-a-d que ce sont des dictionnaires dans lesquels tu spécifies des mot clés / paramètres pour contrôler le comportement du traitement. Tu pourra le rajouter dans la partie de description Antares
-Chaque traitement est une classe composée liste de mots-clefs qui correspondent à chaque paramètre. Certains sont donnés nécessairement à donner par l'utilisateur, d'autres sont initialisés par défaut et peuvent être modifiés ou non. Nous retrouvons les deux paramètres 'source' et 'target' nécessaires au traitement d'interpolation ligne 3 et 4 de l'exemple de code \ref{lst:antares_2}. Les autres arguments du traitement d'interpolation sont listés plus bas \ref{arguments}.
+Chaque traitement est une classe composée liste de mots-clefs qui correspondent à chaque paramètre. Certains nécessairement à donner par l'utilisateur, d'autres sont initialisés par défaut et peuvent être modifiés ou non. Nous retrouvons les deux paramètres 'source' et 'target' nécessaires au traitement d'interpolation ligne 3 et 4 de l'exemple de code \ref{lst:antares_2}. Les autres arguments du traitement d'interpolation sont listés plus bas (ref \ref{arguments}).
 
 
 Une solution CFD est interprété par Antares comme une "Base".
 Cette dernière peut être constituée d'une ou plusieurs zones.
 Une zone représente un emplacement physique de la solution (par exemple, pour une chambre de combustion, nous pourrions avoir deux zones, régis avec des équations différentes: une avant les injecteurs et une après). % A vérifier par Carlos 
 Chaque zone peut avoir un ou plusieurs instants.
-Un instant est une "capture" de la solution à un instant t. Cela peut être la solution finale de la simulation par exemple. Plusieurs instants peuvent représenter une simulation dynamique qui est utile dans le cas de l'aéroacoustique par exemple, où nous cherchons l'évolution temporelle de la pression.
+Un instant est une "capture" de la solution à un instant t. Cela peut être la solution finale de la simulation par exemple. Plusieurs instants peuvent représenter une simulation dynamique, qui est utile dans le cas de l'aéroacoustique par exemple, où nous cherchons l'évolution temporelle de la pression.
 Dans le cas où la structure du maillage ne change pas entre deux instants, les positions peuvent être définies dans la zone et seule les variables changent entre les instants. On parle dans ce cas d'"instant partagé".\label{instants_partages}
 
 % Généralement les instants sont identiques entre les zones, on dit qu'ils sont "partagés" tq les variables Carlos ?
 
-Nous y retrouvons les variables et leurs valeurs sur le maillage de la zone et instant en question
+Nous y retrouvons finalement les variables et leurs valeurs sur le maillage de la zone et instant en question
 
 % Ensuite chaque zone a un ou plusieurs instants où nous pouvons trouver la solution d'une variable, qui sera de même dimension que les coordonnées de l'instant.
 
@@ -53,9 +53,9 @@ Voici un exemple d'utilisation d'Antares :
     result = myt.execute()
 \end{lstlisting}
 
-Dans le cas ci-dessus, \texttt{result[0][0]['variable1']} est un tableau numpy utilisable par l'utilisateur.
+Dans le cas ci-dessus, \texttt{result[0][0]['variable1']} est un tableau numpy manipulable par l'utilisateur.
 
-Un point important pour l'interpolation linéaire est la connectivité. Si le maillage est non structuré, alors, chaque cellule est définie par un type de forme et par ses sommets. Par exemple, elle peut être donnée par \texttt{base[0][0].connectivity['tri']} si la base contient des triangles (équivalent à avoir une connectivité "tri") dans sa zone 0 à l'instant 0.
+Un point important pour l'interpolation linéaire est la connectivité (voir ref\ref{connectivité}). Si le maillage est non structuré, alors, chaque cellule est définie par un type de forme et par ses sommets. Par exemple, elle peut être donnée par \texttt{base[0][0].connectivity['tri']} si la base contient des triangles (équivalent à avoir une connectivité "tri") dans sa zone 0 à l'instant 0.
 
 
 \section{Les différentes méthodes d'interpolation}
@@ -120,11 +120,11 @@ Dans ce paragraphe, nous allons présenter les types d'interpolation\cite{cassio
 
 Cela implique certaines conditions, notamment sur le type de maillage.
 
-Un maillage structuré est un maillage dont la connectivité entre les points peut être décrite de manière régulière, généralement à l'aide de tableaux multidimensionnels (1D, 2D, 3D). Dans un tel maillage, les points sont organisés en une grille régulière, ce qui permet de naviguer facilement à travers les données sans avoir à spécifier explicitement les relations entre les points.
+Un maillage structuré est un maillage dont la connectivité\label{connectivité} entre les points peut être décrite de manière régulière, généralement à l'aide de tableaux multidimensionnels (1D, 2D, 3D). Dans un tel maillage, les points sont organisés en une grille régulière, ce qui permet de naviguer facilement à travers les données sans avoir à spécifier explicitement les relations entre les points.
 
 En revanche, un maillage non structuré est un maillage où les éléments (cellules) sont définis par des formes géométriques quelconques et où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent. Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée.
 
-Dans Antares, nous visons à traiter des maillages non structurés, car ils sont couramment utilisés dans les simulations modernes en raison de leur flexibilité à représenter des géométries complexes.
+Dans Antares, nous visons principalement à traiter des maillages non structurés, car ils sont couramment utilisés dans les simulations modernes en raison de leur flexibilité à représenter des géométries complexes.
 
 Un facteur à prendre en compte dans la méthode que l'on souhaite implémenter est aussi le temps de calcul, appelé 'coût'.
 
@@ -202,7 +202,7 @@ Cette méthode est discontinue et peu précise pour la plupart des fonctions.
 Probablement l'interpolation la plus simple après la méthode du voisin le plus proche (toujours dans notre cas d'application), cette méthode est la seule qui était implémentée dans Antares (elle inclut aussi la méthode du voisin le plus proche comme expliqué plus tard dans cette section). Elle a pour formule :
 
 \[
-\hat{f}(x) = \frac{\sum_{i=1}^{N} \frac{f(x_i)}{d(x, x_i)^p}}{\sum_{i=1}^{N} \frac{1}{d(x, x_i)^p}}
+\hat{f}(x) = \frac{\sum_{i=1}^{M} \frac{f(x_i)}{d(x, x_i)^p}}{\sum_{i=1}^{M} \frac{1}{d(x, x_i)^p}}
 \]
 
 où :
@@ -215,17 +215,11 @@ où :
 
 - \(p\) est le paramètre de puissance,
 
-- \(N\) est le nombre total de points de données.
+- \(M\) est le nombre total de points de données.
 
 \vspace*{0,5cm}
 
-Pour éviter une division par 0, très proche d'un point existant, le point interpolé prendra la valeur du point existant. Cette distance est définie à 1e-10 dans le traitement et peut être modifiée par l'utilisateur en ajustant l'argument \texttt{'tolerance'} en ajoutant la ligne :
-\begin{lstlisting}[]
-    myt['tolerance'] = valeur
-\end{lstlisting}
-entre la ligne 2 et 5 de l'exemple présenté dans la partie '2.1 La librairie Antares'.
-Il en est de même pour les paramètres \(N\) et \(p\) avec pour argument respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.
-
+Pour éviter une division par 0, très proche d'un point de donnée, le point interpolé prendra la valeur du point existant (voir ref \ref{implementation_IDW} pour l'implémentation).
 
 \vspace*{0,5cm}
 
@@ -269,7 +263,7 @@ En voici des illustrations 1D :
             %};
             \end{axis}
         \end{tikzpicture}
-        \caption{Interpolation IDW N=2, p=1}
+        \caption{interpolation IDW M=2, p=1}
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}{0.45\textwidth}
@@ -307,10 +301,10 @@ En voici des illustrations 1D :
             %};
             \end{axis}
         \end{tikzpicture}
-        \caption{Interpolation IDW N=2, p=2}
+        \caption{interpolation IDW M=2, p=2}
     \end{minipage}
 
-    \vspace{0.5cm}
+    \vspace{0.8cm}
 
     \begin{minipage}{0.45\textwidth}
         \begin{tikzpicture}
@@ -348,7 +342,7 @@ En voici des illustrations 1D :
             %};
             \end{axis}
         \end{tikzpicture}
-        \caption{Interpolation IDW N=3, p=1}
+        \caption{interpolation IDW M=3, p=1}
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}{0.45\textwidth}
@@ -387,7 +381,7 @@ En voici des illustrations 1D :
             %};
             \end{axis}
         \end{tikzpicture}
-        \caption{Interpolation IDW N=3, p=2}
+        \caption{interpolation IDW M=3, p=2}
     \end{minipage}
 \end{figure}
 
@@ -399,7 +393,7 @@ En voici des illustrations 1D :
 \end{figure}
 
 
-Dans notre cas, nous ne prenons pas en compte tous les points du maillage source. Nous nous limitons à un nombre \(N\) de points les plus proches. Cela implique une discontinuité lorsque nous changeons de point. Pour illustrer cela, voici une figure 1D où tous les points sont espacés d'une unité. Avec \(N\)=3, cela revient ici à changer l'un des trois points de calcul pour une valeur de \(x\) égale à 0,5 modulo un. Le modulo un est représenté par une ligne en pointillés noirs. Il est appelé rayon, car en 2D, il est représenté par un cercle et en 3D pas une sphère. 
+Dans notre cas, nous ne prenons pas en compte tous les \(M\) points du maillage source. Nous nous limitons à un nombre \(N\) de points les plus proches. Cela implique une discontinuité lorsque nous changeons de point. Pour illustrer cela, voici une figure 1D où tous les points sont espacés d'une unité (seuls trois points sont représentés). Avec \(M\)=\(\infty\) et \(N\)=3, cela revient \textbf{ici} à changer l'un des trois points de calcul pour une valeur de \(x\) égale à 0,5 modulo un. Le modulo un est représenté par une ligne en pointillés noirs. Il est appelé rayon, car en 2D, il est représenté par un cercle et en 3D pas une sphère. 
 
 \begin{figure}[ht!]
 \centering
@@ -455,7 +449,7 @@ Dans notre cas, nous ne prenons pas en compte tous les points du maillage source
     
         \end{axis}
     \end{tikzpicture}
-    \caption{Schéma d'interpolation IDW avec rayon}
+    \caption{Schéma d'interpolation IDW avec \(N\)=3}
     %\label{fig:interpolation_IDW_rayon}
 \end{figure}
 
@@ -556,8 +550,8 @@ Nous pouvons aussi imaginer que 2 points, A et B, à droite et à gauche d'une l
         \filldraw[blue] (0, 1.5) circle (2pt) node[right] {$a$};
         
         % Les autres
-        \filldraw[blue] (-4, -0.5) circle (2pt) node[above left] {$d$};
-        \filldraw[blue] (5, 1.0) circle (2pt) node[above right] {$e$};
+        \filldraw[blue] (-4.7, -0.5) circle (2pt) node[above left] {$d$};
+        \filldraw[blue] (5.2, 1.0) circle (2pt) node[above right] {$e$};
     
         % Les points à gauche et à droite qui prennent la même valeur
         \filldraw[red] (-1.5, 0.5) circle (2pt) node[above left] {A}; 
@@ -599,13 +593,6 @@ J'ai considéré subjectivement que cette méthode n'était pas intéressante. L
     Voir d'autres choses page 7 de mon ppt.
 \end{comment}
 
-
-Par défaut, dans le code, \(p\) est égal à '1' et \(N\) est égale aux nombre de sommets de la première cellule de la liste de types de cellules de la base cible. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base cible importe peu comparée à celle de la base source, pour l'interpolation. Mais par soucis de rétrocompatibilité, aucune modification ne doit changer l'utilisation qui a déjà été faite de ce traitement. % ! test à faire ici !
-
-Nous remarquons que pour \( N = 1 \), nous retrouvons la méthode du voisin le plus proche, pour tout \( p \).
-Et pour \( N = 2 \) et \( p = 1 \), toujours en 1D, nous retrouvons la méthode linéaire.
-
-Une de mes missions était de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles\cite{idw-arcgis} et thèses que j'ai lus. C'est pour cela que je présenterai plus tard comment j'ai trouvé des paramètres optimaux en faisant des tests.
 
 Une des limitation\cite{idw-mapscaping} de la méthode IDW est qu'elle n'a pas d'autocorrélation spacial, contrairement à la méthode kriging que je décrirais plus tard.
 
@@ -1031,10 +1018,7 @@ Note pour l'ordre supérieur : faire une transformation des formes qui aurait pu
 
 \subsection{La structure générale du code TreatmentInterpolation}
 
-
 Le traitement d'interpolation d'Antares ne traite que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
-
-
 
 EXPLICATION PLUS DÉTAILLER DU KDTREE
 
@@ -1046,6 +1030,24 @@ Ensuite nous calculons l'interpolation via une des deux méthode 'principale' qu
 
 
 ///////// Les arguments de la méthode ajoutés et listage de ceux existants //////////// \label{arguments}
+
+
+\label{implementation_IDW}\paragraph{L'interpolation IDW}
+
+Cette distance est définie à 1e-10 dans le traitement et peut être modifiée par l'utilisateur en ajustant l'argument \texttt{'tolerance'} en ajoutant la ligne :
+\begin{lstlisting}[]
+    myt['tolerance'] = valeur
+\end{lstlisting}
+entre la ligne 2 et 5 de l'exemple présenté dans la partie '2.1 La librairie Antares'.
+Il en est de même pour les paramètres \(N\) et \(p\) avec pour argument respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.
+
+Par défaut, dans le code, \(p\) est égal à '1' et \(N\) est égale aux nombre de sommets de la première cellule de la liste de types de cellules de la base cible. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base cible importe peu comparée à celle de la base source, pour l'interpolation. Mais par soucis de rétrocompatibilité, aucune modification ne doit changer l'utilisation qui a déjà été faite de ce traitement. % ! test à faire ici !
+
+Nous remarquons que pour \( N = 1 \), nous retrouvons la méthode du voisin le plus proche, pour tout \( p \).
+Et pour \( N = 2 \) et \( p = 1 \), toujours en 1D, nous retrouvons la méthode linéaire.
+
+Une de mes missions était de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles\cite{idw-arcgis} et thèses que j'ai lus. C'est pour cela que je présenterai plus tard comment j'ai trouvé des paramètres optimaux en faisant des tests.
+
 
 
 \subsection{Le Pseudo-algorithme}
