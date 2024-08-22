@@ -1181,7 +1181,7 @@ Voici comment réaliser cela :
     # deepcopy est utilise pour ne pas "tetrahedralize" la 'source_base' 
     
     copy_source_base = deepcopy(source_base)
-
+    # copy_source_base.unstructure() # Pour une base non structure
     t = antares.Treatment('tetrahedralize')
     t['base'] = copy_source_base
     copy_source_base = t.execute()
@@ -1191,6 +1191,12 @@ Voici comment réaliser cela :
     myt['target'] = target_base
     result2 = myt.execute()
 \end{lstlisting}
+
+Lorsque la base est non structurée, il n'y a pas de forme géométrique, donc pas d'interpolation linéaire implémenté. Il faut donc 'unstructure' la base source puis la "tétraèdriser". Cela s'effectue de la même façon que défini dans le code ci-dessus, en ajoutant 
+\begin{lstlisting}[]
+    copy_source_base.unstructure()
+\end{lstlisting}
+à la ligne 6.
 
 
 \subsection{Le Pseudo-algorithme}
@@ -1534,23 +1540,51 @@ Voici une image comparant l'interpolation IDW et linéaire sur un maillage 3D so
 
 
 Nous observons bien que les résultats sont similaires dans les deux cas (pas exactement les mêmes non plus, et heureusement).
+////// Retrouver et ajouter les résultats de l'erreur (MC) d'interpolation sur un variable v entre IDW et linéaire. Aussi temps de calcul. ///////
+
+
+
+\subsection{Tests sur des cas d'aéroacoustique}
+
+Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes).
+///////En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.//////
+
+La source est la pression, aéroacoustique, d'une onde sinusoïdale dans un maillage grossier (différents types de cellules ont été testés). La base cible est une sphère d'où les équation de FWH seront ensuite appliquées. Finalement voilà le résultat pour un certain observateur dans l'espace ///// Préciser tous les paramètres ///////
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{images/onde_aac.png}
+    \caption{Comparaison entre la solution analytique et la solution utilisant l'interpolation IDW et linéaire}
+    %\label{fig:onde_aac}
+\end{figure}
+
+L'erreur au sens des moindres carrés est plus élevé entre 
+
+
+\cite{schoder2019}
+
+Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA\cite{cunha2011}\cite{cunha2016}
 
 
 \subsection{Tests sur les paramètres de la méthode IDW}
 
 La méthode IDW contiens deux paramètres (\(N\) et \(p\)) dans son équation présentée plus haut.(ref \ref{parametres})
 
+Pour savoir quels paramètres sont optimaux des tests ont été menés sur le même cas que dans la sous-partie précédente, mais cette fois, ce qui nous intéresse est l'erreur au sens des moindres carrés, entre la solution analytique et IDW, en fonction des paramètres (\(N\) et \(p\)). Cette erreur est liée au rapport d'amplitude entre les deux courbes, ce qui a finalement été pris en compte. En les faisant varier, nous trouvons un minimum (local) pour \(N\)=10 et \(p\)=10 pour //// Paramètres mach, poles etc... ///////
+Ces tests ont été menés sur kraken afin de ne pas perdre trop de temps.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.70\textwidth]{images/rapport_a_np.png}
+    \caption{Comparaison entre la solution analytique et la solution utilisant l'interpolation IDW (p=10, N=10) et linéaire}
+    %\label{fig:onde_aac}
+\end{figure}
+
+À gauche, la méthode linéaire est utilisée, à droite la méthode IDW avec comme paramètres (N=10, p=10). Le décalage latéral des courbes est un artefacts (et cela permet de mieux distinguer les courbes bleues et vertes dans notre cas.)
+
+Rapports d'amplitude : idw = 102\%, linéaire = 48\%. % pour dipole et quadripôle
 
 
-BIEN AFFICHER QUE LES Paramètres optimaux sont n-10 - p-10
 
-À droit n=10, p=10. Rapports d'amplitude : idw : 101.88 %  Bary : 47.08 %. pour dipole et quadripôle
 
-Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.
 
-\subsection{Tests sur des cas d'aéroacoustique}
-
-\cite{schoder2019}
-
-Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA\cite{cunha2011}\cite{cunha2016}
 
