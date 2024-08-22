@@ -123,6 +123,34 @@
       \verb 10.1016/j.ast.2015.05.023
       \endverb
     \endentry
+    \entry{opensource_2}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=15fab1faa691482991c42935e1dd59a6}{%
+           family={{bitbucket}},
+           familyi={b\bibinitperiod}}}%
+      }
+      \strng{namehash}{15fab1faa691482991c42935e1dd59a6}
+      \strng{fullhash}{15fab1faa691482991c42935e1dd59a6}
+      \strng{fullhashraw}{15fab1faa691482991c42935e1dd59a6}
+      \strng{bibnamehash}{15fab1faa691482991c42935e1dd59a6}
+      \strng{authorbibnamehash}{15fab1faa691482991c42935e1dd59a6}
+      \strng{authornamehash}{15fab1faa691482991c42935e1dd59a6}
+      \strng{authorfullhash}{15fab1faa691482991c42935e1dd59a6}
+      \strng{authorfullhashraw}{15fab1faa691482991c42935e1dd59a6}
+      \field{sortinit}{b}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accédé: 2024-08-22}
+      \field{title}{{RBF and Kernel Interpolationl}}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://bitbucket.org/joelrosenfeld/rbf-and-kernel-interpolation/src/master/
+      \endverb
+      \verb{url}
+      \verb https://bitbucket.org/joelrosenfeld/rbf-and-kernel-interpolation/src/master/
+      \endverb
+    \endentry
     \entry{camarero2024}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=bf30061ce332a48bdf6cb5c10688cc21}{%
@@ -240,6 +268,34 @@
       \verb https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm
       \endverb
     \endentry
+    \entry{opensource}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=33c6a9e5ad14c10b0d672f88f1c5f16d}{%
+           family={{Ferrite}},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{33c6a9e5ad14c10b0d672f88f1c5f16d}
+      \strng{fullhash}{33c6a9e5ad14c10b0d672f88f1c5f16d}
+      \strng{fullhashraw}{33c6a9e5ad14c10b0d672f88f1c5f16d}
+      \strng{bibnamehash}{33c6a9e5ad14c10b0d672f88f1c5f16d}
+      \strng{authorbibnamehash}{33c6a9e5ad14c10b0d672f88f1c5f16d}
+      \strng{authornamehash}{33c6a9e5ad14c10b0d672f88f1c5f16d}
+      \strng{authorfullhash}{33c6a9e5ad14c10b0d672f88f1c5f16d}
+      \strng{authorfullhashraw}{33c6a9e5ad14c10b0d672f88f1c5f16d}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accédé: 2024-08-22}
+      \field{title}{{interpolation.jl}}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://github.com/Ferrite-FEM/Ferrite.jl/blob/master/src/interpolations.jl
+      \endverb
+      \verb{url}
+      \verb https://github.com/Ferrite-FEM/Ferrite.jl/blob/master/src/interpolations.jl
+      \endverb
+    \endentry
     \entry{fluidssengineer}{misc}{}{}
       \name{author}{3}{}{%
         {{hash=6b280cb8a90332a66a6e92495256b1f6}{%
@@ -275,6 +331,33 @@
       \field{year}{2014}
       \verb{doi}
       \verb 10.2514/6.2014-1433
+      \endverb
+    \endentry
+    \entry{structure}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=f5080c40b1f9bb29c39b06bb09b17c5b}{%
+           family={{getfem}},
+           familyi={g\bibinitperiod}}}%
+      }
+      \strng{namehash}{f5080c40b1f9bb29c39b06bb09b17c5b}
+      \strng{fullhash}{f5080c40b1f9bb29c39b06bb09b17c5b}
+      \strng{fullhashraw}{f5080c40b1f9bb29c39b06bb09b17c5b}
+      \strng{bibnamehash}{f5080c40b1f9bb29c39b06bb09b17c5b}
+      \strng{authorbibnamehash}{f5080c40b1f9bb29c39b06bb09b17c5b}
+      \strng{authornamehash}{f5080c40b1f9bb29c39b06bb09b17c5b}
+      \strng{authorfullhash}{f5080c40b1f9bb29c39b06bb09b17c5b}
+      \strng{authorfullhashraw}{f5080c40b1f9bb29c39b06bb09b17c5b}
+      \field{sortinit}{g}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accédé: 2024-08-22}
+      \field{title}{{Finite element method list}}
+      \verb{urlraw}
+      \verb https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
+      \endverb
+      \verb{url}
+      \verb https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
       \endverb
     \endentry
     \entry{gordont1971_2}{misc}{}{}
@@ -329,6 +412,46 @@
       \field{journaltitle}{International journal for numerical methods in engineering, Vol. 7}
       \field{title}{Blending-function methods of bivariate and multivariate interpolation and approximation}
       \field{year}{1971}
+    \endentry
+    \entry{nasa}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=f8bdc86875508efe5a2859d060ff11ff}{%
+           family={Groves},
+           familyi={G\bibinitperiod},
+           given={Curtis},
+           giveni={C\bibinitperiod}}}%
+        {{hash=1b0beb8b5f2ff8a3aaa2faaa30c22f7e}{%
+           family={Ilie},
+           familyi={I\bibinitperiod},
+           given={Marcel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=1ca7afbf3310a7a15f64c1acdcafc458}{%
+           family={Schallhorn},
+           familyi={S\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{0ea52b49bfa8ba704ad27a66c7f0cd85}
+      \strng{fullhash}{0ea52b49bfa8ba704ad27a66c7f0cd85}
+      \strng{fullhashraw}{0ea52b49bfa8ba704ad27a66c7f0cd85}
+      \strng{bibnamehash}{0ea52b49bfa8ba704ad27a66c7f0cd85}
+      \strng{authorbibnamehash}{0ea52b49bfa8ba704ad27a66c7f0cd85}
+      \strng{authornamehash}{0ea52b49bfa8ba704ad27a66c7f0cd85}
+      \strng{authorfullhash}{0ea52b49bfa8ba704ad27a66c7f0cd85}
+      \strng{authorfullhashraw}{0ea52b49bfa8ba704ad27a66c7f0cd85}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{NASA}
+      \field{title}{Interpolation Methodneeded for Numerical Uncertainty Analysisof Computational FluidDynamics}
+      \field{year}{2012}
+      \verb{urlraw}
+      \verb https://ntrs.nasa.gov/api/citations/20140011325/downloads/20140011325.pdf
+      \endverb
+      \verb{url}
+      \verb https://ntrs.nasa.gov/api/citations/20140011325/downloads/20140011325.pdf
+      \endverb
     \endentry
     \entry{kim2019}{article}{}{}
       \name{author}{3}{}{%
@@ -624,6 +747,33 @@
       \field{year}{2019}
       \verb{doi}
       \verb 10.2514/6.2019-2538
+      \endverb
+    \endentry
+    \entry{kringing}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=ed15e0ed8bc63d1935fbdf9b7d303228}{%
+           family={{ScienceDirect}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{ed15e0ed8bc63d1935fbdf9b7d303228}
+      \strng{fullhash}{ed15e0ed8bc63d1935fbdf9b7d303228}
+      \strng{fullhashraw}{ed15e0ed8bc63d1935fbdf9b7d303228}
+      \strng{bibnamehash}{ed15e0ed8bc63d1935fbdf9b7d303228}
+      \strng{authorbibnamehash}{ed15e0ed8bc63d1935fbdf9b7d303228}
+      \strng{authornamehash}{ed15e0ed8bc63d1935fbdf9b7d303228}
+      \strng{authorfullhash}{ed15e0ed8bc63d1935fbdf9b7d303228}
+      \strng{authorfullhashraw}{ed15e0ed8bc63d1935fbdf9b7d303228}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accédé: 2024-08-22}
+      \field{title}{{Kringing}}
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/kriging
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/kriging
       \endverb
     \endentry
     \entry{tanaka}{misc}{}{}

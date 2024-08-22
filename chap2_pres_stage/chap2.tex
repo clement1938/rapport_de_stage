@@ -15,7 +15,7 @@ Antares est une librairie Python d'environ trois cents \ac{Mo}, composée de pr�
 Elle s'appuie fortement sur la librairie numpy afin de profiter des leurs algorithmes optimisés.
 Elle permet de visualiser, traiter, réorganiser des données de simulation numérique issues de différents solveurs utilisés par le CERFACS et ses partenaires. Ces données sont organisées par Antares de manière unique et commune, ce qui est une grande force, notamment pour le partage et l'optimisation des post-traitements.
 
-% Aussi je me rend compte que tu n'as jamais vraiment expliqué comment les traitements fonctionnent. C-a-d que ce sont des dictionnaires dans lesquels tu spécifies des mot clés / paramètres pour contrôler le comportement du traitement. Tu pourra le rajouter dans la partie de description Antares
+
 Chaque traitement est une classe composée liste de mots-clefs qui correspondent à chaque paramètre. Certains nécessairement à donner par l'utilisateur, d'autres sont initialisés par défaut et peuvent être modifiés ou non. Nous retrouvons les deux paramètres 'source' et 'target' nécessaires au traitement d'interpolation ligne 3 et 4 de l'exemple de code \ref{lst:antares_2}. Les autres arguments du traitement d'interpolation sont listés plus bas (ref \ref{arguments}).
 
 
@@ -37,7 +37,7 @@ La structure des solutions CFD interprétées dans Antares est illustrée ci-des
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.42\textwidth]{images/data_structure_1.png}
-\caption{Structure des données (source: \href{https://cerfacs.fr/antares/src/tutorial/base.html}{Antares Tutorial})}
+\caption{Structure des données (source : \href{https://cerfacs.fr/antares/src/tutorial/base.html}{Antares Tutorial})}
 \label{fig:structure_antares}
 %\footnote{Source:https://cerfacs.fr/antares/src/tutorial/base.html}
 %\label{fig:https://cerfacs.fr/antares/src/tutorial/base.html}
@@ -598,83 +598,118 @@ Une des limitation\cite{idw-mapscaping} de la méthode IDW est qu'elle n'a pas d
 
 \vspace{0,5 cm}
 
-
-
-
 \subsection{D'autres méthodes}
+\paragraph{1. La méthode polynomiale}
+\phantom{-}
+\newline
+L'interpolation polynomiale est d'un degré correspondant à celui du polynôme utilisé. Elle peut être réalisée en N dimensions sur un maillage structuré. Cette interpolation est de classe \(C^\infty\) (c'est-à-dire infiniment dérivable, avec des dérivées de tous ordres continues). Elle peut aussi être appliquée à des maillages non structurés, une méthodes souvent utilisée au CERFACS est d'ajouter des points fictifs sur les arrêtes des formes % Sourcer la thèse d'Alexis
 
-\paragraph{La méthode polynomiale}
+\subparagraph{a. Lagrange}
 
-L'interpolation polynomiale est d'un degré correspondant à celui du polynôme utilisé. Elle peut être réalisée en N dimensions sur un maillage structuré. Cette interpolation est de classe \(C^\infty\) (c'est-à-dire infiniment dérivable, avec des dérivées de tous ordres continues)
+L'interpolation de Lagrange utilise un polynôme unique qui passe par tous les points donnés. Elle est souvent utilisée pour l'interpolation d'un petit nombre de points, mais elle peut devenir imprécise pour un grand nombre de points à cause de l'effet Runge. Il faut donc limiter le nombre de points (comme dans les méthodes déjà implémentées dans Antares).
+Nous pouvons retrouver sur un site\cite{structure} la structure des formes pour de l'interpolation d'ordre supérieur (notamment pour Lagrange). Un inconvénient de cette méthode est que sa généralisation en 2D et surtout 3D est complexe.
 
-\subparagraph{Lagrange}
-\vspace{0.5cm}
-\dots
-\subparagraph{Hermite}
-\cite{bajaj}
-\vspace{0.5cm}
-\dots
-\subparagraph{Splines}
-Splines cubiques : "Notre expérience montre que les fonctions cubiques d'assemblage par spline sont très avantageuses lorsque plusieurs lignes de coordonnées intérieures généralisées sont spécifiées a priori."\cite{gordont1971}
-\vspace{0.5cm}
-\dots
-\subparagraph{NURBS}
-\vspace{0.5cm}
-\ac{NURBS}
-Cette méthode\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interpolation (sous-section de polynôme/splines ?)
-\vspace{0.5cm}
+\subparagraph{b. Hermite\cite{bajaj}}
 
-\subparagraph{Cubic Interpolation}
-\cite{tanaka}
-\vspace{0.5cm}
+\L'interpolation d'Hermite prend en compte non seulement les valeurs des points, mais aussi leurs dérivées. Cela permet de créer un polynôme d'interpolation plus lisse.
+
+\subparagraph{c. Splines}
+
+Les splines cubiques sont des morceaux de polynômes de degré trois qui sont collés ensemble de manière à ce que la courbe soit lisse (continuité des premières et deuxièmes dérivées). Elles sont très utilisées pour leur stabilité et leur précision.
+"Notre expérience montre que les fonctions cubiques d'assemblage par spline sont très avantageuses lorsque plusieurs lignes de coordonnées intérieures généralisées sont spécifiées a priori."\cite{gordont1971}
+
+\subparagraph{d. NURBS}
+
+Les \ac{NURBS}\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interpolation. C'est une généralisation des splines, permettant de représenter des formes géométriques simples comme complexes. Elles sont notamment utilisées en CAO et pour l'interpolation de surfaces.
+
+https://resources.system-analysis.cadence.com/blog/msa2022-the-best-methods-for-mesh-interpolation : interpolation entre points pour représenter une surface\dots
+
+\subparagraph{e. Interpolation cubique}
+L'interpolation cubique est une méthode simple qui utilise des polynômes de degré trois pour calculer des valeurs intermédiaires entre les points de données.\cite{tanaka} Ce serait potentiellement le meilleur candidat pour la prochaine méthode à implémenter. On pourrait alors utiliser le traitement gradient avec l'argument vtk = True pour avoir le gradient au nœud et non au centre de la cellule. Ensuite, dans le meilleur des cas, il faudrait simplement reprendre la fonction d'interpolation linéaire et mettre à jour le code "computes\_barycenters.py".
 
 
-\paragraph{Les méthodes à base de distance}
-\paragraph{IDW}
-\vspace{0.5cm}
+\paragraph{2. Méthodes à base de distance}
+\phantom{-}
+\newline
+Ces méthodes utilisent la distance entre les points de données pour calculer les valeurs interpolées, souvent en pondérant les contributions des points voisins.
+
+\subparagraph{a. IDW}
 Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la distance des points pour le calcul de l'interpolation.
-\paragraph{Shépard}
-\vspace{0.5cm}
-\dots
-\paragraph{RBF}
-\ac{RBF}
-\vspace{0.5cm}
-\dots
-\paragraph{DSM}
-\ac{DSM}
+\subparagraph{b. Shepard}
+
+La méthode de Shepard 
+
+%\paragraph{DSM}
+%\ac{DSM}
 \cite{kim2019}
-\vspace{0.5cm}
-\dots
+
 
 
 %\subsection{L'interpolation par Splines}
 
-\paragraph{Méthodes géostatiques}
+\paragraph{3. Méthodes géostatiques}
+\phantom{-}
+\newline
+Voici une classification des différentes méthodes d'interpolation géostatiques :
 
-MLS : \cite{levin}
-
-https://desktop.arcgis.com/fr/arcmap/latest/extensions/geostatistical-analyst/what-is-arcgis-geostatistical-analyst-.htm
-
-Cokriging is the multivariate extension of kriging formalism, which allows to deal simultaneously with two or more variables defined over the same domain and to account for additional information about spatial correlation between the variables :
-https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/kriging
-
-
-"We specifically use the Gaussian RBF and the Exponential Dot Product Kernels to do the interpolations, and approximate the benchmark called Franke's Function." : https://bitbucket.org/joelrosenfeld/rbf-and-kernel-interpolation/src/master/
-
-"The Moving Least Squares (MLS) method is a meshless numerical technique used for solving partial differential equations (PDEs) and reconstructing functions from scattered data, especially in cases where the data points are irregularly spaced or unstructured.
-Ligne a decomenter%" : https://www.sciencedirect.com/topics/mathematics/moving-least-squares#:~:text=The%20Moving%20Least%20Squares%20(MLS,are%20irregularly%20spaced%20or%20unstructured.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/arcgis.png}
+    \caption{Arbre des méthodes d'interpolation géostatique (source : \href{https://pro.arcgis.com/fr/pro-app/latest/help/analysis/geostatistical-analyst/classification-trees-of-the-interpolation-methods-offered-in-geostatistical-analyst.htm}{pro.arcgis.com})}
+    \label{fig:arcgis}
+\end{figure}
 
 
-Expliquer voronoï
+\subparagraph{Krigeage et Cokriging}
+Le krigeage est une méthode d'interpolation géostatistique qui génère une estimation statistique des variables spatiales. Le cokriging est son extension multivariée. 
 
-Pour prochaine méthode :
-https://github.com/Ferrite-FEM/Ferrite.jl/blob/master/src/interpolations.jl
+"La pondération par l’inverse de la distance et les fonctions de base radiale sont des interpolateurs exacts, tandis que le polynôme global, le polynôme local, l’interpolation par noyaux avec interruptions et l’interpolation par diffusion avec interruptions sont inexacts."\footnote{https://pro.arcgis.com/fr/pro-app/latest/help/analysis/geostatistical-analyst/deterministic-methods-for-spatial-interpolation.html}
+
+"The linear method is simple, robust, and an acceptable choice of
+interpolation for rough first estimates or if the database solution variables depend linearly on design space variables. The IDW
+method shows no advantages over the simpler linear method and is not recommended for interpolating CFD solutions. The Kriging
+method gives the most accurate interpolated results and has the ability to capture non-linear behavior in the database solution
+variables. For the AS-202 test case, the maximum percentage difference between the interpolated Kriging and exact CFD heating
+rate is less than the uncertainty of the CFD heating rate itself."\cite{palmer2009}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/palmer2009_comp.png}
+    \caption{Comparaison de différentes méthodes d'interpolation}
+    \label{fig:compar}
+\end{figure}
+
+\dots
+
+\cite{nasa}
 
 
-Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
+
+
+\subparagraph{DSM}
+
+
+Cokriging\cite{kringing} is the multivariate extension of kriging formalism, which allows to deal simultaneously with two or more variables defined over the same domain and to account for additional information about spatial correlation between the variables.
+
+\subparagraph{IDW}
+IDW appartiens aux méthodes d'interpolation géostatiques
+
+\subparagraph{RBF}
+La \ac{RBF}
+
+"We specifically use the Gaussian RBF and the Exponential Dot Product Kernels to do the interpolations, and approximate the benchmark called Franke's Function."\cite{opensource_2}
+
+
+Expliquer voronoï : "En mathématiques, un diagramme de Voronoï est un pavage (découpage) du plan en cellules (régions adjacentes) à partir d'un ensemble discret de points appelés germes. Chaque cellule enferme un seul germe, et forme l'ensemble des points du plan plus proches de ce germe que d'aucun autre." (source : Wikipédia, Diagramme de Voronoï)
+
+Pour prochaine méthode : Des codes opensource d'interpolation d'ordre élevé sont disponibles sur GitHub (en Julia\cite{opensource} et Python\cite{opensource_2} pour RBF et Noyaux de produits de points exponentiels)
+
+
+Bon site\cite{structure} pour structure des formes d'ordre supérieur
 
 \paragraph{Les méthode par moindres carrés}
 
+Ces méthodes minimisent l'erreur quadratique pour créer une approximation linéaire des données.
 "Piece-wise linear and minimumnorm interpolation approaches are faster than the linear least squares."\cite{muller2020}
 
 \subparagraph{Approximation des moindres carrés}
@@ -684,10 +719,18 @@ Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userd
 \vspace{0.5cm}
 \dots
 
+La méthode \ac{MLS} 
+MLS : \cite{levin}
+"The MLS method is a meshless numerical technique used for solving partial differential equations (PDEs) and reconstructing functions from scattered data, especially in cases where the data points are irregularly spaced or unstructured.
+Ligne a decomenter%" : https://www.sciencedirect.com/topics/mathematics/moving-least-squares#:~:text=The%20Moving%20Least%20Squares%20(MLS,are%20irregularly%20spaced%20or%20unstructured.
 
 \paragraph{MISCOG}
 
-Plusieurs méthodes d'interpolation d'ordre élevé sont déjà implémentées dans d'autres codes du CERFACS\cite{laborderie2018}
+Plusieurs méthodes d'interpolation d'ordre élevé assez innovantes tel que les méthodes \ac{MISCOG} sont déjà implémentées dans d'autres codes du CERFACS et un article les détails\cite{laborderie2018}. Elles servent généralement pour d'autres applications comme pour calculer un flux au travers d'une cellule à l'aide d'une intégration sur une surface ??
+
+Interpolant d'Hermite : non recherché
+Interpolant bivarié : non recherché
+
 
 \subsection{La méthode linéaire}
 "The linear method is simple, robust, and an acceptable choice of interpolation for rough first estimates or if the database solution variables depend linearly on design space variables. The IDW method shows no advantages over the simpler linear method and is not recommended for interpolating CFD solutions. The Kriging method gives the most accurate interpolated results and has the ability to capture non-linear behavior in the database solution variables."\cite{palmer2009}.
@@ -1074,8 +1117,7 @@ Ensuite l'interpolation est calculée via une des deux méthode 'principale' qui
 Tolérance relative entre la somme des sous-surfaces créées par le point p et la surface totale de la cellule pour déterminer si un point est dans une cellule ou non\label{pt_cell}
 
 \begin{comment}
-    LIST_KEYS = [
-    {'name': 'source'},
+    LIST_KEYS = [{'name': 'source'},
     {'name': 'target'},
     {'name': 'coordinates',
      'default': None},
@@ -1090,8 +1132,7 @@ Tolérance relative entre la somme des sous-surfaces créées par le point p et 
     {'name': 'nb_points',
      'default': None},
     {'name': 'with_boundaries',
-     'default': False}
-]
+     'default': False}]
 +
     {'name': 'tolerance_edge',
      'default': 1e-10},
@@ -1116,7 +1157,7 @@ Cette distance est définie à 1e-10 dans le traitement et peut être modifiée 
     myt['tolerance'] = valeur
 \end{lstlisting}
 entre la ligne 2 et 5 de l'exemple présenté dans la partie '2.1 La librairie Antares'.
-Il en est de même pour les paramètres \(N\) et \(p\) avec pour argument respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.
+Il en est de même pour les paramètres \(N\) et \(p\) avec pour argument respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.\label{parametres}
 
 Par défaut, dans le code, \(p\) est égal à '1' et \(N\) est égale aux nombre de sommets de la première cellule de la liste de types de cellules de la base cible. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base cible importe peu comparée à celle de la base source, pour l'interpolation. Mais par soucis de rétrocompatibilité, aucune modification ne doit changer l'utilisation qui a déjà été faite de ce traitement. % ! test à faire ici !
 
@@ -1383,12 +1424,6 @@ N'ayant pas trouvé une façon simple de savoir si la surface était négative, 
 Cela permet aussi une extrapolation linéaire sans créer d'erreur.
 
 
-
-
-////// C'est clair ou il faudrait illustrer la surface 'rouge' autrement ? ////////
-
-////// Comment avoir le nom de (conf ou article ou rapport ou livre, ...) depuis un DOI ou sur ResearchGate ? /////////
-
 \begin{comment}
     \begin{tikzpicture}
     \centering
@@ -1457,36 +1492,53 @@ Cela permet aussi une extrapolation linéaire sans créer d'erreur.
 
 
 \section{Tests}
-% \section{Les différentes méthodes d'interpolation}
-\subsection{Tests unitaires}
+A présent, le but est de savoir quelle est la meilleur méthode, notamment dans le cas de l'interpolation pour l'application au traitement FWH. Pour cela il faut tester si la méthode linéaire fonctionne correctement, et tester les meilleurs paramètres \(N\) et \(p\) de la méthode IDW.
 
-Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode était linéaire. Le premier test étais de créer une variable linéaire et de faire une interpolation sur un second maillage. En comparant la valeur analytique et numérique, l'erreur observée est nulle. Ensuite j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D) ////Graphiques et tests avec un coefficient (puissance) 2 pour 2D etc. ////
+\subsection{Tests unitaires sur la méthode linéaire}
 
+Pour l'instant, je n'ai démontré que par l'expérimentation que la méthode implémentée était linéaire.
 
-Des codes de tests ont été créés en même temps que l'implémentation de l'interpolation linéaire, pour tester si cette dernière fonctionne correctement sur des cas simples.
-L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on teste l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande dans le terminal ou lors d'un git push vers Nitrox.
+Le premier test, créé en même temps que l'implémentation dans l'objectif de tester si la méthode fonctionne dans un cas simple, est de créer une variable linéaire et de faire une interpolation sur un second maillage. L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on teste l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande 'pytest' dans le terminal. En comparant la valeur analytique et numérique, l'erreur observée est nulle. Ce test est par ailleurs implémenté (pour la connectivité linéaire, triangulaire, quadrilatérale, tétraédrique et hexaédrique) dans les tests unitaires d'Antares, qui permettent de savoir que la librairie fonctionne correctement, notamment lors d'un git push vers Nitrox.
 
+Ensuite j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D) ////Tests avec un coefficient (puissance) 2 pour 2D, etc. Et légende log2 à améliorer////
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{images/bi_2.png}
+    \caption{Log de l'erreur en fonction du log du raffinement}
+    \label{fig:bi}
+\end{figure}
 
 
 \subsection{Tests sur des cas industriels}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.50\textwidth]{images/cb-IDW.png}
-    \caption{Interpolation IDW sur une coupe d'une chambre de combustion avec isosurface de la flame}
-    \label{fig:cb-IDW}
-\end{figure}
+Pour tester la robustesse du traitement (notamment dans les cas multi-zones, multi-connectivité et multi-instants), son application à des tests industriels a été testée.
+
+Voici une image comparant l'interpolation IDW et linéaire sur un maillage 3D solution d'une flamme dans une chambre de combustion en base source et un plan en base cible.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.50\textwidth]{images/cb-lineaire.png}
-    \caption{Interpolation linéaire sur une coupe d'une chambre de combustion}
-    \label{fig:cb-lineaire}
+    \begin{minipage}[b]{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/cb-IDW.png}
+        \caption{Interpolation IDW sur une coupe d'une chambre de combustion avec isosurface de la flame}
+        \label{fig:cb-IDW}
+    \end{minipage}
+    \hspace{0.02\textwidth} % Espace entre les deux figures
+    \begin{minipage}[b]{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/cb-lineaire.png}
+        \caption{Interpolation linéaire sur une coupe d'une chambre de combustion avec isosurface de la flame}
+        \label{fig:cb-lineaire}
+    \end{minipage}
 \end{figure}
 
 
-Ensuite, des tests ont été réalisés sur des cas d'applications plus conséquents et complexes, comme l'intersection d'un plan cible dans le résultat d'une simulation de chambre de combustion. 
+Nous observons bien que les résultats sont similaires dans les deux cas (pas exactement les mêmes non plus, et heureusement).
 
+
+\subsection{Tests sur les paramètres de la méthode IDW}
+
+La méthode IDW contiens deux paramètres (\(N\) et \(p\)) dans son équation présentée plus haut.(ref \ref{parametres})
 
 
 
@@ -1494,26 +1546,11 @@ BIEN AFFICHER QUE LES Paramètres optimaux sont n-10 - p-10
 
 À droit n=10, p=10. Rapports d'amplitude : idw : 101.88 %  Bary : 47.08 %. pour dipole et quadripôle
 
-Carlos a développé l'outil permettant de déterminer le résultat acoustique, à grande distance, à partir d'une surface, en utilisant les équations de Ffowcs Williams – Hawkings. Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.
-
-% Paramètres d'IDW
-\subsection{Tests sur les paramètres de la méthode IDW}
+Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes). En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.
 
 \subsection{Tests sur des cas d'aéroacoustique}
 
 \cite{schoder2019}
 
 Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA\cite{cunha2011}\cite{cunha2016}
-
-
-
-
-... (\url{https://cerfacs.fr/antares/}) : 
-
-
-\begin{itemize}
-    \item TreeMesh 
-    %Ici, le maillage DGMultiMesh dépend directement du solver DGMulti en fonction du type de géométrie utilisée, il faut donc le passer en argument.
-\end{itemize}
-
 
