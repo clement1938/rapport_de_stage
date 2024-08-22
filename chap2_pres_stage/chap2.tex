@@ -1025,14 +1025,88 @@ Le traitement d'interpolation d'Antares ne traite que des maillages ayant des va
 Il utilise un \ac{KDTree} pour faire une recherche efficace des N points de la base source les plus proches de ceux de la base target.
 
 
-Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisait environ 500 lignes. Il est orienté objet. Il prend comme arguments obligatoires la base source et la base cible et renvoie dans le cas le plus simple la base cible avec les valeurs interpolées.
-De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis nous parcourons les instants. 
+Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisait environ 500 lignes. Il est orienté objet. 
+
+
+
+
+
+
+Il prend comme arguments obligatoires la base source et la base cible et renvoie dans le cas le plus simple la base cible avec les valeurs interpolées.
+
+
+
+De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis les instants sont parcourus. 
 Cette fusion permet de faire un KDTree, qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base cible (et les distances associées, utilisées dans la méthode 'idw').
 
-Ensuite nous calculons l'interpolation via une des deux méthode 'principale' qui peut elle-même appeler d'autres fonctions ou méthodes d'Antares. % (\lstinline{__idw_interpolate_instant} ou \lstinline{__barycentrique_interpolate_instant})
+Ensuite l'interpolation est calculée via une des deux méthode 'principale' qui peut elle-même appeler d'autres fonctions ou méthodes d'Antares. % (\lstinline{__idw_interpolate_instant} ou \lstinline{__barycentrique_interpolate_instant})
 
 
-///////// Les arguments de la méthode ajoutés et listage de ceux existants //////////// \label{arguments}
+
+\label{arguments}
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Nom} & \textbf{Val. défaut} & \textbf{Description} \\ \hline %    \textbf{Nom} & \textbf{\shortstack{Valeur\\par défaut}} & \textbf{Description} \\ \hline
+    \multicolumn{3}{|l|}{\textbf{Arguments présent initialement}} \\ \hline
+    \texttt{source} & \texttt{N/A} & Base source \\
+    \texttt{target} & \texttt{N/A} & Base cible \\
+    \texttt{coordinates} & \texttt{None} & Le nom des variables de coordonnées spatiales \\
+    \texttt{variables} & \texttt{None} & Nom des variables à interpoler (toutes pas défaut) \\
+    \texttt{tolerance} & \texttt{1e-10} & Seuil de proximité pour utiliser la valeur du point \\
+    \texttt{\phantom{-}} & \texttt{\phantom{-}} &  le plus proche \\
+    \texttt{duplicated\_tolerance} & \texttt{None} & Nbr de décimales d'arrondi pour la détection de \\
+    \texttt{\phantom{-}} & \texttt{\phantom{-}} & points dupliqués (exact par défaut) \\
+    \texttt{invdist\_power} & \texttt{1} & Paramètre de puissance \(p\) de la méthode IDW \\
+    \texttt{nb\_points} & \texttt{None} & Paramètre de nombre de points \(N\) de la méthode IDW \\
+    \texttt{with\_boundaries} & \texttt{False} & Utiliser ou non les données des limites \\ \hline
+    \multicolumn{3}{|l|}{\textbf{Arguments ajoutés}} \\ \hline
+    \texttt{tolerance\_edge} & \texttt{1e-10} & Tolerance 'point dans la cellule ?' (ref \ref{pt_cell})\\
+    \texttt{method} & \texttt{'idw'} & Méthode d'interpolation ('idw' ou 'linear') \\
+    \texttt{data} & \texttt{None} & Mettre les données pré-calculées \\
+    \texttt{get\_data} & \texttt{None} & True pour récupérer des données \\ \hline
+    \end{tabular}
+    \caption{Arguments pour la méthode d'interpolation dans Antares}
+    \label{tab:arguments_interpolation}
+\end{table}
+
+Tolérance relative entre la somme des sous-surfaces créées par le point p et la surface totale de la cellule pour déterminer si un point est dans une cellule ou non\label{pt_cell}
+
+\begin{comment}
+    LIST_KEYS = [
+    {'name': 'source'},
+    {'name': 'target'},
+    {'name': 'coordinates',
+     'default': None},
+    {'name': 'variables',
+     'default': None},
+    {'name': 'tolerance',
+     'default': 1e-10},
+    {'name': 'duplicated_tolerance',
+     'default': None},
+    {'name': 'invdist_power',
+     'default': 1},
+    {'name': 'nb_points',
+     'default': None},
+    {'name': 'with_boundaries',
+     'default': False}
+]
++
+    {'name': 'tolerance_edge',
+     'default': 1e-10},
+    {'name': 'method',
+     'default': 'idw'},
+    {'name': 'data',
+     'default': None},
+    {'name': 'get_data',
+     'default': None}
+\end{comment}
+
+
+
+
+
 
 
 \label{implementation_IDW}\paragraph{L'interpolation IDW}

@@ -53,3 +53,5 @@
 {"rule":"WISE","sentence":"^\\Q\"Piece-wise linear and minimumnorm interpolation approaches are faster than the linear least squares.\"\\E$"}
 {"rule":"MEETING","sentence":"^\\Q52nd Aerospace Sciences Meeting\\E$"}
 {"rule":"P_V_PAS","sentence":"^\\QEn comparant la valeur analytique et numérique, l'erreur observée est nulle.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qdéfaut Description Arguments présent initialement source N/A Base source target N/A Base cible coordinates None … variables None … tolerance 1e-10 … duplicatedtolerance None … invdistpower 1 Paramètre de puissance 'p' de la méthode IDW nbpoints None … withboundaries False …\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qdéfaut Description Arguments présent initialement source N/A Base source target N/A Base cible coordinates None … variables None … tolerance 1e-10 … duplicatedtolerance None … invdistpower 1 Paramètre de puissance \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q de la méthode IDW nbpoints None Paramètre de nombre de points \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q de la méthode IDW withboundaries False …\\E$"}
