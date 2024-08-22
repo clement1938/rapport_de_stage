@@ -601,33 +601,35 @@ Une des limitation\cite{idw-mapscaping} de la méthode IDW est qu'elle n'a pas d
 
 
 
-\subsection{La méthode polynomiale}
+\subsection{D'autres méthodes}
+
+\paragraph{La méthode polynomiale}
 
 L'interpolation polynomiale est d'un degré correspondant à celui du polynôme utilisé. Elle peut être réalisée en N dimensions sur un maillage structuré. Cette interpolation est de classe \(C^\infty\) (c'est-à-dire infiniment dérivable, avec des dérivées de tous ordres continues)
 
-\paragraph{Lagrange}
+\subparagraph{Lagrange}
 \vspace{0.5cm}
 \dots
-\paragraph{Hermite}
+\subparagraph{Hermite}
 \cite{bajaj}
 \vspace{0.5cm}
 \dots
-\paragraph{Splines}
+\subparagraph{Splines}
 Splines cubiques : "Notre expérience montre que les fonctions cubiques d'assemblage par spline sont très avantageuses lorsque plusieurs lignes de coordonnées intérieures généralisées sont spécifiées a priori."\cite{gordont1971}
 \vspace{0.5cm}
 \dots
-\paragraph{NURBS}
+\subparagraph{NURBS}
 \vspace{0.5cm}
 \ac{NURBS}
 Cette méthode\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interpolation (sous-section de polynôme/splines ?)
 \vspace{0.5cm}
 
-\paragraph{Cubic Interpolation}
+\subparagraph{Cubic Interpolation}
 \cite{tanaka}
 \vspace{0.5cm}
 
 
-\subsection{Les méthodes à base de distance}
+\paragraph{Les méthodes à base de distance}
 \paragraph{IDW}
 \vspace{0.5cm}
 Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la distance des points pour le calcul de l'interpolation.
@@ -647,7 +649,7 @@ Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la dis
 
 %\subsection{L'interpolation par Splines}
 
-\subsection{Méthodes géostatiques}
+\paragraph{Méthodes géostatiques}
 
 MLS : \cite{levin}
 
@@ -671,19 +673,19 @@ https://github.com/Ferrite-FEM/Ferrite.jl/blob/master/src/interpolations.jl
 
 Super site pour ordre supérieur : https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
 
-\subsection{Les méthode par moindres carrés}
+\paragraph{Les méthode par moindres carrés}
 
 "Piece-wise linear and minimumnorm interpolation approaches are faster than the linear least squares."\cite{muller2020}
 
-\paragraph{Approximation des moindres carrés}
+\subparagraph{Approximation des moindres carrés}
 \vspace{0.5cm}
 \dots
-\paragraph{Moindres carrés mobiles}
+\subparagraph{Moindres carrés mobiles}
 \vspace{0.5cm}
 \dots
 
 
-\subsection{MISCOG}
+\paragraph{MISCOG}
 
 Plusieurs méthodes d'interpolation d'ordre élevé sont déjà implémentées dans d'autres codes du CERFACS\cite{laborderie2018}
 
@@ -702,7 +704,7 @@ et que nous représentons leurs valeurs dans une deuxième dimension \( y \).
 Nous aurons alors pour formule :
 
 \[
-y_p = \frac{x_b - x_p}{x_b - x_a} \cdot y_a + \frac{x_p - x_a}{x_b - x_a} \cdot y_b
+y_p = \frac{|x_b - x_p|}{|x_b - x_a|} \cdot y_a + \frac{|x_a - x_p|}{|x_b - x_a|} \cdot y_b
 \]
 
 %\vspace*{0.1\baselineskip}\linebreak
@@ -710,9 +712,9 @@ où \( y_p \) représente la valeur interpolée à la position \( x_p \), et \((
 \vspace{0.5cm}
 %\vspace*{0.1\baselineskip}\linebreak
 
-        \( \frac{x_b - x_p}{x_b - x_a} \) est le poids pour \( y_a \) basé sur la distance relative de \( x_p \) à \( x_b \).
+        \( \frac{|x_b - x_p|}{|x_b - x_a|} \) est le poids pour \( y_a \) basé sur la distance relative de \( x_p \) à \( x_b \).
 
-        \( \frac{x_p - x_a}{x_b - x_a} \) est le poids pour \( y_b \) basé sur la distance relative de \( x_p \) à \( x_a \).\vspace{0.5cm}
+        \( \frac{|x_p - x_a|}{|x_b - x_a|} \) est le poids pour \( y_b \) basé sur la distance relative de \( x_p \) à \( x_a \).\vspace{0.5cm}
 
 Ces deux termes sont pondérés de manière à ce que leur somme soit toujours égale à 1, ce
 qui garantit que l'interpolation est correcte et symétrique par rapport à \( a \) et \( b \).\vspace{0.5cm}
@@ -800,7 +802,7 @@ Visuellement, il faut faire la somme des valeurs aux points pondérés par la su
 
 Le calcul est
 \begin{equation}
-    \frac{\alpha y_A + \beta y_B + \gamma y_C}{\alpha + \beta + \gamma}
+    \frac{\alpha f(A) + \beta f(B) + \gamma f(C)}{\alpha + \beta + \gamma}
 \end{equation}
 
 
@@ -819,14 +821,14 @@ En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvon
     $}
 \end{equation}
                 
+Nous supposons que le point est bien à l'intérieur du rectangle.
 
+Ici les surfaces sont directement calculées dans \(f(x, y)\).
 
-Ici les surfaces sont directement calculées.
+Cela correspond à l'addition de deux interpolations linéaires. Nous trouvons souvent dans la littérature une équation analytique où tous les sommets ne jouent pas le même rôle, mais il est plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée. 
+Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif.
 
-Visuellement nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif. Cela correspond à deux interpolations linéaires. Souvent nous trouvons une équation analytique où tous les sommets ne jouent pas le même rôle, mais il est plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée :
-
-
-\begin{figure}[ht!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}
         % Define the rectangle vertices
@@ -904,25 +906,11 @@ Regardons maintenant la dernière forme 2D rencontrée dans les solutions trait�
 Pour cela je n'ai pas trouvé de méthode satisfaisante dans la littérature.\cite{perronnet1998} Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0.
 Une première vérification de la linéarité est aussi de vérifier qu'un point au milieu d'une forme 2D a comme valeur la moyenne de ses sommets.
 Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la forme dans laquelle il se situe (tel que pour l'interpolation Barycentrique).
-Cela permet de ne créer que 4 sous formes.
+Cela permet de ne créer que quatre sous formes.
 Ensuite pour déterminer le poids associé au sommet \( s_1 \), il faut multiplier entre elles les deux surfaces qui lui sont opposées, et bien entendu, le pondérer une fois les autres poids calculés.
-Par opposées j'entends que ces surfaces ne sont composées d'aucune arrête ayant pour l'une de leurs extrémités le point d'interpolation. Ceci est important pour le 3D. Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode était linéaire.
-Un point qui me perturbait était de faire des multiplications de surfaces, donc ordre 4, dans une méthode linéaire.
-Mais contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire.
-On pourrait imaginer que, par chance, cette méthode soit quadratique.
-Premièrement j'ai vérifié et ce n'est apparemment pas le cas.
-Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère.
-% Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points.
-Normalement il faudrait s'appuyer sur plus de points pour le quadratique. 
-Finalement, la demonstration pourrais se construire en montrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la figure \ref{fig:quad} ci-dessous, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.
-Voici l'équation :
+Par opposées j'entends que ces surfaces ne sont composées d'aucune arrête ayant pour l'une de leurs extrémités le point d'interpolation. Ceci est important pour l'extension de l'idée en 3D.
 
-\begin{equation}
-    f(P) = \frac{f_{A} \cdot (\beta \times \gamma) + f_{B} \cdot (\gamma \times \delta) + f_{C} \cdot (\delta \times \alpha) + f_{D} \cdot (\alpha \times \beta)}{(\beta \times \gamma) + (\gamma \times \delta) + (\delta \times \alpha) + (\alpha \times \beta)}
-\end{equation}
-    
-
-\begin{figure}[ht!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}
         % Define the rectangle vertices
@@ -969,15 +957,31 @@ Voici l'équation :
     %\label{fig:interpolation_IDW_rayon}
 \end{figure}
 
+Un point qui me perturbait était de faire des multiplications de surfaces, donc ordre 4, dans une méthode linéaire.
+Mais contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire.
+On pourrait imaginer que, par chance, cette méthode soit quadratique.
+Premièrement j'ai vérifié et ce n'est apparemment pas le cas.
+Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère.
+% Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points.
+Normalement il faudrait s'appuyer sur plus de points pour le quadratique. 
+Finalement, la demonstration pourrais se construire en montrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la figure \ref{fig:quad} ci-dessous, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.  ///// FAIRE LA DÉMO /////
+
+Voici l'équation de la méthode d'interpolation linéaire pour le quadrilatère :
+
+\begin{equation}
+    f(P) = \frac{f_{A} \cdot (\beta \times \gamma) + f_{B} \cdot (\gamma \times \delta) + f_{C} \cdot (\delta \times \alpha) + f_{D} \cdot (\alpha \times \beta)}{(\beta \times \gamma) + (\gamma \times \delta) + (\delta \times \alpha) + (\alpha \times \beta)}
+\end{equation}
+    
+
 \vspace{0.5cm}  % OU \\[0pt plus 1fill] OU \newline OU flushleft, flushright, center
 
 
 \paragraph{3D}
 \subparagraph{Pavé droit : Trilinéaire}
 
-Pour le 3D, si le maillage est structuré, alors la forme est le pavé droit. À ce moment, nous sommes dans le cas de l'interpolation dite trilinéaire. Encore une fois la formule se trouve facilement. Nous associons comme poids à un des huit sommets \( s_1 \) le volume opposé, construit de la sorte :
+Pour le 3D, si le maillage est non-structuré, alors la forme est le pavé droit. À ce moment, nous sommes dans le cas de l'interpolation dite trilinéaire. Encore une fois la formule se trouve facilement dans la littérature et se retrouve facilement en étendant la formule de l'interpolation sur un rectangle. Nous associons comme poids à un des huit sommets \( s_1 \) le volume opposé, construit de la sorte :
 
-\begin{figure}[ht!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{images/Trilinear_interpolation_visualisation.svg.png}
     \caption{Schéma d'interpolation trilinéaire (source : Wikipédia)} %\footnote{Source:https://en.wikipedia.org/wiki/Trilinear_interpolation#/media/File:Trilinear_interpolation_visualisation.svg}}
@@ -998,15 +1002,13 @@ L'équation qui en découle est la suivante :
 
 Pour le tétraèdre (une pyramide à base triangulaire quelconque), nous trouvons bien un volume opposé à chaque sommet. Opposé dans le sens où le sommet ne partage pas de segment avec le volume. Nous pouvons alors appliquer la même formule que pour le triangle, avec 4 volumes à la place de 3 surfaces.
 
-\subparagraph{Prisme et pyramide et Hexaèdre}
+\subparagraph{Pyramide, hexaèdre, prisme et autres formes}
 
-Pour le prisme, la pyramide (à base quadrilatérale) et l’hexaèdre, une extension de la formule du quadrilatère sera faite.
-
-
-La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes.
+Pour la pyramide (à base quadrilatérale) et l’hexaèdre, une extension de la formule du quadrilatère sera faite.
+Il pourrait en être de même pour les prismes et autres formes, mais des problèmes d'implémentations apparaissent (voir ref \ref{prisme}).
 
 
-Note pour l'ordre supérieur : faire une transformation des formes qui aurait pu être utilisée en linéaire comme pour le cas du quadrilatère. \cite{camarero2024}
+Note pour l'ordre supérieur : une utilisation des maillages transfinis pourrais être faite. \cite{camarero2024}
 
 
 
@@ -1020,11 +1022,12 @@ Note pour l'ordre supérieur : faire une transformation des formes qui aurait pu
 
 Le traitement d'interpolation d'Antares ne traite que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas entre).
 
-EXPLICATION PLUS DÉTAILLER DU KDTREE
+Il utilise un \ac{KDTree} pour faire une recherche efficace des N points de la base source les plus proches de ceux de la base target.
+
 
 Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisait environ 500 lignes. Il est orienté objet. Il prend comme arguments obligatoires la base source et la base cible et renvoie dans le cas le plus simple la base cible avec les valeurs interpolées.
 De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis nous parcourons les instants. 
-Cette fusion permet de faire un KDTree (pour arbre à k-dimensions), qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base cible (et les distances associées, utilisées dans la méthode 'idw').
+Cette fusion permet de faire un KDTree, qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base cible (et les distances associées, utilisées dans la méthode 'idw').
 
 Ensuite nous calculons l'interpolation via une des deux méthode 'principale' qui peut elle-même appeler d'autres fonctions ou méthodes d'Antares. % (\lstinline{__idw_interpolate_instant} ou \lstinline{__barycentrique_interpolate_instant})
 
@@ -1049,9 +1052,33 @@ Et pour \( N = 2 \) et \( p = 1 \), toujours en 1D, nous retrouvons la méthode 
 Une de mes missions était de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles\cite{idw-arcgis} et thèses que j'ai lus. C'est pour cela que je présenterai plus tard comment j'ai trouvé des paramètres optimaux en faisant des tests.
 
 
+\label{prisme}\paragraph{L'interpolation linéaire}
+
+La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes. De plus, l'ordre des sommets dans la connectivité est différentes en fonction du solveur dont est issue la base. Cela rend donc impossible (ou très difficile) le calcul des volumes tel que la méthode a été implémentée. Nous avons effectivement besoin de savoir à quelle sommet correspond quel indice. La connectivité prismatique ne sera donc finalement par traité. Il en est de même pour les formes plus complexes à N faces toute autre connectivité qui viendrais à apparaître.
+
+Cependant, il est simple de palier ce problème. Il suffit de "tétraèdriser" la base source afin de créer des tétraèdres avant d'utiliser le traitement d'interpolation. Il en est de même pour de potentiels cas 2D non traités.
+
+Voici comment réaliser cela :
+
+\begin{lstlisting}[caption=Tetrahedralize pour interpoler linéairement tous types de cellules, label={lst:tet}]
+    import antares
+    from copy import deepcopy
+    # deepcopy est utilise pour ne pas "tetrahedralize" la 'source_base' 
+    
+    copy_source_base = deepcopy(source_base)
+
+    t = antares.Treatment('tetrahedralize')
+    t['base'] = copy_source_base
+    copy_source_base = t.execute()
+
+    myt = antares.Treatment('interpolation')
+    myt['source'] = copy_source_base
+    myt['target'] = target_base
+    result2 = myt.execute()
+\end{lstlisting}
+
 
 \subsection{Le Pseudo-algorithme}
-
 
 
 Voici le pseudo-algorithme simplifié donnant l'architecture de la fonction linéaire du traitement interpolation.
@@ -1358,6 +1385,10 @@ Cela permet aussi une extrapolation linéaire sans créer d'erreur.
 \section{Tests}
 % \section{Les différentes méthodes d'interpolation}
 \subsection{Tests unitaires}
+
+Pour l'instant, je n'ai démontré que par l'expérimentation que cette méthode était linéaire. Le premier test étais de créer une variable linéaire et de faire une interpolation sur un second maillage. En comparant la valeur analytique et numérique, l'erreur observée est nulle. Ensuite j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D) ////Graphiques et tests avec un coefficient (puissance) 2 pour 2D etc. ////
+
+
 Des codes de tests ont été créés en même temps que l'implémentation de l'interpolation linéaire, pour tester si cette dernière fonctionne correctement sur des cas simples.
 L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on teste l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande dans le terminal ou lors d'un git push vers Nitrox.
 

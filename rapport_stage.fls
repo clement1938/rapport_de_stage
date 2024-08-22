@@ -479,6 +479,7 @@ INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/translations/translations-basic-dictionary-french.trsl
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/translations/translations-basic-dictionary-french.trsl
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/translations/translations-basic-dictionary-french.trsl
@@ -689,6 +690,14 @@ INPUT ./images/legende-interp3.png
 INPUT ./images/legende-interp3.png
 INPUT ./images/legende-interp3.png
 INPUT ./images/legende-interp3.png
+INPUT ./images/newCerfacs+Fond.png
+INPUT ./images/newCerfacs+Fond.png
+INPUT ./images/newCerfacs+Fond.png
+INPUT ./images/newCerfacs+Fond.png
+INPUT ./images/ipsagarde.png
+INPUT ./images/ipsagarde.png
+INPUT ./images/ipsagarde.png
+INPUT ./images/ipsagarde.png
 INPUT ./images/newCerfacs+Fond.png
 INPUT ./images/newCerfacs+Fond.png
 INPUT ./images/newCerfacs+Fond.png
