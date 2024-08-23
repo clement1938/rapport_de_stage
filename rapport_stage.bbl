@@ -151,6 +151,33 @@
       \verb https://bitbucket.org/joelrosenfeld/rbf-and-kernel-interpolation/src/master/
       \endverb
     \endentry
+    \entry{surface}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=ff14e7d9b2f023a6a34364d0f50add44}{%
+           family={{Cadence CFD}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{ff14e7d9b2f023a6a34364d0f50add44}
+      \strng{fullhash}{ff14e7d9b2f023a6a34364d0f50add44}
+      \strng{fullhashraw}{ff14e7d9b2f023a6a34364d0f50add44}
+      \strng{bibnamehash}{ff14e7d9b2f023a6a34364d0f50add44}
+      \strng{authorbibnamehash}{ff14e7d9b2f023a6a34364d0f50add44}
+      \strng{authornamehash}{ff14e7d9b2f023a6a34364d0f50add44}
+      \strng{authorfullhash}{ff14e7d9b2f023a6a34364d0f50add44}
+      \strng{authorfullhashraw}{ff14e7d9b2f023a6a34364d0f50add44}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accédé: 2024-08-23}
+      \field{title}{{The Best Methods for Mesh Interpolation}}
+      \verb{urlraw}
+      \verb https://resources.system-analysis.cadence.com/blog/msa2022-the-best-methods-for-mesh-interpolation
+      \endverb
+      \verb{url}
+      \verb https://resources.system-analysis.cadence.com/blog/msa2022-the-best-methods-for-mesh-interpolation
+      \endverb
+    \endentry
     \entry{camarero2024}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=bf30061ce332a48bdf6cb5c10688cc21}{%
@@ -453,43 +480,6 @@
       \verb https://ntrs.nasa.gov/api/citations/20140011325/downloads/20140011325.pdf
       \endverb
     \endentry
-    \entry{kim2019}{article}{}{}
-      \name{author}{3}{}{%
-        {{hash=f09228f0e07f4dd46e6f787c1f71c2d3}{%
-           family={Kim},
-           familyi={K\bibinitperiod},
-           given={Soohyeon},
-           giveni={S\bibinitperiod}}}%
-        {{hash=fc778bfa9679fa691e285b5dcacfb409}{%
-           family={Rhee},
-           familyi={R\bibinitperiod},
-           given={Sooahm},
-           giveni={S\bibinitperiod}}}%
-        {{hash=1e61716c6835761160f9e7243bcf0bc9}{%
-           family={Kim},
-           familyi={K\bibinitperiod},
-           given={Taejung},
-           giveni={T\bibinitperiod}}}%
-      }
-      \strng{namehash}{53e38763e0b19980f11c076a66b66e2c}
-      \strng{fullhash}{53e38763e0b19980f11c076a66b66e2c}
-      \strng{fullhashraw}{53e38763e0b19980f11c076a66b66e2c}
-      \strng{bibnamehash}{53e38763e0b19980f11c076a66b66e2c}
-      \strng{authorbibnamehash}{53e38763e0b19980f11c076a66b66e2c}
-      \strng{authornamehash}{53e38763e0b19980f11c076a66b66e2c}
-      \strng{authorfullhash}{53e38763e0b19980f11c076a66b66e2c}
-      \strng{authorfullhashraw}{53e38763e0b19980f11c076a66b66e2c}
-      \field{sortinit}{K}
-      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Remote Sensing}
-      \field{title}{Digital surface model interpolation based on 3D mesh models}
-      \field{year}{2019}
-      \verb{doi}
-      \verb 10.3390/rs11010024
-      \endverb
-    \endentry
     \entry{laborderie2018}{article}{}{}
       \name{author}{6}{}{%
         {{hash=3cc934b3ddddba2821a2d758f49bc025}{%
@@ -597,6 +587,17 @@
       \endverb
       \verb{url}
       \verb https://mapscaping.com/understanding-inverse-distance-weighting/
+      \endverb
+    \endentry
+    \entry{MLS}{article}{}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Geometric Modeling for Scientific Visualization}
+      \field{title}{Mesh-Independent Surface Interpolation}
+      \field{year}{2004}
+      \verb{doi}
+      \verb 10.1007/978-3-662-07443-5_3
       \endverb
     \endentry
     \entry{muller2020}{misc}{}{}

@@ -62,3 +62,5 @@
 {"rule":"ACCORD_SUJET_VERBE","sentence":"^\\QLes surfaces créées par le point cible avec les sommets sont d'abord calculées, suivies par le calcul du volume de la cellule.\\E$"}
 {"rule":"P_V_PAS","sentence":"^\\QVoici les résultats : - Interpolation linéaire : 16.6344 s, MSE: 1.6995e-28 - Interpolation IDW : 0.6614 s, MSE: 3.9711e-03 Rapport de temps de calcul linéaire/IDW: 25 L'erreur au sens des moindres carrés est quasiment nulle selon\\E$"}
 {"rule":"P_V_PAS","sentence":"^\\QL'erreur au sens des moindres carrés est quasiment nulle pour l'interpolation linéaire.\\E$"}
+{"rule":"ESPACE_APRES_POINT","sentence":"^\\QElles sont notamment utilisées en CAO et pour l'interpolation de surfaces.\\E(?:Dummy|Ina|Jimmy-)[0-9]+$"}
+{"rule":"AGREEMENT_POSTPONED_ADJ","sentence":"^\\QPour des cas spécifiques tel que l'aéroacoustique un petit algorithme peut être mis en place pour trouver ces paramètres.\\E$"}

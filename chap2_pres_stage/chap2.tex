@@ -117,14 +117,16 @@ L'interpolation consiste à déterminer la valeur de nouveaux points à partir d
 \vspace{0,5cm}
 
 Dans ce paragraphe, nous allons présenter les types d'interpolation\cite{cassiopee2015} implémentables dans Antares.
-
 Cela implique certaines conditions, notamment sur le type de maillage.
 
 Un maillage structuré est un maillage dont la connectivité\label{connectivité} entre les points peut être décrite de manière régulière, généralement à l'aide de tableaux multidimensionnels (1D, 2D, 3D). Dans un tel maillage, les points sont organisés en une grille régulière, ce qui permet de naviguer facilement à travers les données sans avoir à spécifier explicitement les relations entre les points.
 
-En revanche, un maillage non structuré est un maillage où les éléments (cellules) sont définis par des formes géométriques quelconques et où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent. Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée.
+En revanche, un maillage non structuré est un maillage où les éléments (cellules) sont définis par des formes géométriques quelconques et où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent. Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée. Les digrammes de Voronoï sont utilisés, un peu plus en détail, "En mathématiques, un diagramme de Voronoï est un pavage (découpage) du plan en cellules (régions adjacentes) à partir d'un ensemble discret de points appelés germes. Chaque cellule enferme un seul germe, et forme l'ensemble des points du plan plus proches de ce germe que d'aucun autre." (source : Wikipédia, Diagramme de Voronoï)
+Voici le lien vers un site\cite{structure} qui explique la structure des formes d'ordre supérieur, ce qui pourrais être utile pour l'implémentation d'une méthode d'ordre supérieur.
 
 Dans Antares, nous visons principalement à traiter des maillages non structurés, car ils sont couramment utilisés dans les simulations modernes en raison de leur flexibilité à représenter des géométries complexes.
+
+Une autre condition est que la méthode d'interpolation doit être applicable en 1D, 2D et 3D.
 
 Un facteur à prendre en compte dans la méthode que l'on souhaite implémenter est aussi le temps de calcul, appelé 'coût'.
 
@@ -608,6 +610,8 @@ L'interpolation polynomiale est d'un degré correspondant à celui du polynôme 
 
 L'interpolation de Lagrange utilise un polynôme unique qui passe par tous les points donnés. Elle est souvent utilisée pour l'interpolation d'un petit nombre de points, mais elle peut devenir imprécise pour un grand nombre de points à cause de l'effet Runge. Il faut donc limiter le nombre de points (comme dans les méthodes déjà implémentées dans Antares).
 Nous pouvons retrouver sur un site\cite{structure} la structure des formes pour de l'interpolation d'ordre supérieur (notamment pour Lagrange). Un inconvénient de cette méthode est que sa généralisation en 2D et surtout 3D est complexe.
+Une interpolation de Lagrange serait possible en partant de la méthode barycentrique.\footnote{https://people.maths.ox.ac.uk/trefethen/barycentric.pdf} \footnote{https://www.inf.usi.ch/hormann/papers/Hormann.2014.BI.pdf}
+
 
 \subparagraph{b. Hermite\cite{bajaj}}
 
@@ -620,36 +624,42 @@ Les splines cubiques sont des morceaux de polynômes de degré trois qui sont co
 
 \subparagraph{d. NURBS}
 
-Les \ac{NURBS}\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interpolation. C'est une généralisation des splines, permettant de représenter des formes géométriques simples comme complexes. Elles sont notamment utilisées en CAO et pour l'interpolation de surfaces.
-
-https://resources.system-analysis.cadence.com/blog/msa2022-the-best-methods-for-mesh-interpolation : interpolation entre points pour représenter une surface\dots
+Les \ac{NURBS}\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interpolation. C'est une généralisation des splines, permettant de représenter des formes géométriques simples comme complexes. Elles sont notamment utilisées en CAO et pour l'interpolation de surfaces.\cite{surface}
 
 \subparagraph{e. Interpolation cubique}
 L'interpolation cubique est une méthode simple qui utilise des polynômes de degré trois pour calculer des valeurs intermédiaires entre les points de données.\cite{tanaka} Ce serait potentiellement le meilleur candidat pour la prochaine méthode à implémenter. On pourrait alors utiliser le traitement gradient avec l'argument \texttt{vtk = True} pour avoir le gradient au nœud et non au centre de la cellule. Ensuite, dans le meilleur des cas, il faudrait simplement reprendre la fonction d'interpolation linéaire et mettre à jour le code "computes\_barycenters.py".
 
 
-\paragraph{2. Méthodes à base de distance}
-\phantom{-}
-\newline
-Ces méthodes utilisent la distance entre les points de données pour calculer les valeurs interpolées, souvent en pondérant les contributions des points voisins.
+\begin{comment}
+    \paragraph{2. Méthodes à base de distance}
+    \phantom{-}
+    \newline
+    Ces méthodes utilisent la distance entre les points de données pour calculer les valeurs interpolées, souvent en pondérant les contributions des points voisins.
+\end{comment}
 
-\subparagraph{a. IDW}
-Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la distance des points pour le calcul de l'interpolation.
-\subparagraph{b. Shepard}
-
-La méthode de Shepard 
-
-%\paragraph{DSM}
-%\ac{DSM}
-\cite{kim2019}
-
-
+Voici un tableau, donné dans une présentation de la NASA\cite{nasa}, donnant les différentes méthodes d'interpolation disponibles dans Matlab en fonction des dimensions des données d'entrée :
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{Méthode d'interpolation} & \textbf{Source 1D} & \textbf{Source 2D} & \textbf{Source 3D} \\ \hline
+    Voisin le plus proche & X & X & X \\ \hline
+    Linéaire & X & X & X \\ \hline
+    Spline cubique & X & X & X \\ \hline
+    Hermite cubique par morceaux & X & structuré uniquement & \\ \hline
+    Cubic & X & X & \\ \hline
+    Cubic utilisé dans Matlab v5 & X & X & structuré uniquement \\ \hline
+    \end{tabular}
+    \caption{Tableau des méthodes d'interpolation en fonction des dimensions}
+    \label{tab:interpolation_methods}
+\end{table}
 
 %\subsection{L'interpolation par Splines}
 
-\paragraph{3. Méthodes géostatiques}
+\paragraph{2. Méthodes géostatiques}
 \phantom{-}
 \newline
+"La pondération par l’inverse de la distance et les fonctions de base radiale sont des interpolateurs exacts, tandis que le polynôme global, le polynôme local, l’interpolation par noyaux avec interruptions et l’interpolation par diffusion avec interruptions sont inexacts."\footnote{https://pro.arcgis.com/fr/pro-app/latest/help/analysis/geostatistical-analyst/deterministic-methods-for-spatial-interpolation.html}
 Voici une classification des différentes méthodes d'interpolation géostatiques :
 
 \begin{figure}[H]
@@ -660,80 +670,73 @@ Voici une classification des différentes méthodes d'interpolation géostatique
 \end{figure}
 
 
-\subparagraph{Krigeage et Cokriging}
+\subparagraph{a. Kriging et Cokriging} % traduction en Francais : krigeage et cokrigeage
 Le krigeage est une méthode d'interpolation géostatistique qui génère une estimation statistique des variables spatiales. Le cokriging est son extension multivariée. 
 
-"La pondération par l’inverse de la distance et les fonctions de base radiale sont des interpolateurs exacts, tandis que le polynôme global, le polynôme local, l’interpolation par noyaux avec interruptions et l’interpolation par diffusion avec interruptions sont inexacts."\footnote{https://pro.arcgis.com/fr/pro-app/latest/help/analysis/geostatistical-analyst/deterministic-methods-for-spatial-interpolation.html}
+La méthode kringing pourrais être un excellent candidat, voici une traduction d'un extrait d'article discutant autour des résultat de cette méthode :
+"La méthode linéaire est simple, robuste et constitue un choix d'interpolation acceptable pour les premières estimations approximatives ou si les variables de la solution de la base de données dépendent linéairement des variables de l'espace de conception. La méthode IDW ne présente aucun avantage par rapport à la méthode linéaire plus simple et n'est pas recommandée pour l'interpolation des solutions CFD. La méthode de Krigeage donne les résultats interpolés les plus précis et permet de saisir le comportement non linéaire des variables de la solution de la base de données. Pour le cas d'essai AS-202, la différence maximale en pourcentage entre le taux de chauffage interpolé par la méthode de Krigeage et le taux de réchauffement CFD exact est inférieure à l'incertitude du taux de réchauffement CFD lui-même."\cite{palmer2009}
 
-"The linear method is simple, robust, and an acceptable choice of
-interpolation for rough first estimates or if the database solution variables depend linearly on design space variables. The IDW
-method shows no advantages over the simpler linear method and is not recommended for interpolating CFD solutions. The Kriging
-method gives the most accurate interpolated results and has the ability to capture non-linear behavior in the database solution
-variables. For the AS-202 test case, the maximum percentage difference between the interpolated Kriging and exact CFD heating
-rate is less than the uncertainty of the CFD heating rate itself."\cite{palmer2009}
+
+Le cokriging pourrait être candidat dans le cas où il y aurait une corrélation spacial entre plusieurs variables.
+"Le cokriging est l'extension multivariée du formalisme de Kriging, qui permet de traiter simultanément deux variables ou plus définies sur le même domaine et de prendre en compte des informations supplémentaires sur la corrélation spatiale entre les variables."\cite{kringing}
+
+Et voici une illustration du résultat de différentes méthodes d'interpolation venant du même article :
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{images/palmer2009_comp.png}
-    \caption{Comparaison de différentes méthodes d'interpolation}
+    \includegraphics[width=0.55\textwidth]{images/palmer2009_comp_copie.png}
+    \caption{Comparaison de différentes méthodes d'interpolation sur des données 1D (source\cite{palmer2009})}
     \label{fig:compar}
 \end{figure}
 
-\dots
 
-\cite{nasa}
-
-
-
-
-\subparagraph{DSM}
+\begin{comment}
+    \subparagraph{b. DSM}
+    La méthode \ac{DSM} pourrait s'avérer intéressante, car elle donne de meilleurs résultats que la méthode IDW dans le cas ...
+    \cite{kim2019}
+\end{comment}
 
 
-Cokriging\cite{kringing} is the multivariate extension of kriging formalism, which allows to deal simultaneously with two or more variables defined over the same domain and to account for additional information about spatial correlation between the variables.
-
-\subparagraph{IDW}
-IDW appartiens aux méthodes d'interpolation géostatiques
-
-\subparagraph{RBF}
-La \ac{RBF}
-
-"We specifically use the Gaussian RBF and the Exponential Dot Product Kernels to do the interpolations, and approximate the benchmark called Franke's Function."\cite{opensource_2}
 
 
-Expliquer voronoï : "En mathématiques, un diagramme de Voronoï est un pavage (découpage) du plan en cellules (régions adjacentes) à partir d'un ensemble discret de points appelés germes. Chaque cellule enferme un seul germe, et forme l'ensemble des points du plan plus proches de ce germe que d'aucun autre." (source : Wikipédia, Diagramme de Voronoï)
+
+\subparagraph{b. IDW}
+Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la distance des points pour le calcul de l'interpolation. Elle est une application de la pondération de Shepard qui est elle-même une généralisation de l'approximation de Lagrange (à N-dimension).
+
+\subparagraph{c. RBF}
+La \ac{RBF} est une fonction basée sur les distances telle que la méthode IDW. Cependant, elle peut utiliser différent type de noyaux (base radiale) pour imaginer la solution, tel que la base Gaussienne, multiquadratique, etc. C'est un excellent candidat pour une amélioration de l'interpolation IDW. Il faudrait ensuite trouver le meilleur noyau avec les meilleurs paramètres pour les cas d'applications rencontrés dans Antares. Pour des cas spécifiques tel que l'aéroacoustique, un petit algorithme itératif ou à base d'ajustement par la méthode des moindres carrés (ref \ref{mc}) peut être mis en place pour trouver ces paramètres.
+Voici la formule de la RBF :
+\[
+f(\mathbf{x}) = \sum_{i=1}^{N} w_{i} \, \varphi \left( \|\mathbf{x} - \mathbf{x}_{i}\| \right)
+\]
+Et le noyau gaussien pour exemple, avec pour paramètre \(\epsilon\).
+\[
+\varphi(r) = e^{-(\epsilon r)^{2}}
+\]
+
+
+Cette interpolation est utilisée dans un code opensource, qui est expliqué par Joel Rosenfeld sur sa chaîne YouTube\footnote{http://www.thatmaththing.com/} et son site internet\footnote{http://www.thelearningdock.org/}. "We specifically use the Gaussian RBF and the Exponential Dot Product Kernels to do the interpolations, and approximate the benchmark called Franke's Function."\cite{opensource_2}
 
 Pour prochaine méthode : Des codes opensource d'interpolation d'ordre élevé sont disponibles sur GitHub (en Julia\cite{opensource} et Python\cite{opensource_2} pour RBF et Noyaux de produits de points exponentiels)
 
+\subparagraph{Les méthode par moindres carrés}\label{mc}
 
-Bon site\cite{structure} pour structure des formes d'ordre supérieur
-
-\paragraph{Les méthode par moindres carrés}
-
-Ces méthodes minimisent l'erreur quadratique pour créer une approximation linéaire des données.
+Cette méthode minimise l'erreur quadratique pour créer une approximation des données. Elle est appliquée sur une fonction d'approximation paramétrable. Des variantes plus performantes sont décrites dans le guid utilisateur de hip.
 "Piece-wise linear and minimumnorm interpolation approaches are faster than the linear least squares."\cite{muller2020}
 
-\subparagraph{Approximation des moindres carrés}
-\vspace{0.5cm}
-\dots
-\subparagraph{Moindres carrés mobiles}
-\vspace{0.5cm}
-\dots
+%\subparagraph{3. Approximation des moindres carrés}
+%\phantom{-}
+%\newline
 
-La méthode \ac{MLS} 
-MLS : \cite{levin}
-"The MLS method is a meshless numerical technique used for solving partial differential equations (PDEs) and reconstructing functions from scattered data, especially in cases where the data points are irregularly spaced or unstructured.
-Ligne a decomenter%" : https://www.sciencedirect.com/topics/mathematics/moving-least-squares#:~:text=The%20Moving%20Least%20Squares%20(MLS,are%20irregularly%20spaced%20or%20unstructured.
+Approfondir des recherches sur la méthode \ac{MLS}\cite{MLS}\cite{levin}  pourrais être utilisé intéressant.
 
-\paragraph{MISCOG}
+\subparagraph{MISCOG}
 
-Plusieurs méthodes d'interpolation d'ordre élevé assez innovantes tel que les méthodes \ac{MISCOG} sont déjà implémentées dans d'autres codes du CERFACS et un article les détails\cite{laborderie2018}. Elles servent généralement pour d'autres applications comme pour calculer un flux au travers d'une cellule à l'aide d'une intégration sur une surface ??
-
-Interpolant d'Hermite : non recherché
-Interpolant bivarié : non recherché
+Plusieurs méthodes d'interpolation d'ordre élevé assez innovantes tel que les méthodes \ac{MISCOG} sont déjà implémentées dans d'autres codes du CERFACS et un article les détails\cite{laborderie2018}. Elles servent généralement pour d'autres applications comme pour calculer un flux au travers d'une cellule à l'aide d'une intégration sur une surface ?? % Carlos  ?
 
 
 \subsection{La méthode linéaire}
-"The linear method is simple, robust, and an acceptable choice of interpolation for rough first estimates or if the database solution variables depend linearly on design space variables. The IDW method shows no advantages over the simpler linear method and is not recommended for interpolating CFD solutions. The Kriging method gives the most accurate interpolated results and has the ability to capture non-linear behavior in the database solution variables."\cite{palmer2009}.
+"La méthode linéaire est simple, robuste et constitue un choix d'interpolation acceptable pour les premières estimations approximatives ou si les variables de la solution de la base de données dépendent linéairement des variables de l'espace de conception"\cite{palmer2009}.
 La littérature\cite{fluidssengineer} s'accorde à dire que l'interpolation linéaire, est la plus basique après plus proche voisin et IDW. J'entends par basique simple à implémenter, demandant peu de ressource, robuste et moyennement précise pour de l'ordre élevé. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
 
 % Remplacer target par cible et point interpolé par cible.
@@ -769,7 +772,7 @@ qui garantit que l'interpolation est correcte et symétrique par rapport à \( a
 
 En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds. 
 Il existe 3 principaux types de cellules (formes) en 2D : les triangles, les rectangles des maillages structurés (dans ce cas, la méthode est dite bilinéaire) et les quadrilatères (non croisés).
-Certains industriels utilisent de plus en plus des polygones à N arrêtes. Mais pas soucis de simplicité, nous l'interpolation linéaire est limité aux 3 principales formes, les polygones pouvant être décomposés en triangles. % https://team.inria.fr/titane/files/2019/12/barycentric.pdf  décris l'interpolation barycentrique généralisée
+Certains industriels utilisent de plus en plus des polygones à N arrêtes. Mais pas soucis de simplicité, nous l'interpolation linéaire est limité aux 3 principales formes, les polygones pouvant être décomposés en triangles. % https://team.inria.fr/titane/files/2019/12/barycentric.pdf et https://www.inf.usi.ch/hormann/papers/Hormann.2014.BI.pdf  décris l'interpolation barycentrique généralisée
 
 \subparagraph{Triangle : Barycentrique}
 
@@ -843,7 +846,7 @@ Visuellement, il faut faire la somme des valeurs aux points pondérés par la su
 
 
 
-Le calcul est
+Le calcul est le suivant :
 \begin{equation}
     \frac{\alpha f(A) + \beta f(B) + \gamma f(C)}{\alpha + \beta + \gamma}
 \end{equation}
@@ -1055,7 +1058,7 @@ Note pour l'ordre supérieur : une utilisation des maillages transfinis pourrais
 
 
 
-\subsection{Résumé des similitudes et différences des différentes méthodes}
+%\subsection{Résumé des similitudes et différences des différentes méthodes}
 
 
 
