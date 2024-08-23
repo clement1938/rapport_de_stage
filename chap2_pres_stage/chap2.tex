@@ -60,7 +60,7 @@ Un point important pour l'interpolation linéaire est la connectivité (voir ref
 
 \section{Les différentes méthodes d'interpolation}
 
-L'interpolation consiste à déterminer la valeur de nouveaux points à partir de la valeur de points existants. En voici un exemple en \ac{1D} (l'axe x représente la position et l'axe y la valeur des points).
+L'interpolation consiste à déterminer la valeur de nouveaux points à partir de la valeur de points existants. En voici un exemple (\ref{fig:interpolation_cloche_points}) en \ac{1D} (l'axe x représente la position et l'axe y la valeur des points).
 
 \vspace{0,5cm}
 
@@ -113,15 +113,17 @@ L'interpolation consiste à déterminer la valeur de nouveaux points à partir d
     \label{fig:interpolation_cloche_points}
 \end{figure}
 
-    
 \vspace{0,5cm}
 
 Dans ce paragraphe, nous allons présenter les types d'interpolation\cite{cassiopee2015} implémentables dans Antares.
 Cela implique certaines conditions, notamment sur le type de maillage.
 
-Un maillage structuré est un maillage dont la connectivité\label{connectivité} entre les points peut être décrite de manière régulière, généralement à l'aide de tableaux multidimensionnels (1D, 2D, 3D). Dans un tel maillage, les points sont organisés en une grille régulière, ce qui permet de naviguer facilement à travers les données sans avoir à spécifier explicitement les relations entre les points.
+Un maillage non-structuré est un maillage dont la connectivité\label{connectivité} entre les points peut être décrite de manière régulière, généralement à l'aide de tableaux multidimensionnels (1D, 2D, 3D). Dans un tel maillage, les points sont organisés en une grille régulière, ce qui permet de naviguer facilement à travers les données sans avoir à spécifier explicitement les relations entre les points.
 
-En revanche, un maillage non structuré est un maillage où les éléments (cellules) sont définis par des formes géométriques quelconques et où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent. Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée. Les digrammes de Voronoï sont utilisés, un peu plus en détail, "En mathématiques, un diagramme de Voronoï est un pavage (découpage) du plan en cellules (régions adjacentes) à partir d'un ensemble discret de points appelés germes. Chaque cellule enferme un seul germe, et forme l'ensemble des points du plan plus proches de ce germe que d'aucun autre." (source : Wikipédia, Diagramme de Voronoï)
+En revanche, un maillage structuré est un maillage où les éléments (cellules) sont définis par des formes géométriques quelconques et où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent, dans un ordre spécifique (voir ref \ref{fig:ordre_connect}). Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée. Les digrammes de Voronoï sont utilisés, un peu plus en détail :
+\begin{quote}
+    "En mathématiques, un diagramme de Voronoï est un pavage (découpage) du plan en cellules (régions adjacentes) à partir d'un ensemble discret de points appelés germes. Chaque cellule enferme un seul germe, et forme l'ensemble des points du plan plus proches de ce germe que d'aucun autre." (source : Wikipédia, Diagramme de Voronoï)
+\end{quote}
 Voici le lien vers un site\cite{structure} qui explique la structure des formes d'ordre supérieur, ce qui pourrait être utile pour l'implémentation d'une méthode d'ordre supérieur.
 
 Dans Antares, nous visons principalement à traiter des maillages non structurés, car ils sont couramment utilisés dans les simulations modernes en raison de leur flexibilité à représenter des géométries complexes.
@@ -145,7 +147,7 @@ En voici quelques illustrations :
 
 %\vspace{0.5cm}
 
-\begin{figure}[ht!]
+\begin{figure}[H]
     \centering
         \begin{tikzpicture}
             \begin{axis}[
@@ -193,7 +195,7 @@ En voici quelques illustrations :
     \label{fig:interpolation_voisin}
 \end{figure}
 
-La courbe La courbe rouge représente l'interpolation sur tout le domaine x entre les deux points. Cela représente les coordonnées (x, y) de tous les potentiels points d'interpolation.
+La courbe rouge représente l'interpolation sur tout le domaine x entre les deux points. Cela représente les coordonnées (x, y) de tous les potentiels points d'interpolation.
 
 Cette méthode est discontinue et peu précise pour la plupart des fonctions.
 
@@ -225,10 +227,11 @@ Pour éviter une division par 0, très proche d'un point de donnée, le point in
 
 \vspace*{0,5cm}
 
+\newpage
 
 En voici des illustrations 1D :
 
-\begin{figure}[ht!]
+\begin{figure}[H]
     \centering
     \begin{minipage}{0.45\textwidth}
         \begin{tikzpicture}
@@ -395,9 +398,9 @@ En voici des illustrations 1D :
 \end{figure}
 
 
-Dans notre cas, nous ne prenons pas en compte tous les \(M\) points du maillage source. Nous nous limitons à un nombre \(N\) de points les plus proches. Cela implique une discontinuité lorsque nous changeons de point. Pour illustrer cela, voici une figure 1D où tous les points sont espacés d'une unité (seuls trois points sont représentés). Avec \(M\)=\(\infty\) et \(N\)=3, cela revient \textbf{ici} à changer l'un des trois points de calcul pour une valeur de \(x\) égale à 0,5 modulo un. Le modulo un est représenté par une ligne en pointillés noirs. Il est appelé rayon, car en 2D, il est représenté par un cercle et en 3D pas une sphère. 
+Dans notre cas, nous ne prenons pas en compte tous les \(M\) points du maillage source. Nous nous limitons à un nombre \(N\) de points les plus proches. Cela implique une discontinuité lorsque nous changeons de point. Pour illustrer cela, voici une figure 1D (figure \ref{fig:interpolation_IDW_1D_rayon}) où tous les points sont espacés d'une unité (seuls trois points sont représentés). Avec \(M\)=\(\infty\) et \(N\)=3, cela revient \textbf{ici} à changer l'un des trois points de calcul pour une valeur de \(x\) égale à 0,5 modulo un. Le modulo un est représenté par une ligne en pointillés noirs. Il est appelé rayon, car en 2D, il est représenté par un cercle et en 3D pas une sphère. 
 
-\begin{figure}[ht!]
+\begin{figure}[H]
 \centering
     \begin{tikzpicture}
         \begin{axis}[
@@ -452,7 +455,7 @@ Dans notre cas, nous ne prenons pas en compte tous les \(M\) points du maillage 
         \end{axis}
     \end{tikzpicture}
     \caption{Schéma d'interpolation IDW avec \(N\)=3}
-    %\label{fig:interpolation_IDW_rayon}
+    \label{fig:interpolation_IDW_1D_rayon}
 \end{figure}
 
 Nous observons une discontinuité en 1,5 et 2,5. La discontinuité peut être un grand problème pour la stabilité des schémas numériques.
@@ -542,7 +545,7 @@ Nous observons une discontinuité en 1,5 et 2,5. La discontinuité peut être un
 
 Nous pouvons aussi imaginer que 2 points, A et B, à droite et à gauche d'une ligne verticale de 3 points (les plus proches), prendront la même valeur pour \( N \) = 3 :
 
-\begin{figure}[ht!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}
 
@@ -600,6 +603,8 @@ Une des limitation\cite{idw-mapscaping} de la méthode IDW est qu'elle n'a pas d
 
 \vspace{0,5 cm}
 
+
+\newpage
 \subsection{D'autres méthodes}
 \paragraph{1. La méthode polynomiale}
 \phantom{-}
@@ -615,7 +620,7 @@ Une interpolation de Lagrange serait possible en partant de la méthode barycent
 
 \subparagraph{b. Hermite\cite{bajaj}}
 
-\L'interpolation d'Hermite prend en compte non seulement les valeurs des points, mais aussi leurs dérivées. Cela permet de créer un polynôme d'interpolation plus lisse.
+L'interpolation d'Hermite prend en compte non seulement les valeurs des points, mais aussi leurs dérivées. Cela permet de créer un polynôme d'interpolation plus lisse.
 
 \subparagraph{c. Splines}
 
@@ -637,7 +642,7 @@ L'interpolation cubique est une méthode simple qui utilise des polynômes de de
     Ces méthodes utilisent la distance entre les points de données pour calculer les valeurs interpolées, souvent en pondérant les contributions des points voisins.
 \end{comment}
 
-Voici un tableau, donné dans une présentation de la NASA\cite{nasa}, donnant les différentes méthodes d'interpolation disponibles dans Matlab en fonction des dimensions des données d'entrée :
+Voici un tableau (Tableau \ref{tab:interpolation_methods}), donné dans une présentation de la NASA\cite{nasa}, donnant les différentes méthodes d'interpolation disponibles dans Matlab en fonction des dimensions des données d'entrée :
 \begin{table}[ht]
     \centering
     \begin{tabular}{|l|c|c|c|}
@@ -1151,8 +1156,6 @@ Tolérance relative entre la somme des sous-surfaces créées par le point p et 
 
 
 
-
-
 \label{implementation_IDW}\paragraph{L'interpolation IDW}
 
 Cette distance est définie à 1e-10 dans le traitement et peut être modifiée par l'utilisateur en ajustant l'argument \texttt{'tolerance'} en ajoutant la ligne :
@@ -1172,7 +1175,7 @@ Une de mes missions était de chercher s'il y avait des paramètres plus optimis
 
 \label{prisme}\paragraph{L'interpolation linéaire}
 
-La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes. De plus, l'ordre des sommets dans la connectivité est différentes en fonction du solveur dont est issue la base. Cela rend donc impossible (ou très difficile) le calcul des volumes tel que la méthode a été implémentée. Nous avons effectivement besoin de savoir à quelle sommet correspond quel indice. La connectivité prismatique ne sera donc finalement par traité. Il en est de même pour les formes plus complexes à N faces toute autre connectivité qui viendrait à apparaître.
+La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes. De plus, l'ordre des sommets dans la connectivité est différentes en fonction du solveur dont est issue la base (par exemple dans hip elle est défini tel que sur l'image en annex \ref{fig:ordre_connect}). Cela rend donc impossible (ou très difficile) le calcul des volumes tel que la méthode a été implémentée. Nous avons effectivement besoin de savoir à quelle sommet correspond quel indice. La connectivité prismatique ne sera donc finalement par traité. Il en est de même pour les formes plus complexes à N faces toute autre connectivité qui viendrait à apparaître.
 
 Cependant, il est simple de palier ce problème. Il suffit de "tétraèdriser" la base source afin de créer des tétraèdres avant d'utiliser le traitement d'interpolation. Il en est de même pour de potentiels cas 2D non traités.
 
@@ -1373,7 +1376,7 @@ La différence ici est que le point cible n'est pas forcément dans la forme dé
 \end{figure}
 
 
-Alors nous pourrions avoir une ou des surfaces formées par le point cible qui sortent du triangle initial (et la somme des surfaces ne serait pas égale à la surface du triangle initial). Mais pour respecter la linéarité, il suffit de faire le même calcul en prenant en compte le fait que la ou les deux surface(s) entièrement extérieures à la forme sont négatives. La figure ci-dessous est un zoom sur le schéma \ref{fig:deux_pt}.
+Alors nous pourrions avoir une ou des surfaces formées par le point cible qui sortent du triangle initial (et la somme des surfaces ne serait pas égale à la surface du triangle initial). Mais pour respecter la linéarité, il suffit de faire le même calcul en prenant en compte le fait que la ou les deux surface(s) entièrement extérieures à la forme sont négatives. La figure ci-dessous (Figure \ref{fig:surface_negative}) est un zoom sur le schéma \ref{fig:deux_pt}.
 
 \begin{figure}[H]
     \centering
@@ -1512,7 +1515,7 @@ Pour l'instant, je n'ai démontré que par l'expérimentation que la méthode im
 
 Le premier test, créé en même temps que l'implémentation dans l'objectif de tester si la méthode fonctionne dans un cas simple, est de créer une variable linéaire et de faire une interpolation sur un second maillage. L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on teste l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande 'pytest' dans le terminal. En comparant la valeur analytique et numérique, l'erreur observée est nulle. Ce test est par ailleurs implémenté (pour la connectivité linéaire, triangulaire, quadrilatérale, tétraédrique et hexaédrique) dans les tests unitaires d'Antares, qui permettent de savoir que la librairie fonctionne correctement, notamment lors d'un git push vers Nitrox.
 
-Ensuite j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D). En voici l'exemple pour le 1D (pour les autres types de cellules les courbes sont très ressemblantes).
+Ensuite j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D). En voici l'exemple pour le 1D (Figure \ref{fig:bi}) (pour les autres types de cellules les courbes sont très ressemblantes).
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.90\textwidth]{images/err_puissance2_bi.png}
@@ -1525,7 +1528,7 @@ Ensuite j'ai essayé de tracer le log de l'erreur au sens des moindres carrés e
 
 Pour tester la robustesse du traitement (notamment dans les cas multi-zones, multi-connectivité et multi-instants), son application à des tests industriels a été testée.
 
-Voici une image comparant l'interpolation IDW et linéaire sur un maillage 3D solution d'une flamme dans une chambre de combustion en base source et un plan en base cible.
+Voici deux images (Figure \ref{fig:cb-IDW} et Figure \ref{fig:cb-lineaire}) comparant l'interpolation IDW et linéaire sur un maillage 3D solution d'une flamme dans une chambre de combustion en base source et un plan en base cible.
 
 \begin{figure}[H]
     \centering
@@ -1561,7 +1564,7 @@ L'erreur au sens des moindres carrés est quasiment nulle pour l'interpolation l
 
 Le résultat de l'aéroacoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes).
 
-La base source contient la pression, aéroacoustique, d'une onde sinusoïdale dans un maillage grossier (différents types de cellules ont été testés). La base cible est une sphère d'où les équation de FWH seront ensuite appliquées. Finalement voilà le résultat les paramètres suivants :
+La base source contient la pression, aéroacoustique, d'une onde sinusoïdale dans un maillage grossier (différents types de cellules ont été testés). La base cible est une sphère d'où les équation de FWH seront ensuite appliquées. Finalement voilà le résultat (Figure \ref{fig:onde_aac}) pour ces paramètres :
 
 - observateur quelconque, car Mach égale à 0;
 
@@ -1602,10 +1605,10 @@ Ces tests ont été menés sur kraken afin de ne pas perdre trop de temps.
     \centering
     \includegraphics[width=0.70\textwidth]{images/rapport_a_np.png}
     \caption{Comparaison entre la solution analytique et la solution utilisant l'interpolation IDW (p=10, N=10) et linéaire}
-    %\label{fig:onde_aac}
+    \label{fig:np10}
 \end{figure}
 
-À gauche, la méthode linéaire est utilisée, à droite la méthode IDW avec comme paramètres (N=10, p=10). Le décalage latéral des courbes est un artefacts (et cela permet de mieux distinguer les courbes bleues et vertes dans notre cas.)
+À gauche, la méthode linéaire est utilisée, à droite la méthode IDW avec comme paramètres (N=10, p=10)(\ref{fig:np10}). Le décalage latéral des courbes est un artefacts (et cela permet de mieux distinguer les courbes bleues et vertes dans notre cas.)
 
 Le rapports d'amplitude avec la solution analytique est le suivant : idw = 102\%, linéaire = 48\%. % pour dipole et quadripôle
 
