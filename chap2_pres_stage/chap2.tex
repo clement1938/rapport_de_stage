@@ -122,7 +122,7 @@ Cela implique certaines conditions, notamment sur le type de maillage.
 Un maillage structuré est un maillage dont la connectivité\label{connectivité} entre les points peut être décrite de manière régulière, généralement à l'aide de tableaux multidimensionnels (1D, 2D, 3D). Dans un tel maillage, les points sont organisés en une grille régulière, ce qui permet de naviguer facilement à travers les données sans avoir à spécifier explicitement les relations entre les points.
 
 En revanche, un maillage non structuré est un maillage où les éléments (cellules) sont définis par des formes géométriques quelconques et où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent. Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée. Les digrammes de Voronoï sont utilisés, un peu plus en détail, "En mathématiques, un diagramme de Voronoï est un pavage (découpage) du plan en cellules (régions adjacentes) à partir d'un ensemble discret de points appelés germes. Chaque cellule enferme un seul germe, et forme l'ensemble des points du plan plus proches de ce germe que d'aucun autre." (source : Wikipédia, Diagramme de Voronoï)
-Voici le lien vers un site\cite{structure} qui explique la structure des formes d'ordre supérieur, ce qui pourrais être utile pour l'implémentation d'une méthode d'ordre supérieur.
+Voici le lien vers un site\cite{structure} qui explique la structure des formes d'ordre supérieur, ce qui pourrait être utile pour l'implémentation d'une méthode d'ordre supérieur.
 
 Dans Antares, nous visons principalement à traiter des maillages non structurés, car ils sont couramment utilisés dans les simulations modernes en raison de leur flexibilité à représenter des géométries complexes.
 
@@ -588,7 +588,7 @@ Un des problèmes avec la méthode IDW est que « un biais directionnel dans les
 Lorsque toutes les informations selon un axe de l'espace ne se situent que d'un côté, le gradient ne sera pas pris en compte et l'erreur sera élevée. Par exemple, cela est généralement le cas lorsque le maillage cible a des points qui ne sont pas compris dans le maillage source.
 
 D'autres méthodes dérivées ou similaires existent pour évaluer nos poids (les poids sont les distances inverses à la puissance p dans notre cas). La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà de laquelle les autres points ne sont pas pris en compte. Autrement dit, on utilise un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas le nombre de points est variable.
-J'ai considéré subjectivement que cette méthode n'était pas intéressante. La méthode confrontée à un maillage ayant une différence de raffinement intrinsèque importante, ne prendrais aucun point à certains endroits et dans d'autres lieux, un trop grand nombre de points devrait être calculé.
+J'ai considéré subjectivement que cette méthode n'était pas intéressante. La méthode confrontée à un maillage ayant une différence de raffinement intrinsèque importante, ne prendrait aucun point à certains endroits et dans d'autres lieux, un trop grand nombre de points devrait être calculé.
 
 \begin{comment}
     Certaines conditions de cette méthode doivent être respectés, comme Pour N tends vers l’infini, p doit être inférieur ou égale à la dimension, par ex 3 pour ne pas diverger. Mais N n’est pas grand dans notre cas.
@@ -596,7 +596,7 @@ J'ai considéré subjectivement que cette méthode n'était pas intéressante. L
 \end{comment}
 
 
-Une des limitation\cite{idw-mapscaping} de la méthode IDW est qu'elle n'a pas d'autocorrélation spacial, contrairement à la méthode kriging que je décrirais plus tard.
+Une des limitation\cite{idw-mapscaping} de la méthode IDW est qu'elle n'a pas d'autocorrélation spacial, contrairement à la méthode kriging qui sera décrite plus tard.
 
 \vspace{0,5 cm}
 
@@ -646,9 +646,9 @@ Voici un tableau, donné dans une présentation de la NASA\cite{nasa}, donnant l
     Voisin le plus proche & X & X & X \\ \hline
     Linéaire & X & X & X \\ \hline
     Spline cubique & X & X & X \\ \hline
-    Hermite cubique par morceaux & X & structuré uniquement & \\ \hline
-    Cubic & X & X & \\ \hline
-    Cubic utilisé dans Matlab v5 & X & X & structuré uniquement \\ \hline
+    Hermite cubique par morceaux & X & & \\ \hline
+    Cubic & X & structuré uniquement & structuré uniquement \\ \hline % \phantom{-}
+    Cubic utilisé dans Matlab v5 & X & & \\ \hline
     \end{tabular}
     \caption{Tableau des méthodes d'interpolation en fonction des dimensions}
     \label{tab:interpolation_methods}
@@ -673,7 +673,7 @@ Voici une classification des différentes méthodes d'interpolation géostatique
 \subparagraph{a. Kriging et Cokriging} % traduction en Francais : krigeage et cokrigeage
 Le krigeage est une méthode d'interpolation géostatistique qui génère une estimation statistique des variables spatiales. Le cokriging est son extension multivariée. 
 
-La méthode kringing pourrais être un excellent candidat, voici une traduction d'un extrait d'article discutant autour des résultat de cette méthode :
+La méthode kringing pourrait être un excellent candidat, voici une traduction d'un extrait d'article discutant autour des résultat de cette méthode :
 "La méthode linéaire est simple, robuste et constitue un choix d'interpolation acceptable pour les premières estimations approximatives ou si les variables de la solution de la base de données dépendent linéairement des variables de l'espace de conception. La méthode IDW ne présente aucun avantage par rapport à la méthode linéaire plus simple et n'est pas recommandée pour l'interpolation des solutions CFD. La méthode de Krigeage donne les résultats interpolés les plus précis et permet de saisir le comportement non linéaire des variables de la solution de la base de données. Pour le cas d'essai AS-202, la différence maximale en pourcentage entre le taux de chauffage interpolé par la méthode de Krigeage et le taux de réchauffement CFD exact est inférieure à l'incertitude du taux de réchauffement CFD lui-même."\cite{palmer2009}
 
 
@@ -728,7 +728,7 @@ Cette méthode minimise l'erreur quadratique pour créer une approximation des d
 %\phantom{-}
 %\newline
 
-Approfondir des recherches sur la méthode \ac{MLS}\cite{MLS}\cite{levin}  pourrais être utilisé intéressant.
+Approfondir des recherches sur la méthode \ac{MLS}\cite{MLS}\cite{levin}  pourrait être utilisé intéressant.
 
 \subparagraph{MISCOG}
 
@@ -1010,7 +1010,7 @@ Premièrement j'ai vérifié et ce n'est apparemment pas le cas.
 Deuxièmement je pense que le quadratique n'englobe pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère.
 % Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points.
 Normalement il faudrait s'appuyer sur plus de points pour le quadratique. 
-Finalement, la demonstration pourrais se construire en montrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la figure \ref{fig:quad} ci-dessous, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.  ///// FAIRE LA DÉMO /////
+Finalement, la demonstration pourrait se construire en montrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la figure \ref{fig:quad} ci-dessous, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.  ///// FAIRE LA DÉMO /////
 
 Voici l'équation de la méthode d'interpolation linéaire pour le quadrilatère :
 
@@ -1054,7 +1054,7 @@ Pour la pyramide (à base quadrilatérale) et l’hexaèdre, une extension de la
 Il pourrait en être de même pour les prismes et autres formes, mais des problèmes d'implémentations apparaissent (voir ref \ref{prisme}).
 
 
-Note pour l'ordre supérieur : une utilisation des maillages transfinis pourrais être faite. \cite{camarero2024}
+Note pour l'ordre supérieur : une utilisation des maillages transfinis pourrait être faite. \cite{camarero2024}
 
 
 
@@ -1167,12 +1167,12 @@ Par défaut, dans le code, \(p\) est égal à '1' et \(N\) est égale aux nombre
 Nous remarquons que pour \( N = 1 \), nous retrouvons la méthode du voisin le plus proche, pour tout \( p \).
 Et pour \( N = 2 \) et \( p = 1 \), toujours en 1D, nous retrouvons la méthode linéaire.
 
-Une de mes missions était de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles\cite{idw-arcgis} et thèses que j'ai lus. C'est pour cela que je présenterai plus tard comment j'ai trouvé des paramètres optimaux en faisant des tests.
+Une de mes missions était de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles\cite{idw-arcgis} et thèses que j'ai lus. C'est pour cela qu'il sera présenté plus tard dans le rapport comment des paramètres optimaux ont été trouvés en faisant des tests.
 
 
 \label{prisme}\paragraph{L'interpolation linéaire}
 
-La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes. De plus, l'ordre des sommets dans la connectivité est différentes en fonction du solveur dont est issue la base. Cela rend donc impossible (ou très difficile) le calcul des volumes tel que la méthode a été implémentée. Nous avons effectivement besoin de savoir à quelle sommet correspond quel indice. La connectivité prismatique ne sera donc finalement par traité. Il en est de même pour les formes plus complexes à N faces toute autre connectivité qui viendrais à apparaître.
+La méthode ne fonctionne possiblement pas pour des prismes constitués de triangles non parallèles entre eux dans l'espace et/ou de surface différentes. De plus, l'ordre des sommets dans la connectivité est différentes en fonction du solveur dont est issue la base. Cela rend donc impossible (ou très difficile) le calcul des volumes tel que la méthode a été implémentée. Nous avons effectivement besoin de savoir à quelle sommet correspond quel indice. La connectivité prismatique ne sera donc finalement par traité. Il en est de même pour les formes plus complexes à N faces toute autre connectivité qui viendrait à apparaître.
 
 Cependant, il est simple de palier ce problème. Il suffit de "tétraèdriser" la base source afin de créer des tétraèdres avant d'utiliser le traitement d'interpolation. Il en est de même pour de potentiels cas 2D non traités.
 
@@ -1503,6 +1503,9 @@ A présent, le but est de savoir quelle est la meilleur méthode, notamment dans
 
 Tous les codes utilisés sont accessibles dans le répertoire \texttt{/archive/stg-cfds/thibault} sur kraken.
 
+L'objectif d'améliorer la précision de l'interpolation est d'avoir des résultats plus précis et/ou de diminuer le coût de calcul en déraffinant la maillage source.
+Comme l'explique l'article\cite{schoder2019}, le raffinement du maillage source est clef pour l'interpolation (et ensuite les résultats aéroacoustique qui en découlent).
+
 \subsection{Tests unitaires sur la méthode linéaire}
 
 Pour l'instant, je n'ai démontré que par l'expérimentation que la méthode implémentée était linéaire.
@@ -1542,7 +1545,7 @@ Voici une image comparant l'interpolation IDW et linéaire sur un maillage 3D so
 \end{figure}
 
 
-Nous observons bien que les résultats sont similaires dans les deux cas (pas exactement les mêmes non plus, et heureusement, car cela montrerais que les deux méthodes sont équivalentes).
+Nous observons bien que les résultats sont similaires dans les deux cas (pas exactement les mêmes non plus, et heureusement, car cela montrerait que les deux méthodes sont équivalentes).
 
 Voici les résultats de temps de calcul et d'erreur avec l'interpolation du logiciel vtk :
 
@@ -1574,7 +1577,7 @@ La base source contient la pression, aéroacoustique, d'une onde sinusoïdale da
 
 - diamètre de la base cible : 6 m;
 
-- paramètres physiques : non énumérés, proche de ceux du \ac{SI}. 
+- paramètres physiques : non énumérés, proches de ceux du \ac{SI}. 
 
 \begin{figure}[H]
     \centering
@@ -1583,19 +1586,16 @@ La base source contient la pression, aéroacoustique, d'une onde sinusoïdale da
     \label{fig:onde_aac}
 \end{figure}
 
-L'erreur au sens des moindres carrés est plus élevé entre 
+L'erreur au sens des moindres carrés est plus élevé entre les valeurs analytiques et de l'interpolation sont plus élevés pour la méthode IDW que pour le linéaire (ce qui est observable visuellement).
 
-
-\cite{schoder2019}
 
 Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA\cite{cunha2011}\cite{cunha2016}
-
 
 \subsection{Tests sur les paramètres de la méthode IDW}
 
 La méthode IDW contiens deux paramètres (\(N\) et \(p\)) dans son équation présentée plus haut.(ref \ref{parametres})
 
-Pour savoir quels paramètres sont optimaux des tests ont été menés sur le même cas que dans la sous-partie précédente, mais cette fois, ce qui nous intéresse est l'erreur au sens des moindres carrés, entre la solution analytique et IDW, en fonction des paramètres (\(N\) et \(p\)). Cette erreur est liée au rapport d'amplitude entre les deux courbes, ce qui a finalement été pris en compte. En les faisant varier, nous trouvons un minimum (local) pour \(N\)=10 et \(p\)=10 pour des paramètres similaires à la figure \ref{fig:onde_aac} 
+Pour savoir quels paramètres sont optimaux des tests ont été menés sur le même cas que dans la sous-partie précédente, mais cette fois, ce qui nous intéresse est l'erreur au sens des moindres carrés, entre la solution analytique et IDW, en fonction des paramètres (\(N\) et \(p\)). Cette erreur est liée au rapport d'amplitude entre les deux courbes, ce qui a finalement été pris en compte. En les faisant varier, nous trouvons un minimum (local) pour \(N\)=10 et \(p\)=10 pour des paramètres similaires à la figure \ref{fig:onde_aac} .
 Ces tests ont été menés sur kraken afin de ne pas perdre trop de temps.
 
 \begin{figure}[H]
@@ -1607,7 +1607,7 @@ Ces tests ont été menés sur kraken afin de ne pas perdre trop de temps.
 
 À gauche, la méthode linéaire est utilisée, à droite la méthode IDW avec comme paramètres (N=10, p=10). Le décalage latéral des courbes est un artefacts (et cela permet de mieux distinguer les courbes bleues et vertes dans notre cas.)
 
-Rapports d'amplitude : idw = 102\%, linéaire = 48\%. % pour dipole et quadripôle
+Le rapports d'amplitude avec la solution analytique est le suivant : idw = 102\%, linéaire = 48\%. % pour dipole et quadripôle
 
 
 
