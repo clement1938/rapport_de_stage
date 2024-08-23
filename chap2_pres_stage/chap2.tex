@@ -625,7 +625,7 @@ Les \ac{NURBS}\cite{piegl1995nurbs} pourrait être un bon candidat pour l'interp
 https://resources.system-analysis.cadence.com/blog/msa2022-the-best-methods-for-mesh-interpolation : interpolation entre points pour représenter une surface\dots
 
 \subparagraph{e. Interpolation cubique}
-L'interpolation cubique est une méthode simple qui utilise des polynômes de degré trois pour calculer des valeurs intermédiaires entre les points de données.\cite{tanaka} Ce serait potentiellement le meilleur candidat pour la prochaine méthode à implémenter. On pourrait alors utiliser le traitement gradient avec l'argument vtk = True pour avoir le gradient au nœud et non au centre de la cellule. Ensuite, dans le meilleur des cas, il faudrait simplement reprendre la fonction d'interpolation linéaire et mettre à jour le code "computes\_barycenters.py".
+L'interpolation cubique est une méthode simple qui utilise des polynômes de degré trois pour calculer des valeurs intermédiaires entre les points de données.\cite{tanaka} Ce serait potentiellement le meilleur candidat pour la prochaine méthode à implémenter. On pourrait alors utiliser le traitement gradient avec l'argument \texttt{vtk = True} pour avoir le gradient au nœud et non au centre de la cellule. Ensuite, dans le meilleur des cas, il faudrait simplement reprendre la fonction d'interpolation linéaire et mettre à jour le code "computes\_barycenters.py".
 
 
 \paragraph{2. Méthodes à base de distance}
@@ -769,7 +769,7 @@ qui garantit que l'interpolation est correcte et symétrique par rapport à \( a
 
 En 2D, nous devons nous baser sur des surfaces, extraites de formes pour pouvoir effectuer cette pondération. En CFD, ces formes sont appelées cellules et leurs sommets nœuds. Dans notre cas, nous considérons que les variables du maillage sont contenues au niveau des nœuds. 
 Il existe 3 principaux types de cellules (formes) en 2D : les triangles, les rectangles des maillages structurés (dans ce cas, la méthode est dite bilinéaire) et les quadrilatères (non croisés).
-Certains industriels utilisent de plus en plus des polygones à N arrêtes. Mais pas soucis de simplicité, nous l'interpolation linéaire est limité aux 3 principales formes, les polygones pouvant être décomposés en triangles.
+Certains industriels utilisent de plus en plus des polygones à N arrêtes. Mais pas soucis de simplicité, nous l'interpolation linéaire est limité aux 3 principales formes, les polygones pouvant être décomposés en triangles. % https://team.inria.fr/titane/files/2019/12/barycentric.pdf  décris l'interpolation barycentrique généralisée
 
 \subparagraph{Triangle : Barycentrique}
 
@@ -1196,7 +1196,7 @@ Lorsque la base est non structurée, il n'y a pas de forme géométrique, donc p
 \begin{lstlisting}[]
     copy_source_base.unstructure()
 \end{lstlisting}
-à la ligne 6.
+à la ligne 6. Réellement, le non structuré a été développé pour l'ordre un et deux, avec un bug pour l'ordre trois. Par manque de temps, la méthode n'a pas été fini d'implémenter. Étant très rapide (généralement plus rapide que l'interpolation IDW), la fonctionnalité sera possiblement implémentée plus tard.
 
 
 \subsection{Le Pseudo-algorithme}
@@ -1281,12 +1281,11 @@ Plusieurs axes ont été exploités afin de diminuer le temps de calcul du trait
 Le premier a été énoncé dans le pseudo-algorithme section précédente. Il s'agit de ne calculer qu'une seule fois le couple (poids, indices des points source) et autres paramètres puis de les enregistrer. Cela est utile dans deux cas :
 
 - Entre les instants si la structure des deux bases restent inchangées.
-C'est par exemple dans le cas des bases issues de solutions aéroacoustique. Dans mon cas test, la solution contient 200 instants, le temps de calcul est alors presque divisé par 200.
-
-Dans le code, un test est fait pour savoir si tous les instants sont partagés (voir \ref{instants_partages}). Si oui, alors les poids et autres données nécessaires sont calculés (grace à la variable \texttt{computation}), mais pas le premier instant. Ensuite tous les instants seront calculés avec les données. Cela permet d'éviter d'enregistrer les coordonnées une seule fois et ainsi réduire le coût de mémoire.
+C'est par exemple dans le cas des bases issues de solutions aéroacoustique. Dans mon cas test, la solution contient 200 instants, le temps de calcul est alors presque divisé par 200. Dans le code, un test est fait pour savoir si tous les instants sont partagés (voir \ref{instants_partages}). Si oui, alors les poids et autres données nécessaires sont calculés (grace à la variable \texttt{computation}), mais pas le premier instant. Ensuite tous les instants seront calculés avec les données. Cela permet d'éviter d'enregistrer les coordonnées une seule fois et ainsi réduire le coût de mémoire.
 Cet optimisation est faite automatiquement dans le traitement.
 
-- Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure ne soit changée, qu'elle ait un instant ou plusieurs instant partagée. /////////Attention, dans le cas où la structure du maillage est différent entre deux instants, cette dernière ne peut pas être utilisée///////////. Ceci arrive régulièrement, notamment lors de tests. Dans ce cas, il faut légèrement changer l'appel à la fonction, voici un exemple :
+- Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure ne soit changée, qu'elle ait un instant ou plusieurs instant partagée. Dans le cas où la structure du maillage est différente entre deux instants, si \texttt{get\_data} a la valeur \texttt{True}, alors le programme renverra une erreur.
+Un cas où on pourrait imaginer utiliser cette fonctionnalité est lors de plusieurs simulations avec des résultats physiques différents entre les simulations, mais toujours sur le même maillage. Pour utiliser cette fonctionnalité, il faut légèrement changer l'appel à la fonction, voici un exemple :
 
 \begin{lstlisting}[caption=Exemple de réutilisation des données, label={lst:antares}]
     import antares
@@ -1308,15 +1307,14 @@ Cet optimisation est faite automatiquement dans le traitement.
     result2 = myt.execute()
 \end{lstlisting}
 
-Ici, \texttt{result2} aura été calculé beaucoup plus rapidement que \texttt{result1}.
+Ici, \texttt{result2} aura été calculé beaucoup plus rapidement que \texttt{result1}. De plus ce changement est aussi appliqué à la méthode IDW sans poser de problème de rétrocompatibilité, car les résultats sont inchangés. Pour le cas test d'aéroacoustique à 200 instants partagés, le traitement est cinque fois plus rapide pour l'IDW et plus de cent fois plus rapide pour la méthode linéaire.
 
-De plus ce changement est aussi appliqué à la méthode IDW sans poser de problème de rétrocompatibilité, car les résultats sont inchangés.
 
 \vspace{0.5cm}
 
-La méthode linéaire était initialement 200 à 500 fois plus lente que IDW. J'ai donc fait du 'profiling' pour savoir quelles lignes de code étaient les plus coûteuses. J'ai remplacé des listes par des arrays, ce qui augmente la rapidité d'accès aux éléments de ce denier en mémoire.
-J'ai aussi optimisé le test de localisation d'un point dans une cellule et de calcul des poids.
-Je calcule d'abord les surfaces créées par le point cible avec les sommets puis, je calcule le volume de la cellule. Si ces volumes sont égaux à une erreur numérique près, alors le point est dans la cellule et j'ai les poids. Sinon je sais qu'il faut chercher ailleurs.
+La méthode linéaire était initialement 200 à 500 fois plus lente que IDW. En faisant du 'profiling' pour savoir quelles lignes de code étaient les plus coûteuses. Certaines listes ont été remplacées par des np.arrays, ce qui augmente la rapidité d'accès aux éléments de ce denier en mémoire.
+Le test de localisation d'un point dans une cellule et de calcul des poids a aussi été optimisé.
+Les surfaces créées par le point cible avec les sommets sont d'abord calculées, suivies par le calcul du volume de la cellule. Si ces volumes sont égaux à une erreur numérique près, alors le point est dans la cellule et les poids sont déterminés. Sinon, il faut nécessaire de chercher ailleurs.
 
 \vspace{0.5cm}
 
@@ -1500,16 +1498,18 @@ Cela permet aussi une extrapolation linéaire sans créer d'erreur.
 \section{Tests}
 A présent, le but est de savoir quelle est la meilleur méthode, notamment dans le cas de l'interpolation pour l'application au traitement FWH. Pour cela il faut tester si la méthode linéaire fonctionne correctement, et tester les meilleurs paramètres \(N\) et \(p\) de la méthode IDW.
 
+Tous les codes utilisés sont accessibles dans le répertoire \texttt{/archive/stg-cfds/thibault} sur kraken.
+
 \subsection{Tests unitaires sur la méthode linéaire}
 
 Pour l'instant, je n'ai démontré que par l'expérimentation que la méthode implémentée était linéaire.
 
 Le premier test, créé en même temps que l'implémentation dans l'objectif de tester si la méthode fonctionne dans un cas simple, est de créer une variable linéaire et de faire une interpolation sur un second maillage. L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite on teste l'interpolation retourne bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué très simplement avec une commande 'pytest' dans le terminal. En comparant la valeur analytique et numérique, l'erreur observée est nulle. Ce test est par ailleurs implémenté (pour la connectivité linéaire, triangulaire, quadrilatérale, tétraédrique et hexaédrique) dans les tests unitaires d'Antares, qui permettent de savoir que la librairie fonctionne correctement, notamment lors d'un git push vers Nitrox.
 
-Ensuite j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D) ////Tests avec un coefficient (puissance) 2 pour 2D, etc. Et légende log2 à améliorer////
+Ensuite j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D). En voici l'exemple pour le 1D (pour les autres types de cellules les courbes sont très ressemblantes).
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.90\textwidth]{images/bi_2.png}
+    \includegraphics[width=0.90\textwidth]{images/err_puissance2_bi.png}
     \caption{Log de l'erreur en fonction du log du raffinement}
     \label{fig:bi}
 \end{figure}
@@ -1539,22 +1539,45 @@ Voici une image comparant l'interpolation IDW et linéaire sur un maillage 3D so
 \end{figure}
 
 
-Nous observons bien que les résultats sont similaires dans les deux cas (pas exactement les mêmes non plus, et heureusement).
-////// Retrouver et ajouter les résultats de l'erreur (MC) d'interpolation sur un variable v entre IDW et linéaire. Aussi temps de calcul. ///////
+Nous observons bien que les résultats sont similaires dans les deux cas (pas exactement les mêmes non plus, et heureusement, car cela montrerais que les deux méthodes sont équivalentes).
 
+Voici les résultats de temps de calcul et d'erreur avec l'interpolation du logiciel vtk :
 
+- Interpolation linéaire :         16.634 s, MSE: 1.7e-28
+
+- Interpolation IDW :\hspace{0,4cm} 0.661 s, MSE: 4.0e-03
+
+- Rapport de temps de calcul linéaire/IDW: 25
+
+L'erreur au sens des moindres carrés est quasiment nulle pour l'interpolation linéaire, nous en déduisons que vtk interpole aussi linéairement. L'erreur numérique correspond probablement à une méthode d'interpolation linéaire différente utilisé par vtk mais le résultat théorique est le même.
 
 \subsection{Tests sur des cas d'aéroacoustique}
 
-Le résultat acoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes).
-///////En pratique, pour les utilisateurs d'Antares, cette surface est définie dans un maillage 'solution' où nous avons le résultat de la pression en différents points et différents instants.//////
+Le résultat de l'aéroacoustique sont les petites variations de pression, impliquant du son (à différentes fréquences et amplitudes).
 
-La source est la pression, aéroacoustique, d'une onde sinusoïdale dans un maillage grossier (différents types de cellules ont été testés). La base cible est une sphère d'où les équation de FWH seront ensuite appliquées. Finalement voilà le résultat pour un certain observateur dans l'espace ///// Préciser tous les paramètres ///////
+La base source contient la pression, aéroacoustique, d'une onde sinusoïdale dans un maillage grossier (différents types de cellules ont été testés). La base cible est une sphère d'où les équation de FWH seront ensuite appliquées. Finalement voilà le résultat les paramètres suivants :
+
+- observateur quelconque, car Mach égale à 0;
+
+- fréquence du signal aéroacoustique : 40 Hz;
+
+- nombre de points de la base source : 3x4 (pour 3D et 4 points par dimension);
+
+- types de cellules de la base source : hexaèdres;
+
+- paramètres \(N\) et \(p\) par défaut;
+
+- longueur de la base source : 7,20 m;
+
+- diamètre de la base cible : 6 m;
+
+- paramètres physiques : non énumérés, proche de ceux du \ac{SI}. 
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.70\textwidth]{images/onde_aac.png}
     \caption{Comparaison entre la solution analytique et la solution utilisant l'interpolation IDW et linéaire}
-    %\label{fig:onde_aac}
+    \label{fig:onde_aac}
 \end{figure}
 
 L'erreur au sens des moindres carrés est plus élevé entre 
@@ -1569,7 +1592,7 @@ Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique s
 
 La méthode IDW contiens deux paramètres (\(N\) et \(p\)) dans son équation présentée plus haut.(ref \ref{parametres})
 
-Pour savoir quels paramètres sont optimaux des tests ont été menés sur le même cas que dans la sous-partie précédente, mais cette fois, ce qui nous intéresse est l'erreur au sens des moindres carrés, entre la solution analytique et IDW, en fonction des paramètres (\(N\) et \(p\)). Cette erreur est liée au rapport d'amplitude entre les deux courbes, ce qui a finalement été pris en compte. En les faisant varier, nous trouvons un minimum (local) pour \(N\)=10 et \(p\)=10 pour //// Paramètres mach, poles etc... ///////
+Pour savoir quels paramètres sont optimaux des tests ont été menés sur le même cas que dans la sous-partie précédente, mais cette fois, ce qui nous intéresse est l'erreur au sens des moindres carrés, entre la solution analytique et IDW, en fonction des paramètres (\(N\) et \(p\)). Cette erreur est liée au rapport d'amplitude entre les deux courbes, ce qui a finalement été pris en compte. En les faisant varier, nous trouvons un minimum (local) pour \(N\)=10 et \(p\)=10 pour des paramètres similaires à la figure \ref{fig:onde_aac} 
 Ces tests ont été menés sur kraken afin de ne pas perdre trop de temps.
 
 \begin{figure}[H]
