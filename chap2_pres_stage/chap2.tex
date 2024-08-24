@@ -141,6 +141,7 @@ Différentes méthodes d'interpolation y sont codés et décrites dans le guide 
 
 %\addcontentsline{toc}{section}{L'interpolation et l'aéroacoustique}
 
+\newpage
 \subsection{La méthode par voisin le plus proche}
 Cette première méthode est très simple : nous prenons comme valeur \( v \) d'interpolation au point \( p \) la valeur \( v \) du point le plus proche de \( p \).
 En voici quelques illustrations :
@@ -585,7 +586,7 @@ Un des problèmes avec la méthode IDW est que « \textit{a directional bias to 
 \end{comment}
 
 
-Un des problèmes avec la méthode IDW est que « un biais directionnel dans les solutions de la base de données peut décaler les résultats interpolés »\cite{palmer2009}. % \footnote{Traduction de : « \textit{One issue with the IDW method is that a directional bias to the database solutions can shift the interpolated results.} »
+Un des problèmes avec la méthode IDW est que « un biais directionnel dans les solutions de la base de données peut décaler les résultats interpolés »\cite{palmer2009}. Cependant, nous pourrions imaginer des solutions pour certains cas, comme, en 2D, prendre, autour du point cible, trois points source répartis dans plus de 180°.\cite{idw-update}  % \footnote{Traduction de : « \textit{One issue with the IDW method is that a directional bias to the database solutions can shift the interpolated results.} »
 
 
 Lorsque toutes les informations selon un axe de l'espace ne se situent que d'un côté, le gradient ne sera pas pris en compte et l'erreur sera élevée. Par exemple, cela est généralement le cas lorsque le maillage cible a des points qui ne sont pas compris dans le maillage source.
@@ -615,7 +616,7 @@ L'interpolation polynomiale est d'un degré correspondant à celui du polynôme 
 
 L'interpolation de Lagrange utilise un polynôme unique qui passe par tous les points donnés. Elle est souvent utilisée pour l'interpolation d'un petit nombre de points, mais elle peut devenir imprécise pour un grand nombre de points à cause de l'effet Runge. Il faut donc limiter le nombre de points (comme dans les méthodes déjà implémentées dans Antares).
 Nous pouvons retrouver sur un site\cite{structure} la structure des formes pour de l'interpolation d'ordre supérieur (notamment pour Lagrange). Un inconvénient de cette méthode est que sa généralisation en 2D et surtout 3D est complexe.
-Une interpolation de Lagrange serait possible en partant de la méthode barycentrique.\footnote{https://people.maths.ox.ac.uk/trefethen/barycentric.pdf} \footnote{https://www.inf.usi.ch/hormann/papers/Hormann.2014.BI.pdf}
+Une interpolation de Lagrange serait possible en partant de la méthode barycentrique.\cite{Barycentric_Lagrange1}\cite{Barycentric_Lagrange2}
 
 
 \subparagraph{b. Hermite\cite{bajaj}}
@@ -1066,7 +1067,7 @@ Note pour l'ordre supérieur : une utilisation des maillages transfinis pourrait
 %\subsection{Résumé des similitudes et différences des différentes méthodes}
 
 
-
+\newpage
 \section{Implémentation de la méthode linéaire}
 
 \subsection{La structure générale du code TreatmentInterpolation}
@@ -1205,6 +1206,7 @@ Lorsque la base est non structurée, il n'y a pas de forme géométrique, donc p
 à la ligne 6. Réellement, le non structuré a été développé pour l'ordre un et deux, avec un bug pour l'ordre trois. Par manque de temps, la méthode n'a pas été fini d'implémenter. Étant très rapide (généralement plus rapide que l'interpolation IDW), la fonctionnalité sera possiblement implémentée plus tard.
 
 
+\newpage
 \subsection{Le Pseudo-algorithme}
 
 
@@ -1356,7 +1358,7 @@ La différence ici est que le point cible n'est pas forcément dans la forme dé
         \filldraw[blue] (P) circle (2pt) node[anchor=south] {P};
 
         % Label the vertices of the initial triangle
-        \filldraw[red] (I) circle (2pt) node[anchor=east] {I};
+        \filldraw[red] (I) circle (2pt) node[anchor=east] {I}; % [anchor=east,xshift=-5pt,yshift=-5pt]
         \filldraw[red] (II) circle (2pt) node[anchor=south] {II};
         \filldraw[red] (III) circle (2pt) node[anchor=west] {III};
 
@@ -1593,6 +1595,8 @@ L'erreur au sens des moindres carrés est plus élevé entre les valeurs analyti
 
 
 Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA\cite{cunha2011}\cite{cunha2016}
+
+Pour des cas test et applications dédiés à l'aéronautique, il peut être intéressant de regarder les caractéristiques du bruit d'un avion, comme ses fréquences démission dans l'audible.\cite{frequence}
 
 \subsection{Tests sur les paramètres de la méthode IDW}
 

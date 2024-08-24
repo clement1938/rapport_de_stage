@@ -64,3 +64,4 @@
 {"rule":"P_V_PAS","sentence":"^\\QL'erreur au sens des moindres carrés est quasiment nulle pour l'interpolation linéaire.\\E$"}
 {"rule":"ESPACE_APRES_POINT","sentence":"^\\QElles sont notamment utilisées en CAO et pour l'interpolation de surfaces.\\E(?:Dummy|Ina|Jimmy-)[0-9]+$"}
 {"rule":"AGREEMENT_POSTPONED_ADJ","sentence":"^\\QPour des cas spécifiques tel que l'aéroacoustique un petit algorithme peut être mis en place pour trouver ces paramètres.\\E$"}
+{"rule":"ESPACE_APRES_POINT","sentence":"^\\QUne interpolation de Lagrange serait possible en partant de la méthode barycentrique.\\E(?:Dummy|Ina|Jimmy-)[0-9]+$"}

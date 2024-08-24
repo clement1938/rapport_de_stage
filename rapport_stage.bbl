@@ -123,6 +123,38 @@
       \verb 10.1016/j.ast.2015.05.023
       \endverb
     \endentry
+    \entry{Barycentric_Lagrange1}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=33e4cc6b193a3e4ec6b54626971e6656}{%
+           family={Berrut},
+           familyi={B\bibinitperiod},
+           given={Jean-Paul},
+           giveni={J\bibinithyphendelim P\bibinitperiod}}}%
+        {{hash=e3376455eaec77b00950a1dc9ce095f5}{%
+           family={Trefethen},
+           familyi={T\bibinitperiod},
+           given={Lloyd\bibnamedelima N.},
+           giveni={L\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{35dd0b14a6f2474f5223b341a78ed0ea}
+      \strng{fullhash}{35dd0b14a6f2474f5223b341a78ed0ea}
+      \strng{fullhashraw}{35dd0b14a6f2474f5223b341a78ed0ea}
+      \strng{bibnamehash}{35dd0b14a6f2474f5223b341a78ed0ea}
+      \strng{authorbibnamehash}{35dd0b14a6f2474f5223b341a78ed0ea}
+      \strng{authornamehash}{35dd0b14a6f2474f5223b341a78ed0ea}
+      \strng{authorfullhash}{35dd0b14a6f2474f5223b341a78ed0ea}
+      \strng{authorfullhashraw}{35dd0b14a6f2474f5223b341a78ed0ea}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Review}
+      \field{title}{Barycentric Lagrange Interpolation}
+      \field{year}{2004}
+      \verb{doi}
+      \verb 10.1137/S0036144502417715
+      \endverb
+    \endentry
     \entry{opensource_2}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=15fab1faa691482991c42935e1dd59a6}{%
@@ -480,6 +512,34 @@
       \verb https://ntrs.nasa.gov/api/citations/20140011325/downloads/20140011325.pdf
       \endverb
     \endentry
+    \entry{Barycentric_Lagrange2}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=85d6697cabe60b018f165138bd6efb3c}{%
+           family={Hormann},
+           familyi={H\bibinitperiod},
+           given={Kai},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{85d6697cabe60b018f165138bd6efb3c}
+      \strng{fullhash}{85d6697cabe60b018f165138bd6efb3c}
+      \strng{fullhashraw}{85d6697cabe60b018f165138bd6efb3c}
+      \strng{bibnamehash}{85d6697cabe60b018f165138bd6efb3c}
+      \strng{authorbibnamehash}{85d6697cabe60b018f165138bd6efb3c}
+      \strng{authornamehash}{85d6697cabe60b018f165138bd6efb3c}
+      \strng{authorfullhash}{85d6697cabe60b018f165138bd6efb3c}
+      \strng{authorfullhashraw}{85d6697cabe60b018f165138bd6efb3c}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Barycentric Interpolation}
+      \verb{urlraw}
+      \verb https://www.inf.usi.ch/hormann/papers/Hormann.2014.BI.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.inf.usi.ch/hormann/papers/Hormann.2014.BI.pdf
+      \endverb
+    \endentry
     \entry{laborderie2018}{article}{}{}
       \name{author}{6}{}{%
         {{hash=3cc934b3ddddba2821a2d758f49bc025}{%
@@ -708,6 +768,45 @@
       \verb 10.1007/978-3-642-97385-7
       \endverb
     \endentry
+    \entry{frequence}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=2dafcbb860d6f9519e3b4a8066397233}{%
+           family={Rosin},
+           familyi={R\bibinitperiod},
+           given={Christophe},
+           giveni={C\bibinitperiod}}}%
+        {{hash=539a425a792abb4982d18b758de99993}{%
+           family={Barbo},
+           familyi={B\bibinitperiod},
+           given={Bertrand},
+           giveni={B\bibinitperiod}}}%
+        {{hash=72a7f006eb86f4fd3606a6f2dbc8a994}{%
+           family={Defreville},
+           familyi={D\bibinitperiod},
+           given={Boris},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{6681452b143c454c8bf08fc431f3eb33}
+      \strng{fullhash}{6681452b143c454c8bf08fc431f3eb33}
+      \strng{fullhashraw}{6681452b143c454c8bf08fc431f3eb33}
+      \strng{bibnamehash}{6681452b143c454c8bf08fc431f3eb33}
+      \strng{authorbibnamehash}{6681452b143c454c8bf08fc431f3eb33}
+      \strng{authornamehash}{6681452b143c454c8bf08fc431f3eb33}
+      \strng{authorfullhash}{6681452b143c454c8bf08fc431f3eb33}
+      \strng{authorfullhashraw}{6681452b143c454c8bf08fc431f3eb33}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Monitoring du bruit des avions : une détection à partir du signal audio}}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://hal.science/hal-00538359/file/000137.pdf
+      \endverb
+      \verb{url}
+      \verb https://hal.science/hal-00538359/file/000137.pdf
+      \endverb
+    \endentry
     \entry{schoder2019}{inproceedings}{}{}
       \name{author}{4}{}{%
         {{hash=7a1fd1fa9bb30cad1560a0049c214f8d}{%
@@ -812,6 +911,30 @@
       \verb{doi}
       \verb 10.1299/jsmeb.47.672
       \endverb
+    \endentry
+    \entry{idw-update}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=053eb48421d32f25eb14d8f271787e14}{%
+           family={Thierry},
+           familyi={T\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{053eb48421d32f25eb14d8f271787e14}
+      \strng{fullhash}{053eb48421d32f25eb14d8f271787e14}
+      \strng{fullhashraw}{053eb48421d32f25eb14d8f271787e14}
+      \strng{bibnamehash}{053eb48421d32f25eb14d8f271787e14}
+      \strng{authorbibnamehash}{053eb48421d32f25eb14d8f271787e14}
+      \strng{authornamehash}{053eb48421d32f25eb14d8f271787e14}
+      \strng{authorfullhash}{053eb48421d32f25eb14d8f271787e14}
+      \strng{authorfullhashraw}{053eb48421d32f25eb14d8f271787e14}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{mode d'emploi du logiciel INGRID}
+      \field{title}{interpolation dans un maillage et visualtion par isovaleurs}
+      \field{year}{1986}
     \endentry
   \enddatalist
 \endrefsection
