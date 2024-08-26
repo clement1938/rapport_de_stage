@@ -19,6 +19,27 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global/global}
+    \entry{alexis}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=28fdcdb0cdda1cd18d1909efa993b827}{%
+           family={{Alexis Boudin}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{28fdcdb0cdda1cd18d1909efa993b827}
+      \strng{fullhash}{28fdcdb0cdda1cd18d1909efa993b827}
+      \strng{fullhashraw}{28fdcdb0cdda1cd18d1909efa993b827}
+      \strng{bibnamehash}{28fdcdb0cdda1cd18d1909efa993b827}
+      \strng{authorbibnamehash}{28fdcdb0cdda1cd18d1909efa993b827}
+      \strng{authornamehash}{28fdcdb0cdda1cd18d1909efa993b827}
+      \strng{authorfullhash}{28fdcdb0cdda1cd18d1909efa993b827}
+      \strng{authorfullhashraw}{28fdcdb0cdda1cd18d1909efa993b827}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Numerical Methods for Large Eddy Simulation in Turbomachinery (encours)}}
+      \field{year}{Soutenance prévue en 2025}
+    \endentry
     \entry{antares}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=ccb3cf3173bb2166bcd4e42529f08f2d}{%
@@ -538,6 +559,34 @@
       \endverb
       \verb{url}
       \verb https://www.inf.usi.ch/hormann/papers/Hormann.2014.BI.pdf
+      \endverb
+    \endentry
+    \entry{Rosenfeld}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=c61910887628985f2e773866490e2186}{%
+           family={{Joel Rosenfeld}},
+           familyi={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{c61910887628985f2e773866490e2186}
+      \strng{fullhash}{c61910887628985f2e773866490e2186}
+      \strng{fullhashraw}{c61910887628985f2e773866490e2186}
+      \strng{bibnamehash}{c61910887628985f2e773866490e2186}
+      \strng{authorbibnamehash}{c61910887628985f2e773866490e2186}
+      \strng{authornamehash}{c61910887628985f2e773866490e2186}
+      \strng{authorfullhash}{c61910887628985f2e773866490e2186}
+      \strng{authorfullhashraw}{c61910887628985f2e773866490e2186}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accédé: 2024-08-26}
+      \field{title}{{The Learning Dock}}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.thelearningdock.org/
+      \endverb
+      \verb{url}
+      \verb https://www.thelearningdock.org/
       \endverb
     \endentry
     \entry{laborderie2018}{article}{}{}

@@ -65,3 +65,6 @@
 {"rule":"ESPACE_APRES_POINT","sentence":"^\\QElles sont notamment utilisées en CAO et pour l'interpolation de surfaces.\\E(?:Dummy|Ina|Jimmy-)[0-9]+$"}
 {"rule":"AGREEMENT_POSTPONED_ADJ","sentence":"^\\QPour des cas spécifiques tel que l'aéroacoustique un petit algorithme peut être mis en place pour trouver ces paramètres.\\E$"}
 {"rule":"ESPACE_APRES_POINT","sentence":"^\\QUne interpolation de Lagrange serait possible en partant de la méthode barycentrique.\\E(?:Dummy|Ina|Jimmy-)[0-9]+$"}
+{"rule":"ACCORD_SUJET_VERBE","sentence":"^\\QLes surfaces créées par le point cible avec les sommets sont d'abord calculées, suivi par le calcul du volume de la cellule.\\E$"}
+{"rule":"PAD","sentence":"^\\QUn ordinateur (mac équipé d'un processeur 2,3 GHz Intel Core i9 8 cœurs) et un PIN-pad générateur d'\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q ont été mis à ma disposition.\\E$"}
+{"rule":"PAS_D_ELISION","sentence":"^\\QUn ordinateur (mac équipé d'un processeur 2,3 GHz Intel Core i9 8 cœurs) et un PIN-pad générateur d'\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q ont été mis à ma disposition.\\E$"}

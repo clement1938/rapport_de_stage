@@ -5,32 +5,32 @@ Ce stage de M1, d'une durée de trois mois, s'est déroulé au CERFACS, un insti
 
 Le secteur de la recherche en calcul scientifique est réputé pour son environnement exigeant, mais stimulant, à la base de l'innovation. Le CERFACS, en particulier, est un acteur principal dans le domaine du HPC, collaborant avec de grands industriels et institutions pour développer des solutions à la pointe de la technologie.
 
-Ce rapport de stage a deux objectifs :
+%Ce rapport de stage a deux objectifs :
 
-D'une part permettre à l'IPSA, de m'évaluer (la structure et le contenu principal de ce rapport sont fixés par l'école).
+%D'une part permettre à l'IPSA, de m'évaluer (la structure et le contenu principal de ce rapport sont fixés par l'école).
 
-D'autre part fournir un rapport sur mon stage pour le CERFACS et pour d'autres personnes qui utiliseraient ou modifieraient le traitement d'interpolation d'Antares.
+%D'autre part fournir un rapport sur mon stage pour le CERFACS et pour d'autres personnes qui utiliseraient ou modifieraient le traitement d'interpolation d'Antares.
 
 \vspace{0.5cm}
 
 J'adore les mathématiques appliquées, la mécanique des fluides et je voulais découvrir le monde de la recherche. Lors d'une présentation des activités au \ac{CERFACS} par nos deux enseignants chercheurs Arthur COLOMBIÉ et Nadir MESSAI, j'ai eu l'occasion de découvrir ce laboratoire et d'y candidater pour mon stage de M1. Carlos MONTILLA, docteur au CERFACS, m'a proposé un sujet sur l'interpolation dans le cas de post-traitement de simulations numériques et son application en aéroacoustique. Le sujet m'a interpellé et c'est avec enthousiasme que j'ai ainsi pu commencer mon stage le 10 juin 2024 au CERFACS.
 
-En quelques mots, le CERFACS est un institut de recherche privé, spécialisé dans le développement de code HPC, financé par sept actionnaires. (voir ref\ref{actionnaires})
+En quelques mots, le CERFACS est un institut de recherche privé, spécialisé dans le développement de code HPC, financé par sept actionnaires. %(voir ref \ref{actionnaires})
 
-Antares\cite{antares} est un code d’analyse de données privé sous forme de librairie python, développé au CERFACS en 2012 et dont l'objectif est de réaliser du pré et post-traitement sur des simulations numériques utilisées par le CERFACS et ses actionnaires et autres partenaires.
+Antares\cite{antares} est un code d’analyse de données privé sous forme de librairie python, développé au CERFACS en 2012 et dont l'objectif est de réaliser du pré et post-traitement sur des simulations numériques utilisées par le CERFACS, ses actionnaires et autres partenaires.
 Il contient notamment une fonction d'interpolation, codée en Python.
 
-Mon maître de stage, Carlos MONTILLA, est responsable d'Antares depuis dix mois. Il a notamment fortement contribué au traitement \ac{FWH}. La chaîne de calcul aéroacoustique utilise le traitement d'interpolation avant de pouvoir utiliser le traitement FWH.
+Mon maître de stage, Carlos MONTILLA, est responsable d'Antares depuis dix mois. Il a notamment fortement contribué au traitement \ac{FWH}. La chaîne de calcul aéroacoustique utilise le traitement d'interpolation avant de pouvoir utiliser le traitement FWH (voir Figure \ref{fig:chaineFWH}).
 
 Mes missions principales lors de ce stage ont été :
 
-- De faire un état des lieux sur les autres méthodes d'interpolation qui seraient 
-implémentables dans Antares (avec les contraintes associées).
+- de faire un état des lieux sur les autres méthodes d'interpolation qui seraient 
+implémentables dans Antares (avec les contraintes associées);
 % A savoir, 3D, non structuré, temps de calcul, caractéristiques des équations à interpoler ...
 
-- D'identifier les meilleurs paramètres pour l'équation \ac{IDW}, la seule qui était implémentée jusqu'alors dans Antares % : Inverse Distance Weighting, pondération inverse à la distance en français}
+- d'identifier les meilleurs paramètres pour l'équation \ac{IDW}, la seule qui était implémentée jusqu'alors dans Antares; % : Inverse Distance Weighting, pondération inverse à la distance en français}
 
-- D'implémenter la méthode linéaire.  % \ac{DSP} à placer
+- d'implémenter la méthode linéaire.  % \ac{DSP} à placer
 
 \vspace{0,5cm}
 

@@ -1,11 +1,18 @@
 \section*{Annexes}
 \addcontentsline{toc}{chapter}{Annexes}
 
+
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\setcounter{figure}{0}
+
 %\section{Détails des objectifs et actions liées à l'écoresponsabilité}
 
-
 % Chaque annexe porte un numéro et un titre.
-
 
 \begin{table}[H]
     \centering
