@@ -37,7 +37,7 @@
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{{Numerical Methods for Large Eddy Simulation in Turbomachinery (encours)}}
+      \field{title}{{Numerical Methods for Large Eddy Simulation in Turbomachinery (en cours)}}
       \field{year}{Soutenance prévue en 2025}
     \endentry
     \entry{antares}{misc}{}{}
@@ -195,7 +195,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Accédé: 2024-08-22}
-      \field{title}{{RBF and Kernel Interpolationl}}
+      \field{title}{{RBF and Kernel Interpolations}}
       \field{year}{2021}
       \verb{urlraw}
       \verb https://bitbucket.org/joelrosenfeld/rbf-and-kernel-interpolation/src/master/
