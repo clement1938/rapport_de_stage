@@ -19,7 +19,7 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global/global}
-    \entry{alexis}{misc}{}{}
+    \entry{alexis}{thesis}{}{}
       \name{author}{1}{}{%
         {{hash=28fdcdb0cdda1cd18d1909efa993b827}{%
            family={{Alexis Boudin}},
@@ -38,6 +38,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{Numerical Methods for Large Eddy Simulation in Turbomachinery (en cours)}}
+      \field{type}{phdthesis}
       \field{year}{Soutenance prévue en 2025}
     \endentry
     \entry{antares}{misc}{}{}
@@ -68,7 +69,7 @@
       \verb https://cerfacs.fr/antares/
       \endverb
     \endentry
-    \entry{bajaj}{misc}{}{}
+    \entry{bajaj}{article}{}{}
       \name{author}{1}{}{%
         {{hash=ba9fb5b558d049700e79e68fc227db9c}{%
            family={Bajaj},
@@ -92,7 +93,7 @@
       \field{title}{Multi-dimensional Hermite Interpolation and Approximation for Modelling and Visualization}
       \field{year}{2001}
     \endentry
-    \entry{cassiopee2015}{misc}{}{}
+    \entry{cassiopee2015}{article}{}{}
       \name{author}{6}{}{%
         {{hash=2edd2499b8036571b8304ec8c1a976cd}{%
            family={Benoit},
@@ -176,7 +177,7 @@
       \verb 10.1137/S0036144502417715
       \endverb
     \endentry
-    \entry{opensource_2}{misc}{}{}
+    \entry{opensource_2}{online}{}{}
       \name{author}{1}{}{%
         {{hash=15fab1faa691482991c42935e1dd59a6}{%
            family={{bitbucket}},
@@ -204,7 +205,7 @@
       \verb https://bitbucket.org/joelrosenfeld/rbf-and-kernel-interpolation/src/master/
       \endverb
     \endentry
-    \entry{surface}{misc}{}{}
+    \entry{surface}{online}{}{}
       \name{author}{1}{}{%
         {{hash=ff14e7d9b2f023a6a34364d0f50add44}{%
            family={{Cadence CFD}},
@@ -254,7 +255,7 @@
       \field{title}{MEC6212 : Génération de maillages transfinits}
       \field{year}{2024}
     \endentry
-    \entry{cunha2011}{misc}{}{}
+    \entry{cunha2011}{inbook}{}{}
       \name{author}{2}{}{%
         {{hash=f2fd17591b857983aae665697a76bdbf}{%
            family={Cunha},
@@ -320,7 +321,7 @@
       \verb 10.1002/fld.4079
       \endverb
     \endentry
-    \entry{idw-arcgis}{misc}{}{}
+    \entry{idw-arcgis}{online}{}{}
       \name{author}{1}{}{%
         {{hash=8d70c7a36d3a99961562d65a7adaeb5e}{%
            family={{Esri}},
@@ -348,7 +349,7 @@
       \verb https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm
       \endverb
     \endentry
-    \entry{opensource}{misc}{}{}
+    \entry{opensource}{online}{}{}
       \name{author}{1}{}{%
         {{hash=33c6a9e5ad14c10b0d672f88f1c5f16d}{%
            family={{Ferrite}},
@@ -376,7 +377,7 @@
       \verb https://github.com/Ferrite-FEM/Ferrite.jl/blob/master/src/interpolations.jl
       \endverb
     \endentry
-    \entry{fluidssengineer}{misc}{}{}
+    \entry{fluidssengineer}{inbook}{}{}
       \name{author}{3}{}{%
         {{hash=6b280cb8a90332a66a6e92495256b1f6}{%
            family={FluidssEngineer},
@@ -413,7 +414,7 @@
       \verb 10.2514/6.2014-1433
       \endverb
     \endentry
-    \entry{structure}{misc}{}{}
+    \entry{structure}{online}{}{}
       \name{author}{1}{}{%
         {{hash=f5080c40b1f9bb29c39b06bb09b17c5b}{%
            family={{getfem}},
@@ -433,6 +434,7 @@
       \field{labeltitlesource}{title}
       \field{note}{Accédé: 2024-08-22}
       \field{title}{{Finite element method list}}
+      \true{nocite}
       \verb{urlraw}
       \verb https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
       \endverb
@@ -440,7 +442,7 @@
       \verb https://getfem.readthedocs.io/en/latest/userdoc/appendixA.html
       \endverb
     \endentry
-    \entry{gordont1971_2}{misc}{}{}
+    \entry{gordont1971_2}{article}{}{}
       \name{author}{1}{}{%
         {{hash=2bcac8f451713be0d4753743cc763e86}{%
            family={Gordont},
@@ -468,7 +470,7 @@
       \verb 10.1137/0708019
       \endverb
     \endentry
-    \entry{gordont1971}{misc}{}{}
+    \entry{gordont1971}{article}{}{}
       \name{author}{1}{}{%
         {{hash=2bcac8f451713be0d4753743cc763e86}{%
            family={Gordont},
@@ -493,7 +495,7 @@
       \field{title}{Blending-function methods of bivariate and multivariate interpolation and approximation}
       \field{year}{1971}
     \endentry
-    \entry{nasa}{misc}{}{}
+    \entry{nasa}{article}{}{}
       \name{author}{3}{}{%
         {{hash=f8bdc86875508efe5a2859d060ff11ff}{%
            family={Groves},
@@ -526,6 +528,7 @@
       \field{journaltitle}{NASA}
       \field{title}{Interpolation Methodneeded for Numerical Uncertainty Analysisof Computational FluidDynamics}
       \field{year}{2012}
+      \true{nocite}
       \verb{urlraw}
       \verb https://ntrs.nasa.gov/api/citations/20140011325/downloads/20140011325.pdf
       \endverb
@@ -561,7 +564,7 @@
       \verb https://www.inf.usi.ch/hormann/papers/Hormann.2014.BI.pdf
       \endverb
     \endentry
-    \entry{Rosenfeld}{misc}{}{}
+    \entry{Rosenfeld}{online}{}{}
       \name{author}{1}{}{%
         {{hash=c61910887628985f2e773866490e2186}{%
            family={{Joel Rosenfeld}},
@@ -643,7 +646,7 @@
       \verb 10.1016/j.jcp.2018.02.045
       \endverb
     \endentry
-    \entry{levin}{misc}{}{}
+    \entry{levin}{inbook}{}{}
       \name{author}{1}{}{%
         {{hash=32ad21054f07b38c5fef8dcf472ca73c}{%
            family={Levin},
@@ -670,7 +673,7 @@
       \verb 10.1007/978-3-662-07443-5_3
       \endverb
     \endentry
-    \entry{idw-mapscaping}{misc}{}{}
+    \entry{idw-mapscaping}{online}{}{}
       \name{author}{1}{}{%
         {{hash=0c8ac421f1c977e3e647ec92b295286b}{%
            family={{Mapscaping}},
@@ -698,7 +701,7 @@
       \verb https://mapscaping.com/understanding-inverse-distance-weighting/
       \endverb
     \endentry
-    \entry{MLS}{article}{}{}
+    \entry{MLS}{inbook}{}{}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labeltitlesource}{title}
@@ -709,7 +712,7 @@
       \verb 10.1007/978-3-662-07443-5_3
       \endverb
     \endentry
-    \entry{muller2020}{misc}{}{}
+    \entry{muller2020}{manual}{}{}
       \name{author}{1}{}{%
         {{hash=c54308d448d2d2171d175806b4c1c113}{%
            family={Müller},
@@ -732,7 +735,7 @@
       \field{title}{A user's guide to hip}
       \field{year}{2020}
     \endentry
-    \entry{palmer2009}{misc}{}{}
+    \entry{palmer2009}{article}{}{}
       \name{author}{1}{}{%
         {{hash=f71985d633aeb3b0decb8b7c9e14c98a}{%
            family={Palmer},
@@ -759,7 +762,7 @@
       \verb 10.2514/6.2009-141
       \endverb
     \endentry
-    \entry{perronnet1998}{misc}{}{}
+    \entry{perronnet1998}{article}{}{}
       \name{author}{1}{}{%
         {{hash=605a44da52d0cc27b9febab7acb17093}{%
            family={Perronnet},
@@ -898,7 +901,7 @@
       \verb 10.2514/6.2019-2538
       \endverb
     \endentry
-    \entry{kringing}{misc}{}{}
+    \entry{kringing}{online}{}{}
       \name{author}{1}{}{%
         {{hash=ed15e0ed8bc63d1935fbdf9b7d303228}{%
            family={{ScienceDirect}},
@@ -961,7 +964,7 @@
       \verb 10.1299/jsmeb.47.672
       \endverb
     \endentry
-    \entry{idw-update}{misc}{}{}
+    \entry{idw-update}{article}{}{}
       \name{author}{1}{}{%
         {{hash=053eb48421d32f25eb14d8f271787e14}{%
            family={Thierry},

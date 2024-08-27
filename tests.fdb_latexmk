@@ -1,11 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1723644701.34198 "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/tests.tex" "tests.pdf" "tests" 1723644702.54712 0
-  "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/tests.tex" 1723644700.97156 1244 d54d214b7be0db0ae2051bcee4233d43 ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+["pdflatex"] 1724773325.22708 "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/tests.tex" "tests.pdf" "tests" 1724773326.30296 0
+  "/Users/thibault/Documents/rapport_de_stage/Rapport_de_stage/tests.tex" 1724773324.97437 2049 dcd7914fffe4876036ec2e5e381b02c4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifluatex.sty" 1572645307 492 1994775aa15b0d1289725a0b1bbc2d4c ""
   "/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty" 1644112042 7237 bdd120a32c8fdb4b433cf9ca2e7cd98a ""
@@ -109,8 +105,8 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1717397028 5483668 9e45798515b35c9eab0413928a3e8881 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1717397083 8238609 42a71e02d93392fac7263fbf8cdf42ae ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "tests.aux" 1723644702.45707 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "tests.tex" 1723644700.97156 1244 d54d214b7be0db0ae2051bcee4233d43 ""
+  "tests.aux" 1724773326.21721 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "tests.tex" 1724773324.97437 2049 dcd7914fffe4876036ec2e5e381b02c4 ""
   (generated)
   "tests.aux"
   "tests.log"
