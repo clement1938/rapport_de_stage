@@ -133,7 +133,7 @@ Cela implique certaines conditions, notamment sur le type de maillage.
 
 Un maillage structuré est un maillage dont la connectivité\label{connectivité} entre les points peut être décrite de manière régulière, généralement à l'aide de tableaux multidimensionnels (1D, 2D, 3D). Dans un tel maillage, les points sont organisés en une grille régulière, ce qui permet de naviguer facilement à travers les données sans avoir à spécifier explicitement les relations entre les points.
 
-En revanche, un maillage non-structuré est un maillage où les cellules ne peuvent pas être décrites de manière régulière. Elles sont définies par des formes géométriques quelconques où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent, dans un ordre spécifique (voir ref \ref{fig:ordre_connect}). Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée.
+En revanche, un maillage non-structuré est un maillage où les cellules ne peuvent pas être décrites de manière régulière. Elles sont définies par des formes géométriques quelconques où la connectivité des points ne suit pas un schéma régulier. Cela signifie que chaque cellule doit spécifier explicitement les points qui la composent, dans un ordre spécifique (voir \annexref{fig:ordre_connect}). Ces maillages sont souvent utilisés pour modéliser des géométries complexes où une grille régulière serait inadaptée.
 %Voici le lien vers un site \cite{structure} qui explique la structure des cellules d'ordre supérieur, ce qui pourrait être utile pour l'implémentation d'une méthode d'ordre supérieur.
 
 Dans Antares, nous visons principalement à traiter des maillages non structurés, car ils sont couramment utilisés dans les simulations modernes en raison de leur flexibilité à représenter des géométries complexes. Une autre condition est que la méthode d'interpolation doit être applicable en 1D, 2D et 3D. Un facteur à prendre en compte dans la méthode que l'on souhaite implémenter est aussi le temps de calcul, appelé 'coût'.
@@ -223,7 +223,7 @@ Cette méthode est discontinue et peu précise pour la plupart des fonctions.
 
 
 
-\subsection{La méthode pondération inverse à la distance (IDW)} % déjà '\ac'
+\subsection{La méthode pondération inverse à la distance (IDW)}\label{sIDW} % déjà '\ac' 
 
 La méthode IDW est aussi une méthode d'interpolation simple après la méthode du voisin le plus proche, toujours dans notre cas d'application. C'étais la seule implémentée dans Antares (elle inclut aussi la méthode du voisin le plus proche comme expliqué plus tard dans cette section). Elle a pour formule :
 
@@ -631,9 +631,9 @@ Ce qui n'est pas cohérent dans le cas où le gradient selon l'horizontal n'est 
 \begin{comment}
 Un des problèmes avec la méthode IDW est que « \textit{a directional bias to the database solutions can shift the interpolated results} »\footnote{Traduction : « un biais directionnel dans les solutions de la base de données peut décaler les résultats interpolés. » Source : \textit{Titre de l'article}, Auteur, Année, URL si applicable.}.
 \end{comment}
-Un des problèmes avec la méthode IDW est qu'un biais directionnel dans les solutions de la base source peut décaler les résultats interpolés \cite{palmer2009} \cite{idw-mapscaping}.
+Un des problèmes avec la méthode IDW est qu'un biais directionnel dans les solutions de la base source peut décaler les résultats interpolés \cite{palmer2009, idw-mapscaping}.
 Lorsque toutes les informations selon un axe de l'espace ne se situent que d'un côté, le gradient ne sera pas pris en compte et l'erreur sera élevée. Par exemple, cela est généralement le cas lorsque le maillage cible a des points qui se situent à l’extérieur du maillage source.
-Cependant, il serait envisageable, dans certains cas, d'adopter des solutions alternatives, telles qu'en 2D, sélectionner trois points sources situés autour du point cible et répartis sur un angle supérieur à 180°\cite{idw-update}.  % \footnote{Traduction de : « \textit{One issue with the IDW method is that a directional bias to the database solutions can shift the interpolated results.} »
+Cependant, il serait envisageable, dans certains cas, d'adopter des solutions alternatives, telles qu'en 2D, sélectionner trois points sources situés autour du point cible et répartis sur un angle supérieur à 180° \cite{idw-update}.  % \footnote{Traduction de : « \textit{One issue with the IDW method is that a directional bias to the database solutions can shift the interpolated results.} »
 
 
 D'autres méthodes dérivées ou similaires existent pour évaluer nos poids (les poids sont les distances inverses à la puissance \(p\) dans notre cas). La plus intéressante serait celle dite de Franke-Littke. Elle consiste à utiliser une distance maximale autour du point au-delà de laquelle les autres points ne sont pas pris en compte. Autrement dit, on utilise un cercle (dans le cas 2D) d'un certain rayon pour déterminer quels points nous sont utiles pour l'interpolation. Dans ce cas, le nombre de points est variable.
@@ -895,7 +895,7 @@ Les approches d'interpolation linéaire par morceaux et par norme minimale sont 
 %\subparagraph{3. Approximation des moindres carrés}
 %\phantom{-}
 %\newline
-Approfondir des recherches sur la méthode \ac{MLS} \cite{MLS} \cite{levin}  pourrait être utilisé intéressant.
+Approfondir des recherches sur la méthode \ac{MLS} \cite{MLS, levin} pourrait être utilisé intéressant.
 
 \subparagraph{k. MISCOG}
 
@@ -919,6 +919,7 @@ La méthode linéaire est simple, robuste et constitue un choix d'interpolation 
 % Remplacer target par cible et point interpolé par cible.
 
 \paragraph{1D}
+\vspace{-0.5cm}
 \subparagraph{Linéaire}
 En 1D, l'interpolation linéaire est simple \cite{fluidssengineer, palmer2009}: c'est la moyenne pondérée linéairement par la distance, des valeurs des deux points les plus proches.
 Supposons que nous voulons interpoler une valeur d'un point \( p \) entre deux points \( a \) et \( b \) dans un espace 1D
@@ -954,7 +955,6 @@ Nous trouvons de plus en plus de polygones à N arrêtes dans les maillages. Mai
 
 Pour le triangle, la méthode pour trouver la valeur au point à interpoler \( p \) est celle dite du barycentre (barycentrique).
 Elle est bien documentée.
-
 Visuellement, il faut faire la somme des valeurs aux points pondérés par la surface opposée et pondérer le tout par la surface du triangle.
 
 \begin{comment}
@@ -1028,14 +1028,16 @@ Le calcul est le suivant :
 \end{equation}
 
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 
-Bien sûr, les triangles sont quelconques, mais la formule reste la même.
+Les triangles rencontrés sont quelconques, mais la formule reste la même.
 
 % Trilinéaire dans le cas où le maillage est 3D et structuré.
 \subparagraph{Rectangle : Bilinéaire}
 
 En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvons aussi facilement dans la littérature. La formule est l'extension de celle pour les triangles :
+
+\vspace{-0.4cm}
 
 \begin{equation}
     \resizebox{0.9\hsize}{!}{$
@@ -1043,10 +1045,8 @@ En ce qui concerne l'interpolation bilinéaire sur un rectangle, nous la trouvon
     $}
 \end{equation}
                 
-Nous supposons que le point est bien à l'intérieur du rectangle.
-
-Ici les surfaces sont directement calculées dans \(f(x, y)\).
-
+Nous supposons que le point cible est bien à l'intérieur du rectangle lorsque nous appliquons le calcul.
+Dans la formule, les surfaces sont directement calculées dans \(f(x, y)\) contrairement à la méthode barycentrique où une étape de plus est nécessaire.
 Cela correspond à l'addition de deux interpolations linéaires. Nous trouvons souvent dans la littérature une équation analytique où tous les sommets ne jouent pas le même rôle, mais il est plus simple de faire un calcul de poids pour pouvoir ensuite faire une moyenne pondérée. 
 Visuellement, nous créons cette fois des traits parallèles au passant par le point d'interpolation et nous additionnons, de manière pondérée, les 4 surfaces multipliées chacune par leur sommet opposé respectif.
 
@@ -1121,12 +1121,13 @@ Visuellement, nous créons cette fois des traits parallèles au passant par le p
     \end{tikzpicture}
 \end{comment}
 
+\newpage
 
 \subparagraph{Quadrilatère}
 
 Regardons maintenant le dernier type de cellule 2D rencontrée dans les solutions traitées par Antares : les quadrilatères.
-Pour cela, je n'ai pas trouvé de méthode satisfaisante dans la littérature \cite{perronnet1998}. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0.
-Une première vérification de la linéarité est aussi de vérifier qu'un point au milieu d'une cellule 2D a comme valeur la moyenne de ses sommets.
+Pour cela, je n'ai pas trouvé de méthode satisfaisante dans la littérature \cite{perronnet1998}. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0 et la linéarité doit être respecté entre deux points, sur les arrêtes.
+Une première vérification de la linéarité est de vérifier qu'un point au milieu d'une cellule 2D a comme valeur la moyenne de ses sommets.
 Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la cellule dans laquelle il se situe (tel que pour l'interpolation Barycentrique).
 Cela permet de ne créer que quatre sous formes.
 Ensuite pour déterminer le poids associé au sommet \( s_1 \), il faut multiplier entre elles les deux surfaces qui lui sont opposées, et bien entendu, le pondérer une fois les autres poids calculés.
@@ -1181,12 +1182,11 @@ Par opposées, j'entends que ces surfaces ne sont composées d'aucunes arêtes a
 
 Un point à souligner est qu'une multiplication de surfaces est réalisée, ce qui induit une équation d'ordre 4, ce qui pourrait impliquer une méthode du même ordre.
 Contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire.
-Une vérification a été faite et la méthode n'interpole pas sans erreurs les fonctions d'ordre supérieur à un.
+Une vérification a été faite et la méthode interpole avec de l'erreurs les fonctions d'ordre supérieur à un.
 De plus, le quadratique ne peut pas englober pas le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère.
 % Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points.
 Normalement il faudrait s'appuyer sur plus de points pour le quadratique. 
-Finalement, la démonstration pourrait se construire en montrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la figure \ref{fig:quad} ci-dessous, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.
-
+Finalement, la démonstration pourrait se construire en montrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la Figure \ref{fig:quad} ci-dessus, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.
 Voici l'équation de la méthode d'interpolation linéaire pour le quadrilatère :
 
 \begin{equation}
@@ -1194,19 +1194,20 @@ Voici l'équation de la méthode d'interpolation linéaire pour le quadrilatère
 \end{equation}
     
 
-\vspace{0.5cm}  % OU \\[0pt plus 1fill] OU \newline OU flushleft, flushright, center
+\vspace{0.2cm}  % OU \\[0pt plus 1fill] OU \newline OU flushleft, flushright, center
 
 
 \paragraph{3D}
 \subparagraph{Pavé droit : Trilinéaire}
 
-Pour le 3D, si le maillage est non-structuré, alors le type de cellule est le pavé droit. À ce moment, nous sommes dans le cas de l'interpolation dite trilinéaire. Encore une fois, la formule se trouve facilement dans la littérature et se retrouve facilement en étendant la formule de l'interpolation sur un rectangle. Nous associons comme poids à un des huit sommets \( s_1 \) le volume opposé, construit de la sorte :
+Pour le 3D, si le maillage est structuré, alors le type de cellule est le pavé droit. À ce moment, nous sommes dans le cas de l'interpolation dite trilinéaire. La formule se trouve facilement dans la littérature et se retrouve facilement en étendant la formule de l'interpolation sur un rectangle. Nous associons comme poids à un des huit sommets \( s_1 \) le volume opposé, construit tel que sur la Figure \ref{fig:trilineaire}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{images/Trilinear_interpolation_visualisation.svg.png}
     \caption{Schéma d'interpolation trilinéaire (source : Wikipédia)} %\footnote{Source:https://en.wikipedia.org/wiki/Trilinear_interpolation#/media/File:Trilinear_interpolation_visualisation.svg}}
     %\label{fig:https://en.wikipedia.org/wiki/Trilinear_interpolation#/media/File:Trilinear_interpolation_visualisation.svg}
+    \label{fig:trilineaire}
 \end{figure}
 
 L'équation qui en découle est la suivante :
@@ -1226,10 +1227,10 @@ Pour le tétraèdre (une pyramide à base triangulaire quelconque), nous trouvon
 \subparagraph{Pyramide, hexaèdre, prisme et autres formes}
 
 Pour la pyramide (à base quadrilatérale) et l’hexaèdre, une extension de la formule du quadrilatère sera faite.
-Il pourrait en être de même pour les prismes et autres formes, mais des problèmes d'implémentations apparaissent (voir ref \ref{prisme}).
+Il pourrait en être de même pour les prismes et autres formes, mais des problèmes d'implémentations apparaissent (voir partie \ref{prisme}).
 
 
-Note pour l'ordre supérieur : une utilisation des maillages transfinis pourrait être faite \cite{camarero2024}.
+Note pour l'ordre supérieur : une transformation des quadrilatères vers des rectangles pourrait être faite afin de pouvoir appliquer les équations d'interpolation \cite{camarero2024}. Cela peut être étendu au 3D.
 
 
 %\subsection{Résumé des similitudes et différences des différentes méthodes}
@@ -1240,18 +1241,14 @@ Note pour l'ordre supérieur : une utilisation des maillages transfinis pourrait
 
 \subsection{La structure générale du code "TreatmentInterpolation"}
 
-Le traitement d'interpolation d'Antares ne traite que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas dans les cellules ou entre les nœuds).
-Pour effectuer une recherche efficace des \(N\) points les plus proches de la base source par rapport à ceux de la base target, il utilise un \ac{KDTree}. Cette structure de données arborescente est conçue pour organiser des points dans un espace à k dimensions, ce qui est particulièrement utile pour effectuer des recherches rapides de voisins dans un ensemble de données multidimensionnelles.
-Le KDTree divise récursivement l'espace en sous-espaces plus petits en utilisant des plans perpendiculaires aux axes de coordonnées. À chaque niveau de l'arbre, les points sont séparés en fonction de l'une des dimensions, avec une alternance de dimensions à chaque niveau. Cette approche hiérarchique permet de partitionner l'espace de manière efficace, rendant la recherche des points voisins beaucoup plus rapide que si l'on comparait chaque point individuellement.
-
-
-
-Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' faisait environ 500 lignes. Il est orienté objet. 
-Il prend comme arguments obligatoires la base source et la base cible et renvoie dans le cas le plus simple la base cible avec les valeurs interpolées.
+Après avoir recensé les différentes méthodes qui seraient applicables, ma seconde mission a été d'implémenter une interpolation linéaire dans Antares. Grâce à Nitrox, j'ai accès au code source de la librairie que je peux modifier. Le code 'interpolation.py' est orienté objet et fait environ mille lignes. 
+Il prend comme arguments obligatoires (voir Tableau \label{tab:arguments_interpolation1}) la base source et la base cible et renvoie dans le cas le plus simple la base cible avec les valeurs interpolées.
 De manière simplifiée, dans le code, les zones de la base source sont fusionnées puis les instants sont parcourus. 
-Cette fusion permet de faire un KDTree, qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base cible (et les distances associées, utilisées dans la méthode 'idw').
-Ensuite l'interpolation est calculée par l'une des deux méthodes 'principales' qui peut elle-même appeler d'autres fonctions ou méthodes d'Antares. % (\lstinline{__idw_interpolate_instant} ou \lstinline{__barycentrique_interpolate_instant})
-
+Cette fusion permet de faire un \ac{KDTree}, qui permet concrètement de rechercher de manière efficace quels sont les \( N \) points de la base source les plus proches des points de la base cible (et les distances associées, utilisées dans la méthode 'idw').
+Cette structure de données arborescente est conçue pour organiser des points dans un espace à k dimensions, ce qui est particulièrement utile pour effectuer des recherches rapides de voisins dans un ensemble de données multidimensionnelles.
+Le KDTree divise récursivement l'espace en sous-espaces plus petits en utilisant des plans perpendiculaires aux axes de coordonnées. À chaque niveau de l'arbre, les points sont séparés en fonction de l'une des dimensions, avec une alternance de dimensions à chaque niveau. Cette approche hiérarchique permet de partitionner l'espace de manière efficace, rendant la recherche des points voisins beaucoup plus rapide que si l'on comparait chaque point individuellement.
+Ensuite l'interpolation est calculée par l'une des deux méthodes 'principales' qui peut elle-même appeler d'autres fonctions ou méthodes d'Antares.
+Voici les arguments initialement présent dans le code d'interpolation :
 
 
 \label{arguments}
@@ -1318,32 +1315,28 @@ Ensuite l'interpolation est calculée par l'une des deux méthodes 'principales'
 
 \label{implementation_IDW}\paragraph{L'interpolation IDW}
 
-Cette distance est définie à 1e-10 dans le traitement et peut être modifiée par l'utilisateur en ajustant l'argument \texttt{'tolerance'} en ajoutant la ligne :
+%Cette distance est définie à 1e-10 dans le traitement et peut être modifiée par l'utilisateur en ajustant l'argument \texttt{'tolerance'} en ajoutant la ligne
+La méthode IDW contiens deux paramètres \(N\) et \(p\) (voir section \ref{sIDW})
+Par défaut, dans le code, \(p\) est égal à '1' et \(N\) est égale au nombre de sommets de la première cellule de la liste de types de cellules de la base cible. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base cible importe peu comparée à celle de la base source, pour l'interpolation. Mais par souci de rétrocompatibilité, aucune modification ne doit changer l'utilisation qui a déjà été faite de ce traitement. % ! test à faire ici !
+Ces paramètres peuvent être changés par l'utilisateur ajoutant
 \begin{lstlisting}[]
     myt['tolerance'] = valeur
 \end{lstlisting}
-entre la ligne 2 et 5 de l'exemple présenté dans la partie '2.1 La librairie Antares'.
-Il en est de même pour les paramètres \(N\) et \(p\) avec pour argument respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.\label{parametres}
-
-Par défaut, dans le code, \(p\) est égal à '1' et \(N\) est égale au nombre de sommets de la première cellule de la liste de types de cellules de la base cible. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base cible importe peu comparée à celle de la base source, pour l'interpolation. Mais par souci de rétrocompatibilité, aucune modification ne doit changer l'utilisation qui a déjà été faite de ce traitement. % ! test à faire ici !
-
+entre la ligne 2 et 5 de l'exemple présenté dans la partie '2.1 La librairie Antares' avec pour respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.\label{parametres}
 
 Une de mes missions était de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles \cite{idw-arcgis} et thèses que j'ai lues. C'est pour cela qu'il sera présenté plus tard dans le rapport comment des paramètres optimaux ont été trouvés en faisant des tests.
 
-
 \label{prisme}\paragraph{L'interpolation linéaire}
 
-////////
-"La méthode linéaire est simple, robuste et constitue un choix d'interpolation acceptable pour les premières estimations approximatives ou si les variables de la solution de la base de données dépendent linéairement des variables de l'espace de conception" \cite{palmer2009}.
-La littérature \cite{fluidssengineer} s'accorde à dire que l'interpolation linéaire, est la plus basique après plus proche voisin et IDW. J'entends par basique simple à implémenter, demandant peu de ressources, robuste et moyennement précise pour de l'ordre élevé. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est aussi la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc aussi intéressant d'avoir une interpolation linéaire directement dans Antares.
-//////
+%"La méthode linéaire est simple, robuste et constitue un choix d'interpolation acceptable pour les premières estimations approximatives ou si les variables de la solution de la base de données dépendent linéairement des variables de l'espace de conception" \cite{palmer2009}.
+La littérature \cite{fluidssengineer, palmer2009} s'accorde à dire que l'interpolation linéaire, est plus précise et robuste que la méthode du plus proche voisin et IDW, mais elle est peu coûteuse et reste simple à implémenter. C'est pour cela que le CERFACS voulait l'implémenter dans Antares. C'est la plus utilisée par Airbus, Safran et d'autres industriels (via d'autres codes qu'Antares). Cela est donc intéressant d'avoir une interpolation linéaire directement dans Antares.
 
-La méthode ne fonctionne pas pour tous les cas de connectivité prismatique, notamment pour les cellules constituées de triangles non parallèles entre elles dans l'espace et de surfaces différentes. De plus, l'ordre des sommets contenu dans la connectivité est différent en fonction du solveur dont est issue la base (par exemple dans hip elle est définie tel que sur l'image en annexe \ref{fig:ordre_connect}). Cela rend donc impossible (ou difficile) le calcul des volumes tel que la méthode a été implémentée. Nous avons effectivement besoin de savoir à quel sommet correspond quel indice. La connectivité prismatique ne sera donc finalement par traitée. Il en est de même pour les cellules plus complexes à N faces ou toute autre connectivité qui viendrait à apparaître.
-Cependant, il est simple de pallier ce problème. Il suffit de "tétraèdriser" la base source afin de créer des tétraèdres avant d'utiliser le traitement d'interpolation. Il en est de même pour de potentiels cas 2D non traités.
-
+Le traitement d'interpolation linéaire d'Antares ne traite que des maillages ayant des valeurs uniquement au niveau des nœuds des cellules (pas dans les cellules ou entre les nœuds). Cela est dû à la manière dont est structuré notre méthode d'interpolation linéaire. % (\lstinline{__idw_interpolate_instant} ou \lstinline{__barycentrique_interpolate_instant})
+La méthode ne fonctionne pas pour tous les cas de connectivité prismatique, notamment pour les cellules constituées de triangles non parallèles entre elles dans l'espace et de surfaces différentes. De plus, l'ordre des sommets contenu dans la connectivité est différent en fonction du solveur dont est issue la base (par exemple dans hip elle est définie tel que sur l'image \annexref{fig:ordre_connect}). Cela rend donc presque impossible le calcul des volumes tel que la méthode a été implémentée. Nous avons effectivement besoin de savoir à quel sommet correspond quel indice. La connectivité prismatique ne sera donc finalement par traitée. Il en est de même pour les cellules plus complexes à N faces ou toute autre connectivité qui viendrait à apparaître.
+Cependant, ce problème peut être palier. Il faut "tétraèdriser" la base source afin de créer des tétraèdres avant d'utiliser le traitement d'interpolation. Il en est de même pour de potentiels cas 2D non traités.
 Voici comment réaliser cela :
 
-\begin{lstlisting}[caption=Tetrahedralize pour interpoler linéairement tous types de cellules, label={lst:tet}]
+\begin{lstlisting}[caption=Utilisation du traiement "tetrahedralize" pour interpoler linéairement tous types de cellules, label={lst:tet}]
     import antares
     from copy import deepcopy
     # deepcopy est utilise pour ne pas "tetrahedralize" la 'source_base' 
@@ -1364,16 +1357,15 @@ Lorsque la base est structurée, il n'y a pas connectivité facilement accessibl
 \begin{lstlisting}[]
     copy_source_base.unstructure()
 \end{lstlisting}
-à la ligne 6. Réellement, le structuré a été développé pour l'ordre un et deux, avec un bug pour l'ordre trois. Par manque de temps, la méthode n'a pas été finie d'implémenter. Étant rapide (généralement plus rapide que l'interpolation IDW), la fonctionnalité sera possiblement disponible plus tard.
+à la ligne 6 du code \ref{lst:tet}. Réellement, le traitement sur maillage structuré a été développé pour l'ordre un et deux, avec un bug pour l'ordre trois. Par manque de temps, la méthode n'a pas été finie d'être implémenté. Étant généralement plus rapide que l'interpolation IDW, la fonctionnalité sera possiblement disponible plus tard.
 
 
 \newpage
 \subsection{Le pseudo-algorithme}
 
+Voici le pseudo-algorithme simplifié donnant l'architecture de la fonction linéaire du traitement interpolation. Elle est appliquée à toutes les zones qui sont fusionnées et un seul instant à la fois.
 
-Voici le pseudo-algorithme simplifié donnant l'architecture de la fonction linéaire du traitement interpolation.
-
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \textbf{Initialisation :}
 
@@ -1414,7 +1406,7 @@ $\bullet$ Définir les points à interpoler
     \end{list}
 \end{list}
 
-\vspace{0.5cm}
+\vspace{0.4cm}
 
 \begin{comment}
     Premièrement, dans \lstinline{__barycentrique_interpolate_instant}, nous récupérons le nombre de points maximal sur lequel nous allons nous appuyer pour l'interpolation, soit le nombre maximal de sommet des cellules présentes dans le maillage.
@@ -1426,9 +1418,7 @@ $\bullet$ Définir les points à interpoler
 %Nous récupérons d'une fonction définie plus bas (\lstinline{get_list_cell_type}) :
 %(\lstinline{list_cell_type, max_node_index})
 
-\noindent Dans le cas où le maillage est le même entre tous les instants, ou que l'utilisateur a déjà récupéré les poids (et autres valeurs utiles) nous ne recalculons pas tous les paramètres, ce qui permet une diminution significative du temps de calcul.
-
-\vspace{0.5cm}
+%\noindent Dans le cas où le maillage est le même entre tous les instants, ou que l'utilisateur a déjà récupéré les poids (et autres valeurs utiles) nous ne recalculons pas tous les paramètres, ce qui permet une diminution significative du temps de calcul.
 
 \textbf{Mise à jour de la base cible :}
 \begin{list}{$\circ$}{\leftmargin=0.5cm \labelwidth=1cm \itemsep=0cm}
@@ -1447,14 +1437,14 @@ $\bullet$ Définir les points à interpoler
 
 Plusieurs axes ont été exploités afin de diminuer le temps de calcul du traitement d'interpolation.
 
-Le premier a été énoncé dans le pseudo-algorithme présenté dans la section précédente. Il s'agit de ne calculer qu'une seule fois le couple (poids, indices des points source) et les autres paramètres puis de les enregistrer. Cela est utile dans deux cas :
+Le premier est de ne calculer qu'une seule fois le couple (poids, indices des points source) et les autres paramètres puis de les enregistrer. Cela est utile dans deux cas : %Le premier a été énoncé dans le pseudo-algorithme présenté dans la section précédente. Il s'agit
 
 - Entre les instants si la structure des deux bases reste inchangée.
-C'est par exemple dans le cas des bases issues de solutions aéroacoustique. Dans mon cas test, la solution contient 200 instants, le temps de calcul est alors presque divisé par 200. Dans le code, un test est fait pour savoir si tous les instants sont partagés (voir la section 2.1). Si oui, alors les poids et autres données nécessaires sont calculés. Ensuite, tous les instants seront calculés avec les données. Cela permet d'éviter d'enregistrer les coordonnées une seule fois et ainsi réduire le coût de mémoire.
+C'est par exemple dans le cas des bases issues de solutions aéroacoustique. Dans le cas test d'aéroacoustique présenté section \ref{s241}, la solution contient deux cents instants, le temps de calcul est alors presque divisé par deux cents. Dans le code, un test est fait pour savoir si tous les instants sont partagés (voir la section 2.1). Si oui, alors les poids et autres données nécessaires sont calculés. Ensuite, tous les instants seront calculés avec les données. Cela permet d'éviter d'enregistrer les coordonnées une seule fois et ainsi réduire le coût de mémoire.
 Cette optimisation est faite automatiquement dans le traitement.
 %\label{instants_partages}  % (grace à la variable \texttt{computation})  % , mais pas le premier instant.
 
-- Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure soit changée, qu'elle ait un instant ou plusieurs instants partagés. Dans le cas où la structure du maillage est différente entre deux instants, si \texttt{get\_data} a la valeur \texttt{True}, alors le programme renverra une erreur.
+- Si le calcul sur la base source est réalisé plusieurs fois sans que sa structure soit changée, qu'elle ait un instant ou plusieurs instants partagés. Dans le cas où la structure du maillage est différente entre deux instants, si l'argument \texttt{get\_data} a la valeur \texttt{True}, alors le programme renverra une erreur.
 Un cas où l'on pourrait imaginer utiliser cette fonctionnalité est lors de plusieurs simulations avec des résultats physiques différents entre les simulations, mais toujours sur le même maillage. Pour utiliser cette fonctionnalité, il faut légèrement changer l'appel à la fonction, voici un exemple :
 
 \begin{lstlisting}[caption=Exemple de réutilisation des données, label={lst:antares}]
@@ -1477,26 +1467,18 @@ Un cas où l'on pourrait imaginer utiliser cette fonctionnalité est lors de plu
     result2 = myt.execute()
 \end{lstlisting}
 
-Ici, \texttt{result2} aura été calculé beaucoup plus rapidement que \texttt{result1}. De plus, ce changement est aussi appliqué à la méthode IDW sans poser de problèmes de rétrocompatibilité, car les résultats sont inchangés. Pour le cas test d'aéroacoustique à 200 instants partagés, le traitement est cinq fois plus rapide pour l'IDW et plus de cent fois plus rapide pour la méthode linéaire.
+Ici, \texttt{result2} aura été calculé beaucoup plus rapidement que \texttt{result1}. De plus, ce changement est aussi appliqué à la méthode IDW sans poser de problèmes de rétrocompatibilité, car les résultats sont inchangés. Pour le cas test d'aéroacoustique à deux cents instants partagés, le traitement est cinq fois plus rapide pour l'IDW et plus de cent fois plus rapide pour la méthode linéaire.
 
 
+La méthode linéaire était initialement deux cents à cinq cents fois plus lente que IDW. En faisant du 'profiling' pour savoir quelles lignes de code étaient les plus coûteuses. Certaines listes ont été remplacées par des tableaux NumPy avec une taille préallouée, ce qui améliore la rapidité d'insertion de nouvelles valeurs.
 
+Le test de localisation d'un point dans une cellule et de calcul des poids a aussi été optimisé : les surfaces créées par le point cible avec les sommets sont d'abord calculées, suivie par le calcul du volume total de la cellule. Si la somme des sous-surfaces et égale à la surface totale de la cellule à une erreur numérique près, alors le point est dans la cellule et les poids sont déjà calculés. Sinon, il faut nécessairement de chercher ailleurs. Un point à noter est que si le point est sur une arête, il pourrait ne jamais être détecté. Alors un argument \texttt{tolerance\_edge} a été créé. Si la tolérance relative entre la somme des sous-surfaces créées par le point p et la surface totale de la cellule est inférieure à \texttt{tolerance\_edge}, alors le point est considéré comme dans la cellule. %\label{pt_cell}
 
-\vspace{0.5cm}
-
-La méthode linéaire était initialement 200 à 500 fois plus lente que IDW. En faisant du 'profiling' pour savoir quelles lignes de code étaient les plus coûteuses. Certaines listes ont été remplacées par des np.arrays, ce qui augmente la rapidité d'accès aux éléments de ce denier en mémoire.
-Le test de localisation d'un point dans une cellule et de calcul des poids a aussi été optimisé.
-Les surfaces créées par le point cible avec les sommets sont d'abord calculées, suivie par le calcul du volume de la cellule. Si ces volumes sont égaux à une erreur numérique près, alors le point est dans la cellule et les poids sont déterminés. Sinon, il faut nécessairement de chercher ailleurs.
-
-\vspace{0.5cm}
-
-Une autre idée a été testée pour réduire le temps de calcul. Elle reste linéaire, mais ne donne pas forcément le même résultat (lorsque la variable à interpoler est non-linaire, sinon le résultat reste la solution analytique). Cette idée est décrite uniquement pour le cas 2D par souci de simplicité de visualisation, mais est similaire pour le 3D.
-
-Le principe est de ne pas calculer tout ce qui touche à la connectivité, car c'est ce qui augmente significativement le temps de calcul.
-Nous allons alors chercher les 3 points les plus proches (4 en 3D). En reliant les sommets, cela donnera une forme dite non croisée. 
-Ensuite, nous faisons le calcul des barycentres et appliquons la même méthode qu'au-dessus.
-La différence ici est que le point cible n'est pas forcément dans la cellule décrite par les 3 points les plus proches.
-Un point à noter est que si le point est sur une arête, il pourrait ne jamais être détecté. Alors un argument \texttt{tolerance\_edge} a été créé. Si la tolérance relative entre la somme des sous-surfaces créées par le point p et la surface totale de la cellule est inférieure à \texttt{tolerance\_edge}, alors le point est considéré comme dans la cellule.%\label{pt_cell}
+Ce test de localisation est coûteux, il a donc mené à autre idée de méthode qui a été testée pour réduire le temps de calcul. Elle reste linéaire, mais ne donne pas nécessairement le même résultat (lorsque la variable à interpoler est non-linaire, sinon le résultat reste la solution analytique). Cette idée est décrite uniquement pour le cas 2D par souci de simplicité de visualisation, mais est similaire pour le 3D.
+Le principe est de ne pas calculer tout ce qui est en lien avec la connectivité, car c'est ce qui augmente significativement le temps de calcul.
+Nous allons alors chercher les 3 (4 en 3D) points les plus proches. En reliant les sommets, cela donnera une forme (dite non croisée). 
+Ensuite, nous faisons le calcul des barycentres et appliquons la même méthode que celle présenté dans le paragraphe précédent. Cela permet aussi une extrapolation linéaire sans créer d'erreur.
+La différence avec la méthode classique est que le point cible n'est pas nécessairement dans la cellule décrite par les 3 points les plus proches.
 
 
 \begin{figure}[H]
@@ -1507,7 +1489,7 @@ Un point à noter est que si le point est sur une arête, il pourrait ne jamais 
         \coordinate (I) at (0,0);
         \coordinate (II) at (2,4);
         \coordinate (III) at (4,0);
-        \coordinate (P) at (2.2,2.0); % Point P (plus proche du nouveau triangle)
+        \coordinate (P) at (2.4,2.1); % Point P (plus proche du nouveau triangle)
 
         % Nouveau triangle
         \coordinate (IV) at (3.4,2.5);
@@ -1519,7 +1501,7 @@ Un point à noter est que si le point est sur une arête, il pourrait ne jamais 
         \draw[thick] (II) -- (III) -- (IV) -- cycle;
 
         % Draw point P
-        \filldraw[blue] (P) circle (2pt) node[anchor=south] {P};
+        \filldraw[blue] (P) circle (2pt) node[anchor=east] {P};
 
         % Label the vertices of the initial triangle
         \filldraw[red] (I) circle (2pt) node[anchor=east] {I}; % [anchor=east,xshift=-5pt,yshift=-5pt]
@@ -1531,7 +1513,7 @@ Un point à noter est que si le point est sur une arête, il pourrait ne jamais 
 
         % Draw lines from P to vertices
         \draw[dashed] (P) -- (IV);
-        \draw[dashed] (P) -- (I);
+        \draw[dashed] (P) -- (II);
 
         % Title
         %\node at (4,-1) {P plus proche de IV que du sommet le plus éloigné du triangle dans lequel il se trouve};
@@ -1542,7 +1524,7 @@ Un point à noter est que si le point est sur une arête, il pourrait ne jamais 
 \end{figure}
 
 
-Alors nous pourrions avoir une ou des surfaces formées par le point cible qui sortent du triangle initial (et la somme des surfaces ne serait pas égale à la surface du triangle initial). Mais pour respecter la linéarité, il suffit de faire le même calcul en prenant en compte le fait que la ou les deux surface(s) entièrement extérieures à la cellule sont négatives. La figure ci-dessous (Figure \ref{fig:surface_negative}) est un zoom sur le schéma \ref{fig:deux_pt}.
+Alors nous pourrions avoir une ou des surfaces formées par le point cible qui sortent du triangle initial (et la somme des surfaces ne serait pas égale à la surface du triangle initial). Mais pour respecter la linéarité, il suffit de faire le même calcul en prenant en compte le fait que la ou les deux surface(s) entièrement extérieures à la cellule sont négatives. La figure ci-dessous (Figure \ref{fig:surface_negative}) est un zoom sur la Figure \ref{fig:deux_pt}.
 
 \begin{figure}[H]
     \centering
@@ -1550,7 +1532,7 @@ Alors nous pourrions avoir une ou des surfaces formées par le point cible qui s
         % Triangle initial
         \coordinate (II) at (2*1.5,4*1.5);
         \coordinate (III) at (4*1.5,0);
-        \coordinate (P) at (2.2*1.5,2.0*1.5); % Point P (plus proche du nouveau triangle))
+        \coordinate (P) at (2.4*1.5,2.1*1.5); % Point P (plus proche du nouveau triangle))
         \coordinate (IV) at (3.4*1.5,2.5*1.5);
     
         % Draw point P
@@ -1596,9 +1578,7 @@ Alors nous pourrions avoir une ou des surfaces formées par le point cible qui s
 \end{figure}
 
 
-N'ayant pas trouvé une façon simple de savoir si la surface était négative, par manque de temps et crainte de l'ajout de complexité (ce qui augmente le temps de calcul), cette méthode n'a pas été implémentée.
-Cela permet aussi une extrapolation linéaire sans créer d'erreur.
-
+N'ayant pas trouvé une façon simple de savoir si la surface était négative, par manque de temps et crainte de l'ajout de complexité (qui augmente possiblement le temps de calcul), cette méthode n'a pas été implémentée.
 
 Finalement, voici les arguments ajoutés pour la méthode linéaire :
 
@@ -1610,10 +1590,10 @@ Finalement, voici les arguments ajoutés pour la méthode linéaire :
     \textbf{Nom} & \textbf{Val. défaut} & \textbf{Description} \\ \hline %    \textbf{Nom} & \textbf{\shortstack{Valeur\\par défaut}} & \textbf{Description} \\ \hline
 
     %\multicolumn{3}{|l|}{\textbf{Arguments ajoutés}} \\ \hline
-    \texttt{tolerance\_edge} & \texttt{1e-10} & Tolerance 'point dans la cellule ?' \\
     \texttt{method} & \texttt{'idw'} & Méthode d'interpolation ('idw' ou 'linear') \\
-    \texttt{data} & \texttt{None} & Mettre les données précalculées \\
-    \texttt{get\_data} & \texttt{None} & True pour récupérer des données \\ \hline
+    \texttt{tolerance\_edge} & \texttt{1e-10} & Tolerance de 'point dans la cellule ?' \\
+    \texttt{get\_data} & \texttt{None} & True pour récupérer des données \\ 
+    \texttt{data} & \texttt{None} & Assigner les données précalculées \\ \hline
     \end{tabular}
     \caption{Arguments ajoutés pour la méthode d'interpolation dans Antares}
     \label{tab:arguments_interpolation2}
@@ -1687,18 +1667,15 @@ Finalement, voici les arguments ajoutés pour la méthode linéaire :
 
 
 \section{Tests}
-A présent, le but est de savoir quelle est la meilleure méthode, notamment dans le cas de l'interpolation pour l'application au traitement FWH. Pour cela il faut tester si la méthode linéaire fonctionne correctement, et tester les meilleurs paramètres \(N\) et \(p\) de la méthode IDW.
-
-%Tous les codes utilisés sont accessibles dans le répertoire \texttt{/archive/stg-cfds/thibault} sur kraken.
-
-L'objectif d'améliorer la précision de l'interpolation est d'avoir des résultats plus précis et/ou de diminuer le coût de calcul en déraffinant le maillage source.
-Comme l'explique l'article \cite{schoder2019}, le raffinement du maillage source est clef pour l'interpolation (et ensuite les résultats aéroacoustique qui en découlent).
+A présent, le but est de savoir quelle est la méthode la plus précise, notamment dans le cas de l'interpolation pour l'application au traitement FWH. Pour cela il faut tester si la méthode linéaire fonctionne correctement, et tester les meilleurs paramètres \(N\) et \(p\) de la méthode IDW.%Tous les codes utilisés sont accessibles dans le répertoire \texttt{/archive/stg-cfds/thibault} sur kraken.
+Améliorer la précision peut aussi permettre indirectement de réduite le coût de calcul. En déraffinant le maillage source, nous augmentons l'erreur, notamment dans le cadre de l'aéroacoustique \cite{schoder2019}, mais nous diminuons le temps de calcul. Ainsi, la perte de tempe due à une méthode d'interpolation plus précise peut être compensée en déraffinant le maillage source.
 
 \subsection{Tests unitaires sur la méthode linéaire}
 
-Pour l'instant, je n'ai démontré que par l'expérimentation que la méthode implémentée était linéaire.
+Par manque de temps, il n'a été démontré uniquement par l'expérimentation que la méthode implémentée était linéaire.
 
-Le premier test, créé en même temps que l'implémentation dans l'objectif de tester si la méthode fonctionne dans un cas simple, est de créer une variable linéaire et de faire une interpolation sur un second maillage. L'idée est de créer une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite, on teste l'interpolation renvoie bien la valeur analytique espérée sur tous les types de cellules. Ce test est effectué simplement avec une commande 'pytest' dans le terminal. En comparant les valeurs analytiques et numériques, l'erreur observée est nulle. Ce test est par ailleurs implémenté (pour la connectivité linéaire, triangulaire, quadrilatérale, tétraédrique et hexaédrique) dans les tests unitaires d'Antares, qui permettent de savoir que la librairie fonctionne correctement, notamment lors d'un git push vers Nitrox. Cependant, il est plus difficile de créer de manière simple un maillage avec des pyramides ou tétraèdres en python. Une vue en coupe sur une base avec ces deux types de cellules a été utiliser pour compléter le test du code d'interpolation linéaire. La base contiens une variable linéaire, et nous vérifions bien que l'erreur est nulle. Voici la vue une visualisation (sur le logiciel Paraview) de l'interpolation linéaire Figure \ref{fig:lin_pyr_tet} (parfaitement lisse) que nous avons aussi comparé avec l'interpolation IDW Figure \ref{fig:idw_pyr_tet} qui s'avère moins "lisse".
+Le premier test est de créer une variable linéaire et de faire une interpolation sur un second maillage. Ce test a été créé en même temps que l'implémentation dans l'objectif de tester si la méthode fonctionne dans un cas simple. Pour cela, on créé une base source avec une variable linéaire et une base cible avec des points décalés. Ensuite, on teste que l'interpolation renvoie bien la valeur analytique espérée sur tous les types de cellules. En comparant les valeurs analytiques et numériques, l'erreur observée est nulle. Ce test est effectué simplement avec une commande 'pytest' dans le terminal. Il est par ailleurs implémenté (pour la connectivité linéaire, triangulaire, quadrilatérale, tétraédrique et hexaédrique) dans les tests unitaires d'Antares, qui permettent de savoir que la librairie fonctionne correctement, notamment lors d'un git push vers Nitrox. Cependant, il est plus difficile de créer de manière simple un maillage avec des pyramides ou tétraèdres en python.
+Une vue en coupe sur une base avec ces deux types de cellules a été utiliser pour compléter le test du code d'interpolation linéaire. La base contiens une variable linéaire, et nous vérifions bien que l'erreur est nulle. Voici la vue une visualisation (sur le logiciel Paraview) de l'interpolation linéaire Figure \ref{fig:lin_pyr_tet} (parfaitement lisse) que nous avons aussi comparé avec l'interpolation IDW Figure \ref{fig:idw_pyr_tet} qui s'avère moins "lisse".
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.90\textwidth]{images/lin_pyr_tet.png}
@@ -1713,7 +1690,7 @@ Le premier test, créé en même temps que l'implémentation dans l'objectif de 
 \end{figure}
 
 
-Ensuite, j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D). En voici l'exemple pour le 1D (Figure \ref{fig:bi}) (pour les autres types de cellules, les courbes sont similaires).
+Ensuite, j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D). En voici l'exemple pour le 1D (Figure \ref{fig:bi}). Pour les autres types de cellules, les courbes sont similaires.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.90\textwidth]{images/err_puissance2_bi.png}
@@ -1724,7 +1701,7 @@ Ensuite, j'ai essayé de tracer le log de l'erreur au sens des moindres carrés 
 
 \subsection{Tests sur des cas industriels}
 
-Pour tester la robustesse du traitement (notamment dans les cas multizones, multiconnectivités et multi-instants), son application à des tests industriels a été testée.
+Pour tester la robustesse du traitement (notamment dans les cas multizones, multiconnectivités et multi-instants) il a été testé sur des cas industriels.
 Voici deux images (Figure \ref{fig:cb-IDW} et Figure \ref{fig:cb-lineaire}) comparant l'interpolation IDW et linéaire sur un maillage 3D solution d'une flamme dans une chambre de combustion en base source et un plan en base cible qui coupe la base source en (0, 0, 0.01), selon l'axe z.
 
 \begin{figure}[H]
@@ -1757,7 +1734,7 @@ Voici les résultats de temps de calcul et d'erreur avec l'interpolation du logi
 
 L'erreur au sens des moindres carrés est quasiment nulle pour l'interpolation linéaire, nous en déduisons que vtk interpole aussi linéairement. L'erreur numérique correspond probablement à une méthode d'interpolation linéaire différente utilisée par vtk mais le résultat théorique est le même.
 
-\subsection{Tests sur des cas d'aéroacoustique}
+\subsection{Tests sur des cas d'aéroacoustique}\label{s241}
 
 Le traitement FWH permet de déterminer le son à grande distance émanant d'une source aéroacoustique. Cela peut être utilisé pour déterminer numériquement le bruit d'un moteur d'avion par exemple.
 Dans notre cas test, la source n'est pas un moteur, mais une onde aéroacoustique simulé dans un cube.
@@ -1892,13 +1869,13 @@ La base source contient la pression, aéroacoustique, d'une onde sinusoïdale da
 L'erreur, au sens des moindres carrés, est plus élevée pour la méthode IDW que pour la méthode linéaire (ce qui est observable sur la Figure \ref{fig:onde_aac}).
 
 
-Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA \cite{cunha2011} \cite{cunha2016}
+Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA \cite{cunha2011, cunha2016}
 
 Pour des cas test et applications dédiés à l'aéronautique, il peut être intéressant de regarder les caractéristiques du bruit d'un avion, comme ses fréquences démission dans l'audible. \cite{frequence}
 
 \subsection{Tests sur les paramètres de la méthode IDW}
 
-La méthode IDW contient deux paramètres (\(N\) et \(p\)) dans son équation présentée plus haut.(ref \ref{parametres})
+La méthode IDW contient deux paramètres (\(N\) et \(p\)) dans son équation présentée dans la partie \ref{parametres}.
 
 Pour savoir quels paramètres sont optimaux, des tests ont été menés sur le même cas que dans la sous-partie précédente, mais cette fois, ce qui nous intéresse est l'erreur au sens des moindres carrés, entre la solution analytique et IDW, en fonction des paramètres (\(N\) et \(p\)). Cette erreur est liée au rapport d'amplitude entre les deux courbes, ce qui a finalement été pris en compte. En les faisant varier, nous trouvons un minimum (local) pour \(N\)=10 et \(p\)=10 pour des paramètres similaires à la figure \ref{fig:onde_aac}.
 Ces tests ont été menés sur kraken afin de ne pas perdre trop de temps.
