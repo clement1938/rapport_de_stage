@@ -1834,43 +1834,50 @@ Les équations FWH sont appliqués sur cette surface. Elles permettent ensuite d
 
 
 
-La base source contient la pression, aéroacoustique, d'une onde sinusoïdale dans un maillage grossier (différents types de cellules ont été testés). La base cible est une sphère d'où les équations de FWH seront ensuite appliquées. Finalement, voilà le résultat (Figure \ref{fig:onde_aac}) pour ces paramètres :
+La base source contient la pression aéroacoustique, d'une onde sinusoïdale dans un maillage grossier (différents types de cellules ont été testés). La base cible est une sphère d'où les équations de FWH seront ensuite appliquées. Finalement, voilà le résultat (Figure \ref{fig:onde_aac}) pour ces paramètres :
 
 - observateur quelconque, car Mach égal à 0;
 
+\vspace{-0,2cm}
 - fréquence du signal aéroacoustique : 40 Hz;
 
+\vspace{-0,2cm}
 - nombre de points de la base source : 3x4 (pour 3D et 4 points par dimension);
 
+\vspace{-0,2cm}
 - types de cellules de la base source : hexaèdres;
 
+\vspace{-0,2cm}
 - paramètres \(N\) et \(p\) par défaut;
 
+\vspace{-0,2cm}
 - longueur de la base source : 7,20 m;
 
+\vspace{-0,2cm}
 - diamètre de la base cible : 6 m;
 
+\vspace{-0,2cm}
 - gamma = 1.4;
 
+\vspace{-0,2cm}
 - vitesse du son : 340.0 m/s;
 
+\vspace{-0,2cm}
 - masse volumique de l'air = 1.1825 kg/m3;
 
+\vspace{-0,2cm}
 - constante spécifique de l'air = 287.058 m2/(s2xK).
 %- paramètres physiques : non énumérés, proches de ceux du \ac{SI}. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.70\textwidth]{images/onde_aac.png}
+    \includegraphics[width=0.67\textwidth]{images/onde_aac.png}
     \caption{Comparaison entre la solution analytique et la solution utilisant l'interpolation IDW et linéaire}
     \label{fig:onde_aac}
 \end{figure}
 
 L'erreur, au sens des moindres carrés, est plus élevée pour la méthode IDW que pour la méthode linéaire (ce qui est observable sur la Figure \ref{fig:onde_aac}).
-
-
 Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA \cite{cunha2011, cunha2016}
-
 Pour des cas test et applications dédiés à l'aéronautique, il peut être intéressant de regarder les caractéristiques du bruit d'un avion, comme ses fréquences démission dans l'audible. \cite{frequence}
 
 \subsection{Tests sur les paramètres de la méthode IDW}
