@@ -18,7 +18,7 @@ En quelques mots, le CERFACS est un institut de recherche privé, spécialisé d
 Antares \cite{antares} est un code d’analyse de données privé sous forme de librairie python et C++, développé au CERFACS depuis 2012 et dont l'objectif est de réaliser du pré et post-traitement sur des simulations numériques utilisées par le CERFACS, ses actionnaires et autres partenaires.
 Il contient notamment une fonction d'interpolation, codée en Python.
 
-Mon maître de stage, Carlos MONTILLA, est responsable d'Antares depuis dix mois. Il a notamment fortement contribué au traitement \ac{FWH}. La chaîne de calcul aéroacoustique (voir \ref{s243}) utilise le traitement d'interpolation avant de pouvoir utiliser le traitement FWH.
+Mon maître de stage, Carlos MONTILLA, est responsable d'Antares depuis dix mois. Il a notamment fortement contribué au traitement \ac{FWH}. La chaîne de calcul aéroacoustique (partie \ref{s243}) utilise le traitement d'interpolation avant de pouvoir utiliser le traitement FWH.
 
 Mes missions principales lors de ce stage ont été :
 
@@ -30,7 +30,7 @@ implémentables dans Antares (avec les contraintes associées);
 
 - d'implémenter la méthode linéaire, de la tester et d'optimiser le code.  % \ac{DSP} à placer
 
-Pour bien comprendre l'idée globale, l'objectif de l'interpolation dans Antares, le but est d'interpoler les valeurs aux points d'un maillage 'cible', issu d'une discrétisation de l'espace, en utilisant les valeurs aux points d'un maillage 'source'.
+L'objectif de l'interpolation dans Antares est de pouvoir interpoler les valeurs aux points d'un maillage 'cible', issu d'une discrétisation de l'espace, en utilisant les valeurs aux points d'un maillage 'source'.
 Par exemple dans le cadre d'un raffinement de maillage entre deux itérations de calcul ou bien dans le cadre de la création d'une sphère dans un maillage 3D pour l'application des équations de FWH pour la propagation aéroacoustique.
 
 Pour expliquer plus en détail ce stage au CERFACS, je présenterai dans une première partie ce laboratoire de recherche, puis dans une seconde partie j'exposerai le travail que j'ai réalisé sous forme de rapport. Cette seconde partie se décomposera en quatre temps : la présentation de la librairie Antares, les différentes méthodes d'interpolation, l'implémentation de la méthode linéaire dans Antares et finalement les tests de l'ancienne et de la nouvelle méthode d'interpolation.

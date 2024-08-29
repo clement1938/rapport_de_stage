@@ -735,6 +735,19 @@
       \field{title}{A user's guide to hip}
       \field{year}{2020}
     \endentry
+    \entry{opencfs}{online}{}{}
+      \field{sortinit}{o}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labeltitlesource}{title}
+      \field{note}{Accédé: 2024-08-29}
+      \field{title}{openCFS User Documentation}
+      \verb{urlraw}
+      \verb https://opencfs.gitlab.io/userdocu/DataExplanations/RBF/
+      \endverb
+      \verb{url}
+      \verb https://opencfs.gitlab.io/userdocu/DataExplanations/RBF/
+      \endverb
+    \endentry
     \entry{palmer2009}{article}{}{}
       \name{author}{1}{}{%
         {{hash=f71985d633aeb3b0decb8b7c9e14c98a}{%
