@@ -267,6 +267,8 @@ où :
 
 - \(M\) est le nombre total de points de données.
 
+\vspace{0,1 cm}
+
 
 En voici des illustrations 1D :
 
@@ -673,37 +675,68 @@ J'ai considéré subjectivement que cette méthode n'était pas intéressante. L
 
 \subparagraph{a. Interpolation de Lagrange \cite{Barycentric_Lagrange1, Barycentric_Lagrange2}}
 \textit{Type : Polynomiale} \\
-\phantom{----}L'interpolation de Lagrange utilise un polynôme unique qui passe par \(n\) points donnés. Elle peut devenir imprécise pour un grand nombre de points à cause de l'effet Runge. Sa généralisation en 2D et 3D la rend coûteuse. La formule de Lagrange est donnée par :
+\phantom{----}L'interpolation de Lagrange utilise un polynôme unique qui passe par \(n\) points donnés. La formule de Lagrange est donnée par :
 \begin{equation}
     L(x) = \sum_{i=0}^{n} y_i \prod_{\substack{0 \leq j \leq n \\ j \neq i}} \frac{x - x_j}{x_i - x_j}
 \end{equation}
-
-
 %L'interpolation de Lagrange utilise un polynôme unique qui passe par tous les points donnés. Elle est souvent utilisée pour l'interpolation d'un petit nombre de points, mais elle peut devenir imprécise pour un grand nombre de points à cause de l'effet Runge. Il faut donc limiter le nombre de points (comme dans les méthodes déjà implémentées dans Antares).
 %Nous pouvons retrouver sur un site \cite{structure} la structure des cellules pour de l'interpolation d'ordre supérieur (notamment pour Lagrange). Un inconvénient de cette méthode est que sa généralisation en 2D et surtout 3D est complexe.
 %Une interpolation de Lagrange serait possible en partant de la méthode barycentrique. \cite{Barycentric_Lagrange1} \cite{Barycentric_Lagrange2}
-
-
 %\subparagraph{b. Hermite \cite{bajaj}}
 \subparagraph{b. Interpolation d'Hermite \cite{bajaj}}
 \textit{Type : Polynomiale} \\
-\phantom{----}L'interpolation d'Hermite est une extension de l'interpolation de Lagrange, prenant en compte non seulement les valeurs des points, mais aussi leurs dérivées. Pour cela, il faut reprendre le polynôme de Lagrange et imposer la continuité des dérivées. Cela permet de créer un polynôme d'interpolation plus lisse. Cependant, elle est coûteuse, surtout lorsqu'elle est étendue aux ordres supérieurs. La formule de l'interpolation d'Hermite est donnée par :
+\phantom{----}L'interpolation d'Hermite d'ordre \(m\) est une extension de l'interpolation de Lagrange, imposant une égalité des valeurs des points de la fonction \(f\) à interpoler, mais aussi de leurs dérivées. Pour cela, il faut reprendre le polynôme de Lagrange et imposer la continuité des dérivées. Cela permet de créer un polynôme d'interpolation plus lisse. Cependant, elle est coûteuse, surtout lorsqu'elle est étendue aux ordres supérieurs. La formule de l'interpolation d'Hermite est donnée par :
 \begin{equation}
-    H(x) = \sum_{i=0}^{n} \left[ y_i h_i(x) + y'_i h'_i(x) \right]
+    H(x) = \sum_{i=0}^{m} \left[ y_i h_i(x) + y'_i h'_i(x) \right]
 \end{equation}
-où \( h_i(x) \) et \( h'_i(x) \) sont des fonctions de base Hermite.
+\vspace{-0,2 cm}
+Les polynômes \( q_i \) et \( f'_i \) de la base d'Hermite respectent la propriété nodale suivante :
+
+\vspace{-0,2 cm}
+
+\begin{equation}
+    \begin{aligned}
+        q_i(x_j) &= \delta_{ij} \\
+        q'_i(x_j) &= 0 \\
+        r_i(x_j) &= 0 \\
+        r'_i(x_j) &= \delta_{ij}
+    \end{aligned}
+\end{equation}
+
+\vspace{-0,3 cm}
+
+ce qui permet de garantir que :
+
+\vspace{-0,2 cm}
+
+\begin{equation}
+    \begin{aligned}
+        H(f)(x_i) &= f(x_i) \quad \text{et} \quad H(f)'(x_i) = f'(x_i)
+    \end{aligned}
+\end{equation}
+
+
+
+Cela permet de garantir une bonne approximation de la divergence du flux (quantité utilisée par les schémas numériques). Les polynômes d'Hermite s'expriment (en 1D) à l'aide des polynômes de Lagrange $L_i$ :
+
+\begin{equation}
+    \begin{aligned}
+        q_i(x) &= \left(1 + 2(x_i - x) L'_i(x_i)\right) L_i^2(x) \\
+        r_i(x) &= (x - x_i) L_i^2(x)
+    \end{aligned}
+\end{equation}
 
 %L'interpolation d'Hermite est une extension de l'interpolation, de Lagrange prend en compte non seulement les valeurs des points, mais aussi leurs dérivées. Cela permet de créer un polynôme d'interpolation plus lisse. Cependant, elle est coûteuse, surtout lorsqu'elle est étendue aux ordres supérieurs.
 
 \subparagraph{c. Interpolation quadratique \cite{alexis}}
 \textit{Type : Polynomiale} \\
-\phantom{----}L'interpolation quadratique est une méthode qui utilise des polynômes de degré deux pour calculer des valeurs intermédiaires entre les points de données.
+\phantom{----}L'interpolation quadratique est une méthode qui utilise des polynômes de Lagrange de degré deux pour calculer des valeurs intermédiaires entre les points de données.
 La forme simple de la formule 1D de l'interpolation quadratique pour un ensemble de trois points \( (x_0, y_0), (x_1, y_1), (x_2, y_2) \) est donnée par :
 
 \vspace{-0,3 cm}
 
 \begin{equation}
-    f(x) = a_0 + a_1(x - x_1) + a_2(x - x_1)^2
+    q(x) = a_0 + a_1(x - x_1) + a_2(x - x_1)^2
 \end{equation}
 
 où les coefficients \( a_0, a_1, a_2 \) sont déterminés par les valeurs en \( x_0, x_1, x_2 \).
@@ -713,7 +746,7 @@ Dans le cas des maillages non-structurés en 2D ou 3D, l'interpolation quadratiq
 \vspace{-0,5 cm}
 
 \begin{equation}
-    f(x, y) = a_0 + a_1(x - x_1) + a_2(y - y_1) + a_3(x - x_1)^2 + a_4(y - y_1)^2 + a_5(x - x_1)(y - y_1)
+    q(x, y) = a_0 + a_1(x - x_1) + a_2(y - y_1) + a_3(x - x_1)^2 + a_4(y - y_1)^2 + a_5(x - x_1)(y - y_1)
 \end{equation}
 
 Une méthode applicable dans notre cas est décrite dans une thèse menée au CERFACS\cite{alexis}.
@@ -721,13 +754,13 @@ Une méthode applicable dans notre cas est décrite dans une thèse menée au CE
 
 \subparagraph{d. Interpolation cubique \cite{tanaka}}
 \textit{Type : Polynomiale} \\
-\phantom{----}L'interpolation cubique est une méthode qui utilise des polynômes de degré trois pour calculer des valeurs intermédiaires entre les points de données. Cette méthode est souvent un bon compromis entre complexité et précision et pourrait être un bon candidat pour la prochaine méthode à implémenter. L'interpolation cubique peut être réalisée en utilisant soit des polynômes de Lagrange, soit des splines cubiques, soit un algorithme de convolution cubique.
+\phantom{----}L'interpolation cubique est une méthode qui utilise des polynômes de Lagrange de degré trois pour calculer des valeurs intermédiaires entre les points de données. Cette méthode est souvent un bon compromis entre complexité et précision et pourrait être un bon candidat pour la prochaine méthode à implémenter. L'interpolation cubique peut être réalisée en utilisant soit des polynômes de Lagrange, soit des splines cubiques, soit un algorithme de convolution cubique.
 La formule 1D de l'interpolation cubique entre quatre points \( x_0, x_1, x_2, x_3 \) est donnée par :
 
 \vspace{-0,5 cm}
 
 \begin{equation}
-    f(x) = a_0 + a_1(x - x_1) + a_2(x - x_1)^2 + a_3(x - x_1)^3
+    c(x) = a_0 + a_1(x - x_1) + a_2(x - x_1)^2 + a_3(x - x_1)^3
 \end{equation}
 
 où les coefficients \( a_0, a_1, a_2, a_3 \) sont déterminés par les valeurs et les dérivées en \( x_0, x_1, x_2, x_3 \).
@@ -755,7 +788,7 @@ Dans le cas de plusieurs segments, les splines cubiques forment une courbe compo
 
 \subparagraph{f. NURBS \cite{surface, piegl1995nurbs}}
 \textit{Type : Polynomiale} \\
-\phantom{----}Les \ac{NURBS} pourrait être un bon candidat pour l'interpolation. C'est une généralisation des splines, permettant de représenter des formes géométriques simples comme complexes. Elles sont notamment utilisées en CAO et pour l'interpolation de surfaces.
+\phantom{----}Les \ac{NURBS} sont une généralisation des splines, permettant de représenter des formes géométriques complexes. Elles sont notamment utilisées en CAO et pour l'interpolation de surfaces.
 La formule 1D pour une courbe NURBS est :
 
 \vspace{-0,6 cm}
@@ -818,7 +851,7 @@ Voici un tableau (Tableau \ref{tab:interpolation_methods}), donné dans une pré
 \textit{Type : Géostatistique} \\
 \phantom{----}Définissons deux termes utiles pour caractériser la méthode suivante :
 
-- Autocorrélation spaciale : Mesure du degré auquel les données sont agglomérées ou désordonnées dans l'espace. Voici une application d'autocorrelation (filtre gaussien) sur des données :
+- Autocorrélation spaciale : Mesure du degré auquel les données sont agglomérées ou désordonnées dans l'espace. Voici une application d'autocorrelation avec un filtre Gaussien (Figure \ref{fig:autocorrelation}) sur des données :
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{images/autocorrelation.png}
@@ -856,7 +889,7 @@ Le kriging permet non seulement de prédire les valeurs inconnues, mais aussi d'
 \phantom{----}Le cokriging est une extension multivariée du kriging, qui prend en compte la corrélation spatiale entre plusieurs variables. Il permet de modéliser simultanément plusieurs variables en utilisant des informations supplémentaires sur leurs corrélations spatiales. Cela peut améliorer la précision de l'interpolation dans les cas où plusieurs variables sont disponibles et corrélées.
 %La formule pour le cokriging est similaire à celle du kriging, mais elle inclut des termes pour chaque variable considérée, ainsi que leurs covariances croisées. C'est l'extension multivariée du kringing.
 %Cette méthode est particulièrement utilisée pour les applications où les variables ont des relations spatiales complexes et non linéaires, comme dans les simulations CFD (Computational Fluid Dynamics).
-Voici une illustration du résultat de différentes méthodes d'interpolation venant du même article :
+Voici une illustration (Figure \ref{fig:compar}) du résultat de différentes méthodes d'interpolation venant du même article :
 %"La pondération par l’inverse de la distance et les fonctions de base radiale sont des interpolateurs exacts, tandis que le polynôme global, le polynôme local, l’interpolation par noyaux avec interruptions et l’interpolation par diffusion avec interruptions sont inexacts."\footnote{https://pro.arcgis.com/fr/pro-app/latest/help/analysis/geostatistical-analyst/deterministic-methods-for-spatial-interpolation.html}
 %Voici une classification des différentes méthodes d'interpolation géostatiques :
 \begin{comment}
@@ -892,7 +925,6 @@ Voici une illustration du résultat de différentes méthodes d'interpolation ve
 %\subparagraph{b. IDW}
 %Comme décrit plus tôt dans la partie 2.2.2, la méthode IDW se base sur la distance des points pour le calcul de l'interpolation. Elle est une application de la pondération de Shepard qui est elle-même une généralisation de l'approximation de Lagrange (à N-dimension).
 
-\newpage
 
 \subparagraph{i. RBF \cite{opencfs}}
 \textit{Type : Base radiale} \\
@@ -903,7 +935,7 @@ f(\mathbf{x}) = \sum_{i=1}^{N} w_{i} \, \varphi \left( \|\mathbf{x} - \mathbf{x}
 \end{equation}
 
 %Cette interpolation est utilisée et expliquée par un docteur en maths \cite{Rosenfeld}.%sur sa chaîne YouTube\footnote{http://www.thatmaththing.com/} et son site internet\footnote{http://www.thelearningdock.org/}.
-Pour la prochaine méthode à implémenter : Des codes open source d'interpolation d'ordre élevé sont disponibles sur GitHub (en Julia \cite{opensource} et Python \cite{opensource_2} pour RBF et Noyaux de produits de points exponentiels) et expliqués par un docteur en maths \cite{Rosenfeld}. Les noyaux RBF gaussiens et les noyaux de produit de points exponentiels sont utilisés dans certaines interpolations. \cite{opensource_2}. La RBF est utilisée au CERFACS et disponible sur cloud2cloud.
+Pour la prochaine méthode à implémenter : Des codes open source d'interpolation d'ordre élevé sont disponibles sur GitHub (en Julia \cite{opensource} et Python \cite{opensource_2} pour RBF et Noyaux de produits de points exponentiels) et expliqués par un docteur en maths \cite{Rosenfeld}. Les noyaux RBF gaussiens et les noyaux de produit de points exponentiels sont utilisés dans certaines interpolations \cite{opensource_2}. La RBF est utilisée au CERFACS et disponible sur cloud2cloud.
 
 \subparagraph{j. Les moindres carrés} %\label{mc}
 \textit{Type : Outil} \\ %\vspace{0.2cm}
@@ -911,9 +943,8 @@ Pour la prochaine méthode à implémenter : Des codes open source d'interpolati
 Cet outil vise à minimiser l'erreur quadratique pour créer une approximation des données. Elle est appliquée sur une fonction d'approximation paramétrable.
 
 Des variantes plus performantes sont décrites dans le guide utilisateur de "hip".
-Un logiciel créé en 1997 au CERFACS, nommé "hip" permet de convertir des maillages multi-blocs structurés en maillages non structurés.
-Différentes méthodes d'interpolation y sont codées et décrites dans le guide utilisateur \cite{muller2020}.
-Les approches d'interpolation linéaire par morceaux et par norme minimale sont plus rapides que la méthode des moindres carrés linéaires. \cite{muller2020}
+C'est logiciel créé en 1997 au CERFACS, permettant de convertir des maillages multi-blocs structurés en maillages non structurés.
+Différentes méthodes d'interpolation y sont codées et décrites dans son guide utilisateur \cite{muller2020}, dont une approche d'interpolation linéaire par morceaux et par norme minimale qui se montrent plus rapides que la méthode des moindres carrés linéaires.
 %\subparagraph{3. Approximation des moindres carrés}
 %\phantom{-}
 %\newline
@@ -926,10 +957,7 @@ Approfondir des recherches sur la méthode \ac{MLS} \cite{MLS, levin} pourrait �
 Plusieurs méthodes innovantes d'interpolation d'ordre élevé sont déjà implémentées dans d'autres codes du CERFACS tel que dans les \ac{MISCOG} et un article les détaille \cite{laborderie2018}. Elles servent généralement pour d'autres applications comme pour calculer un flux au travers d'une cellule \cite{alexis} à l'aide d'une intégration sur une surface. Mais certaines parties sont intéressantes pour notre cas.
 
 
-
-
-\newpage
-
+\vspace{1,5cm}
 
 
 \subsection{La méthode linéaire}
@@ -1148,7 +1176,9 @@ Visuellement, nous créons cette fois des traits parallèles en passant par le p
 \subparagraph{Quadrilatère}
 
 Regardons maintenant le dernier type de cellule 2D rencontré dans les solutions traitées par Antares : les quadrilatères.
-Pour cela, je n'ai pas trouvé de méthode satisfaisante dans la littérature \cite{perronnet1998}. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue, ce qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0 et la linéarité doit être respecté entre deux points, sur les arêtes.
+Pour cela, je n'ai pas trouvé de méthode satisfaisante dans la littérature \cite{perronnet1998}. Après plusieurs essais sur papier, je me suis concentré sur le fait que la méthode devait être continue.
+Cela qui implique notamment que la valeur du point à interpoler doit tendre vers la valeur d'un sommet lorsque sa distance à ce dernier tend vers 0.
+Plus généralement, la linéarité doit être respectée entre deux points, sur les arêtes.
 Une première contrôle de la linéarité est de vérifier qu'un point au milieu d'une cellule 2D a comme valeur la moyenne de ses sommets.
 Via cette démarche, j'ai imaginé, graphiquement, tracer des traits entre le point à interpoler et les sommets de la cellule dans laquelle il se situe (tel que pour l'interpolation Barycentrique).
 Cela permet de ne créer que quatre sous-formes.
@@ -1204,11 +1234,11 @@ Par opposées, j'entends que ces surfaces ne sont composées d'aucunes arêtes a
 
 Un point à souligner est qu'une multiplication de surfaces est réalisée, qui induit une équation d'ordre 4, ce qui pourrait impliquer une méthode du même ordre.
 Contrairement à son nom, l'interpolation bilinéaire est en réalité quadratique avec un résultat linéaire.
-Une vérification a été faite et la méthode interpole avec de l'erreurs les fonctions d'ordre supérieur à un.
-De plus, le quadratique ne peut pas englober le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère.
+Une vérification a été faite et la méthode n'interpole que des variables d'ordre un.
+%De plus, le quadratique ne peut pas englober le linéaire dans le cas où nous nous basons uniquement sur les quatre points d'un quadrilatère.
 % Effectivement, en 1D, si nous avons \(f(x_i)\) = 0 et \(f(x_{i+1})\) = 1, le résultat d'une variable linéaire serait 0,5 et celui d'une variable quadratique 0,25, si nous avons uniquement connaissance de ces deux points.
-Normalement il faudrait s'appuyer sur plus de points pour le quadratique. 
-Finalement, la démonstration pourrait se construire en montrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la Figure \ref{fig:quad} ci-dessus, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.
+Il faudrait s'appuyer sur d'autres points extérieurs à la forme pour avoir assez d'information tel que la dérivée aux sommets afin d'interpoler à un ordre supérieur à un.
+Finalement, la démonstration pourrait se construire en démontrant la linéarité selon les axes x et y indépendamment (comme pour le bilinéaire). En effet, sur la Figure \ref{fig:quad} ci-dessus, nous remarquons que lors d'un déplacement selon l'horizontal, vers la droite, les surfaces \(\alpha\) et \(\gamma\) ne varient pas tandis que la surface \(\delta\) augment linéairement et \(\beta\) diminue linéairement aussi.
 Voici l'équation de la méthode d'interpolation linéaire pour le quadrilatère :
 
 \begin{equation}
@@ -1222,7 +1252,7 @@ Voici l'équation de la méthode d'interpolation linéaire pour le quadrilatère
 \paragraph{3D}
 \subparagraph{Pavé droit : Trilinéaire}
 
-Pour le 3D, si le maillage est structuré, alors le type de cellule est le pavé droit. À ce moment, nous sommes dans le cas de l'interpolation dite trilinéaire. La formule se trouve facilement dans la littérature et peut être retrouvée par extension de la formule de l'interpolation sur un rectangle. Nous associons comme poids à un des huit sommets \( s_1 \) le volume opposé, construit tel que sur la Figure \ref{fig:trilineaire}
+Pour le 3D, si le maillage est structuré, alors le type de cellule est le pavé droit. À ce moment, nous sommes dans le cas de l'interpolation dite trilinéaire. La formule se trouve facilement dans la littérature et peut être retrouvée par extension de la formule de l'interpolation sur un rectangle. Nous associons comme poids à un des huit sommets \( s_1 \) le volume opposé, construit tel que sur la Figure \ref{fig:trilineaire} :
 
 \begin{figure}[H]
     \centering
@@ -1301,6 +1331,12 @@ Voici les arguments initialement présents dans le code d'interpolation :
     \label{tab:arguments_interpolation1}
 \end{table}
 
+Ces paramètres peuvent être changés par l'utilisateur ajoutant :
+\begin{lstlisting}[]
+    myt['tolerance'] = valeur
+\end{lstlisting}
+entre la ligne 2 et 5 de l'exemple présenté dans la partie '2.1 La librairie Antares' avec pour respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.\label{parametres}
+
 %Tolérance relative entre la somme des sous-surfaces créées par le point p et la surface totale de la cellule pour déterminer si un point est dans une cellule ou non\label{pt_cell}
 
 \begin{comment}
@@ -1340,13 +1376,11 @@ Voici les arguments initialement présents dans le code d'interpolation :
 %Cette distance est définie à 1e-10 dans le traitement et peut être modifiée par l'utilisateur en ajustant l'argument \texttt{'tolerance'} en ajoutant la ligne
 La méthode IDW contient deux paramètres \(N\) et \(p\) (section \ref{sIDW})
 Par défaut, dans le code, \(p\) est égal à '1' et \(N\) est égale au nombre de sommets de la première cellule de la liste de types de cellules de la base cible. Il y aurait peut-être une modification mineure à faire sur ce point. La structure de la base cible importe peu comparée à celle de la base source, pour l'interpolation. Mais par souci de rétrocompatibilité, aucune modification ne doit changer l'utilisation qui a déjà été faite de ce traitement. % ! test à faire ici !
-Ces paramètres peuvent être changés par l'utilisateur ajoutant
-\begin{lstlisting}[]
-    myt['tolerance'] = valeur
-\end{lstlisting}
-entre la ligne 2 et 5 de l'exemple présenté dans la partie '2.1 La librairie Antares' avec pour respectivement \texttt{'nb\_points'} et \texttt{'invdist\_power'}.\label{parametres}
 
-Une de mes missions était de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles \cite{idw-arcgis} et thèses que j'ai lues. C'est pour cela qu'il sera présenté plus tard dans le rapport comment des paramètres optimaux ont été trouvés en faisant des tests.
+
+\vspace{0,5cm}
+
+Une de mes missions était de chercher s'il y avait des paramètres plus optimisés que \(N\) et \(p\) pour cette méthode. Je n'ai pas trouvé la réponse dans les différents articles \cite{idw-arcgis} et thèses que j'ai lues. C'est pour cela qu'il sera présenté plus tard dans le rapport (section \ref{s244}) comment des paramètres optimaux ont été trouvés en faisant des tests.
 
 \label{prisme}\paragraph{L'interpolation linéaire}
 
@@ -1496,7 +1530,7 @@ La méthode linéaire était initialement deux cents à cinq cents fois plus len
 
 Le test de localisation d'un point dans une cellule et de calcul des poids a aussi été optimisé : les surfaces créées par le point cible avec les sommets sont calculées ainsi que le volume total de la cellule. Si la somme des sous-surfaces et égale à la surface totale de la cellule à une erreur numérique près, alors le point est dans la cellule et les poids sont déjà calculés. Sinon, il faut nécessairement chercher ailleurs. Un point à noter est que si le point est sur une arête, il pourrait ne jamais être détecté. Alors un argument \texttt{tolerance\_edge} a été créé. Si la tolérance relative entre la somme des sous-surfaces créées par le point p et la surface totale de la cellule est inférieure à \texttt{tolerance\_edge}, alors le point est considéré comme dans la cellule. %\label{pt_cell}
 
-Ce test de localisation est coûteux, il a donc mené à autre idée de méthode qui a été testée pour réduire le temps de calcul. Elle reste linéaire, mais ne donne pas nécessairement le même résultat (lorsque la variable à interpoler est non-linaire, sinon le résultat reste la solution analytique). Cette idée est décrite uniquement pour le cas 2D par souci de simplicité de visualisation, mais est similaire pour le 3D.
+Ce test de localisation est coûteux, il a donc mené à autre idée de méthode qui a été testée pour réduire le temps de calcul. Elle reste linéaire, mais ne donne pas nécessairement le même résultat (lorsque la variable à interpoler est non-linaire, sinon le résultat reste la solution analytique). Le résultat sera aussi dans la plupart des cas moins juste. Cette idée est décrite uniquement pour le cas 2D par souci de simplicité de visualisation, mais est similaire pour le 3D.
 Le principe est de ne pas calculer tout ce qui est en lien avec la connectivité, car c'est ce qui augmente significativement le temps de calcul.
 Nous allons alors chercher les 3 (4 en 3D) points les plus proches. En reliant les sommets, cela donnera une forme (dite non croisée). 
 Ensuite, nous faisons le calcul des barycentres et appliquons la même méthode que celle présenté dans le paragraphe précédent. Cela permet aussi une extrapolation linéaire sans créer d'erreur.
@@ -1600,7 +1634,69 @@ Alors nous pourrions avoir une ou des surfaces formées par le point cible qui s
 \end{figure}
 
 
-N'ayant pas trouvé une façon simple de savoir si la surface était négative, par manque de temps et crainte de l'ajout de complexité (qui augmente possiblement le temps de calcul), cette méthode n'a pas été implémentée.
+N'ayant pas trouvé une façon simple de savoir si la surface était négative, par manque de temps et crainte de l'ajout de complexité (qui augmente possiblement le temps de calcul), cette méthode n'a pas été implémentée. Cependant, voici une comment cela pourrait être réalisé :
+
+\begin{figure}[H]
+\centering
+    \begin{tikzpicture}
+    % Définition des points
+    \coordinate (A) at (0, 0);
+    \coordinate (B) at (4, 0);
+    \coordinate (C) at (2, 2);
+    \coordinate (P) at (2.4, 4); % Point P, placé en dehors de deux droites
+
+    % Tracer le triangle ABC
+    \draw[thick] (A) -- (B) -- (C) -- cycle;
+
+    % Tracer les droites étendues des segments du triangle
+    \draw[dashed] (A) -- ++(-1,-1); % Droite étendue
+    \draw[dashed] (A) -- ++(-3, 0);
+    \draw[dashed] (B) -- ++(3,0);
+    \draw[dashed] (B) -- ++(1, -1);
+    \draw[dashed] (C) -- ++(2, 2);
+    \draw[dashed] (C) -- ++(-2, 2);
+
+
+    % Ajouter des flèches perpendiculaires avec des points d'interrogation
+    %\draw[->, thick] (2, -0.1) -- (2, -0.7) node[anchor=north] {?};
+    %\draw[->, thick] (3.8, 2) -- (4.3, 2.5) node[anchor=west] {?};
+    \draw[<->, thick] (1-0.2, 3-0.2) -- (1 + 0.2, 3 + 0.2) node[anchor=west] {?};
+        %\draw[->, thick] (0.8, 1.5) -- (0.3, 2) node[anchor=east] {?};
+
+    % Tracer les surfaces colorées (facultatif pour ce schéma)
+    \fill[blue!20, opacity=0.7] (A) -- (P) -- (C) -- cycle;
+    \fill[green!20, opacity=0.7] (P) -- (B) -- (C) -- cycle;
+    \fill[pattern=north west lines, pattern color=red, opacity=0.2] (A) -- (B) -- (P) -- cycle;
+
+    % Marquer les points
+    \filldraw[red] (A) circle (2pt) node[anchor=north] {A};
+    \filldraw[red] (B) circle (2pt) node[anchor=north] {B};
+    \filldraw[red] (C) circle (2pt) node[anchor=south] {C};
+    \filldraw[blue] (P) circle (2pt) node[anchor=west] {P};
+
+    %\node at (2.5, 1.2) [anchor=east] {
+     %   \begin{tikzpicture}[baseline]
+    %        \fill[pattern=north west lines, pattern color=red, opacity=0.7] (0,0) rectangle (0.5,0.2);
+    %    \end{tikzpicture}
+    %    \hspace{0.1cm} Surface négative
+    %};
+    %\draw[->, thick] (2.5, 1.2) -- (2.5, 0.5);
+    \end{tikzpicture}
+\caption{Comment savoir si une surface créé par deux sommets et un point est dans un triangle}
+\label{fig:find_sn}
+\end{figure}
+
+La surface bleu est à l’extérieur, ce qui est vérifié par le fait que le point P ne se situe pas du même coté de la droite (AC) que le point B.
+La même démarche peut être faite pour les deux autres surfaces.
+
+\begin{comment}
+\begin{itemize}
+    \item La surface bleu est à l’extérieur, ce qui est vérifié par le fait que le point P ne se situe pas du même coté de la droite (formée par) AC que le point B.
+    \item La surface verte est à l’extérieur, ce qui est vérifié par le fait que le point P ne se situe pas du même coté de la droite BC que le point A.
+    \item La surface hachurée en rouge est à l'intérieur, ce qui est vérifié par le fait que le point P se situe du même coté de la droite AB que le point C.
+\end{itemize}
+\end{comment}
+
 
 Finalement, voici les arguments ajoutés pour la méthode linéaire :
 
@@ -1717,14 +1813,14 @@ Une vue en coupe sur une base avec ces deux types de cellules a été utilisé p
 
 
 
-Ensuite, j'ai essayé de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a étonnamment montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D). En voici l'exemple pour le 1D (Figure \ref{fig:bi}). Pour les autres types de cellules, les courbes sont similaires.
+Ensuite, j'ai de tracer le log de l'erreur au sens des moindres carrés en fonction du raffinement du maillage source. Cela a montré une convergence d'ordre quatre pour tous types de cellules (alors que nous nous attendions à une convergence d'ordre un pour le 1D). En voici l'exemple pour le 1D (Figure \ref{fig:bi}). Pour les autres types de cellules, les courbes sont similaires. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.90\textwidth]{images/err_puissance2_bi.png}
     \caption{Log de l'erreur en fonction du log du raffinement}
     \label{fig:bi}
 \end{figure}
-
+Cela s'explique par une erreur dans la partie de l'affichage du code, car sur d'autres tests bien linaires (comme avec la méthode IDW (\(N=2, p=1\)))le même résultat est obtenu.
 
 \subsection{Tests sur des cas industriels}
 
@@ -1735,14 +1831,14 @@ Voici deux images (Figure \ref{fig:cb-IDW} et Figure \ref{fig:cb-lineaire}) comp
     \centering
     \begin{minipage}[b]{0.47\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/cb-IDW.png}
+        \includegraphics[width=\textwidth]{images/cb_IDW2.png} % cb-IDW.png
         \caption{Interpolation IDW sur une coupe d'une chambre de combustion avec isosurface de la flame}
         \label{fig:cb-IDW}
     \end{minipage}
     \hspace{0.02\textwidth} % Espace entre les deux figures
     \begin{minipage}[b]{0.47\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{images/cb-lineaire.png}
+        \includegraphics[width=\textwidth]{images/cb_lineaire2.png} % cb-lineaire.png
         \caption{Interpolation linéaire sur une coupe d'une chambre de combustion avec isosurface de la flame}
         \label{fig:cb-lineaire}
     \end{minipage}
@@ -1908,15 +2004,17 @@ La base source contient la pression aéroacoustique, d'une onde sinusoïdale dan
 \end{figure}
 
 L'erreur, au sens des moindres carrés, est plus élevée pour la méthode IDW que pour la méthode linéaire (ce qui est observable sur la Figure \ref{fig:onde_aac}).
-Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA \cite{cunha2011, cunha2016}
-Pour des cas test et applications dédiés à l'aéronautique, il peut être intéressant de regarder les caractéristiques du bruit d'un avion, comme ses fréquences d'émission dans l'audible. \cite{frequence}
+Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA \cite{cunha2011, cunha2016}.
+Pour des cas test et applications dédiés à l'aéronautique, il peut être intéressant de regarder les caractéristiques du bruit d'un avion, comme ses fréquences d'émission dans l'audible \cite{frequence}.
 
-\subsection{Tests sur les paramètres de la méthode IDW}
+\subsection{Tests sur les paramètres de la méthode IDW} \label{s244}
 
-La méthode IDW contient deux paramètres (\(N\) et \(p\)) dans son équation présentée dans la partie \ref{parametres}.
-
-Pour savoir quels paramètres sont optimaux, des tests ont été menés sur le même cas que dans la sous-partie précédente, mais cette fois, ce qui nous intéresse est l'erreur au sens des moindres carrés, entre la solution analytique et IDW, en fonction des paramètres (\(N\) et \(p\)). Cette erreur est liée au rapport d'amplitude entre les deux courbes, ce qui a finalement été pris en compte. En les faisant varier, nous trouvons un minimum (local) pour \(N\)=10 et \(p\)=10 pour des paramètres similaires à la figure \ref{fig:onde_aac}.
-Ces tests ont été menés sur kraken afin de ne pas perdre trop de temps.
+La méthode IDW contient deux paramètres (\(N\) et \(p\)) dans son équation présentée dans la section \ref{parametres}.
+Pour savoir quels paramètres sont optimaux, des tests ont été menés sur le même cas test que dans la section \ref{s241}.
+Nous recherchons pour quels paramètres (\(N\) et \(p\)) l'erreur est minimale.
+En les faisant varier, nous trouvons un minimum (local) pour \(N\)=10 et \(p\)=10.
+%Nous avons pris des paramètres similaires à la figure \ref{fig:onde_aac}.
+%Ces tests ont été menés sur kraken afin de ne pas perdre trop de temps.
 
 \begin{figure}[H]
     \centering

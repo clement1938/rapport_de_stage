@@ -22,13 +22,15 @@ Mon maître de stage, Carlos MONTILLA, est responsable d'Antares depuis dix mois
 
 Mes missions principales lors de ce stage ont été :
 
-- de faire un état des lieux sur les autres méthodes d'interpolation qui seraient 
-implémentables dans Antares (avec les contraintes associées);
+\begin{itemize}
+    \item de faire un état des lieux sur les autres méthodes d'interpolation qui seraient implémentables dans Antares (avec les contraintes associées);
+    \item d'identifier les meilleurs paramètres pour l'équation \ac{IDW}, la seule qui était implémentée jusqu'alors dans Antares; % : Inverse Distance Weighting, pondération inverse à la distance en français}
+    \item d'implémenter la méthode linéaire, de la tester et d'optimiser le code.  % \ac{DSP} à placer
+\end{itemize}
+
 % A savoir, 3D, non structuré, temps de calcul, caractéristiques des équations à interpoler ...
 
-- d'identifier les meilleurs paramètres pour l'équation \ac{IDW}, la seule qui était implémentée jusqu'alors dans Antares; % : Inverse Distance Weighting, pondération inverse à la distance en français}
 
-- d'implémenter la méthode linéaire, de la tester et d'optimiser le code.  % \ac{DSP} à placer
 
 L'objectif de l'interpolation dans Antares est de pouvoir interpoler les valeurs aux points d'un maillage 'cible', issu d'une discrétisation de l'espace, en utilisant les valeurs aux points d'un maillage 'source'.
 Par exemple dans le cadre d'un raffinement de maillage entre deux itérations de calcul ou bien dans le cadre de la création d'une sphère dans un maillage 3D pour l'application des équations de FWH pour la propagation aéroacoustique.

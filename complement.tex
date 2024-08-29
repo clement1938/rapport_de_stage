@@ -12,25 +12,25 @@ Document en complément de la partie 2.3.3 (Optimisation du temps de calcul) du 
     % Définition des points
     \coordinate (A) at (0, 0);
     \coordinate (B) at (4, 0);
-    \coordinate (C) at (2, 3);
-    \coordinate (P) at (2.5, 5); % Point P, placé en dehors de deux droites
+    \coordinate (C) at (2, 2);
+    \coordinate (P) at (2.4, 4); % Point P, placé en dehors de deux droites
 
     % Tracer le triangle ABC
     \draw[thick] (A) -- (B) -- (C) -- cycle;
 
     % Tracer les droites étendues des segments du triangle
-    \draw[dashed] (A) -- ++(-2,-3); % Droite étendue
-    \draw[dashed] (A) -- ++(-5, 0);
-    \draw[dashed] (B) -- ++(5,0);
-    \draw[dashed] (B) -- ++(2, -3);
-    \draw[dashed] (C) -- ++(2, 3);
-    \draw[dashed] (C) -- ++(-2, 3);
+    \draw[dashed] (A) -- ++(-1,-1); % Droite étendue
+    \draw[dashed] (A) -- ++(-3, 0);
+    \draw[dashed] (B) -- ++(3,0);
+    \draw[dashed] (B) -- ++(1, -1);
+    \draw[dashed] (C) -- ++(2, 2);
+    \draw[dashed] (C) -- ++(-2, 2);
 
 
     % Ajouter des flèches perpendiculaires avec des points d'interrogation
     %\draw[->, thick] (2, -0.1) -- (2, -0.7) node[anchor=north] {?};
     %\draw[->, thick] (3.8, 2) -- (4.3, 2.5) node[anchor=west] {?};
-    \draw[<->, thick] (0.3, 5) -- (0.3 +0.5, 5 +0.5) node[anchor=west] {?};
+    \draw[<->, thick] (1-0.2, 3-0.2) -- (1 + 0.2, 3 + 0.2) node[anchor=west] {?};
     %\draw[->, thick] (0.8, 1.5) -- (0.3, 2) node[anchor=east] {?};
 
     % Tracer les surfaces colorées (facultatif pour ce schéma)
@@ -44,7 +44,6 @@ Document en complément de la partie 2.3.3 (Optimisation du temps de calcul) du 
     \filldraw[red] (C) circle (2pt) node[anchor=south] {C};
     \filldraw[blue] (P) circle (2pt) node[anchor=west] {P};
 
-    % Ajouter des annotations pour la surface négative (facultatif)
     %\node at (2.5, 1.2) [anchor=east] {
      %   \begin{tikzpicture}[baseline]
     %        \fill[pattern=north west lines, pattern color=red, opacity=0.7] (0,0) rectangle (0.5,0.2);
@@ -52,8 +51,7 @@ Document en complément de la partie 2.3.3 (Optimisation du temps de calcul) du 
     %    \hspace{0.1cm} Surface négative
     %};
     %\draw[->, thick] (2.5, 1.2) -- (2.5, 0.5);
-
-\end{tikzpicture}
+    \end{tikzpicture}
 
 \begin{itemize}
     \item La surface bleu est à l’extérieur, ce qui est vérifié par le fait que le point P ne se situe pas du même coté de la droite (formée par) AC que le point B.
