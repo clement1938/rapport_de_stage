@@ -1517,6 +1517,9 @@ $\bullet$ Définir les points à interpoler
 
 %% \subsection{Les difficultés}
 
+\newpage
+
+
 \subsection{Optimisation du temps de calcul}
 
 Plusieurs axes ont été exploités afin de diminuer le temps de calcul du traitement d'interpolation.
@@ -1939,14 +1942,13 @@ Les équations FWH (\annexref{eq:retarded-time} à \annexref{eq:Lighthill-tensor
     \begin{subfigure}[b]{\textwidth}
         \centering
         \begin{tikzpicture}
-
             % Step 1: Base source (rectangular grid)
-            \draw[step=1cm,gray,very thin] (-3.5,0) grid (-0.5,3); % Déplacer à gauche (a2)
-            %\node at (-2, 3.5) {Base source (a2)};
-            \node at (-2, -0.5) {(a2) Base source};
+            \draw[step=1cm,gray,very thin] (-3,0) grid (0,3);
+            %\node at (-1.5, 3.5) {Base source};
+            \node at (-1.5, -0.5) {(a) Base source (2D)};
             
             % Adding nodes and elements
-            \foreach \x in {-3.5, -2.5, -1.5, -0.5} {
+            \foreach \x in {-3, -2, -1, 0} {
                 \foreach \y in {0, 1, 2, 3} {
                     \fill[red] (\x,\y) circle (2pt);
                 }
@@ -1955,29 +1957,41 @@ Les équations FWH (\annexref{eq:retarded-time} à \annexref{eq:Lighthill-tensor
             % Step 2: Base cible (circle)
             \draw[thick] (2.5,1.5) circle (1cm);
             %\node at (2.5, 3.5) {Base cible};
-            \node at (2.5, -0.5) {(b2) Base cible};
+            \node at (2.5, -0.5) {(b) Base cible (2D)};
             % Discretize the circle with red points
             \foreach \angle in {0,45,...,315} {
                 \fill[blue] ({2.5 + 1*cos(\angle)},{1.5 + 1*sin(\angle)}) circle (2pt);
             }
             
             % Step 3: Interpolated solution (target surface)
-            \draw[step=1cm,gray,very thin] (5.5,0) grid (8.5,3); % Déplacer à droite (c2)
-            \draw[thick] (7,1.5) circle (1cm);
-            %\node at (7, 3.5) {Interpolation sur cible};
+            \draw[step=1cm,gray,very thin] (5,0) grid (8,3);
+            \draw[thick] (6.5,1.5) circle (1cm);
+            %\node at (6.5, 3.5) {Interpolation sur cible};
 
             \foreach \angle in {0,45,...,315} {
-                \fill[red] ({7 + 1*cos(\angle)},{1.5 + 1*sin(\angle)}) circle (2pt);
+                \fill[green] ({6.5 + 1*cos(\angle)},{1.5 + 1*sin(\angle)}) circle (2pt);
             }
 
-            \node at (7, -0.5) {(c2) Interpolation de la solution de la base source dans la base cible};
+            \node at (6.5, -0.5) {(c) Iterpolation (2D)};
             
             % Additional nodes and elements for interpolated solution
-            \foreach \x in {5.5,6.5,7.5,8.5} {
+            \foreach \x in {5,6,7,8} {
                 \foreach \y in {0,1,2,3} {
                     \fill[red] (\x,\y) circle (2pt);
                 }
             }
+
+            % Adding the legend with colored points
+            \fill[red] (-2.5, -1.3) circle (2pt);
+            \node at (-0.4, -1.3) {\textbf{Variable source}};
+        
+            \fill[blue] (-2.5, -1.7) circle (2pt);
+            \node at (1.5, -1.7) {\textbf{Emplacement sans variabls définie}};
+        
+            \fill[green] (-2.5, -2.1) circle (2pt);
+            \node at (-0.0, -2.1) {\textbf{Variable interpolée}};
+        
+            
         \end{tikzpicture}
     \end{subfigure}
     \caption{Début de la chaîne aéroacoustique}
@@ -2040,6 +2054,9 @@ La base source contient la pression aéroacoustique, d'une onde sinusoïdale dan
 L'erreur, au sens des moindres carrés, est plus élevée pour la méthode IDW que pour la méthode linéaire (ce qui est observable sur la Figure \ref{fig:onde_aac}).
 Une amélioration possible de l'interpolation pour le cas de l'aéroacoustique serait d'utiliser la méthode d'interpolation par partie décrite dans des articles de l’ONERA \cite{cunha2011, cunha2016}.
 Pour des cas test et applications dédiés à l'aéronautique, il peut être intéressant de regarder les caractéristiques du bruit d'un avion, comme ses fréquences d'émission dans l'audible \cite{frequence}.
+
+
+\newpage
 
 \subsection{Tests sur les paramètres de la méthode IDW} \label{s244}
 
